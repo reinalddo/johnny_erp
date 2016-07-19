@@ -1,0 +1,54 @@
+<?php
+/**
+*   PAGINA INICIAL
+**/
+    session_start();
+    $_SESSION['g_user']=NULL;
+    $_SESSION['g_empr']=NULL;
+    $_SESSION['g_dbase']=NULL;
+    $_SESSION['g_pass']='';
+    $_SESSION['p']='PRUEBA  AAAA ';
+    header("Location:../Se_Files/Se_Login.phtml");
+?>
+<html>
+<head>
+<?php
+ 	setcookie("coSelect", "", time()+1800,"/");  			//Query aejecutar
+	setcookie("coWhere", "", time()+1800,"/");  				//Query aejecutar
+	setcookie("coDestino", "", time()+1800,"/");			//Arreglo con nombres de los campos de destino
+	setcookie("coOrigen", "", time()+1800,"/");			//Arreglo con los nombres de campos de origen ( en el dataset)
+	setcookie("coCompon", "", time()+1800,"/");				    //Nombre del contenedor en la pagina de destino
+	setcookie("coSearchPage", "", time()+1800,"/");				//Nombre del Pagina de Busqueda
+	setcookie("coErrMensaje", "", time()+1800,"/");				//Mensaje de error si no existe coincidencia
+	setcookie("coSufijo", "", time()+1800,"/");				//Sufijo de los componentes en la pagina origen
+	setcookie("coMensj", "", time()+1800,"/");				//Mensaje si existe multiple coincidencia (pantalla de seleccion)
+	setcookie("coEstado", 	"", time()+1800,"/");
+	         unset($_SERVER["g_user"]);
+	         unset($_SERVER["g_pass"]);
+	         unset($_SERVER["PHP_AUTH_USER"]);
+	         unset($_SERVER["PHP_AUTH_PW"]);
+             unset($_SERVER["g_empr"]  = "X";
+             unset($_SERVER["g_dbase"] =  "X";
+             $_SESSION['g_retPage']='../index.html'
+             	
+?>
+<base target="_self">
+<link rel="stylesheet" type="text/css" href="./Themes/StormyWeather/Style.css">
+<link rel="stylesheet" type="text/css" href="./Themes/Menu/Style.css">
+<title>-. Smart ERP - EXPORTACION .-</title>
+<script language="JavaScript" src="./LibJava/menu_func.js"></script>
+<!-- <script language="JavaScript" src="./LibJava/reloj.js"></script> -->
+</head>
+<body   bgcolor="#fffff7" link="#000099" alink="#ff0000" vlink="#9999cc" text="#000000" class="CobaltPageBODY"
+        style="PADDING: 0px; margin: 0; spacing: 0; background-repeat: no-repeat; background-position: left;
+	background-color: gray; background-image: url('./Images/fondo.jpg')"
+        bottommargin="0" nowrap margin="0" marginwidth="0" marginheight="0">
+<table height="90%" width="99%" border="0" cellpadding="0" cellspacing="1"
+       style="border-collapse:collapse; font-size:x-small">
+  <tr height="90%">
+    <td colspan="2">  </td>
+  </tr>
+</table>
+
+</body>
+</html>

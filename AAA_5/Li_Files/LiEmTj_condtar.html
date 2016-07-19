@@ -1,0 +1,135 @@
+
+<div class="normalbox" style="PADDING-RIGHT: 4px; PADDING-LEFT: 4px; PADDING-BOTTOM: 4px; MARGIN: 20px; PADDING-TOP: 4px; TEXT-ALIGN: left">
+  <span class="spantitle" style="LEFT: 0px; POSITION: relative; TOP: -10px">&nbsp;&nbsp;CONDICIONES
+  PARA TARJAS&nbsp;&nbsp;</span> 
+  <table border="0" align="center" cellpadding="1" class="CobaltFormTABLE" cellspacing="1">
+    <tr>
+      <td class="CobaltFieldCaptionTD" nowrap>NUM.
+        TARJA&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+      </td> 
+      <td class="CobaltDataTD">
+        <input class="CobaltInput" style="WIDTH: 44px; HEIGHT: 17px" size="6" value="{tac_NumLiquid}" name="{tac_NumLiquid_Name}" title="NUMERO DE TARJA">
+      </td> 
+      <td class="CobaltFieldCaptionTD" nowrap>SEMANA 
+      </td> 
+      <td class="CobaltDataTD">
+        <input class="CobaltInput" style="WIDTH: 34px; HEIGHT: 17px" size="4" value="{tac_Semana}" name="{tac_Semana_Name}" title="SEMANA EN LA QUE EL PRODUCTOR ENTREGA LA FRUTA EN PUERTO">
+      </td> 
+      <td class="CobaltFieldCaptionTD" nowrap>FECHA 
+      </td> 
+      <td class="CobaltDataTD">
+        <input class="CobaltInput" style="WIDTH: 64px; HEIGHT: 17px" size="7" value="{tac_Fecha}" name="{tac_Fecha_Name}" title="FECHA DE ENTREGA EN PUERTO">&nbsp; 
+        <!-- BEGIN DatePicker DatePicker1 --><a class="CobaltDataLink" href="javascript:showDatePicker('{Name}','{FormName}','{DateControl}');"><img src="../Themes/DatePicker/DatePicker1.gif" border="0" width="17" height="15"></a><!-- END DatePicker DatePicker1 -->
+      </td> 
+      <td class="CobaltFieldCaptionTD" nowrap>ZONA 
+      </td> 
+      <td class="CobaltDataTD">
+        <select class="CobaltSelect" name="{tac_Zona_Name}" style="WIDTH: 111px">
+          <option value="" selected>-&nbsp;-&nbsp;-&nbsp;--&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;</option>
+ {tac_Zona_Options} 
+        </select>
+ 
+      </td> 
+    </tr>
+ 
+    <tr>
+      <td class="CobaltFieldCaptionTD" nowrap>GRUPO 
+      </td> 
+      <td class="CobaltDataTD" title="GRUPO DE LIQUIDACION">
+        <select class="CobaltSelect" style="WIDTH: 110px" name="{tac_GrupLiquidacion_Name}">
+          <option value="" selected>-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-</option>
+ {tac_GrupLiquidacion_Options} 
+        </select>
+ 
+      </td> 
+      <td class="CobaltFieldCaptionTD" nowrap>PRODUCTOR&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+      </td> 
+      <td class="CobaltDataTD">
+        <select class="CobaltSelect" name="{tac_Embarcador_Name}" style="WIDTH: 146px">
+          <option value="" selected>-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-</option>
+ {tac_Embarcador_Options} 
+        </select>
+ 
+      </td> 
+      <td class="CobaltFieldCaptionTD" nowrap>HACIENDA&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+      </td> 
+      <td class="CobaltDataTD">
+        <select class="CobaltSelect" name="{tac_UniProduccion_Name}" style="WIDTH: 118px">
+          <option value="" selected>-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-</option>
+ {tac_UniProduccion_Options} 
+        </select>
+ 
+      </td> 
+      <td class="CobaltFieldCaptionTD" nowrap>PUERTO&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+      </td> 
+      <td class="CobaltDataTD">
+        <select name="{tac_PueRecepcion_Name}" class="CobaltSelect" style="WIDTH: 111px">
+          <option value="" selected>-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;</option>
+ {tac_PueRecepcion_Options} 
+        </select>
+ 
+      </td> 
+    </tr>
+ 
+  </table>
+ 
+</div>
+ 
+<div class="normalbox" style="PADDING-RIGHT: 4px; PADDING-LEFT: 4px; PADDING-BOTTOM: 4px; MARGIN: 20px; PADDING-TOP: 4px; TEXT-ALIGN: left">
+  <span class="spantitle" style="LEFT: 0px; POSITION: relative; TOP: -10px">&nbsp;
+  &nbsp; CONDICIONES PARA DETALLE DE TARJAS&nbsp; &nbsp; </span> 
+  <table align="center" border="0" cellpadding="1" class="CobaltFormTABLE" cellspacing="1">
+    <tr>
+      <td class="CobaltFieldCaptionTD" nowrap>PRODUCTO&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+      </td> 
+      <td class="CobaltDataTD">
+        <select class="CobaltSelect" name="{tad_CodProducto_Name}" style="WIDTH: 110px">
+          <option value="" selected>-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-</option>
+ {tad_CodProducto_Options} 
+        </select>
+ 
+      </td> 
+      <td class="CobaltFieldCaptionTD" nowrap>MARCA&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+      </td> 
+      <td class="CobaltDataTD">
+        <select class="CobaltSelect" name="{tad_CodMarca_Name}" style="WIDTH: 146px">
+          <option value="" selected>-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-</option>
+ {tad_CodMarca_Options} 
+        </select>
+ 
+      </td> 
+      <td class="CobaltFieldCaptionTD" nowrap>EMPAQUE&nbsp;&nbsp;&nbsp;
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; 
+      </td> 
+      <td class="CobaltDataTD">
+        <select class="CobaltSelect" name="{tad_CodCaja_Name}" style="WIDTH: 118px">
+          <option value="" selected>-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-</option>
+ {tad_CodCaja_Options} 
+        </select>
+ 
+      </td> 
+      <td class="CobaltFieldCaptionTD" nowrap>OBSERVACIONES. 
+      </td> 
+      <td class="CobaltDataTD">
+        <input class="CobaltInput" style="WIDTH: 111px; HEIGHT: 17px" size="17" value="{tad_Observaciones}" name="{tad_Observaciones_Name}">
+      </td> 
+    </tr>
+ 
+    <tr>
+      <td class="CobaltFieldCaptionTD" nowrap>
+      </td> 
+      <td class="CobaltDataTD">
+      </td> 
+      <td class="CobaltFieldCaptionTD" nowrap>
+      </td> 
+      <td class="CobaltDataTD">
+      </td> 
+      <td class="CobaltFieldCaptionTD" nowrap>
+      </td> 
+      <td class="CobaltDataTD">
+      </td> 
+    </tr>
+ 
+  </table>
+ 
+</div>

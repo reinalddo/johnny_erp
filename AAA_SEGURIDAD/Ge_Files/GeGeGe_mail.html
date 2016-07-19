@@ -1,0 +1,61 @@
+<html>
+<head>
+<meta name="GENERATOR" content="CodeCharge Studio 2.3.2.24">
+<base target="_self">
+<link rel="stylesheet" type="text/css" href="../Themes/Cobalt/Style.css">
+<link rel="stylesheet" type="text/css" href="../Themes/Menu/Style.css">
+<script language="JavaScript1.3" src="../LibJava/general.js"> </script>
+<script language="JavaScript1.3" type="text/javascript">
+window.onload= loaddatos;
+function loaddatos() {
+		document.getElementById("pFrom").value    = getFromurl("pFrom", " ");
+		document.getElementById("pPara").value    = getFromurl("pPara", " ");
+		document.getElementById("pCopia").value   = getFromurl("pCopia", " ");
+		document.getElementById("pAsunto").value  = getFromurl("pAsunto", " ");
+		document.getElementById("pMensaje").value = getFromurl("pMensaje", " ");
+		document.getElementById("pFile").value    = getFromurl("pFile", " ");
+		}
+</script>
+<title>MENSAJE DE CORREO</title>
+</head>
+<body bgcolor="#fffff7" link="#000099" alink="#ff0000" vlink="#9999cc" text="#000000" class="CobaltPageBODY" style="PADDING-RIGHT: 0px; PADDING-LEFT: 0px; PADDING-BOTTOM: 0px; PADDING-TOP: 0px; magin: 0; spacing: 0" bottommargin="0" nowrap leftmargin="0" topmargin="17" rightmargin="0" marginwidth="0" marginheight="0">
+<form action="../Ge_Files/GeGeGe_enviacorreo.php" method="get" target="_self">
+  <table background="../Themes/Cobalt/Light Streaks.bmp" border="0" width="480" align="center" style="WIDTH: 480px; HEIGHT: 231px">
+    <tr>
+      <td align="right">De:</td> 
+      <td class=""><input name="pFrom" onclick="loaddatos()" class="CobaltInputSB2" style="WIDTH: 261px; HEIGHT: 18px" size="40" readonly></td> 
+    </tr>
+ 
+    <tr>
+      <td align="right">Para:</td> 
+      <td><input id="pPara" name="pPara" class="CobaltInputSB2" style="WIDTH: 260px; HEIGHT: 18px" size="40"></td> 
+    </tr>
+ 
+    <tr>
+      <td align="right">C C:</td> 
+      <td><input id="pCopia" name="pCopia" class="CobaltInputSB2" style="WIDTH: 260px; HEIGHT: 18px"></td> 
+    </tr>
+ 
+    <tr>
+      <td align="right">Asunto:</td> 
+      <td class=""><input id="pAsunto" name="pAsunto" class="CobaltInputSB2" style="WIDTH: 260px; HEIGHT: 18px"></td> 
+    </tr>
+ 
+    <tr>
+      <td align="right">Mensaje:</td> 
+      <td><input id="pMensaje" name="pMensaje" class="CobaltInputSB2" style="WIDTH: 460px; HEIGHT: 81px" size="35"></td> 
+    </tr>
+ 
+    <tr>
+      <td align="right">Attachment:</td> 
+      <td><input id="pFile" name="pFile" class="CobaltInputSB2" style="WIDTH: 260px; HEIGHT: 18px"></td> 
+    </tr>
+ 
+    <tr>
+      <td colspan="2" align="center"><input id="Button1" type="submit" value="Enviar" name="Button1"></td> 
+    </tr>
+ 
+  </table>
+</form>
+</body>
+</html>

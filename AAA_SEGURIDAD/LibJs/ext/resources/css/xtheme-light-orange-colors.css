@@ -1,0 +1,326 @@
+/* 
+    Document   : Ext colors Light Orange Theme
+    Created on : 01/01/2009, 05:01:04 PM
+    Author     : Javier Rincon (syscobra) jjrincon@gmail.com
+    Description:
+        This is a file with all the colors from main ext theme separated for easy change.
+        These colors changes has been applied:
+        Original            Orange      Original            Orange
+        Colors      to      Colors      Lines       to      Lines
+        #083772     =>      #6A1600     #1b376c     =>      #6D1900
+        #15428b     =>      #742100     #39b        =>      #C44400
+        #17385b     =>      #671500     #3b5a82     =>      #7D2B00
+        #222        =>      #4D0C00     #6593cf     =>      #E86E0F
+        #222297     =>      #7B2900     #6fa0df     =>      #EE7F18
+        #233d6d     =>      #701C00     #7eadd9     =>      #EF851D
+        #3764a0     =>      #8B3700     #7FA9E4     =>      #F28D24
+        #393939     =>      #671500     #84a0c4     =>      #EC7A16
+        #396095     =>      #853300     #8BB8F3     =>      #F59F40
+        #416aa3     =>      #A03E00     #8db2e3     =>      #F49632
+        #444        =>      #6E1A00     #98c0f4     =>      #F7A84F
+        #777        =>      #C44400     #99bbe8     =>      #F6A142
+        #999        =>      #E86D0E     #a3bae9     =>      #F7A84F
+        #aaa        =>      #FABD72     #a9bfd3     =>      #F59E3E
+        #B8CFEE     =>      #F59A38     #aaccf6     =>      #FAB86A
+        #bbb        =>      #FCCD93     #ACA899     =>      #EC7915
+        #c3daf9     =>      #FBC580     #B5B8C8     =>      #F59E3E
+        #C7D6E9     =>      #FDD29C     #c5d2df     =>      #FABC6F
+        #C7DFFC     =>      #FCC989     #d0d0d0     =>      #FAB86A
+        #CAD9EC     =>      #F9B261     #D1E4FD     =>      #FEDAAD
+        #CCC        =>      #FDD39F     #ededed     =>      #FEE3C1
+        #d2e0f2     =>      #FEDFB7
+        #d9e8fb     =>      #FCCC8F
+        #ddd        =>      #FEE3C1
+        #ddecfe     =>      #FEDFB7
+        #DFE8F6     =>      #FDD099
+        #e0e0e0     =>      #FEE5C5
+        #eee        =>
+        #fafafa     =>
+        #fff        =>
+        #660000     =>
+/*
+    All Colors
+*/
+a:link {color: #6D1900;}
+a:active {color: #C44400;}
+a:visited {color: #7D2B00;}
+a:hover {color: #FCCD93;}
+
+.ext-el-mask-msg div,.x-menu a.x-menu-item,.x-accordion-hd
+{color:#4D0C00;}
+
+.x-tab-strip span.x-tab-strip-text{color:#A03E00;}
+
+.x-tab-strip-active span.x-tab-strip-text,.x-fieldset legend,.x-form-check-group-label,.x-grid3-hd-text,
+.x-grid3-locked td.x-grid3-row-marker div,.x-grid3-locked .x-grid3-row-selected td.x-grid3-row-marker div,td.x-date-mp-month a,td.x-date-mp-year a,
+td.x-date-mp-month a:hover,td.x-date-mp-year a:hover,.x-combo-list-hd,.x-panel-tl .x-panel-header,.x-panel-header,.x-window-tl .x-window-header
+{color:#742100!important;}
+
+.x-tab-strip-disabled .x-tabs-text{color:#FABD72;}
+
+.x-form-invalid-msg{color:#e00;}
+
+.x-btn-disabled *{color:gray!important;}
+
+.x-toolbar .x-item-disabled{color:gray;}
+.x-toolbar .x-item-disabled *{color:gray;}
+
+.x-paging-info,.x-grid3-body .x-grid3-td-numberer .x-grid3-cell-inner,.x-tree-node-loading a span,.x-tip .x-tip-header-text,.x-tip .x-tip-body
+{color:#6E1A00;}
+
+
+.x-grid3-cell-selected,.x-grid3-cell-selected span,
+.x-grid3-cell-selected .x-grid3-cell-text,.x-grid3-locked td.x-grid3-row-marker,.x-grid3-locked .x-grid3-row-selected td.x-grid3-row-marker,
+.x-props-grid .x-grid3-td-name .x-grid3-cell-inner,.x-dd-drag-ghost,.x-tree-node,.x-tree-node a,.x-dd-drag-ghost a,
+.x-tree-node a span,.x-dd-drag-ghost a span,.x-tree-node .x-tree-node-disabled a span,.x-date-inner a,
+.x-date-inner .x-date-active,.x-date-inner a:hover,.x-date-inner .x-date-disabled a:hover,.x-date-mmenu .x-menu-item
+{color:black!important;}
+
+.x-grid-group-hd div{color:#8B3700;}
+
+.x-date-middle,.x-date-left,.x-date-right,.x-date-middle .x-btn .x-btn-text,.x-date-mp-btns button,.x-progress-text
+{color:#fff;}
+
+.x-date-inner th{color:#701C00;}
+.x-date-inner .x-date-prevday a,.x-date-inner .x-date-nextday a{color:#FABD72;}
+
+.x-date-inner .x-date-disabled a{color:#FCCD93;}
+
+.x-menu-item-active a.x-menu-item{color:#660000;}
+
+.x-box-mc{color:#671500;}
+.x-box-blue .x-box-mc h3{color:#671500;}
+
+#x-debug-browser .x-tree .x-tree-node a span{color:#7B2900;}
+#x-debug-browser .x-tree a i{color:#FF4545}
+#x-debug-browser .x-tree a em{color:#E86D0E;}
+
+.x-progress-text-back{color:#853300;}
+
+/*
+    background-color
+*/
+
+.ext-el-mask,.x-spotlight,.x-dlg-mask
+{background-color:#FDD39F;}
+
+.x-form-select-one,.x-grid3,
+.x-dd-drag-ghost,.x-tree .x-panel-body,.x-dd-drag-ghost,.ext-strict .ext-ie6 .x-layout-split
+{background-color:#fff!important;}
+
+.ext-safari .x-form-invalid{background-color:#fee;}
+
+.x-grid3-row-alt{background-color:#fafafa;}
+
+.x-grid3-resize-proxy,.x-grid3-resize-marker
+{background-color:#C44400;}
+
+.x-grid3-cell-selected{background-color:#F59A38!important;}
+
+.x-tree-node .x-tree-node-over{background-color:#eee;}
+
+.x-tree-node .x-tree-selected,.x-layout-collapsed-over
+{background-color:#FCCC8F;}
+
+.x-menu-sep{background-color:#FEE5C5;}
+
+.x-box-blue .x-box-mc{background-color:#FBC580;}
+
+.x-layout-collapsed{background-color:#FEDFB7;}
+
+/*
+    background
+*/
+body { background: #FBC580;}
+
+.ext-el-mask-msg div,.x-date-inner .x-date-disabled a,.x-date-mmenu
+{background:#eee!important;}
+
+.x-color-palette a:hover,.x-color-palette a.x-color-palette-sel,
+.x-tab-panel-header,.x-tab-panel-footer,.x-tab-panel-header-plain .x-tab-strip-spacer,.x-tab-panel-footer-plain .x-tab-strip-spacer,
+.x-date-inner a:hover,.x-date-inner .x-date-disabled a:hover,td.x-date-mp-month a:hover,td.x-date-mp-year a:hover,.x-combo-list
+{background:#FEDFB7;}
+
+.x-window-body{background:transparent;}
+
+.x-panel-ghost,.ext-el-mask-msg,.x-dd-drag-proxy .x-grid3-hd-inner{background:#FDD099;}
+
+.x-panel-mc{background:#FDD099}
+
+.x-ie-shadow{background:#C44400;}
+
+.x-tab-panel-body,.x-editor .x-form-check-wrap,.x-editor .x-form-radio-wrap,.x-resizable-handle,.x-resizable-overlay,
+.x-props-grid .x-grid3-body .x-grid3-td-name,.x-date-picker,.x-date-mp,.x-menu-plain,.x-panel-body,.x-html-editor-wrap
+{background:#fff!important;}
+
+.x-grid3-row-selected,.x-cycle-menu .x-menu-item-checked,.x-combo-list .x-combo-selected,.x-window-mc,.x-border-layout-ct
+{background:#FDD099!important;}
+
+.x-tree-node .x-tree-drag-append a span{background:#FEE3C1;}
+
+.x-date-mp-btns button{background:#6A1600;}
+
+
+.x-view-selector,#x-debug-browser .x-tree .x-tree-node .x-tree-selected a span
+{background:#FBC580;}
+
+.x-window-proxy{background:#FCC989;}
+
+.x-window-plain .x-window-mc{background:#F9B261;}
+.x-window-plain .x-window-body{background:transparent!important;}
+
+body.x-body-masked .x-window-plain .x-window-mc{background:#FDD29C;}
+
+/*
+    border
+*/
+
+.ext-el-mask-msg{border:1px solid #6593cf;}
+.ext-el-mask-msg div{border:1px solid #F7A84F;}
+
+.x-color-palette a{border:1px solid #fff;}
+.x-color-palette a:hover,.x-color-palette a.x-color-palette-sel{border:1px solid #F59F40;}
+.x-color-palette em{border:1px solid #EC7915;}
+
+.x-tab-panel-header,.x-tab-panel-footer{border:1px solid #F49632;}
+.x-tab-panel-header{border:1px solid #F49632;}
+.x-tab-panel-footer{border:1px solid #F49632;}
+.x-tab-panel-header-plain .x-tab-strip-spacer,.x-tab-panel-footer-plain .x-tab-strip-spacer{border:1px solid #F49632;}
+.x-tab-panel-body{border:1px solid #F49632;}
+.x-tab-panel-bbar .x-toolbar{border:1px solid #F6A142;}
+.x-tab-panel-tbar .x-toolbar{border:1px solid #F6A142;}
+
+.x-form-text,textarea.x-form-field{border:1px solid #F59E3E;}
+.x-form-select-one{border:1px solid #F59E3E;}
+.x-form-focus,textarea.x-form-focus{border:1px solid #EF851D;}
+
+.ext-safari .x-form-invalid{border:1px solid #ff7870;}
+
+.x-fieldset{border:1px solid #F59E3E;}
+
+.x-resizable-proxy{border:1px dashed #7D2B00;}
+
+.x-grid-panel .x-panel-mc .x-panel-body{border:1px solid #F6A142;}
+
+.x-grid3-row-over{border:1px solid #FEE3C1;}
+.x-dd-drag-proxy .x-grid3-hd-inner{border:1px solid #aaccf6;}
+.x-grid3-row-selected{border:1px dotted #F7A84F;}
+
+.x-view-selector{border:1px dotted #C44400;}
+
+.x-tree-node .x-tree-drag-append a span{border:1px dotted gray;}
+
+.x-date-inner td{border:1px solid #fff;}
+.x-date-inner .x-date-selected a{border:1px solid #F49632;}
+
+td.x-date-mp-sel a{border:1px solid #F49632;}
+
+.x-menu{border:1px solid #FEE3C1;}
+.x-menu-item-active{border:1px solid #FDD39F;}
+.x-cycle-menu .x-menu-item-checked{border:1px dotted #F7A84F!important;}
+
+.x-combo-list{border:1px solid #F7A84F;}
+.x-combo-list-item{border:1px solid #fff;}
+.x-combo-list .x-combo-selected{border:1px dotted #F7A84F!important;}
+
+.x-panel-header{border:1px solid #F6A142;}
+
+.x-panel-tl .x-panel-header{border:0 none;}
+.x-panel-dd-spacer{border:2px dashed #F6A142;}
+
+.x-window-proxy{border:1px solid #F6A142;}
+.x-window-mc{border:1px solid #F6A142;}
+
+.x-html-editor-wrap{border:1px solid #FAB86A;}
+
+.x-accordion-hd{border-top:0 none;}
+
+.x-layout-collapsed{border:1px solid #F7A84F;}
+
+.x-progress-wrap{border:1px solid #6593cf;}
+/*
+    border-bottom
+*/
+ul.x-tab-strip-top{border-bottom:1px solid #F49632;}
+.x-tab-scroller-left{border-bottom:1px solid #F49632;}
+.x-tab-scroller-right{border-bottom:1px solid #F49632;}
+
+.x-form-check-group-label{border-bottom:1px solid #F6A142;}
+.x-form-field-wrap .x-form-trigger{border-bottom:1px solid #F59E3E;}
+.x-item-disabled .x-form-trigger-over{border-bottom:1px solid #F59E3E;}
+.x-item-disabled .x-form-trigger-click{border-bottom:1px solid #F59E3E;}
+
+.x-tree-node div.x-tree-drag-insert-below{border-bottom:1px dotted #36c;}
+
+.x-grid-group-hd{border-bottom:2px solid #F6A142;}
+
+.x-tree-dd-underline .x-tree-node div.x-tree-drag-insert-below a{border-bottom:2px solid #36c;}
+
+.x-date-inner th{border-bottom:1px solid #F7A84F;}
+
+.x-menu-sep{border-bottom:1px solid #fff;}
+
+.x-combo-list-hd{border-bottom:1px solid #F7A84F;}
+.x-resizable-pinned .x-combo-list-inner{border-bottom:1px solid #F7A84F;}
+
+.x-panel-ghost .x-window-tl{border-bottom:1px solid #F6A142;}
+.x-panel-collapsed .x-window-tl,.x-panel-tl{border-bottom:1px solid #EC7A16;}
+
+/*
+    border-top
+*/
+
+ul.x-tab-strip-bottom{border-top:1px solid #F49632;}
+
+.x-tree-node div.x-tree-drag-insert-above{border-top:1px dotted #36c;}
+
+.x-tree-dd-underline .x-tree-node div.x-tree-drag-insert-above a{border-top:2px solid #36c;}
+
+.x-date-bottom{border-top:1px solid #F7A84F;}
+.x-date-mp-btns td{border-top:1px solid #FABC6F;}
+
+.x-panel-body-noheader,.x-panel-mc .x-panel-body{border-top:1px solid #F6A142;}
+/*
+    border combinations
+*/
+
+.x-toolbar{border-color:#FAB86A;border-style:solid;border-width:0 0 1px 0;}
+
+.x-statusbar .x-status-text-panel{border-top:1px solid #F6A142;border-right:1px solid #fff;border-bottom:1px solid #fff;border-left:1px solid #F6A142;}
+
+.x-grid3-hd-row td{border-left:1px solid #eee;border-right:1px solid #FAB86A;}
+.x-grid3-row{border:1px solid #FEE3C1;border-top-color:#fff;}
+.x-grid3-header-pop{border-left:1px solid #FAB86A;}
+.x-grid3-header-pop-inner{border-left:1px solid #eee;}
+td.x-grid3-hd-over,td.sort-desc,td.sort-asc,td.x-grid3-hd-menu-open{border-left:1px solid #aaccf6;border-right:1px solid #aaccf6;}
+
+.x-grid3-locked td.x-grid3-row-marker,.x-grid3-locked .x-grid3-row-selected td.x-grid3-row-marker{border-top:1px solid white;border-bottom:none!important;border-right:1px solid #EE7F18!important;}
+.x-grid3-bottombar .x-toolbar{border-right:0 none;border-bottom:0 none;border-top:1px solid #FAB86A;}
+
+.x-props-grid .x-grid3-body .x-grid3-td-name{border:0 none;border-right:1px solid #eee;}
+.x-dd-drag-ghost{border-top:1px solid #FEE3C1;border-left:1px solid #FEE3C1;border-right:1px solid #FCCD93;border-bottom:1px solid #FCCD93;}
+
+.x-date-picker{border:1px solid #6D1900;border-top:0 none;}
+
+.x-date-mp-btns button{border:1px solid;border-color:#36c #005 #005 #36c;}
+td.x-date-mp-sep{border-right:1px solid #FABC6F;}
+
+.x-combo-list .x-toolbar{border-top:1px solid #F7A84F;border-bottom:0 none;}
+
+.x-panel{border-style:solid;border-color:#F6A142;border-width:0;}
+.x-panel-body{border:1px solid #F6A142;border-top:0 none;}
+.x-panel-bbar .x-toolbar{border:1px solid #F6A142;border-top:0 none;}
+.x-panel-tbar .x-toolbar{border:1px solid #F6A142;border-top:0 none;}
+.x-panel-tbar-noheader .x-toolbar,.x-panel-mc .x-panel-tbar .x-toolbar{border-top:1px solid #F6A142;border-bottom:0 none;}
+.x-panel-ghost ul{border:1px solid #F6A142;border-top:0 none;}
+
+.x-window-bbar .x-toolbar{border-top:1px solid #F6A142;border-bottom:0 none;}
+
+.x-window-plain .x-window-mc{border-right:1px solid #FDD099;border-bottom:1px solid #FDD099;border-top:1px solid #F7A84F;border-left:1px solid #F7A84F;}
+.x-window-plain .x-window-body{border-left:1px solid #FDD099;border-top:1px solid #FDD099;border-bottom:1px solid #F7A84F;border-right:1px solid #F7A84F;}
+
+.x-panel-noborder .x-panel-header-noborder, .x-tab-panel-tbar-noborder .x-toolbar, .x-panel-noborder .x-panel-tbar-noborder .x-toolbar{border-width:0;border-bottom:1px solid #F6A142;}
+.x-panel-noborder .x-panel-bbar-noborder .x-toolbar{border-width:0;border-top:1px solid #F6A142;}
+.x-tab-panel-bbar-noborder .x-toolbar{border-width:0;border-top:1px solid #F6A142;}
+
+.x-progress-bar{border-top:1px solid #FEDAAD;border-bottom:1px solid #F28D24;border-right:1px solid #F28D24;}

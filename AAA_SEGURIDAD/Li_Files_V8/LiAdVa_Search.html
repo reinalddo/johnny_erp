@@ -1,0 +1,136 @@
+<html>
+<head>
+<link rel="stylesheet" type="text/css" href="../Themes/Cobalt/Style.css">
+<link rel="stylesheet" type="text/css" href="../Themes/Menu/Style.css">
+<title>VARIABLES DE PROCESO: SELECCION</title>
+ 
+<script language="JavaScript" src="../LibJava/menu_func.js"></script>
+<script language="JavaScript" src="../LibJava/general.js"></script>
+<script language="JavaScript" src="../LibJava/cookies.js"></script>
+<script language="JavaScript" src="../LibJava/validaDB_ret.js"></script>
+</head>
+ 
+<body bgcolor="#fffff7" link="#000000" alink="#ff0000" vlink="#000000" text="#000000" class="CobaltPageBODY" style="PADDING-RIGHT: 0px; PADDING-LEFT: 0px; PADDING-BOTTOM: 0px; PADDING-TOP: 0px; magin: 0; spacing: 0" bottommargin="0" nowrap leftmargin="0" topmargin="17" rightmargin="0" marginwidth="0" marginheight="0">
+{Cabecera} 
+<table background="../Themes/Cobalt/Light Streaks.bmp" border="0" width="100%" class="CobaltPageBODY" style="BORDER-RIGHT: 0px; BORDER-TOP: 0px; BORDER-LEFT: 0px; BORDER-BOTTOM: 0px; BORDER-COLLAPSE: collapse">
+  <tr>
+    <td align="middle">&nbsp; 
+      <!-- BEGIN Record varproceso_qry -->
+      <form name="{HTMLFormName}" action="{Action}" method="post" style="MARGIN: 0px">
+        <table class="CobaltFormTABLE" cellpadding="3" border="0">
+          <!-- BEGIN Error -->
+          <tr>
+            <td class="CobaltErrorDataTD" colspan="2">{Error}</td> 
+          </tr>
+          <!-- END Error -->
+          <tr>
+            <td class="CobaltFieldCaptionTD" nowrap>&nbsp;</td> 
+            <td class="CobaltDataTD"><input class="CobaltInput" maxlength="5" size="15" value="{s_keyword}" name="{s_keyword_Name}" style="WIDTH: 146px; HEIGHT: 17px">&nbsp; 
+              <!-- BEGIN Button Button_DoSearch --><a class="CobaltDataLink" style="WIDTH: 48px; HEIGHT: 18px" href="{ClearParameters_Src}">Limpiar</a> <input class="" type="submit" value="BUSCAR" name="{Button_Name}" style="FONT-SIZE: 9px; WIDTH: 51px; HEIGHT: 20px" size="21"><!-- END Button Button_DoSearch --></td> 
+          </tr>
+ 
+        </table>
+ 
+      </form>
+ <!-- END Record varproceso_qry -->
+      <!-- BEGIN Grid varproceso_list --><font class="CobaltFormHeaderFont">LISTA
+      DE
+      VARIABLES&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;( </font> {genvarproceso_genparametr_TotalRecords}&nbsp;Regs.)&nbsp; 
+      <form name="varproceso_list" action="{Action}" method="post" style="MARGIN: 0px">
+        <table class="CobaltFormTABLE" cellpadding="0" border="1" cellspacing="0">
+          <tr>
+            <td class="CobaltFooterTD" nowrap colspan="5">
+              <!-- BEGIN Navigator Navigator -->
+              <!-- BEGIN First_On --><a class="CobaltNavigatorLink" href="{First_URL}"><img height="14" src="../Themes/Aqua/FirstOn.gif" width="24" border="0"></a> <!-- END First_On -->
+              <!-- BEGIN Prev_On --><a class="CobaltNavigatorLink" href="{Prev_URL}"><img height="14" src="../Themes/Aqua/PrevOn.gif" width="24" border="0"></a> <!-- END Prev_On -->&nbsp; 
+              <!-- BEGIN Pages -->
+              <!-- BEGIN Page_On --><a class="CobaltNavigatorLink" href="{Page_URL}">{Page_Number}</a>&nbsp; <!-- END Page_On -->
+              <!-- BEGIN Page_Off -->{Page_Number}&nbsp; <!-- END Page_Off --><!-- END Pages -->de
+              {Total_Pages}&nbsp; 
+              <!-- BEGIN Next_On --><a class="CobaltNavigatorLink" href="{Next_URL}"><img height="14" src="../Themes/Aqua/NextOn.gif" width="24" border="0"></a> <!-- END Next_On -->
+              <!-- BEGIN Last_On --><a class="CobaltNavigatorLink" href="{Last_URL}"><img height="14" src="../Themes/Aqua/LastOn.gif" width="24" border="0"></a> <!-- END Last_On --><!-- END Navigator Navigator -->&nbsp; </td> 
+            <td class="CobaltFooterTD" colspan="2">
+              <!-- BEGIN Button btNuevo --><input class="CobaltLink" title="Abre un apantalla para Añadir una Variable" style="FONT-SIZE: 9px; WIDTH: 48px; HEIGHT: 18px" onclick="JavaScript:window.enMantto      = true; fAbrirWin('LiAdVa_mant.php' ,'WinVa',' ', 400, 250); return false;" type="button" size="11" value="NUEVO" name="{Button_Name}"><!-- END Button btNuevo -->
+              <!-- BEGIN Button btCerrar --><input class="CobaltLink" title="Cierra esta pantalla de selección, sin retornar valor" style="FONT-SIZE: 9px; WIDTH: 48px; HEIGHT: 18px" onclick="fCerrar();" type="button" size="11" value="CERRAR" name="{Button_Name}"><!-- END Button btCerrar --></td> 
+          </tr>
+ 
+          <tr valign="center" align="middle">
+            <td class="CobaltColumnTD" nowrap>
+              <!-- BEGIN Sorter Sorter_var_ID --><a class="CobaltSorterLink" href="{Sort_URL}">ID</a> 
+              <!-- BEGIN Asc_On --><img height="9" src="../Themes/Cobalt/AscOn.gif" width="13" border="0"><!-- END Asc_On -->
+              <!-- BEGIN Desc_On --><img height="9" src="../Themes/Cobalt/DescOn.gif" width="13" border="0"><!-- END Desc_On --><!-- END Sorter Sorter_var_ID -->&nbsp;</td> 
+            <td class="CobaltColumnTD" nowrap>&nbsp;&nbsp;&nbsp;&nbsp; 
+              <!-- BEGIN Sorter Sorter_var_Nombre --><a class="CobaltSorterLink" href="{Sort_URL}">NOMBRE</a> 
+              <!-- BEGIN Asc_On --><img height="9" src="../Themes/Cobalt/AscOn.gif" width="13" border="0"><!-- END Asc_On -->
+              <!-- BEGIN Desc_On --><img height="9" src="../Themes/Cobalt/DescOn.gif" width="13" border="0"><!-- END Desc_On --><!-- END Sorter Sorter_var_Nombre -->&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+              &nbsp;</td> 
+            <td class="CobaltColumnTD" nowrap>
+              <!-- BEGIN Sorter Sorter_var_Descripcion -->&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a class="CobaltSorterLink" href="{Sort_URL}">DESCRIPCION</a> 
+              <!-- BEGIN Asc_On --><img height="9" src="../Themes/Cobalt/AscOn.gif" width="13" border="0"><!-- END Asc_On -->
+              <!-- BEGIN Desc_On --><img height="9" src="../Themes/Cobalt/DescOn.gif" width="13" border="0"><!-- END Desc_On -->&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+              &nbsp; <!-- END Sorter Sorter_var_Descripcion -->&nbsp;</td> 
+            <td class="CobaltColumnTD" nowrap>&nbsp;&nbsp;&nbsp; 
+              <!-- BEGIN Sorter Sorter_par_Descripcion --><a class="CobaltSorterLink" href="{Sort_URL}">CLASE</a> 
+              <!-- BEGIN Asc_On --><img height="9" src="../Themes/Cobalt/AscOn.gif" width="13" border="0"><!-- END Asc_On -->
+              <!-- BEGIN Desc_On --><img height="9" src="../Themes/Cobalt/DescOn.gif" width="13" border="0"><!-- END Desc_On --><!-- END Sorter Sorter_par_Descripcion -->&nbsp;&nbsp;&nbsp;&nbsp;
+              &nbsp;</td> 
+            <td class="CobaltColumnTD" nowrap>
+              <!-- BEGIN Sorter Sorter_var_TipProceso --><a class="CobaltSorterLink" href="{Sort_URL}">TIPO</a> 
+              <!-- BEGIN Asc_On --><img height="9" src="../Themes/Cobalt/AscOn.gif" width="13" border="0"><!-- END Asc_On -->
+              <!-- BEGIN Desc_On --><img height="9" src="../Themes/Cobalt/DescOn.gif" width="13" border="0"><!-- END Desc_On --><!-- END Sorter Sorter_var_TipProceso -->&nbsp;</td> 
+            <td class="CobaltColumnTD" nowrap>
+              <!-- BEGIN Sorter Sorter_var_Orden --><a class="CobaltSorterLink" href="{Sort_URL}">ORDEN</a> 
+              <!-- BEGIN Asc_On --><img height="9" src="../Themes/Cobalt/AscOn.gif" width="13" border="0"><!-- END Asc_On -->
+              <!-- BEGIN Desc_On --><img height="9" src="../Themes/Cobalt/DescOn.gif" width="13" border="0"><!-- END Desc_On --><!-- END Sorter Sorter_var_Orden -->&nbsp;</td> 
+            <td class="CobaltColumnTD" nowrap>
+              <!-- BEGIN Sorter Sorter_var_Estado --><a class="CobaltSorterLink" href="{Sort_URL}">ESTADO</a> 
+              <!-- BEGIN Asc_On --><img height="9" src="../Themes/Cobalt/AscOn.gif" width="13" border="0"><!-- END Asc_On -->
+              <!-- BEGIN Desc_On --><img height="9" src="../Themes/Cobalt/DescOn.gif" width="13" border="0"><!-- END Desc_On --><!-- END Sorter Sorter_var_Estado -->&nbsp;</td> 
+          </tr>
+          <!-- BEGIN Row -->
+          <tr title="Click para seleccionar esta variable" onmouseover="fTxtResalta(this,'#009999');" onmouseout="fTxtNormal(this);">
+            <td class="CobaltDataTD"><input type="hidden" name="{var_ID_Name}" value="{var_ID}" style="WIDTH: 23px; HEIGHT: 22px" size="2">
+              <!-- BEGIN Button Button2 --><input class="CobaltDataLink" title="-CLICK- Para Editar / Modificar esta Variable" style="FONT-SIZE: 9px; WIDTH: 32px; HEIGHT: 17px" onclick="JavaScript:window.enMantto = true; fAbrirWin('LiAdVa_mant.php?var_ID={var_ID}' ,'WinVa',' ', 400, 270); return false;" type="button" value="{var_ID}" name="{Button_Name}"><!-- END Button Button2 --></td> 
+            <td class="CobaltDataTD">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <input type="hidden" name="{var_Nombre_Name}" value="{var_Nombre}" style="WIDTH: 19px; HEIGHT: 17px" size="2" id="var_Nombre">{Label1}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td> 
+            <td class="CobaltDataTD"><input type="hidden" name="{var_Descripcion_Name}" value="{var_Descripcion}" id="var_Descripcion" style="WIDTH: 30px; HEIGHT: 17px" size="3">&nbsp;&nbsp;{Label3}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td> 
+            <td class="CobaltDataTD">&nbsp;&nbsp;{par_Descripcion}&nbsp;</td> 
+            <td class="CobaltDataTD" align="middle">{var_TipProceso}&nbsp;</td> 
+            <td class="CobaltDataTD" align="middle">{var_Orden}&nbsp;</td> 
+            <td class="CobaltDataTD" align="middle">{var_Estado}&nbsp;</td> 
+          </tr>
+          <!-- END Row -->
+          <!-- BEGIN AltRow -->
+          <tr title="Click para seleccionar esta variable" onmouseover="fTxtResalta(this,'#009999');" onmouseout="fTxtNormal(this);">
+            <td class="CobaltAltDataTD"><input type="hidden" name="{Alt_var_ID_Name}" value="{Alt_var_ID}" style="WIDTH: 22px; HEIGHT: 22px" size="2">
+              <!-- BEGIN Button Button3 --><input class="CobaltDataLink" title="-CLICK- Para Editar / Modificar esta Variable" style="FONT-SIZE: 9px; WIDTH: 32px; HEIGHT: 17px" onclick="JavaScript:window.enMantto = true; fAbrirWin('LiAdVa_mant.php?var_ID={Alt_var_ID}' ,'WinVa',' ', 400, 270); return false;" type="button" value="{Alt_var_ID}" name="{Button_Name}"><!-- END Button Button3 -->&nbsp;</td> 
+            <td class="CobaltAltDataTD">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <input type="hidden" name="{Alt_var_Nombre_Name}" value="{Alt_var_Nombre}" id="var_Nombre" style="WIDTH: 18px; HEIGHT: 17px" size="2">{Label2}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td> 
+            <td class="CobaltAltDataTD"><input type="hidden" name="{Alt_var_Descripcion_Name}" value="{Alt_var_Descripcion}" id="var_Descripcion" style="WIDTH: 27px; HEIGHT: 16px" size="3">&nbsp;&nbsp;{Label4}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td> 
+            <td class="CobaltAltDataTD">&nbsp;&nbsp;{Alt_par_Descripcion}&nbsp;</td> 
+            <td class="CobaltAltDataTD" align="middle">{Alt_var_TipProceso}&nbsp;</td> 
+            <td class="CobaltAltDataTD" align="middle">{Alt_var_Orden}&nbsp;</td> 
+            <td class="CobaltAltDataTD" align="middle">{Alt_var_Estado}&nbsp;</td> 
+          </tr>
+          <!-- END AltRow -->
+          <!-- BEGIN NoRecords -->
+          <tr>
+            <td class="CobaltAltDataTD" colspan="7">No hay registros&nbsp;</td> 
+          </tr>
+          <!-- END NoRecords -->
+          <tr height="5">
+            <td class="CobaltFooterTD" colspan="7">&nbsp;</td> 
+          </tr>
+ 
+        </table>
+ 
+      </form>
+ <!-- END Grid varproceso_list --></td> 
+  </tr>
+ 
+</table>
+ 
+<p></p>
+ 
+</body>
+ 
+</html>

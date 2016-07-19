@@ -1,0 +1,379 @@
+BODY
+{
+	font-family: Tahoma, Verdana, Arial, Helvetica; 
+	font-size: xx-small;
+}
+TABLE
+{
+	font-family: Tahoma, Verdana, Arial, Helvetica; 
+	font-size: xx-small;
+}
+TH
+{
+	font-family: Tahoma, Verdana, Arial, Helvetica; 
+	font-size: xx-small;
+}
+TR
+{
+	font-family: Tahoma, Verdana, Arial, Helvetica; 
+	font-size: xx-small;
+}
+TD
+{
+	font-family: Tahoma, Verdana, Arial, Helvetica; 
+	font-size: xx-small;
+}
+UL
+{
+	font-family: Tahoma, Verdana, Arial, Helvetica; 
+	font-size: xx-small;
+}
+OL
+{
+	font-family: Tahoma, Verdana, Arial, Helvetica; 
+	font-size: xx-small;
+}
+LI
+{
+	font-family: Tahoma, Verdana, Arial, Helvetica; 
+	font-size: xx-small;
+}
+P
+{
+	font-family: Tahoma, Verdana, Arial, Helvetica; 
+	font-size: xx-small;
+}
+FONT
+{
+	font-family: Tahoma, Verdana, Arial, Helvetica; 
+	font-size: xx-small;
+}
+A
+{
+	font-family: Tahoma, Verdana, Arial, Helvetica; 
+	font-size: xx-small;
+}
+BLOCKQUOTE
+{
+	font-family: Tahoma, Verdana, Arial, Helvetica; 
+	font-size: xx-small;
+}
+LABEL
+{
+	font-family: Tahoma, Verdana, Arial, Helvetica; 
+	font-size: xx-small;
+}
+.Cobalt_sin_bordesPageBODY
+{
+	color: #000000; 
+	font-family: Tahoma, Verdana, Arial, Helvetica; 
+	font-size: xx-small;
+}
+.Cobalt_sin_bordesFormHeaderFont
+{
+	color: #00659C; 
+	font-size: 18px; 
+	font-weight: bold;
+}
+.Cobalt_sin_bordesFormTABLE
+{
+	font-family: Tahoma, Verdana, Arial, Helvetica; 
+	font-size: xx-small;
+}
+.Cobalt_sin_bordesColumnTD
+{
+	border-bottom: 1px solid #003451; 
+	border-left: 1px solid #5AA4CC; 
+	border-right: 1px solid #003451; 
+	border-top: 1px solid #5AA4CC; 
+	background-color: #00659C; 
+	color: #FFFFFF; 
+	font-weight: bold; 
+	font-size: xx-small;
+}
+.Cobalt_sin_bordesFieldCaptionTD
+{
+	border-bottom: 1px solid #003451; 
+	border-left: 1px solid #5AA4CC; 
+	border-right: 1px solid #003451; 
+	border-top: 1px solid #5AA4CC; 
+	background-color: #00659C; 
+	color: #FFFFFF; 
+	font-weight: bold; 
+	font-size: xx-small;
+}
+.Cobalt_sin_bordesDataTD
+{
+	background-color: #F2EEE0; 
+	font-size: xx-small;
+}
+.Cobalt_sin_bordesErrorDataTD
+{
+	background-color: #F2EEE0; 
+	color: #FF0000; 
+	font-size: xx-small; 
+	font-weight: bold;
+}
+.Cobalt_sin_bordesSeparatorTD
+{
+	height: 1px; 
+	background-color: #00659C;
+}
+.Cobalt_sin_bordesAltDataTD
+{
+	background-color: #FFFFF7; 
+	font-size: xx-small;
+}
+.Cobalt_sin_bordesFooterTD
+{
+	border-bottom: 1px solid #003451; 
+	border-left: 1px solid #5AA4CC; 
+	border-right: 1px solid #003451; 
+	border-top: 1px solid #5AA4CC; 
+	background-color: #00659C; 
+	color: #FFFFFF; 
+	font-weight: bold; 
+	font-size: xx-small;
+}
+a.Cobalt_sin_bordesSorterLink:link
+{
+	color: #FFFFFF; 
+	text-decoration: underline;
+}
+a.Cobalt_sin_bordesSorterLink:visited
+{
+	color: #FFFFFF; 
+	text-decoration: underline;
+}
+a.Cobalt_sin_bordesSorterLink:hover
+{
+	color: #FFFFFF; 
+	text-decoration: none;
+}
+a.Cobalt_sin_bordesSorterLink:active
+{
+	color: #FFFFFF; 
+	text-decoration: none;
+}
+a.Cobalt_sin_bordesDataLink:link
+{
+	color: #000000; 
+	text-decoration: underline;
+}
+a.Cobalt_sin_bordesDataLink:visited
+{
+	color: #000000; 
+	text-decoration: underline;
+}
+a.Cobalt_sin_bordesDataLink:hover
+{
+	color: #FF0000; 
+	text-decoration: none;
+}
+a.Cobalt_sin_bordesDataLink:active
+{
+	color: #FF0000; 
+	text-decoration: none;
+}
+a.Cobalt_sin_bordesNavigatorLink:link
+{
+	color: #FFFFFF; 
+	text-decoration: underline;
+}
+a.Cobalt_sin_bordesNavigatorLink:visited
+{
+	color: #FFFFFF; 
+	text-decoration: underline;
+}
+a.Cobalt_sin_bordesNavigatorLink:hover
+{
+	color: #40E0D0; 
+	text-decoration: none;
+}
+a.Cobalt_sin_bordesNavigatorLink:active
+{
+	color: #40E0D0; 
+	text-decoration: none;
+}
+.Cobalt_sin_bordesButton
+{
+	border-bottom: 1px solid #003451; 
+	border-left: 1px solid #5AA4CC; 
+	border-right: 1px solid #003451; 
+	border-top: 1px solid #5AA4CC; 
+	background-color: #00659C; 
+	color: #FFFFFF; 
+	font-family: Tahoma, Arial, Verdana, Helvetica; 
+	font-size: xx-small; 
+	font-weight: bold;
+}
+.Cobalt_sin_bordesInput
+{
+	border-bottom: 1px solid #00659C; 
+	border-left: 1px solid #00659C; 
+	border-right: 1px solid #00659C; 
+	border-top: 1px solid #00659C; 
+	font-family: Tahoma, Arial, Verdana, Helvetica; 
+	font-size: xx-small; 
+	background-color: #F2EEE0; 
+	border-top-color: #F2EEE0; 
+	border-right-color: #F2EEE0; 
+	border-bottom-color: #F2EEE0; 
+	border-left-color: #F2EEE0;
+}
+.Cobalt_sin_bordesTextarea
+{
+	border-bottom: 1px solid #00659C; 
+	border-left: 1px solid #00659C; 
+	border-right: 1px solid #00659C; 
+	border-top: 1px solid #00659C; 
+	font-family: Tahoma, Arial, Verdana, Helvetica; 
+	font-size: xx-small; 
+	background-color: #F2EEE0; 
+	border-top-color: #F2EEE0; 
+	border-right-color: #F2EEE0; 
+	border-bottom-color: #F2EEE0; 
+	border-left-color: #F2EEE0;
+}
+.Cobalt_sin_bordesSelect
+{
+	font-family: Tahoma, Arial, Verdana, Helvetica; 
+	font-size: xx-small; 
+	background-color: #F2EEE0; 
+	border-top-color: #F2EEE0; 
+	border-right-color: #F2EEE0; 
+	border-bottom-color: #F2EEE0; 
+	border-left-color: #F2EEE0;
+}
+a.today:link
+{
+	color: #FF0000; 
+	font-weight: bold; 
+	text-decoration: none;
+}
+a.today:visited
+{
+	color: #FF0000; 
+	font-weight: bold; 
+	text-decoration: none;
+}
+a.today:hover
+{
+	color: #00659C; 
+	font-weight: bold; 
+	text-decoration: none;
+}
+a.today:active
+{
+	color: #00659C; 
+	font-weight: bold; 
+	text-decoration: none;
+}
+a.selectedDay:link
+{
+	color: #FFFFFF; 
+	font-weight: bold; 
+	text-decoration: none;
+}
+a.selectedDay:visited
+{
+	color: #FFFFFF; 
+	font-weight: bold; 
+	text-decoration: none;
+}
+a.selectedDay:hover
+{
+	color: #FF0000; 
+	font-weight: bold; 
+	text-decoration: none;
+}
+a.selectedDay:active
+{
+	color: #FF0000; 
+	font-weight: bold; 
+	text-decoration: none;
+}
+a.weekDay:link
+{
+	color: #000000; 
+	text-decoration: none;
+}
+a.weekDay:visited
+{
+	color: #000000; 
+	text-decoration: none;
+}
+a.weekDay:hover
+{
+	color: #FF0000; 
+	text-decoration: none;
+}
+a.weekDay:active
+{
+	color: #FF0000; 
+	text-decoration: none;
+}
+TD.selectedDay
+{
+	margin: 1px; 
+	border-bottom: 1px solid #003451; 
+	border-left: 1px solid #5AA4CC; 
+	border-right: 1px solid #003451; 
+	border-top: 1px solid #5AA4CC; 
+	background-color: #00659C; 
+	color: #FFFFFF; 
+	font-weight: bold; 
+	font-size: xx-small;
+}
+TD.today
+{
+	border-top: 1px solid #FF0000; 
+	border-left: 1px solid #FF0000; 
+	border-bottom: 1px solid #FF0000; 
+	border-right: 1px solid #FF0000; 
+	background-color: #FFFFF7; 
+	font-size: xx-small;
+}
+TD.workday
+{
+	background-color: #FFFFF7; 
+	font-size: xx-small;
+}
+TD.weekend
+{
+	background-color: #EEEADB; 
+	font-size: xx-small;
+}
+TH.calendar
+{
+	margin: 1px; 
+	border-bottom: 1px solid #003451; 
+	border-left: 1px solid #5AA4CC; 
+	border-right: 1px solid #003451; 
+	border-top: 1px solid #5AA4CC; 
+	background-color: #00659C; 
+	color: #FFFFFF; 
+	font-weight: bold; 
+	font-size: xx-small;
+}
+.CalendarButtons
+{
+	border-bottom: 1px solid #003451; 
+	border-left: 1px solid #5AA4CC; 
+	border-right: 1px solid #003451; 
+	border-top: 1px solid #5AA4CC; 
+	background-color: #00659C; 
+	color: #FFFFFF; 
+	font-family: Tahoma, Arial, Verdana, Helvetica; 
+	font-size: xx-small; 
+	font-weight: bold;
+}
+.CalendarControls
+{
+	font-family: Arial, Tahoma, Verdana, Helvetica; 
+	font-size: xx-small;
+}
+.Table
+{
+	background-color: #DEDBDE;
+}

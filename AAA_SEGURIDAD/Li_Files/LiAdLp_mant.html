@@ -1,0 +1,205 @@
+<!doctype html>
+<html>
+<head>
+<base>
+<link rel="stylesheet" type="text/css" href="../Themes/Cobalt/Style.css">
+<link rel="stylesheet" type="text/css" href="../Themes/Menu/Style.css">
+<title>LISTAS DE PRECIOS</title>
+ 
+<script language="JavaScript" src="../LibJava/menu_func.js"></script>
+<script language="JavaScript">
+//Begin CCS script
+//Include JSFunctions @1-5F368366
+  </script>
+<link rel="stylesheet" type="text/css" href="../css/chosen.min.css">
+<script language="JavaScript" src="../LibJs/jquery-1.9.1.min.js"></script>  
+<script language="JavaScript" src="../LibJs/chosen.jquery.min.js"></script>  
+<script language="JavaScript" src="../functions.js"></script>
+<script language="JavaScript">
+  
+//End Include JSFunctions
+
+//page_lispredetal_Button_Submit_OnClick @83-71307B98
+function page_lispredetal_Button_Submit_OnClick()
+{
+    var result;
+//End page_lispredetal_Button_Submit_OnClick
+
+//Confirmation Message @84-96FAE8C2
+    return confirm('Enviar registro?');
+//End Confirmation Message
+
+//Close page_lispredetal_Button_Submit_OnClick @83-BC33A33A
+    return result;
+}
+//End Close page_lispredetal_Button_Submit_OnClick
+
+//page_lispredetal_Cancel_OnClick @85-94B20F20
+function page_lispredetal_Cancel_OnClick()
+{
+    disableValidation = true;
+}
+//End page_lispredetal_Cancel_OnClick
+
+//bind_events @1-31848238
+function bind_events() {
+    if (document.forms["lispredetal"]) check_and_bind('document.forms["lispredetal"].Button_Submit','onclick',page_lispredetal_Button_Submit_OnClick);
+    if (document.forms["lispredetal"]) check_and_bind('document.forms["lispredetal"].Cancel','onclick',page_lispredetal_Cancel_OnClick);
+    forms_onload();
+}
+//End bind_events
+
+window.onload = bind_events; //Assign bind_events @1-19F7B649
+
+//End CCS script
+</script>
+</head>
+ 
+<body bgcolor="#fffff7" link="#000000" alink="#ff0000" vlink="#000000" text="#000000" class="CobaltPageBODY">
+{Cabecera} 
+<table background="../Themes/Cobalt/Light Streaks.bmp" border="0" width="100%" class="CobaltPageBODY" align="center" style="BORDER-COLLAPSE: collapse" cellspacing="0" cellpadding="0">
+  <tr>
+    <td align="middle">
+      <!-- BEGIN Record invpreciosSearch -->
+      <form name="{HTMLFormName}" action="{Action}" method="post" style="MARGIN: 0px">
+        <font class="CobaltFormHeaderFont"></font> 
+        <table class="CobaltFormTABLE" cellpadding="3" border="0" style="borde-collapse: collapse">
+          <!-- BEGIN Error -->
+          <tr>
+            <td class="CobaltErrorDataTD" colspan="5">{Error}</td> 
+          </tr>
+ <!-- END Error -->
+          <tr>
+               <td class="CobaltFieldCaptionTD" nowrap>LISTA DE PRECIOS</td> 
+               <td class="CobaltFieldCaptionTD" nowrap>SUBCATEGOR&Iacute;A</td> 
+               <td class="CobaltFieldCaptionTD" nowrap>GRUPO</td> 
+               <td class="CobaltFieldCaptionTD" nowrap>SUBGRUPO</td> 
+               <td class="CobaltFieldCaptionTD" nowrap>OTROS CRITERIOS</td> 
+          </tr>
+          <tr>
+           
+            <td class="CobaltDataTD">
+              <select data-placeholder="Seleccione" id="s_LisPrecios_Name" name="{s_LisPrecios_Name}" class="CobaltSelect">
+                <option value="" selected>-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;&nbsp;-</option>
+ {s_LisPrecios_Options} 
+              </select>
+ &nbsp;&nbsp; </td> 
+             <td class="CobaltDataTD">
+              <select data-placeholder="Seleccione" id="s_TipoItem_Name" name="{s_TipoItem_Name}" class="CobaltSelect">
+                <option value="" selected>-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;&nbsp;-</option>
+ {s_TipoItem_Options} 
+              </select>
+ &nbsp;&nbsp; </td> 
+            <td class="CobaltDataTD">
+              <select data-placeholder="Seleccione" id="s_Grupo_Name" name="{s_Grupo_Name}" class="CobaltSelect">
+                <option value="" selected>-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;&nbsp;-</option>
+ {s_Grupo_Options} 
+              </select>
+              </td>
+              <td class="CobaltDataTD">
+              <select data-placeholder="Seleccione" id="s_Subgrupo_Name" name="{s_Subgrupo_Name}" class="CobaltSelect">
+                <option value="" selected>-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;&nbsp;-</option>
+ {s_Subgrupo_Options} 
+              </select>
+              </td> 
+            <td class="CobaltDataTD" nowrap align="right">
+                <input placeholder="Descripci&oacute;n, C&oacute;d, C&oacute;d alterno" class="CobaltInput" name="{s_Descripcion_Name}" size="20" value="" title="Descripci&oacute;n">
+              <!-- BEGIN Button Button_DoSearch --><input class="CobaltDataLink" type="submit" value="BUSCAR.." name="{Button_Name}" style="FONT-SIZE: 9px; WIDTH: 63px; HEIGHT: 19px"><!-- END Button Button_DoSearch -->&nbsp; </td> 
+          </tr>
+ 
+        </table>
+ 
+      </form>
+ <!-- END Record invpreciosSearch --></td> 
+  </tr>
+ 
+  <tr>
+    <td align="middle" valign="top" nowrap>&nbsp; 
+      <!-- BEGIN EditableGrid lispredetal -->
+      <form name="{HTMLFormName}" action="{Action}" method="post" style="MARGIN: 0px">
+        <font class="CobaltFormHeaderFont">LISTA DE PRECIOS </font> <input type="hidden" value="{FormState}" name="FormState">{FormScript}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(
+        {conactivos_invprecios_gen_TotalRecords}&nbsp;Regs) 
+        <table class="CobaltFormTABLE" cellpadding="0" border="0" cellspacing="0">
+          <!-- BEGIN Error -->
+          <tr>
+            <td class="CobaltErrorDataTD" colspan="5">{Error}</td> 
+          </tr>
+ <!-- END Error -->
+          <tr>
+            <td class="CobaltFooterTD" nowrap align="right" colspan="3">
+              <!-- BEGIN Navigator Navigator1 -->
+              <!-- BEGIN First_On --><a class="CobaltNavigatorLink" style="FONT-SIZE: 15px" href="{First_URL}"><img height="14" src="../Themes/Aqua/FirstOn.gif" width="24" border="0"></a> <!-- END First_On -->
+              <!-- BEGIN Prev_On --><a class="CobaltNavigatorLink" href="{Prev_URL}"><img height="14" src="../Themes/Aqua/PrevOn.gif" width="24" border="0"></a> <!-- END Prev_On -->&nbsp; 
+              <!-- BEGIN Pages -->
+              <!-- BEGIN Page_On --><a class="CobaltNavigatorLink" href="{Page_URL}">{Page_Number}</a>&nbsp; <!-- END Page_On -->
+              <!-- BEGIN Page_Off -->{Page_Number}&nbsp; <!-- END Page_Off --><!-- END Pages -->de
+              {Total_Pages}&nbsp; 
+              <!-- BEGIN Next_On --><a class="CobaltNavigatorLink" style="FONT-SIZE: 15px" href="{Next_URL}"><img height="14" src="../Themes/Aqua/NextOn.gif" width="24" border="0"></a> <!-- END Next_On -->
+              <!-- BEGIN Last_On --><a class="CobaltNavigatorLink" href="{Last_URL}"><img height="14" src="../Themes/Aqua/LastOn.gif" width="24" border="0"></a> <!-- END Last_On --><!-- END Navigator Navigator1 -->&nbsp;
+              &nbsp; &nbsp; </td> 
+            <td class="CobaltFooterTD" nowrap align="right" colspan="2">&nbsp; 
+              <!-- BEGIN Button Button_Submit -->&nbsp; <input class="CobaltLink" type="submit" value="GRABAR" name="{Button_Name}" style="FONT-SIZE: 9px; WIDTH: 63px; HEIGHT: 19px"><!-- END Button Button_Submit -->&nbsp;&nbsp; 
+              <!-- BEGIN Button Cancel --><input class="CobaltLink" type="submit" value="CANCELAR" name="{Button_Name}" style="FONT-SIZE: 9px; WIDTH: 63px; HEIGHT: 19px" size="14"><!-- END Button Cancel -->&nbsp;</td> 
+          </tr>
+ 
+          <tr height="20" valign="center" align="middle">
+            <td class="CobaltColumnTD" nowrap>
+              <!-- BEGIN Sorter Sorter_pre_CodItem --><a class="CobaltSorterLink" href="{Sort_URL}">C&Oacute;DIGO</a> 
+              <!-- BEGIN Asc_On --><img height="9" src="../Themes/Cobalt/AscOn.gif" width="13" border="0"><!-- END Asc_On -->
+              <!-- BEGIN Desc_On --><img height="9" src="../Themes/Cobalt/DescOn.gif" width="13" border="0"><!-- END Desc_On --><!-- END Sorter Sorter_pre_CodItem -->&nbsp;</td> 
+            <td class="CobaltColumnTD" nowrap>
+              <!-- BEGIN Sorter Sorter_uni_Abreviatura --><a class="CobaltSorterLink" href="{Sort_URL}">COD ALTERNO</a> 
+              <!-- BEGIN Asc_On --><img height="9" src="../Themes/Cobalt/AscOn.gif" width="13" border="0"><!-- END Asc_On -->
+              <!-- BEGIN Desc_On --><img height="9" src="../Themes/Cobalt/DescOn.gif" width="13" border="0"><!-- END Desc_On --><!-- END Sorter Sorter_uni_Abreviatura -->&nbsp;</td> 
+            <td class="CobaltColumnTD" nowrap>
+              <!-- BEGIN Sorter Sorter_act_Descripcion --><a class="CobaltSorterLink" href="{Sort_URL}">DESCRIPCI&Oacute;N</a> 
+              <!-- BEGIN Asc_On --><img height="9" src="../Themes/Cobalt/AscOn.gif" width="13" border="0"><!-- END Asc_On -->
+              <!-- BEGIN Desc_On --><img height="9" src="../Themes/Cobalt/DescOn.gif" width="13" border="0"><!-- END Desc_On --><!-- END Sorter Sorter_act_Descripcion -->&nbsp;</td>             
+            <td class="CobaltColumnTD" nowrap>
+              <!-- BEGIN Sorter Sorter_pre_PreUnitario --><a class="CobaltSorterLink" href="{Sort_URL}">PREC.
+              UNIT.</a> 
+              <!-- BEGIN Asc_On --><img height="9" src="../Themes/Cobalt/AscOn.gif" width="13" border="0"><!-- END Asc_On -->
+              <!-- BEGIN Desc_On --><img height="9" src="../Themes/Cobalt/DescOn.gif" width="13" border="0"><!-- END Desc_On --><!-- END Sorter Sorter_pre_PreUnitario -->&nbsp;</td> 
+            <td class="CobaltColumnTD" nowrap>Borrar &nbsp;</td> 
+          </tr>
+ 
+          <!-- BEGIN Row -->
+          <!-- BEGIN RowError -->
+          <tr>
+            <td class="CobaltErrorDataTD" colspan="5">{Error}</td> 
+          </tr>
+ <!-- END RowError -->
+          <tr valign="center">
+            <td class="CobaltDataTD">&nbsp; <input class="CobaltInputSB2" maxlength="10" size="6" value="{pre_CodItem}" name="{pre_CodItem_Name}" style="WIDTH: 49px; HEIGHT: 18px">&nbsp; <input type="hidden" name="{pre_LisPrecios_Name}" value="{pre_LisPrecios}" style="WIDTH: 12px; HEIGHT: 22px" size="1"></td> 
+            <td class="CobaltDataTD">&nbsp; <input class="CobaltInputSB" maxlength="10" size="6" value="{act_CodAnterior}" name="{act_CodAnterior_Name}" style="WIDTH: 73px; HEIGHT: 18px">&nbsp;</td> 
+            <td class="CobaltDataTD">&nbsp; <input class="CobaltInputSB" maxlength="25" size="38" value="{act_Descripcion}" name="{act_Descripcion_Name}" style="WIDTH: 226px; HEIGHT: 17px">&nbsp;</td>             
+            <td class="CobaltDataTD">&nbsp; <input class="CobaltInputSB2" maxlength="12" size="7" value="{pre_PreUnitario}" name="{pre_PreUnitario_Name}" title="Precio Unitario que se aplica " style="WIDTH: 66px; HEIGHT: 18px; TEXT-ALIGN: right">&nbsp;</td> 
+            <td class="CobaltDataTD">
+              <!-- BEGIN CheckBox CheckBox_Delete --><input class="CobaltInput" type="checkbox" value="1" name="{CheckBox_Delete_Name}" {CheckBox_Delete}><!-- END CheckBox CheckBox_Delete -->&nbsp;</td> 
+          </tr>
+ <!-- END Row -->
+          <!-- BEGIN NoRecords -->
+          <tr>
+            <td class="CobaltDataTD" colspan="5">No hay registros&nbsp;</td> 
+          </tr>
+ <!-- END NoRecords -->
+          <tr>
+            <td class="CobaltFooterTD" colspan="5">&nbsp;</td> 
+          </tr>
+ 
+        </table>
+ 
+      </form>
+ <!-- END EditableGrid lispredetal --></td> 
+  </tr>
+ 
+</table>
+ 
+</body>
+<script type="text/javascript">
+    $("#s_LisPrecios_Name").chosen();
+    $("#s_TipoItem_Name").chosen();
+    $("#s_Grupo_Name").chosen();
+    $("#s_Subgrupo_Name").chosen();
+</script>
+</html>

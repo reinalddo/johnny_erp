@@ -1,0 +1,359 @@
+<html>
+<head>
+<meta name="GENERATOR" content="CodeCharge Studio 2.3.2.24">
+<meta http-equiv="content-type" content="text/html; charset=iso-8859-1">
+<base target="_self">
+<link rel="stylesheet" type="text/css" href="../Themes/Cobalt/Style.css">
+<link rel="stylesheet" type="text/css" href="../Themes/Menu/Style.css">
+<link rel="stylesheet" type="text/css" href="../css/suggestions.css">
+<link rel="stylesheet" type="text/css" href="../css/tab-view.css" media="screen">
+<title>ACTIVOS: MANTENIMIENTO</title>
+<script language="JavaScript" src="../LibJava/menu_func.js"></script>
+<script language="JavaScript" src="../LibJava/general.js"></script>
+<script language="JavaScript" src="../LibJava/tab-view.js"></script>
+<script>
+//Begin CCS script
+//Include JSFunctions @1-FB634A57
+  </script>
+<script language="JavaScript" type="text/javascript" src="../functions.js"></script>
+<script language="JavaScript" type="text/javascript">
+  
+//End Include JSFunctions
+
+//Include Common JSFunctions @1-A1D84A39
+</script>
+<script language="JavaScript" type="text/javascript" src="../DatePicker.js"></script>
+<script language="JavaScript" type="text/javascript">
+//End Include Common JSFunctions
+
+//Date Picker Object Definitions @1-AF5DDECA
+
+var CoAdAc_cate_DatePicker_cat_FecIncorp = new Object(); 
+CoAdAc_cate_DatePicker_cat_FecIncorp.format           = "dd/mmm/yy";
+CoAdAc_cate_DatePicker_cat_FecIncorp.style            = "Themes/Cobalt/Style.css";
+CoAdAc_cate_DatePicker_cat_FecIncorp.relativePathPart = "../";
+
+//End Date Picker Object Definitions
+
+//page_CoAdAc_mant_OnLoad @115-A1B9CA0A
+function page_CoAdAc_mant_OnLoad(form)
+{
+    var result;
+//End page_CoAdAc_mant_OnLoad
+
+//Custom Code @218-2A29BDB7
+// Cargar un frame con el formulario correspondiente a la subcategoria del activo
+    // -------------------------
+	//document.frDetalle.location = "CoAdAc_equipos.php?aeq_CodAuxiliar=" + getFromurl('act_CodAuxiliar', '');
+	if (document.CoAdAc_mant.par_Valor4.value.length > 0)
+	  	document.frDetalle.location = document.CoAdAc_mant.par_Valor4.value + "?act_CodAuxiliar=" + getFromurl('act_CodAuxiliar', '');
+    // -------------------------
+//End Custom Code
+
+//Close page_CoAdAc_mant_OnLoad @115-BC33A33A
+    return result;
+}
+//End Close page_CoAdAc_mant_OnLoad
+
+//page_CoAdAc_cate_Button_Submit_OnClick @212-586E4E27
+function page_CoAdAc_cate_Button_Submit_OnClick()
+{
+    var result;
+//End page_CoAdAc_cate_Button_Submit_OnClick
+
+//Confirmation Message @213-96FAE8C2
+    return confirm('Enviar registro?');
+//End Confirmation Message
+
+//Close page_CoAdAc_cate_Button_Submit_OnClick @212-BC33A33A
+    return result;
+}
+//End Close page_CoAdAc_cate_Button_Submit_OnClick
+
+//page_CoAdAc_mant_Button_Delete_OnClick @148-2600BC7C
+function page_CoAdAc_mant_Button_Delete_OnClick()
+{
+    disableValidation = true;
+}
+//End page_CoAdAc_mant_Button_Delete_OnClick
+
+//page_CoAdAc_mant_Button1_OnClick @151-4732DC2F
+function page_CoAdAc_mant_Button1_OnClick()
+{
+    disableValidation = true;
+}
+//End page_CoAdAc_mant_Button1_OnClick
+
+//page_CoAdAc_cate_Cancel_OnClick @214-4C213769
+function page_CoAdAc_cate_Cancel_OnClick()
+{
+    disableValidation = true;
+}
+//End page_CoAdAc_cate_Cancel_OnClick
+
+//bind_events @1-BB03492A
+function bind_events() {
+    if (functionExists("CoAdAu_varimant_bind_events")) CoAdAu_varimant_bind_events();
+    if (document.forms["CoAdAc_cate"]) check_and_bind('document.forms["CoAdAc_cate"].Button_Submit','onclick',page_CoAdAc_cate_Button_Submit_OnClick);
+    if (document.forms["CoAdAc_mant"]) check_and_bind('document.forms["CoAdAc_mant"]','onLoad',page_CoAdAc_mant_OnLoad);
+    if (document.forms["CoAdAc_mant"]) check_and_bind('document.forms["CoAdAc_mant"].Button_Delete','onclick',page_CoAdAc_mant_Button_Delete_OnClick);
+    if (document.forms["CoAdAc_mant"]) check_and_bind('document.forms["CoAdAc_mant"].Button1','onclick',page_CoAdAc_mant_Button1_OnClick);
+    if (document.forms["CoAdAc_cate"]) check_and_bind('document.forms["CoAdAc_cate"].Cancel','onclick',page_CoAdAc_cate_Cancel_OnClick);
+    forms_onload();
+}
+//End bind_events
+
+window.onload = bind_events; //Assign bind_events @1-19F7B649
+//End CCS script
+</script>
+</head>
+ 
+<body bgcolor="#fffff7" link="#000000" alink="#ff0000" vlink="#000000" text="#000000" class="CobaltPageBODY" style="PADDING-RIGHT: 0px; PADDING-LEFT: 0px; PADDING-BOTTOM: 0px; PADDING-TOP: 0px; magin: 0; spacing: 0" bottommargin="0" nowrap leftmargin="0" topmargin="17" rightmargin="0" marginwidth="0" marginheight="0">
+{Cabecera} 
+<div id="dhtmlgoodies_tabView" style="POSITION: fixed; TEXT-ALIGN: center">
+  <!-- ---------------------------------------------------Tab: datos Generales -----------  -->
+  <div class="dhtmlgoodies_aTab" style="Z-INDEX: -1; TEXT-ALIGN: center">
+    <!-- BEGIN Record CoAdAc_mant --><font class="CobaltFormHeaderFont" style="align: center">{lbTitulo} </font><font color="#546785">(Activos
+    y Otros)</font> 
+    <form name="{HTMLFormName}" action="{Action}" method="post" style="BORDER-RIGHT: 0px; BORDER-TOP: 0px; MARGIN: 0px; BORDER-LEFT: 0px; BORDER-BOTTOM: 0px; align: center">
+      <table class="CobaltFormTABLE" cellspacing="0" cellpadding="1" align="center" border="0">
+        <!-- BEGIN Error -->
+        <tr>
+          <td class="CobaltErrorDataTD" colspan="4">{Error}</td> 
+        </tr>
+        <!-- END Error -->
+        <tr>
+          <td class="CobaltFieldCaptionTD" nowrap>&nbsp;CODIGO</td> 
+          <td class="CobaltDataTD" title="El Códigolo asigna el sistema"><input class="CobaltInputSB" style="WIDTH: 52px; COLOR: red; HEIGHT: 17px" size="8" value="{act_CodAuxiliar}" name="{act_CodAuxiliar_Name}"></td> 
+          <td class="CobaltDataTD" nowrap><input style="WIDTH:  101px;  HEIGHT:  15px" type="hidden" size="12" value="{par_Valor4}" name="{par_Valor4_Name}"></td> 
+          <td class="CobaltDataTD"></td> 
+        </tr>
+ 
+        <tr>
+          <td class="CobaltFieldCaptionTD" nowrap>&nbsp;Descripcion</td> 
+          <td class="CobaltDataTD" colspan="3"><input class="CobaltInputSB2" maxlength="100" size="136" value="{act_Descripcion}" name="{act_Descripcion_Name}" style="WIDTH: 430px; HEIGHT: 18px"></td> 
+        </tr>
+ 
+        <tr>
+          <td class="CobaltFieldCaptionTD" nowrap>&nbsp;Descripcion 1</td> 
+          <td class="CobaltDataTD" colspan="2"><input class="CobaltInputSB2" style="WIDTH: 151px; HEIGHT: 18px" maxlength="25" size="22" value="{act_Descripcion1}" name="{act_Descripcion1_Name}"></td> 
+          <td class="CobaltDataTD"></td> 
+        </tr>
+        <!-- BEGIN ListBox lbCategAux -->
+        <tr>
+          <td class="CobaltFieldCaptionTD" nowrap>CATEGORIA INICIAL </td> 
+          <td class="CobaltDataTD">
+            <select class="CobaltSelect" style="WIDTH: 146px" name="{lbCategAux_Name}">
+              <option value="" selected>-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-</option>
+ {lbCategAux_Options} 
+            </select>
+ </td> 
+          <td class="CobaltDataTD" nowrap></td> 
+          <td class="CobaltDataTD"></td> 
+        </tr>
+        <!-- END ListBox lbCategAux -->
+        <tr>
+          <td class="CobaltFieldCaptionTD" nowrap>&nbsp;Sub Categoria</td> 
+          <td class="CobaltDataTD">
+            <select class="CobaltSelect" style="WIDTH: 148px" name="{act_SubCategoria_Name}">
+              <option value="" selected>-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-</option>
+ {act_SubCategoria_Options} 
+            </select>
+ </td> 
+          <td class="CobaltFieldCaptionTD" nowrap>&nbsp;Abreviatura&nbsp;</td> 
+          <td class="CobaltDataTD"><input class="CobaltInputSB2" maxlength="8" size="8" value="{act_Abreviatura}" name="{act_Abreviatura_Name}"></td> 
+        </tr>
+ 
+        <tr>
+          <td class="CobaltDataTD" nowrap colspan="4">&nbsp;</td> 
+        </tr>
+ 
+        <tr>
+          <td class="CobaltFieldCaptionTD" nowrap>&nbsp;Tipo&nbsp;</td> 
+          <td class="CobaltDataTD">
+            <select class="CobaltSelect" style="WIDTH: 121px" name="{act_Tipo_Name}">
+              <option value="" selected>-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-</option>
+ {act_Tipo_Options} 
+            </select>
+ &nbsp;</td> 
+          <td class="CobaltFieldCaptionTD" nowrap>&nbsp;</td> 
+          <td class="CobaltDataTD">&nbsp; </td> 
+        </tr>
+ 
+        <tr>
+          <td class="CobaltFieldCaptionTD" nowrap>&nbsp;Grupo</td> 
+          <td class="CobaltDataTD">
+            <select class="CobaltSelect" style="WIDTH: 121px" name="{act_Grupo_Name}">
+              <option value="" selected>-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-</option>
+ {act_Grupo_Options} 
+            </select>
+ </td> 
+          <td class="CobaltFieldCaptionTD" nowrap>&nbsp;Sub Grupo&nbsp;</td> 
+          <td class="CobaltDataTD">
+            <select class="CobaltSelect" style="WIDTH: 104px; text-size: 9" name="{act_SubGrupo_Name}">
+              <option value="" selected>-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;</option>
+ {act_SubGrupo_Options} 
+            </select>
+ </td> 
+        </tr>
+ 
+        <tr>
+          <td class="CobaltFieldCaptionTD" nowrap>&nbsp;Marca&nbsp;</td> 
+          <td class="CobaltDataTD">
+            <select class="CobaltSelect" style="WIDTH: 121px" name="{act_Marca_Name}">
+              <option value="" selected>-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-</option>
+ {act_Marca_Options} 
+            </select>
+ &nbsp;</td> 
+          <td class="CobaltFieldCaptionTD" nowrap>&nbsp;Modelo</td> 
+          <td class="CobaltDataTD"><input class="CobaltInputSB2" style="WIDTH: 102px; HEIGHT: 18px" maxlength="25" size="16" value="{act_Modelo}" name="{act_Modelo_Name}"></td> 
+        </tr>
+ 
+        <tr>
+          <td class="CobaltFieldCaptionTD" nowrap>&nbsp;Num Serie</td> 
+          <td class="CobaltDataTD"><input class="CobaltInputSB2" style="WIDTH: 93px; HEIGHT: 18px" maxlength="25" size="15" value="{act_NumSerie}" name="{act_NumSerie_Name}"></td> 
+          <td class="CobaltFieldCaptionTD" nowrap>&nbsp;UNIDAD DE&nbsp; Medida</td> 
+          <td class="CobaltDataTD">
+            <select class="CobaltSelect" style="WIDTH: 104px" name="{act_UniMedida_Name}">
+              <option value="" selected>-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-</option>
+ {act_UniMedida_Options} 
+            </select>
+ </td> 
+        </tr>
+ 
+        <tr>
+          <td class="CobaltFieldCaptionTD" nowrap>&nbsp;Cod ALTERNO</td> 
+          <td class="CobaltDataTD"><input class="CobaltInputSB2" style="WIDTH: 196px; HEIGHT: 18px" maxlength="15" size="26" value="{act_CodAnterior}" name="{act_CodAnterior_Name}" title="CODIGO ALTERNO, CODIGO DE BARRAS"></td> 
+          <td class="CobaltFieldCaptionTD" nowrap>&nbsp;INDICADOR DE IVA&nbsp;</td> 
+          <td class="CobaltDataTD">
+            <select name="{act_IvaFlag_Name}" class="CobaltSelect" style="WIDTH: 104px">
+              <option value="" selected>-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;</option>
+ {act_IvaFlag_Options} 
+            </select>
+ </td> 
+        </tr>
+ 
+        <tr>
+          <td class="CobaltFieldCaptionTD" nowrap>&nbsp;OTROS IMPTOS</td> 
+          <td class="CobaltDataTD" colspan="3">&nbsp;ICE&nbsp;&nbsp;<input class="CobaltInput" type="checkbox" value="1" name="{act_IceFlag_Name}" title="Marque esta Casilla si el Item es imponible para ICE" {act_IceFlag}>&nbsp;&nbsp;&nbsp;&nbsp;
+            IMP 3 &nbsp; <input class="CobaltInput" type="checkbox" value="1" name="{act_Im3Flag_Name}" title="Marque esta Casilla si el Item es imponible para IMPUESTO 3" {act_Im3Flag}>&nbsp;&nbsp;&nbsp;&nbsp;
+            IMP 4<input class="CobaltInput" type="checkbox" value="1" name="{act_Im4Flag_Name}" title="Marque esta Casilla si el Item es imponible para IMPUESTO 4" {act_Im4Flag}>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            IMP 5 <input class="CobaltInput" type="checkbox" value="1" name="{act_Im5Flag_Name}" title="Marque esta Casilla si el Item es imponible para IMPUESTO 5" {act_Im5Flag}></td> 
+        </tr>
+ 
+        <tr>
+          <td class="CobaltFieldCaptionTD" nowrap>&nbsp;Sufijo Cuenta&nbsp;</td> 
+          <td class="CobaltDataTD"><input class="CobaltInputSB2" maxlength="15" size="7" value="{act_SufijoCuenta}" name="{act_SufijoCuenta_Name}" style="WIDTH: 55px; HEIGHT: 18px">&nbsp;</td> 
+          <td class="CobaltFieldCaptionTD" nowrap>&nbsp;Inventariable&nbsp;</td> 
+          <td class="CobaltDataTD"><input class="CobaltInput" type="checkbox" value="1" name="{act_Inventariable_Name}" {act_Inventariable}></td> 
+        </tr>
+ 
+        <tr>
+          <td class="CobaltFieldCaptionTD" nowrap></td> 
+          <td class="CobaltDataTD">&nbsp;&nbsp;</td> 
+          <td class="CobaltFieldCaptionTD" nowrap>&nbsp;DIGITADO</td> 
+          <td class="CobaltDataTD"><input class="CobaltInputSB" style="WIDTH: 42px; HEIGHT: 18px" readonly maxlength="20" size="5" value="{act_usuario}" name="{act_usuario_Name}"><input class="CobaltInputSB" style="FONT-SIZE: 9px; WIDTH: 88px; HEIGHT: 18px" disabled readonly maxlength="9" size="6" value="{act_FecRegistro}" name="{act_FecRegistro_Name}"></td> 
+        </tr>
+ 
+        <tr>
+          <td class="CobaltFooterTD" nowrap align="center" colspan="4">
+            <!-- BEGIN Button Button_Insert --><input class="CobaltButton" title="Agrega el Auxiliar Ingresado" type="submit" value="AGREGAR" name="{Button_Name}"><!-- END Button Button_Insert -->&nbsp;&nbsp;&nbsp;&nbsp; 
+            <!-- BEGIN Button Button_Update --><input class="CobaltButton" title="Graba las modificaciones" type="submit" value="GRABAR" name="{Button_Name}"><!-- END Button Button_Update -->&nbsp;&nbsp;&nbsp;&nbsp; 
+            <!-- BEGIN Button Button_Delete --><input class="CobaltButton" title=" PRECAUCION !!!  Elimina el Auxiliar . " type="submit" value="BORRAR" name="{Button_Name}"><!-- END Button Button_Delete -->&nbsp;&nbsp;&nbsp;
+            &nbsp; &nbsp;&nbsp; 
+            <!-- BEGIN Button btNuevo --><input class="CobaltButton" title="Habilita el Ingreso de un Nuevo Auxiliar" type="submit" value="NUEVO .." name="{Button_Name}"><!-- END Button btNuevo -->&nbsp;&nbsp;&nbsp; 
+            <!-- BEGIN Button Button1 --><input class="CobaltButton" type="submit" size="13" value="REGRESAR.." name="{Button_Name}"><!-- END Button Button1 --></td> 
+        </tr>
+ 
+      </table>
+ 
+    </form>
+ <!-- END Record CoAdAc_mant -->
+  </div>
+  <!-- ---------------------------------------------------Tab: Categorias  -----------  -->
+  <div class="dhtmlgoodies_aTab" style="Z-INDEX: -1; TEXT-ALIGN: center">
+    <!-- BEGIN EditableGrid CoAdAc_cate -->
+    <form name="{HTMLFormName}" action="{Action}" method="post">
+      <p><font class="CobaltFormHeaderFont"></font><input type="hidden" value="{FormState}" name="FormState">{FormScript}</p>
+ 
+      <table class="CobaltFormTABLE" cellspacing="1" cellpadding="1" border="0">
+        <!-- BEGIN Error -->
+        <tr>
+          <td class="CobaltErrorDataTD" colspan="5">{Error}</td> 
+        </tr>
+        <!-- END Error -->
+        <tr align="center">
+          <td class="CobaltColumnTD" nowrap>
+            <!-- BEGIN Sorter Sorter_cat_Categoria --><a class="CobaltSorterLink" href="{Sort_URL}">CATEGORIA</a> 
+            <!-- BEGIN Asc_On --><img src="../Themes/Cobalt/AscOn.gif" border="0"><!-- END Asc_On -->
+            <!-- BEGIN Desc_On --><img src="../Themes/Cobalt/DescOn.gif" border="0"><!-- END Desc_On --><!-- END Sorter Sorter_cat_Categoria -->&nbsp;</td> 
+          <td class="CobaltColumnTD" nowrap>
+            <!-- BEGIN Sorter Sorter_cat_FecIncorp --><a class="CobaltSorterLink" href="{Sort_URL}">FECHA
+            DE INCORP</a> 
+            <!-- BEGIN Asc_On --><img src="../Themes/Cobalt/AscOn.gif" border="0"><!-- END Asc_On -->
+            <!-- BEGIN Desc_On --><img src="../Themes/Cobalt/DescOn.gif" border="0"><!-- END Desc_On --><!-- END Sorter Sorter_cat_FecIncorp -->&nbsp;</td> 
+          <td class="CobaltColumnTD" nowrap>
+            <!-- BEGIN Sorter Sorter_cat_Activo --><a class="CobaltSorterLink" href="{Sort_URL}">ACTIVIDAD</a> 
+            <!-- BEGIN Asc_On --><img src="../Themes/Cobalt/AscOn.gif" border="0"><!-- END Asc_On -->
+            <!-- BEGIN Desc_On --><img src="../Themes/Cobalt/DescOn.gif" border="0"><!-- END Desc_On --><!-- END Sorter Sorter_cat_Activo -->&nbsp;</td> 
+          <td class="CobaltColumnTD" nowrap>Borrar &nbsp;</td> 
+        </tr>
+        <!-- BEGIN Row -->
+        <!-- BEGIN RowError -->
+        <tr>
+          <td class="CobaltErrorDataTD" colspan="5">{Error}</td> 
+        </tr>
+        <!-- END RowError -->
+        <tr valign="top">
+          <td class="CobaltDataTD">
+            <select class="CobaltInputSB2" name="{cat_Categoria_Name}" style="WIDTH: 106px">
+              <option value="" selected>-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;</option>
+ {cat_Categoria_Options} 
+            </select>
+ &nbsp;&nbsp;<input style="WIDTH:  7px;  HEIGHT:  10px" type="hidden" size="1" value="{cat_CodAuxiliar}" name="{cat_CodAuxiliar_Name}"></td> 
+          <td class="CobaltDataTD"><input class="CobaltInputSB2" maxlength="9" size="9" value="{cat_FecIncorp}" name="{cat_FecIncorp_Name}">
+            <!-- BEGIN DatePicker DatePicker_cat_FecIncorp --><a class="CobaltDataLink" href="javascript:showDatePicker('{Name}','{FormName}','{DateControl}');"><img src="../Themes/DatePicker/DatePicker1.gif" border="0"></a><!-- END DatePicker DatePicker_cat_FecIncorp -->&nbsp;</td> 
+          <td class="CobaltDataTD">
+            <select class="CobaltInputSB2" name="{cat_Activo_Name}" style="WIDTH: 77px">
+              <option value="" selected>-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;</option>
+ {cat_Activo_Options} 
+            </select>
+ &nbsp;</td> 
+          <td class="CobaltDataTD" valign="top">
+            <!-- BEGIN CheckBox CheckBox_Delete --><input class="CobaltInput" type="checkbox" value="1" name="{CheckBox_Delete_Name}" {CheckBox_Delete}><!-- END CheckBox CheckBox_Delete -->&nbsp;</td> 
+        </tr>
+        <!-- END Row -->
+        <!-- BEGIN NoRecords -->
+        <tr>
+          <td class="CobaltDataTD" colspan="5">No hay categorias de este
+            auxiliar&nbsp;</td> 
+        </tr>
+        <!-- END NoRecords -->
+        <tr>
+          <td class="CobaltFooterTD" nowrap align="right" colspan="5">
+            <!-- BEGIN Navigator Navigator -->
+            <!-- BEGIN Prev_On --><a class="CobaltNavigatorLink" href="{Prev_URL}"><img src="../Themes/Cobalt/PrevOn.gif" border="0"></a> <!-- END Prev_On -->
+            <!-- BEGIN Prev_Off --><img src="../Themes/Cobalt/PrevOff.gif" border="0"><!-- END Prev_Off -->
+            <!-- BEGIN Next_On --><a class="CobaltNavigatorLink" href="{Next_URL}"><img src="../Themes/Cobalt/NextOn.gif" border="0"></a> <!-- END Next_On -->
+            <!-- BEGIN Next_Off --><img src="../Themes/Cobalt/NextOff.gif" border="0"><!-- END Next_Off --><!-- END Navigator Navigator -->&nbsp; 
+            <!-- BEGIN Button Button_Submit --><input class="CobaltButton" type="submit" value="GRABAR" name="{Button_Name}"><!-- END Button Button_Submit -->&nbsp; 
+            <!-- BEGIN Button Cancel --><input class="CobaltButton" type="submit" value="CANCELAR" name="{Button_Name}"><!-- END Button Cancel -->&nbsp; </td> 
+        </tr>
+ 
+      </table>
+ 
+    </form>
+ <!-- END EditableGrid CoAdAc_cate -->
+  </div>
+  <!-- ---------------------------------------------------Tab: Categorias  -----------  -->
+  <div class="dhtmlgoodies_aTab" style="Z-INDEX: -1; TEXT-ALIGN: center">{CoAdAu_varimant}
+  </div>
+ 
+</div>
+ <iframe name="frDetalle" width="350" height="350" frameborder="0" style="WIDTH: 4px; HEIGHT: 6px"></iframe> 
+</body>
+ 
+<script type="text/javascript">
+initTabs(Array('<strong>D</strong>ATOS GENERALES','<strong>C</strong>ATEGORIAS A LAS QUE PERTENECE','DATOS <strong>V</strong>ARIABLES'),0,630,330, false,Array('D','C','V'));
+</script>
+</html>

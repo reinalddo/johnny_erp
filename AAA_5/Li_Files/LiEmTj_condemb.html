@@ -1,0 +1,101 @@
+
+<div class="normalbox" style="PADDING-RIGHT: 4px; PADDING-LEFT: 4px; PADDING-BOTTOM: 4px; MARGIN: 20px; PADDING-TOP: 4px; TEXT-ALIGN: left">
+  <span class="spantitle" style="LEFT: 0px; POSITION: relative; TOP: -10px">&nbsp;
+  &nbsp; CONDICIONES DE EMBARQUE&nbsp; &nbsp; </span> 
+  <table align="center" border="0" cellpadding="1" class="CobaltFormTABLE" cellspacing="1">
+    <!-- BEGIN Error -->
+    <tbody>
+      <tr>
+        <td colspan="2" class="CobaltErrorDataTD">{Error} 
+        </td> 
+      </tr>
+ <!-- END Error -->
+      <tr>
+        <td nowrap class="CobaltFieldCaptionTD">AÑo Operacion&nbsp; 
+        </td> 
+        <td class="CobaltDataTD">
+          <input name="{emb_AnoOperacion_Name}" value="{emb_AnoOperacion}" maxlength="10" size="10" class="CobaltInput">&nbsp; 
+        </td> 
+        <td nowrap class="CobaltFieldCaptionTD">Sem. Inicio&nbsp; 
+        </td> 
+        <td class="CobaltDataTD">
+          <input name="{emb_SemInicio_Name}" value="{emb_SemInicio}" maxlength="5" size="5" class="CobaltInput" title="SEMANA DE INICIO DEL EMBARQUE (PARA VAPORES QUE TARDAN MAS DE UNA SEMANA)">&nbsp; 
+        </td> 
+        <td nowrap class="CobaltFieldCaptionTD">Sem. Termino&nbsp; 
+        </td> 
+        <td class="CobaltDataTD">
+          <input name="{emb_SemTermino_Name}" value="{emb_SemTermino}" maxlength="5" size="5" class="CobaltInput" title="SEMANA DE TERMINO DEL EMBARQUE (PARA VAPORES QUE TARDAN MAS DE UNA SEMANA)">&nbsp; 
+        </td> 
+        <td nowrap class="CobaltFieldCaptionTD">FecHA Zarpe&nbsp; 
+        </td> 
+        <td class="CobaltDataTD">
+          <input name="{emb_FecZarpe_Name}" value="{emb_FecZarpe}" maxlength="8" size="8" class="CobaltInput">
+          <!-- BEGIN DatePicker DatePicker_s_emb_FecZarpe --><a class="CobaltDataLink" href="javascript:showDatePicker('{Name}','{FormName}','{DateControl}');"><img src="../Themes/DatePicker/DatePicker1.gif" border="0" width="17" height="15"></a><!-- END DatePicker DatePicker_s_emb_FecZarpe -->&nbsp; 
+        </td> 
+      </tr>
+ 
+    </tr>
+ 
+    <tr>
+      <td nowrap class="CobaltFieldCaptionTD">Buque&nbsp; 
+      </td> 
+      <td class="CobaltDataTD" width="130">
+        <select name="{emb_CodVapor_Name}" class="CobaltSelect">
+          <option value="" selected>-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;</option>
+ {emb_CodVapor_Options} 
+        </select>
+ 
+        <input name="{s_emb_NumViaje_Name}" value="{s_emb_NumViaje}" maxlength="10" size="3" class="CobaltInput" style="WIDTH: 24px; HEIGHT: 17px" title="NÚMERO DE VIAJE">
+      </td> 
+      <td nowrap class="CobaltFieldCaptionTD">Destino&nbsp; 
+      </td> 
+      <td class="CobaltDataTD">
+        <select name="{emb_Destino_Name}" class="CobaltSelect" style="WIDTH: 118px">
+          <option value="" selected>-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;</option>
+ {emb_Destino_Options} 
+        </select>
+ &nbsp; 
+      </td> 
+      <td nowrap class="CobaltFieldCaptionTD">Consignatario&nbsp; 
+      </td> 
+      <td class="CobaltDataTD">
+        <select name="{emb_Consignatario_Name}" class="CobaltSelect" style="WIDTH: 115px">
+          <option value="" selected>-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;</option>
+ {emb_Consignatario_Options} 
+        </select>
+ 
+      </td> 
+      <td nowrap class="CobaltFieldCaptionTD">Tipo DE Venta&nbsp; &nbsp; 
+      </td> 
+      <td class="CobaltDataTD">
+        <select name="{emb_TipoVenta_Name}" class="CobaltSelect" style="WIDTH: 110px">
+          <option value="" selected>-&nbsp;-&nbsp;--&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;--&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;--&nbsp;</option>
+ {emb_TipoVenta_Options} 
+        </select>
+ &nbsp; 
+      </td> 
+    </tr>
+ 
+    <tr>
+      <td nowrap class="CobaltFieldCaptionTD">FecHA Inicio&nbsp; 
+      </td> 
+      <td class="CobaltDataTD">
+        <input name="{emb_FecInicio_Name}" value="{emb_FecInicio}" maxlength="8" size="8" class="CobaltInput" title="FECHA DE INICIO DE CARGA">
+        <!-- BEGIN DatePicker DatePicker_s_emb_FecInicio --><a class="CobaltDataLink" href="javascript:showDatePicker('{Name}','{FormName}','{DateControl}');"><img src="../Themes/DatePicker/DatePicker1.gif" border="0" width="17" height="15"></a><!-- END DatePicker DatePicker_s_emb_FecInicio -->&nbsp; 
+      </td> 
+      <td nowrap class="CobaltFieldCaptionTD">FecHA Termino&nbsp; 
+      </td> 
+      <td class="CobaltDataTD">
+        <input name="{emb_FecTermino_Name}" value="{emb_FecTermino}" maxlength="8" size="8" class="CobaltInput" title="FECHA DETERMINO DE CARGA">
+        <!-- BEGIN DatePicker DatePicker_s_emb_FecTermino --><a class="CobaltDataLink" href="javascript:showDatePicker('{Name}','{FormName}','{DateControl}');"><img src="../Themes/DatePicker/DatePicker1.gif" border="0" width="17" height="15"></a><!-- END DatePicker DatePicker_s_emb_FecTermino -->&nbsp; 
+      </td> 
+      <td nowrap class="CobaltFieldCaptionTD">Estado&nbsp; 
+      </td> 
+      <td class="CobaltDataTD" colspan="3">
+        <input name="{emb_Estado_Name}" value="{emb_Estado}" maxlength="5" size="5" class="CobaltInput">&nbsp; 
+      </td> 
+    </tr>
+ 
+  </table>
+ 
+</div>

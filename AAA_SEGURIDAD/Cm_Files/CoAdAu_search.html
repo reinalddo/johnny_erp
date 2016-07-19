@@ -1,0 +1,327 @@
+<html>
+<head>
+  <base target="_self">
+  <title>SELECCION DE AUXILIARES</title>
+ 
+  <link rel="stylesheet" type="text/css" href="../Themes/Cobalt/Style.css">
+  <script language="JavaScript1.3" src="../LibJava/general.js"></script>
+  <script language="JavaScript1.3" src="../LibJava/cookies.js"></script>
+  <script language="JavaScript1.3" id="hdMulti">
+window.onunload=fCierra;
+
+function fPasaDatos(slContr) 
+{
+	if(getFromurl("pOpCode") == 'R') {						       // Si es una consulta que viene predefinida
+    		i = fTraefila(slContr)-1;	
+    		window.opener.parent.top.mAuxConsulFlag = false           //Asentar falso en variable de pantalla origen
+	       	{tvElegir}
+		}
+}
+function fCierra() {
+    window.opener.parent.top.mAuxConsulFlag = false           //Asentar falso en variable de pantalla origen
+}
+</script>
+  <script language="JavaScript">
+//Begin CCS script
+//Include JSFunctions @1-5F368366
+  </script>
+  <script language="JavaScript" src="../functions.js"></script>
+  <script language="JavaScript">
+  
+//End Include JSFunctions
+
+//page_Aux_search_OnLoad @3-F293EAFE
+function page_Aux_search_OnLoad(form)
+{
+    var result;
+//End page_Aux_search_OnLoad
+
+//Custom Code @55-2A29BDB7
+    // -------------------------
+
+	window.screenX=300;
+	window.screenY= 300;
+	document.Aux_search.s_keyword.focus();
+	document.Aux_search.s_keyword.select();
+	    // -------------------------
+//End Custom Code
+
+//Close page_Aux_search_OnLoad @3-BC33A33A
+    return result;
+}
+//End Close page_Aux_search_OnLoad
+
+//bind_events @1-7C6C390E
+function bind_events() {
+    if (document.forms["Aux_search"]) check_and_bind('document.forms["Aux_search"]','onLoad',page_Aux_search_OnLoad);
+    forms_onload();
+}
+//End bind_events
+
+window.onload = bind_events; //Assign bind_events @1-19F7B649
+
+//End CCS script
+</script>
+</head>
+<body   bgcolor="#fffff7" link="#000099" alink="#ff0000" vlink="#9999cc" text="#000000" class="CobaltPageBODY"
+        style="PADDING-RIGHT: 0px; PADDING-LEFT: 0px; PADDING-BOTTOM: 0px; PADDING-TOP: 0px; magin: 0; spacing: 0"
+        bottommargin="0" nowrap leftmargin="0" topmargin="0" rightmargin="0" marginwidth="0" marginheight="0">
+  <table border="0" width="100%" align="center" cellspacing="0" cellpadding="0">
+    <tr>
+      <td valign="top" align="middle" width="100%" class="CobaltFormHeaderFont">
+        <!-- BEGIN Record Aux_search -->{pMensj}
+        <form   name="{HTMLFormName}" action="{Action}" method="post"
+                style="padding:0; border:0 groove blue ; spacing:0; margin:0; border-collapse:collapse">
+          <font class="CobaltFormHeaderFont">BUSCAR AUXILIARES </font> 
+          <table class="CobaltFormTABLE" cellpadding="1" border="0" cellspacing="0"
+          align="center">
+            <!-- BEGIN Error -->
+            <tr>
+              <td class="CobaltErrorDataTD" colspan="4">
+                {Error} 
+              </td>
+ 
+            </tr>
+
+            <!-- END Error -->
+            <tr>
+              <td class="CobaltFieldCaptionTD" nowrap>
+                &nbsp;
+              </td>
+ 
+              <td class="CobaltDataTD">
+                <input class="CobaltInput" tabindex = "2" acceskey = "b" onfocus = "Javascript:this.select();return true" maxlength="25" size="25" value="{s_keyword}"
+                        title="Expresión a buscar como Nombre o codigo del auxiliar. Presione Alt-b para venir directamente" name="{s_keyword_Name}">
+                  &nbsp; 
+                </td>
+ 
+                <td class="CobaltDataTD" nowrap>
+                  <a class="CobaltButton" href="{ClearParameters_Src}">LIMPIAR </a>
+ &nbsp; 
+                </td>
+ 
+                <td class="CobaltDataTD" nowrap align="right">
+                  <!-- BEGIN Button Button_DoSearch -->
+                  <input class="CobaltLink" tabindex = "2" type="submit" value="BUSCAR" name="{Button_Name}"
+                         title="Ejecuta la busqueda. Alt_s para aplicar directamentela busqueda"
+                  style="WIDTH: 65px; HEIGHT: 22px">
+                    <!-- END Button Button_DoSearch -->
+                    &nbsp;&nbsp; 
+                  </td>
+ 
+                </tr>
+ 
+              </table>
+ 
+            </form>
+ 
+            <!-- END Record Aux_search -->
+            <!-- BEGIN EditableGrid Aux_list -->
+            <form name="{HTMLFormName}" action="{Action}" method="post" valign:"middle"
+                    style="padding:0; border:0 groove blue ; spacing:0; margin:0; border-collapse:collapse">
+              <font class="CobaltFormHeaderFont">&nbsp; </font>
+              <input type="hidden" value="{FormState}" name="FormState">
+              <input type="hidden" value="{num_Recs}" name="{num_Recs_Name}">
+                {FormScript} 
+                <table  cellpadding="0" border="0" cellspacing="1"
+                        style="padding:0; border:0; spacing:0; margin:0; border-collapse:collapse">
+                  <tr style="HEIGHT:20">
+                    <td class="CobaltFooterTD" nowrap align="middle" colspan="5" tabindex = "99" onfocus="fEnfoca('btSelecciona_1')">
+                      <!-- BEGIN Navigator Navigator1 -->
+                      <!-- BEGIN First_On -->
+                      <a class="CobaltNavigatorLink" tabindex = "99" href="{First_URL}"><img src="../Themes/Aqua/FirstOn.gif"
+                        border="0"></a>
+ 
+                      <!-- END First_On -->
+                      <!-- BEGIN Prev_On -->
+                      <a class="CobaltNavigatorLink" tabindex = "2" href="{Prev_URL}"><img src="../Themes/Aqua/PrevOn.gif"
+                        border="0"></a>
+ 
+                      <!-- END Prev_On -->
+                      &nbsp; 
+                      <!-- BEGIN Pages -->
+                      <!-- BEGIN Page_On -->
+                      <a class="CobaltNavigatorLink" tabindex = "1" href="{Page_URL}">{Page_Number}
+                        </a>
+ &nbsp; 
+                      <!-- END Page_On -->
+                      <!-- BEGIN Page_Off -->{Page_Number}&nbsp; 
+                      <!-- END Page_Off -->
+                      <!-- END Pages -->
+                      de {Total_Pages}&nbsp; 
+                      <!-- BEGIN Next_On -->
+                      <a class="CobaltNavigatorLink" tabindex = "99" href="{Next_URL}"><img src="../Themes/Aqua/NextOn.gif"
+                        border="0"></a>
+ 
+                      <!-- END Next_On -->
+                      <!-- BEGIN Last_On -->
+                      <a class="CobaltNavigatorLink" tabindex = "99" href="{Last_URL}"><img src="../Themes/Aqua/LastOn.gif"
+                        border="0"></a>
+ 
+                      <!-- END Last_On -->
+                      <!-- END Navigator Navigator1 -->
+                    </td>
+ 
+                  </tr>
+ 
+                  <!-- BEGIN Error -->
+                  <tr>
+                    <td class="CobaltErrorDataTD" colspan="5">
+                    </td>
+ 
+                  </tr>
+ 
+                  <tr>
+                    <td class="CobaltErrorDataTD" colspan="5">
+                      {Error} 
+                    </td>
+ 
+                  </tr>
+ 
+                  <!-- END Error -->
+                  <tr tabindex = "1" onfocus="fEnfoca('btSelecciona_1')">
+                    <td class="CobaltColumnTD" nowrap >
+                      <!-- BEGIN Sorter Sorter_per_CodAuxiliar -->&nbsp; 
+                      <a class="CobaltSorterLink" tabindex = "1" onfocus="fEnfoca('btSelecciona_1')" href="{Sort_URL}">AUXILIAR</a>
+ 
+                      <!-- BEGIN Asc_On --><img src="../Themes/Cobalt/AscOn.gif"
+                      border="0">
+                      <!-- END Asc_On -->
+                      <!-- BEGIN Desc_On --><img src="../Themes/Cobalt/DescOn.gif"
+                      border="0">
+                      <!-- END Desc_On -->
+                      <!-- END Sorter Sorter_per_CodAuxiliar -->
+                      &nbsp; 
+                    </td>
+ 
+                    <td class="CobaltColumnTD" nowrap>
+                      <!-- BEGIN Sorter Sorter_per_Apellidos -->&nbsp; 
+                      <a class="CobaltSorterLink" href="{Sort_URL}">DESCRIPCION</a>
+ 
+                      <!-- BEGIN Asc_On --><img src="../Themes/Cobalt/AscOn.gif"
+                      border="0">
+                      <!-- END Asc_On -->
+                      <!-- BEGIN Desc_On --><img src="../Themes/Cobalt/DescOn.gif"
+                      border="0">
+                      <!-- END Desc_On -->
+                      <!-- END Sorter Sorter_per_Apellidos -->
+                      &nbsp; 
+                    </td>
+ 
+                    <td class="CobaltColumnTD" nowrap>
+                      <!-- BEGIN Sorter Sorter_per_Ruc -->&nbsp; 
+                      <a class="CobaltSorterLink" href="{Sort_URL}">RUC / C.I. /
+                        SERIE</a>
+ 
+                      <!-- BEGIN Asc_On --><img src="../Themes/Cobalt/AscOn.gif"
+                      border="0">
+                      <!-- END Asc_On -->
+                      <!-- BEGIN Desc_On --><img src="../Themes/Cobalt/DescOn.gif"
+                      border="0">
+                      <!-- END Desc_On -->
+                      <!-- END Sorter Sorter_per_Ruc -->
+                      &nbsp; 
+                    </td>
+ 
+                    <td class="CobaltColumnTD" nowrap>
+                      <!-- BEGIN Sorter Sorter_per_Categ -->&nbsp; 
+                      <a class="CobaltSorterLink" href="{Sort_URL}">CATEGORIA</a>
+ 
+                      <!-- BEGIN Asc_On --><img src="../Themes/Cobalt/AscOn.gif"
+                      border="0">
+                      <!-- END Asc_On -->
+                      <!-- BEGIN Desc_On --><img src="../Themes/Cobalt/DescOn.gif"
+                      border="0">
+                      <!-- END Desc_On -->
+                      <!-- END Sorter Sorter_per_Categ -->
+                      &nbsp; 
+                    </td>
+ 
+                    <td class="CobaltColumnTD" nowrap tabindex = "1" onfocus="fEnfoca('btSelecciona_1')">
+                      <!-- BEGIN Sorter Sorter_per_Estado -->&nbsp; 
+                      <a class="CobaltSorterLink"  tabindex = "99" onfocus="fEnfoca('btSelecciona_1')" href="{Sort_URL}">ESTADO</a>
+ 
+                      <!-- BEGIN Asc_On --><img src="../Themes/Cobalt/AscOn.gif"
+                      border="0">
+                      <!-- END Asc_On -->
+                      <!-- BEGIN Desc_On --><img src="../Themes/Cobalt/DescOn.gif"
+                      border="0">
+                      <!-- END Desc_On -->
+                      <!-- END Sorter Sorter_per_Estado -->
+               
+                      &nbsp; 
+                    </td>
+ 
+                  </tr>
+ 
+                  <!-- BEGIN Row -->
+                  <!-- BEGIN RowError -->
+                  <tr>
+                    <td class="CobaltErrorDataTD" colspan="5">
+                      {Error} 
+                    </td>
+ 
+                  </tr>
+ 
+                  <!-- END RowError -->
+                  <tr height="17" >
+                    <td class="CobaltDataTD" style="HEIGHT: 16px">
+                      <!-- BEGIN Button btSelecciona -->
+                      <input class="CobaltDataTD"
+                             style="BORDER-TOP-WIDTH: 0px; BACKGROUND-POSITION: left top; BORDER-LEFT-WIDTH: 0px; BORDER-BOTTOM-WIDTH: 0px; MARGIN: 0px; WIDTH: 8px; CURSOR: hand; HEIGHT:
+                             20px; TEXT-ALIGN: left; BORDER-RIGHT-WIDTH: 0px"
+                             onclick="fPasaDatos(this.name)" type="button" size="3" value=" >"
+                             name="{Button_Name}" tabindex="1"
+                             id="btSelecciona" tabindex = "1" title="Presione este botón para seleccionar la cuenta. Alt-C Ubica el cursor en esta columna"
+                             onfocus="fCambiarFondo(this.parentNode.parentNode, '#CCCCCC')"
+                             onblur="fCambiarFondo(this.parentNode.parentNode, '')">
+>
+                        <!-- END Button btSelecciona -->
+                        &nbsp;{codaux_lbl} 
+                        <input style="WIDTH:  26px;  HEIGHT:  10px" type="hidden"
+                        size="2" value="{per_CodAuxiliar}" name="{per_CodAuxiliar_Name}"
+                        id="per_CodAuxiliar">
+                        <input style="WIDTH:  26px;  HEIGHT:  10px" type="hidden"
+                        size="2" value="{aux_Clase}" name="{aux_Clase_Name}"
+                        id="aux_Clase">
+                        </td>
+                        <td class="CobaltDataTD" style="HEIGHT: 16px">
+                          {per_Apellidos_lbl}&nbsp; 
+                          <input id="per_Apellidos" style="WIDTH: 37px; HEIGHT: 12px"
+                          type="hidden" size="3" value="{per_Apellidos}" name="{per_Apellidos_Name}">
+                           </td>
+                          <td class="CobaltDataTD" style="HEIGHT: 16px">
+                            &nbsp;&nbsp;{numid}&nbsp; 
+                          </td>
+                          <td class="CobaltDataTD" style="HEIGHT: 16px">
+                            {d_par_Descripcion}&nbsp; 
+                          </td>
+                           <td class="CobaltDataTD" style="HEIGHT: 16px">
+                            {e_par_Descripcion}&nbsp; 
+                          </td>
+                        </tr>
+                        <!-- END Row -->
+                        <tr height="3">
+                            <td class="CobaltFooterTD" tabindex = "1" onfocus="fEnfoca('btSelecciona_1')" colspan="5">&nbsp;
+
+                         </td>
+                        <!-- BEGIN NoRecords -->
+                        <tr>
+                          <td class="CobaltDataTD" colspan="5">
+                            No hay registros&nbsp; 
+                          </td>
+                        </tr>
+                        <!-- END NoRecords -->
+                      </table>
+                    </form>
+                    <!-- END EditableGrid Aux_list -->
+                  </td>
+    </tr>
+    <tr>
+      <td>
+        &nbsp; 
+      </td>
+    </tr>
+  </table>
+</body>
+</html>

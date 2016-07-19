@@ -1,0 +1,716 @@
+<html>
+<!--
+ *      @rev    fah 10/09/09    Aplicar Restriccion de Duracin de comprobantes
+-->
+<head>
+  <base target="_self">
+  <link rel="stylesheet" type="text/css" href="../Themes/Cobalt/Style.css">
+  <link rel="stylesheet" type="text/css" href="../Themes/Menu/Style.css">
+  <style> button:disabled{color: lightgrey !important; } </style>
+  <title>{gEmpre} - COMPROBANTES</title>
+  <script language="JavaScript1.3" src="../LibJava/general.js"></script>
+  <script language="JavaScript1.3" src="../LibJava/fechas.js"></script>
+  <script language="JavaScript1.3" src="../LibJava/menu_func.js"></script>
+  <script language="JavaScript1.3" src="../LibJava/cookies.js"></script>
+  <script language="JavaScript1.3" src="../LibJava/dialog.js"></script>
+  <script language="JavaScript1.3">
+    miFlag=0;          // Bandera para posicion de focus  1=numero de comp;  2 = fecha
+    /**-------------------------------------------------------------------------
+    *   Validar que el numero de Comprobante no exista
+    *   @param      pCond   text, Condici� de busqueda utilizada para validar
+    *   @return     void
+    *---------------------------------------------------------------------------
+    */
+function fValidaCompr(pCond) 
+{
+    miFlag = 1;
+    slHref = "../Ge_Files/ValidaGeneral.php?" +
+			 pCond +
+	         "&pTabla=concomprobantes" +
+			 "&pTipo=0" +
+			 "&pMensj=COMPROBANTE YA EXISTENTE, INGRESE OTRO NUMERO" +
+			 "&pCampos=com_NumComp"+
+			 "&pForm=InTrTr_comp" +
+			 "&pFocus=com_NumComp"  ;
+	window.frames[1].location.replace(slHref);
+}
+
+    /*--------------------------------------------------------------------------
+    * Decide la forma de validar que el numero de Comprobnate no exista
+    *---------------------------------------------------------------------------
+    */
+function fPreValidaCompr()
+{
+	if (miNumComp != InTrTr_comp.com_NumComp.value) {					// Determina si hubo modificacion de numcomp
+		lsCond = "pCond=com_Tipocomp='" + InTrTr_comp.com_TipoComp.value + "' AND com_NumComp=" + InTrTr_comp.com_NumComp.value
+		liRegNumero = getFromurl("com_RegNumero");				
+		if (liRegNumero > 0) {									// Si es modificacion de registro
+			lsCond += " AND com_RegNumero <> " + liRegNumero;
+			fValidaCompr(lsCond);
+			}
+		else {
+			fValidaCompr(lsCond);
+		}	
+	}
+}
+
+    /**-------------------------------------------------------------------------
+    * Confirmar la decision de eliminar el comprobante
+    *
+    *---------------------------------------------------------------------------
+    */
+function page_InTrTr_comp_Button_Delete_OnClick()
+{
+    var result;
+	if (!confirm("SE ELIMINARA ESTE COMPROBANTE. DESEA CONTINUAR?")) document.InTrTr_comp.Button_Delete.value="";
+	return result;
+}
+
+    /**-------------------------------------------------------------------------
+    * Define el Emisor
+    *---------------------------------------------------------------------------
+    */
+
+function fSetEmisor()
+{
+	document.InTrTr_comp.com_Emisor.value = dialogWin.returnedValue
+}
+
+    /**-------------------------------------------------------------------------
+    *	Valida el texto ingresado en auxiliar, para ello carga en un iframe una pagina que
+    *   ejecuta la consulta, si se obtiene una coincidencia v�ida, desde �ta se actualiza los campos;
+    * 	caso contrario, se lanza una pagina de seleccion en estilo "modal dialog"
+    *	@param:		odata: 		Objeto en el que se ejecuta el cambio
+    *				sSufijo: 	Sufijo del nombre del campo, para determinar la linea de posicion
+    *	@return:   	void
+    *---------------------------------------------------------------------------
+    */
+function fValida_Auxiliar(odata, sSufijo) {
+	var ilIndice  	= 0;
+	var sDestino   	= new Array("com_CodReceptor", "txtReceptor", "com_Receptor" );
+	var sOrigen    	= new Array("per_CodAuxiliar", "per_Apellidos", "per_Apellidos" );
+	var sMensaje    = "NO EXISTEN Auxiliares para la condicion de bsqueda, o los que existen, NO ESTAN Activos";
+	var i, j , k = 0;
+   	
+	sScript = new String(odata.name);
+	if (sSufijo.length > 0 ){
+		k=sScript.substr(sScript.lastIndexOf("_"))
+	}	
+
+	    var sArgs = "";
+	    slCatCondicion = "";	
+        if (document.InTrTr_comp["hTipoReceptor"].value != 0 && document.InTrTr_comp["hTipoReceptor"].value != 9999) slCatCondicion = " AND cat_categoria = " + document.InTrTr_comp["hTipoReceptor"].value;	
+        if (parseInt(odata.value * 1) > 0 ) {
+           	var sSql = 	"SELECT p.per_codauxiliar as per_CodAuxiliar, concat(per_Apellidos, ' ', per_Nombres) AS per_Apellidos, 'P' AS aux_Clase " +
+        				"FROM (conpersonas p ) " +
+        				"WHERE  per_CodAuxiliar = " + odata.value;
+        }
+		else {
+            var sSql = 	"SELECT p.per_codauxiliar as per_CodAuxiliar, concat(per_Apellidos, ' ', per_Nombres) AS per_Apellidos, d.par_valor1 AS aux_Clase " +
+        				"FROM ((concategorias c INNER JOIN conpersonas p ON c.cat_CodAuxiliar = p.per_CodAuxiliar) " +
+        					"INNER JOIN genparametros d ON d.par_Clave = 'CAUTI'  AND c.cat_Categoria = d.par_Secuencia) " +
+        					"INNER JOIN genparametros e ON e.par_Clave = 'LGESTA' AND c.cat_Activo = e.par_Secuencia " +
+        				"WHERE c.cat_activo > 0  AND ( per_Apellidos LIKE '"  + escape(odata.value) + "%' " +
+        					"OR per_CodAuxiliar LIKE '" + odata.value + "' OR d.par_Descripcion LIKE '"  + escape(odata.value) + "%' "  +
+                            "OR e.par_Descripcion LIKE '"  + escape(odata.value) + "%' )" + slCatCondicion;
+        }
+        sArgs = "P";
+       	
+//  var sWhere = 	"order by 2"
+    var sWhere = 	""
+
+//	fValoresIniciales(ilFila-1);
+	mAuxConsulFlag = true;
+	setCookie("coSelect", sSql);
+	setCookie("coWhere",  sWhere);
+	setCookie("coDestino", sDestino);
+	setCookie("coOrigen", sOrigen);
+	setCookie("coCompon", "InTrTr_comp");
+	setCookie("coSearchPage", "CoAdAu_search.php");
+	setCookie("coFocus", "com_Receptor");
+	setCookie("coErrMensaje", sMensaje);
+//	setCookie("coMensj", " --  SELECCIONE UN AUXILIAR VALIDO  -- ");
+    setCookie("coMensj", sMensaje);
+	setCookie("coSufijo", "");
+    frValida.location.replace("Validador.php?pOpCode='R'&SearchField=" + escape(odata.value) +
+                                    "&pField=" + escape(odata.name) + "&pArgs=" + sArgs );
+                                    
+//   window.open("Validador.php?pOpCode='R'&SearchField=" + escape(odata.value) +
+//                                    "&pField=" + escape(odata.name) + "&pArgs=" + sArgs );
+}
+
+    /**-------------------------------------------------------------------------
+    *	Lanza una seleccion de auxiliar, anulando el contenido del componente, para generar pantalla vacia
+    *   llama a valida auxiliar
+    *	@param:		odata: 		Objeto en el que se ejecuta el cambio
+    *				sSufijo: 	Sufijo del nombre del campo, para determinar la linea de posicion
+    *	@return:   	void
+    *---------------------------------------------------------------------------
+    */
+function fBusca_Auxiliar(odata, sSufijo) {
+    var valtmp = odata.value;
+    odata.value="";
+    
+     fValida_Auxiliar(odata, sSufijo);
+     odata.value = valtmp;
+}
+/**
+*   Si ha cambiado la fecha, ajusta las otrsd fechas a este mismo valor
+*   return  void
+*/
+function fAfterFecTrans() {
+    with (document.InTrTr_comp) {
+        if (miFlag == 1) {
+            miFlag = 2;
+            com_FecTrans.focus();
+            com_FecTrans.select();
+            return;
+        }
+        if (fValidarFecha('InTrTr_comp', 'com_FecTrans')) {
+            com_FecContab.value = com_FecTrans.value;
+            com_FecVencim.value = com_FecTrans.value;
+
+            if ((document.getElementById("com_Emisor")!=undefined)) {
+                    if (!com_Emisor.disabled) com_Emisor.focus();
+                    else if (document.getElementById("txtReceptor")!=undefined) {
+                        txtReceptor.focus();
+                        txtReceptor.select();
+                      }
+                      else if (document.getElementById("com_Concepto")!=undefined) {
+                                com_Concepto.focus();
+                                com_Concepto.select();
+                        }
+                }
+            else if (document.getElementById("com_txtReceptor")!=undefined) {
+                    com_txtReceptor.focus();
+                    com_txtReceptor.select();
+                }
+                else if (document.getElementById("com_Receptor")!=undefined) {
+                        com_Receptor.focus();
+                        com_Receptor.select();
+                      }
+                      else if (document.getElementById("com_Concepto")!=undefined) {
+                                com_Concepto.focus();
+                                com_Concepto.select();
+                        }
+        }
+    }
+}
+
+function fConceptoFocus() {
+    var txt = " ";
+    txt = document.InTrTr_comp.com_Concepto.value;
+    if (txt.length < 1 ) document.InTrTr_comp.com_Concepto.value="";
+}
+function fImpresion(){
+//    "../Co_Files/CoTrTr_comprob.rpt.php?pQryCom=com_TipoComp='" + document.InTrTr_comp.com_TipoComp.value + "' AND com_NumComp=" +  InTrTr_comp.ro_NumComp.value ;
+    ilNumComp = InTrTr_comp.com_NumComp ? InTrTr_comp.com_NumComp.value : InTrTr_comp.ro_NumComp.value;
+    var slQry= document.InTrTr_comp.hdInforme.value + "?pQryCom=com_TipoComp='" + document.InTrTr_comp.com_TipoComp.value + "' AND com_NumComp=" +  ilNumComp ;
+    fAbrirWin(slQry, '', '',900,500);
+}
+
+function fCheque(){
+    ilNumComp = InTrTr_comp.com_NumComp ? InTrTr_comp.com_NumComp.value : InTrTr_comp.ro_NumComp.value;
+    var slQry= "../Co_Files/CoTrTr_cheque.rpt.php?pQryCom=com_TipoComp='" + document.InTrTr_comp.com_TipoComp.value + "' AND com_NumComp=" +  InTrTr_comp.ro_NumComp.value ;
+    fAbrirWin(slQry, '', '',900,500);
+}
+function fDuplicarClick(){
+    var slQry= "../Co_Files/CoTrTr_duplica.pro.php?pReg=" + document.InTrTr_comp.hdRegNumero.value  ;
+    fAbrirWin(slQry, '', '',400,150);	
+}
+function fNuevoCompr(pTipo){
+    var slModul=fDefineModulo();
+    if(pTipo) slTipo=pTipo?"pTipoComp=" + pTipo: "";
+    else slTipo= String(getFromurl("pTipoComp","")).length ? "pTipoComp=" + getFromurl("pTipoComp","") : "";
+    window.location.replace(window.location.protocol+ "//" + window.location.host+ window.location.pathname +
+							"?com_RegNumero=0&" +  slTipo + slModul);
+}
+function fDefineModulo(){
+    slAplic= getFromurl("pAplic","CO");
+    slModul= getFromurl("pMod","CO");
+    return  "&pAplic=" + slAplic + "&pMod="+ slModul
+
+  
+}
+</script>
+  <script language="JavaScript">
+//Begin CCS script
+//Include JSFunctions @1-5F368366
+  </script>
+  <script language="JavaScript" src="../functions.js"></script>
+  
+<script language="JavaScript">
+<!--
+//End Include JSFunctions
+document.afterLoad=function(){prompt("aL")};
+document.afterload=function(){prompt("al")};
+document.onLoad=function(){prompt("oL")};
+document.onload=function(){prompt("ol")};
+
+//page_InTrTr_comp_com_NumComp_OnChange @72-552EBC74
+function page_InTrTr_comp_com_NumComp_OnChange()
+{
+    var result;
+//End page_InTrTr_comp_com_NumComp_OnChange
+//Custom Code @233-2A29BDB7
+	fPreValidaCompr();
+//End Custom Code
+//Close page_InTrTr_comp_com_NumComp_OnChange @72-BC33A33A
+    return result;
+}
+//End Close page_InTrTr_comp_com_NumComp_OnChange
+//page_InTrTr_comp_com_NumComp_OnLoad @72-C72FA884
+function page_InTrTr_comp_com_NumComp_OnLoad()
+{
+    var result;
+//End page_InTrTr_comp_com_NumComp_OnLoad
+//Custom Code @236-2A29BDB7
+    // -------------------------
+	miNumComp = window.document.InTrTr_comp.com_NumComp.value;
+    // -------------------------
+//End Custom Code
+//Close page_InTrTr_comp_com_NumComp_OnLoad @72-BC33A33A
+    return result;
+}
+//End Close page_InTrTr_comp_com_NumComp_OnLoad
+//page_InTrTr_comp_com_FecTrans_OnChange @74-EE2D9A7F
+function page_InTrTr_comp_com_FecTrans_OnChange()
+{
+    var result;
+    return result;
+}
+//End Close page_InTrTr_comp_com_FecTrans_OnChange
+//page_InTrTr_comp_btDetalle_OnClick @188-BB9D1B86
+
+    /**-------------------------------------------------------------------------
+    * Confirmar la decision de Cancelar modificaciones
+    *---------------------------------------------------------------------------
+    */
+function page_InTrTr_comp_btDetalle_OnClick()
+{
+    var result;
+//End page_InTrTr_comp_btDetalle_OnClick
+//Custom Code @212-2A29BDB7
+	if( confirm("SE ANULARA TODAS LAS MODIFICACIONES, DESEA CONTINUAR?")) document.location.reload();
+//	result = confirm("SE ANULARA TODAS LAS MODIFICACIONES, DESEA CONTINUAR?")
+//End Custom Code
+//Close page_InTrTr_comp_btDetalle_OnClick @188-BC33A33A
+    return result;
+}
+//End Close page_InTrTr_comp_btDetalle_OnClick
+//page_InTrTr_comp_OnLoad @70-837E69D4
+function page_InTrTr_comp_OnLoad(form)
+{
+    var result;
+//End page_InTrTr_comp_OnLoad
+//Custom Code @210-2A29BDB7
+    // -------------------------
+	with (document.InTrTr_comp) {
+	    if (hdRegNumero.value != 0)  //                    Presenta formulario de detalle solo si es modificacion de un comprobante
+	      var slUrlDet=hdFormulario.value + "?com_RegNumero=" + hdRegNumero.value +
+		  "&CoTrTr_detallePageSize=" + getFromurl("CoTrTr_detallePageSize",15) +
+		  "&pTipoComp=" + document.InTrTr_topline.pTipoComp.value +
+		  "&pNumComp=" + document.InTrTr_comp.ro_NumComp.value +
+		  "&rand=" + Math.floor(Math.random()*1000)
+	    else slUrlDet="about:_blank";
+	    window.frames["frDetal"].location.replace(slUrlDet);
+    }
+
+	// -------------------------
+//End Custom Code
+//Close page_InTrTr_comp_OnLoad @70-BC33A33A
+    return result;
+}
+//End Close page_InTrTr_comp_OnLoad
+
+//bind_events @1-38E2A22C
+function bind_events() {
+    if (document.forms["InTrTr_comp"]) check_and_bind('document.forms["InTrTr_comp"]','onLoad',page_InTrTr_comp_OnLoad);
+    if (document.forms["InTrTr_comp"]) check_and_bind('document.forms["InTrTr_comp"].btDetalle','onclick',page_InTrTr_comp_btDetalle_OnClick);
+    if (document.forms["InTrTr_comp"]) check_and_bind('document.forms["InTrTr_comp"].com_FecTrans','onchange',page_InTrTr_comp_com_FecTrans_OnChange);
+    if (document.forms["InTrTr_comp"]) check_and_bind('document.forms["InTrTr_comp"].com_NumComp','onLoad',page_InTrTr_comp_com_NumComp_OnLoad);
+    if (document.forms["InTrTr_comp"]) check_and_bind('document.forms["InTrTr_comp"].com_NumComp','onchange',page_InTrTr_comp_com_NumComp_OnChange);
+    if (document.forms["InTrTr_comp"]) check_and_bind('document.forms["InTrTr_comp"].Button_Delete','onclick', page_InTrTr_comp_Button_Delete_OnClick);
+    forms_onload();
+}
+//End bind_events
+
+window.onload = bind_events; //Assign bind_events @1-19F7B649
+
+//End CCS script
+//-->
+</script>
+</head>
+<body bgcolor="#fffff7" link="#000000" alink="#ff0000" vlink="#000000" text="#000000"
+class="CobaltPageBODY" style="FONT-SIZE: 9px">
+<div id="divCabecera" style="">
+  {Cabecera}
+</div>
+  <table align="center" border="0"
+  cellpadding="0" cellspacing="0" width="100%" style="border-collapse:collapse border-bottom:0px; margin:0">
+      <tr cellpadding="0" cellspacing="0" style="border-bottom: 0px">
+        <td valign="top" align="middle" cellpadding="0" cellspacing="0" class="CobaltFormHeaderFont">
+          <div id="divTopLine" style="display:none">
+          <!-- BEGIN Grid InTrTr_topline -->
+          <form name="InTrTr_topline" style="margin-top:8; margin-bottom:8; border:0" ">
+            {lbTituloComp}&nbsp; 
+            <select class="CobaltInputSB" name="{pTipoComp_Name}" style="FONT-SIZE: 11px; border:0; padding:0"
+			onchange="debugger;fNuevoCompr(this.value)">
+              <option value="" selected>Seleccionar Valor</option>
+ {pTipoComp_Options} 
+            </select>
+            <!-- onchange="window.location.href =  'InTrTr_Cabe.php?pTipoComp=' + document.forms['InTrTr_topline'].pTipoComp.value"  -->
+            <!-- BEGIN Button btCrear -->
+            <input class="CobaltButton" style="background-color: rgb(123,158,173);" type="button"
+			 value="Crear.." name="{Button_Name}"
+			 onClick="fNuevoCompr()"
+            title="Crea el Comprobante  especificado">
+              <!-- END Button btCrear -->
+            </form>
+
+            <!-- END Grid InTrTr_topline -->
+            </div>
+<div id="divComprobante" style="display:none">
+            <!-- BEGIN Record InTrTr_comp -->
+            <form action="{Action}" class="" method="post" name="{HTMLFormName}" style=" margin:0"
+            target="_self">
+            <table border="0" cellpadding="0" class="CobaltFormTABLE" cellspacing="1" width="100%">
+                <!-- BEGIN Error -->
+                <tr>
+                  <td class="CobaltErrorDataTD" colspan="13">
+                    {Error} 
+                  </td>
+ 
+                </tr>
+ 
+                <!-- END Error -->
+                <tr valign="center">
+                  <td class="CobaltFieldCaptionTD" nowrap>
+                    &nbsp;COMPROB.  
+                  </td>
+ 
+                  <td class="CobaltDataTD" nowrap valign="center">
+                    &nbsp; 
+                    <!-- BEGIN TextBox com_TipoComp -->
+                    <input name="{com_TipoComp_Name}" value="{com_TipoComp}" maxlength="10"
+                            size="6" class="CobaltInputSB" style="WIDTH: 23px; HEIGHT: 16px"
+                            title="Tipo de Comprobante Contable"
+                            readonly>
+                    <!-- END TextBox com_TipoComp -->
+                    <!-- BEGIN TextBox com_NumComp -->
+                    <input class="CobaltInput" maxlength="10" name="{com_NumComp_Name}"
+                           title="Nmero de Comprobante Contable"
+                           size="18" style="WIDTH: 68px; HEIGHT: 16px" title="Nmero de Comprobante"
+                           value="{com_NumComp}">
+                    <!-- END TextBox com_NumComp -->
+                    <!-- BEGIN TextBox ro_NumComp -->
+                    <input class="CobaltInputSB" style="WIDTH: 66px; HEIGHT: 18px"
+                           title="Nmero de Comprobante Contable"
+                           size="7" value="{ro_NumComp}" name="{ro_NumComp_Name}" readonly>
+                    <!-- END TextBox ro_NumComp -->
+                    <input type="hidden" name="{hdFormulario_Name}" value="{hdFormulario}"
+                           style="WIDTH:0px; HEIGHT: 0px">
+                    <input type="hidden" name="{hdInforme_Name}" value="{hdInforme}"
+                           style="WIDTH: 0px; HEIGHT: 0px">
+                    <input name="{hdRegNumero_Name}"  type="text"  class="CobaltInputSB2"
+                           disabled style=" font-size:9px; WIDTH: 48px; HEIGHT: 17px"
+                           title="Nmero de Registro Interno"
+                           value="{hdRegNumero}">
+                    <input type="hidden" name="{hd_NumComp_Name}" value="{hd_NumComp}"
+                           style="WIDTH: 22px; HEIGHT: 13px" size="2">
+                </td>
+                <td class="CobaltFieldCaptionTD">&nbsp;FCH. TRANS. 
+                </td>
+                <td class="CobaltDataTD"  valign="center"  >&nbsp; 
+                      <input class="CobaltInputSB2" maxlength="10" onblur="javascript: fAfterFecTrans();"
+                             name="{com_FecTrans_Name}" size="10" title="Fecha de Transacci�"
+                             value="{com_FecTrans}" style="WIDTH: 64px; HEIGHT: 18px" autocomplete="off">
+                </td>
+ 
+                <td class="CobaltFieldCaptionTD" nowrap style="width:90px">&nbsp;FCH. CONTAB.
+                </td>
+
+                <td class="CobaltDataTD" valign="center">
+                      <input type="hidden" name="{hTipoEmisor_Name}" value="{hTipoEmisor}" style="WIDTH: 55px; HEIGHT: 15px">
+                      <input type="hidden" name="{hTipoReceptor_Name}" value="{hTipoReceptor}"
+                             style="WIDTH: 45px; HEIGHT: 14px">                &nbsp;
+                <input  class="CobaltInputSB2" maxlength="10"
+                        onChange="javascript:fValidarFecha('InTrTr_comp', this.name); fValidarFecha('InTrTr_comp', 'com_FecTrans')"
+                        name="{com_FecContab_Name}" size="8" title="Fecha de Contabilizaci�."
+                        value="{com_FecContab}" style="WIDTH: 64px; HEIGHT: 18px"
+                        autocomplete="off">
+                </td>
+                <td class="CobaltFieldCaptionTD" nowrap>
+                  &nbsp;FCH. VENCIM&nbsp; 
+                </td>
+                <td class="CobaltDataTD" valign="center" nowrap> &nbsp; 
+                    <input class="CobaltInputSB2" title="Fecha de Vencimiento de la Transacci�" onChange="javascript:fValidarFecha('InTrTr_comp', this.name)"
+                          maxlength="10" size="8" value="{com_FecVencim}"
+                          name="{com_FecVencim_Name}" style="WIDTH: 63px; HEIGHT: 18px">
+                </td>
+                <td class="CobaltFieldCaptionTD"> &nbsp;MONEDA
+                </td>
+                <td class="CobaltDataTD" nowrap> &nbsp; 
+                    <select class="CobaltInputSB2" name="{com_CodMoneda_Name}"
+                        style="WIDTH: 58px" tabindex="-1">
+                        <option value="" selected>Seleccionar&nbsp;Valor</option>
+                        {com_CodMoneda_Options}
+                    </select>
+                  </td>
+                <td class="CobaltDataTD" nowrap>
+                    <input class="CobaltInputSB2" title="Tipo de Cambio a la fecha de transacci�"
+                    style="WIDTH: 38px; HEIGHT: 18px" maxlength="12"
+                    size="5" value="{com_TipoCambio}" name="{com_TipoCambio_Name}" tabindex="-1">
+                </td>
+            </tr>
+            <tr valign="top">
+                <td class="CobaltFieldCaptionTD" nowrap>&nbsp; 
+                  <!-- BEGIN Label lbEmisor -->{lbEmisor}
+                  <!-- END Label lbEmisor -->
+                </td>
+                <td class="CobaltDataTD" valign="center" nowrap> &nbsp;
+                <!-- BEGIN ListBox com_Emisor -->
+                    <select class="CobaltInputSB2" name="{com_Emisor_Name}" {lock_flag}>
+                        <option value="" selected>- - - - - - - - - - - -</option>
+                            {com_Emisor_Options}
+                    </select>&nbsp;
+                <!-- END ListBox com_Emisor -->
+                </td>
+                <td class="CobaltFieldCaptionTD" nowrap> &nbsp;
+                  <!-- BEGIN Label lbReceptor -->{lbReceptor} 
+                  <!-- END Label lbReceptor -->
+                </td>
+                <td class="CobaltDataTD" colspan="3"  nowrap title="Los valores se cargar� a esta cuenta / Auxiliar"
+                    valign="center"> &nbsp; 
+                    <input class="CobaltInputSB2" value="{txtReceptor}"
+                      name="{txtReceptor_Name}" onchange="fValida_Auxiliar(this, '')" ondblclick= "fBusca_Auxiliar(this, '')"
+                      title="A quien se debita o acredita la transacci�"
+                      id="txtReceptor" style="WIDTH: 100px; HEIGHT: 17px"
+                      size="16"> &nbsp;
+
+                    <!-- BEGIN TextBox com_Receptor -->
+                    <input class="CobaltInputSB2" title="Quien F�icamente recibe el documento. (Beneficiario de un cheque)"
+                        style="WIDTH: 129px" maxlength="40"
+                        size="26" value="{com_Receptor}"
+                        name="{com_Receptor_Name}"  id="com_Receptor" tabindex="-1">
+                    <!-- END TextBox com_Receptor --> &nbsp; 
+                    <input class="CobaltInputSB" style="FONT-SIZE: 9px;
+                          WIDTH: 57px; HEIGHT: 17px"
+                          size="8" value="{com_CodReceptor}"
+                          name="{com_CodReceptor_Name}" title="C�igo del Receptor"
+                          readonly id="com_codReceptor" tabindex="-1">
+                </td>
+                <td class="CobaltFieldCaptionTD" nowrap> &nbsp;VALOR 
+                </td>
+                <td class="CobaltDataTD" nowrap valign="center"> &nbsp; 
+                    <input class="CobaltInputSB2" title="Valor Total de la Transacci�, se aplica en caso de cheques"
+                    style="WIDTH: 57px; HEIGHT: 16px"
+                    maxlength="10" size="10" value="{com_Valor}"
+                    name="{com_Valor_Name}">
+                </td>
+                <td class="CobaltFieldCaptionTD"> &nbsp;LIBRO&nbsp; 
+                </td>
+                <td class="CobaltDataTD" colspan="3"> &nbsp;
+                    <select class="CobaltInputSB2"
+                        name="{com_Libro_Name}" style="FONT-SIZE: 9px; WIDTH: 90px" tabindex="-1">
+                        <option selected value=""> - - - - - - - - - - - -</option>
+                            {com_Libro_Options}
+                    </select>
+                </td>
+         </tr>
+          <tr valign="center">
+                <td class="CobaltFieldCaptionTD" nowrap rowspan="3">  &nbsp;CONCEPTO&nbsp;
+                </td>
+                <td class="CobaltDataTD" colspan="7" align="left" rowspan="3" >  &nbsp;
+                    <textarea id="com_Concepto" name="{com_Concepto_Name}" class="CobalInputSB"
+                          style="WIDTH: 622px; HEIGHT: 67px text-align:left" align="left"
+                          onfocus="fConceptoFocus()" cols="53" rows="4">{com_Concepto}</textarea>
+			  <a id="bkInicio" accesskey ("I") name="bkInicio">
+                </td>
+                <td class="CobaltFieldCaptionTD" valign="center"> &nbsp;RETENC. #
+                </td>
+                <td class="CobaltDataTD" colspan="2" valign="center">  &nbsp;
+                  <input class="CobaltInputSB2"
+                      maxlength="10" name="{com_NumRetenc_Name}"
+                      size="10" value="{com_NumRetenc}"
+                      style="FONT-SIZE: 9px" >
+                </td>
+            </tr>
+            <tr>
+                  <td class="CobaltFieldCaptionTD"  nowrap valign="center">  &nbsp;REF. OPERAT.&nbsp;
+                  </td>
+                  <td class="CobaltDataTD" colspan="2" valign="center">  &nbsp;
+                    <input class="CobaltInputSB2"
+                        maxlength="5" name="{com_RefOperat_Name}"
+                        size="5" value="{com_RefOperat}"
+                        title="Ref. Operativa: Embarque, orden de trabajo, Tr�ite a la cual se asinan los costos detallados en esta transacci�"
+                        style="FONT-SIZE: 9px">
+                  </td>
+            </tr>
+            <tr>
+                <td class="CobaltFieldCaptionTD"  nowrap valign="center">  &nbsp;ESTADO
+                </td>
+            <td class="CobaltDataTD" colspan="2" valign="center"> &nbsp; 
+                <select class="CobaltInputSB2"
+                      name="{com_EstProceso_Name}"
+                      disabled style="WIDTH: 85px; HEIGHT: 16px">
+                    <option value="" >-------------------------- </option>
+                        {com_EstProceso_Options}
+                    </select>
+            	</td>
+        </tr>
+        <tr valign="center">
+            <td class="CobaltFieldCaptionTD" nowrap> &nbsp;ESTADO 
+            </td>
+            <td class="CobaltDataTD">&nbsp; 
+              <select class="CobaltSelect" style="FONT-SIZE: 9px; WIDTH: 79px" disabled name="{com_EstOperacion_Name}">
+                <option value="" selected> - - - - - - - - - - - -</option>
+                    {com_EstOperacion_Options}
+              </select>
+              <!-- Campos Ocultos Que controlan el funcionamiento de la Transaccion -->
+                    <input type="hidden" disabled name="cla_IndCheque"     value="{cla_IndCheque}"     class="CobaltInput"  style="WIDTH: 10px; HEIGHT: 16px">
+                    <input type="hidden" disabled name="cla_ReqReferencia" value="{cla_ReqReferencia}" class="CobaltInput"  style="WIDTH: 10px; HEIGHT: 16px">
+                    <input type="hidden" disabled name="cla_ReqSemana"     value="{cla_ReqSemana}"     class="CobaltInput"  style="WIDTH: 10px; HEIGHT: 16px">
+            	    <input type="hidden" disabled name="cla_ReqCantidad"   value="{cla_ReqCantidad}"   class="CobaltInput"  style="WIDTH: 10px; HEIGHT: 16px">
+            	    <input type="hidden" disabled name="cla_PreFijo"   	value="{cla_PreFijo}"   	class="CobaltInput"  style="WIDTH: 10px; HEIGHT: 16px">
+            	    <input type="hidden" disabled name="cla_CosFijo"   	value="{cla_CosFijo}"   	class="CobaltInput"  style="WIDTH: 10px; HEIGHT: 16px">
+            	    <input type="hidden" disabled name="cla_LisPrecios"   	value="{cla_LisPrecios}"   	class="CobaltInput"  style="WIDTH: 10px; HEIGHT: 16px">
+            	    <input type="hidden" disabled name="cla_LisCostos"   	value="{cla_LisCostos}"   	class="CobaltInput"  style="WIDTH: 10px; HEIGHT: 16px">
+            	    <input type="hidden" disabled name="cla_CtaOrigen"   	value="{cla_CtaOrigen}"   	class="CobaltInput"  style="WIDTH: 10px; HEIGHT: 16px">
+            	    <input type="hidden" disabled name="cla_CtaDestino"   	value="{cla_CtaDestino}"   	class="CobaltInput"  style="WIDTH: 10px; HEIGHT: 16px">
+            	    <input type="hidden" disabled name="cla_AuxOrigen"   	value="{cla_AuxOrigen}"   	class="CobaltInput"  style="WIDTH: 10px; HEIGHT: 16px">
+            	    <input type="hidden" disabled name="cla_AuxDestino"   	value="{cla_AuxDestino}"   	class="CobaltInput"  style="WIDTH: 10px; HEIGHT: 16px">
+             <!-- Fin campos Ocultos -->
+            </td>
+            <td class="CobaltFieldCaptionTD" nowrap> &nbsp;PROCESO #
+            </td>
+            <td class="CobaltDataTD" nowrap>  &nbsp;
+                <input class="CobaltInputSB"
+                  title="Si se aplica, representa el Nmero que identifica el proceso que gener�esta transaccion."
+                  style="FONT-SIZE: 9px; WIDTH: 33px; HEIGHT: 16px" readonly size="4" value="{com_NumProceso}"
+                  name="{com_NumProceso_Name}">
+            </td>
+            <td class="CobaltFieldCaptionTD" nowrap>  &nbsp;&nbsp;PERIODO
+            </td>
+            <td class="CobaltDataTD"  nowrap valign="center">  &nbsp;
+                <input class="CobaltInputSB"
+                    title="Per�do Contable al que afecta esta transacci�. Asignado por el sistema al Definir la fecha de Contabilizaci�. Debe ser un per�do abierto para que se permita el procesamiento Contable de la transacci�."
+                    style="FONT-SIZE: 9px; WIDTH: 32px; HEIGHT: 17px" maxlength="10" size="4" value="{com_NumPeriodo}"
+                    name="{com_NumPeriodo_Name}" readonly>
+            </td>
+            <td class="CobaltDataTD" nowrap colspan="2">
+                <input class="CobaltInputSB"
+                      title="C�igo de usuario que ingres�la transacci�"
+                      style="FONT-SIZE:  11px; WIDTH: 48px; HEIGHT: 16px" readonly maxlength="15" size="6" value="{com_Usuario}"
+                      name="{com_Usuario_Name}"> &nbsp;&nbsp;&nbsp;&nbsp;
+            </td>
+            <td class="CobaltFieldCaptionTD"  valign="top">  &nbsp;DIGITADO
+            </td>
+            <td class="CobaltDataTD"  colspan="3" valign="center">  &nbsp;&nbsp;&nbsp;&nbsp;
+                <input class="CobaltInputSB"
+                        title="Fecha& de Digitaci�"  maxlength="10" size="5"  value="{com_FecDigita}"
+                        name="{com_FecDigita_Name}" style="FONT-SIZE: 9px; WIDTH: 50px; HEIGHT: 15px"  readonly>
+            </td>
+            </tr>
+	<tr>
+            <td align="center" colspan="8" nowrap class="CobaltFieldCaptionTD">
+            <!-- BEGIN Button Button_Insert -->
+                <input   style="FONT-SIZE: 9px; WIDTH: 70px; HEIGHT: 20px"
+                         name="{Button_Name}" id="{Button_Name}" type="submit" value="AGREGAR."  title="Agrega el comprobante que esta digitando" {ADD_flag}>
+            <!-- END Button Button_Insert -->
+            &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;
+            <!-- BEGIN Button Button_Update -->
+                <input   name="{Button_Name}" id="{Button_Name}" type="submit" style="FONT-SIZE: 9px; WIDTH: 70px; HEIGHT: 20px"
+                        value="GRABAR" title="Graba las modificaciones realizadas a este comprobante" accesskey="G" {UPD_flag} >
+            <!-- END Button Button_Update -->
+            &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;
+             <!-- BEGIN Button btBusqueda -->
+                <input  style="FONT-SIZE: 9px; WIDTH: 70px; HEIGHT: 20px"
+						  accesskey="B" id="{Button_Name}"
+                          name="{Button_Name}" type="submit" value="BUSCAR.." title="Regresa a Bsqueda de comprobantes">
+            <!-- END Button btBusqueda -->
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <!-- BEGIN Button btNuevo -->
+                <input class="CobaltButton" type="button" value="NUEVO" style="FONT-SIZE: 9px; WIDTH: 70px; HEIGHT: 20px"
+                        accesskey="N" name="{Button_Name}" id="{Button_Name}"
+                        onClick="fNuevoCompr()"
+                        title="Anula cualquier cambio realizado y permite a�dir un nuevo comprobante">
+            <!-- END Button btNuevo -->
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+            <input class="CobaltButton" style="FONT-SIZE: 9px; WIDTH: 70px; HEIGHT: 20px"
+                    name="Button_Imprmir" id="{Button_Name}"
+                    type="button" accesskey="I"
+                    class="CobaltButton"
+                    title="Imprime este Comprobante en el formato est�dard de esta transacci�" onClick="fImpresion()"
+                    value="IMPRIMIR">
+			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <input  style="FONT-SIZE: 9px; WIDTH: 70px; HEIGHT: 20px"
+                    name="Button_Cheque" id="{Button_Name}"
+                    type="button" accesskey="H"
+                    
+                    title="Imprime el Cheque correspondiente con formato estandar" onClick="fCheque()"
+                    value="CHEQUE" {CHQ_flag}>
+           &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <input  style="FONT-SIZE: 9px; WIDTH: 70px; HEIGHT: 20px" accesskey="D"
+                        title="Genera un Nuevo Comprobante, con informacion de este comprobante"
+                        type="button" onclick="fDuplicarClick()" value="DUPLICAR"
+                        name="Button_Duplicar" id="Button_Duplicar" {DUP_flag}>
+  <!-- BEGIN Button btDuplicar -->           <!-- END Button btDuplicar -->
+            &nbsp;&nbsp;&nbsp; &nbsp;			
+			</td>
+            <td align="center" colspan="4" nowrap class="CobaltFieldCaptionTD">
+            <!-- BEGIN Button Button_Delete -->
+                <input  style="FONT-SIZE: 9px; WIDTH: 70px; HEIGHT: 20px"
+                        title="PRECAUCION!!!: Elimina el Comprobante Actual" name="{Button_Name}"
+                        type="submit" value="BORRAR"  id="{Button_Name}" {DEL_flag} >
+            <!-- END Button Button_Delete -->
+            &nbsp;&nbsp;&nbsp; &nbsp;
+            <!-- BEGIN Button btDetalle -->
+                <input class="CobaltButton" style="FONT-SIZE: 9px; WIDTH: 70px; HEIGHT: 20px" accesskey="C"
+                        title="Cancela TODAS las modificaciones realizadas a este comprobante  hasta el momento."
+                        type="button" onclick="fCancelarClick()" value="CANCELAR ..."
+                        name="{Button_Name}">
+                <!-- END Button btDetalle -->
+            &nbsp;&nbsp;&nbsp; &nbsp;
+
+            </td >
+        </tr>
+    </table>
+
+  </form>
+  <!-- END Record InTrTr_comp -->
+</div>
+</td>
+
+</tr>
+
+<tr><td colspan="2"><iframe name="frDetal" frameborder="0"  margin:0; style="WIDTH: 100%; HEIGHT: 401px"
+          source="..Co_Files/CoTrTr_deta.php"></iframe></td></tr>
+<tr>
+    <td colspan="2"><iframe name="frValida" width="0" height="0" margin="0" frameborder="0" ></iframe></td>
+  </tr>
+</table>
+  <script language="JavaScript1.3" >
+    var blCabFlag =getFromurl("pCabecera", 1);
+    if (blCabFlag == false) {
+        document.getElementById("pMenu-root").style.display="none"
+        document.getElementById("divCabecera").style.display="none"
+        document.getElementById("divTopLine").style.display="none"
+        document.getElementById("divComprobante").style.display="none"
+        document.getElementById("frDetal").style.height=270;
+        document.getElementById("pMenu-root").style.height=0;
+        document.getElementById("divCabecera").style.height=0;
+        document.getElementById("divTopLine").style.height=0;
+        document.getElementById("divComprobante").style.height=0;
+    }
+    else{
+        document.getElementById("pMenu-root").style.display=""
+        document.getElementById("divCabecera").style.display=""
+        document.getElementById("divTopLine").style.display=""
+        document.getElementById("divComprobante").style.display=""
+        document.getElementById("frDetal").style.height=410;
+    };
+</script>
+
+</body>
+</html>

@@ -1,0 +1,142 @@
+<html>
+<head>
+<base target="_self">
+<link rel="stylesheet" type="text/css" href="../Themes/Cobalt/Style.css">
+<link rel="stylesheet" type="text/css" href="../Themes/Menu/Style.css">
+<title>LIQUIDACIONES: TARJAS APLICADAS</title>
+</head>
+ 
+<body bgcolor="#fffff7" link="#000000" alink="#ff0000" vlink="#000000" text="#000000" class="CobaltPageBODY" style="PADDING-RIGHT: 0px; PADDING-LEFT: 0px; PADDING-BOTTOM: 0px; MARGIN: 0px; PADDING-TOP: 0px; spacing: 0" bottommargin="0" nowrap leftmargin="0" topmargin="5" rightmargin="0" marginwidth="0" marginheight="0">
+&nbsp;
+<table background="../Themes/Cobalt/Light Streaks.bmp" border="0" width="100%" class="CobaltPageBODY" cellspacing="0" cellpadding="0" style="PADDING-RIGHT: 0px; PADDING-LEFT: 0px; PADDING-BOTTOM: 0px; MARGIN: 0px; PADDING-TOP: 0px; BORDER-COLLAPSE: collapse; cellspacing: 0">
+  <tr>
+    <td align="middle">&nbsp; 
+      <!-- BEGIN Grid liquidacion --><font color="#546785" size="4"><strong>DETALLE
+      DE LIQUIDACION</strong></font> 
+      <table class="CobaltFormTABLE" cellpadding="3" border="0" cellspacing="1" style="MARGIN: 0px; BORDER-COLLAPSE: collapse">
+        <tr align="middle">
+          <td class="CobaltColumnTD" nowrap>NRO</td> 
+          <td class="CobaltColumnTD" nowrap>FECHA</td> 
+          <td class="CobaltColumnTD" nowrap>PRODUCTOR</td> 
+          <!-- BEGIN Row -->
+          <tr>
+            <td class="CobaltDataTD"><strong title="NUMERO DE LIQUIDACION">&nbsp;{com_NumComp}</strong>&nbsp; <input class="CobaltInputSB" style="WIDTH: 54px; HEIGHT: 17px" disabled maxlength="10" size="7" value="{com_RegNumero}" name="{com_RegNumero_Name}" title="NUMERO DE REGISTRO CONTABLE (INTERNO)"></td> 
+            <td class="CobaltDataTD">&nbsp;{com_FecContab}&nbsp; &nbsp;</td> 
+            <td class="CobaltDataTD" title="CODIGO DE PRODUCTOR">{com_CodReceptor}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{per_Apellidos}&nbsp;{per_Nombres}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td> 
+          </tr>
+ <!-- END Row -->
+          <!-- BEGIN NoRecords -->
+          <tr>
+            <td class="CobaltDataTD" colspan="3">No hay liquidacion&nbsp;</td> 
+          </tr>
+ <!-- END NoRecords -->
+        </table>
+ <!-- END Grid liquidacion --></td> 
+    </tr>
+ 
+    <tr>
+      <td align="middle">&nbsp; 
+        <!-- BEGIN Grid dettarjas_list -->
+        <table class="CobaltFormTABLE" cellpadding="3" border="0" cellspacing="1" style="MARGIN: 0px; BORDER-COLLAPSE: collapse">
+          <tr style="PADDING-BOTTOM: 3px; PADDING-TOP: 3px" align="middle">
+            <td class="CobaltColumnTD" nowrap>
+              <!-- BEGIN Sorter Sorter_tac_Semana --><a class="CobaltSorterLink" href="{Sort_URL}">S</a> 
+              <!-- BEGIN Asc_On --><img src="../Themes/Cobalt/AscOn.gif" border="0" width="13" height="9"><!-- END Asc_On -->
+              <!-- BEGIN Desc_On --><img src="../Themes/Cobalt/DescOn.gif" border="0" width="13" height="9"><!-- END Desc_On --><!-- END Sorter Sorter_tac_Semana -->&nbsp;</td> 
+            <td class="CobaltColumnTD" nowrap>
+              <!-- BEGIN Sorter Sorter_buq_Descripcion --><a class="CobaltSorterLink" href="{Sort_URL}">BUQUE</a> 
+              <!-- BEGIN Asc_On --><img src="../Themes/Cobalt/AscOn.gif" border="0" width="13" height="9"><!-- END Asc_On -->
+              <!-- BEGIN Desc_On --><img src="../Themes/Cobalt/DescOn.gif" border="0" width="13" height="9"><!-- END Desc_On --><!-- END Sorter Sorter_buq_Descripcion -->&nbsp;</td> 
+            <td class="CobaltColumnTD" nowrap>
+              <!-- BEGIN Sorter Sorter_emb_FecZarpe --><a class="CobaltSorterLink" href="{Sort_URL}">&nbsp;FECHA</a> 
+              <!-- BEGIN Asc_On --><img src="../Themes/Cobalt/AscOn.gif" border="0" width="13" height="9"><!-- END Asc_On -->
+              <!-- BEGIN Desc_On --><img src="../Themes/Cobalt/DescOn.gif" border="0" width="13" height="9"><!-- END Desc_On --><!-- END Sorter Sorter_emb_FecZarpe -->&nbsp;</td> 
+            <td class="CobaltColumnTD" nowrap>
+              <!-- BEGIN Sorter Sorter_tad_NumTarja --><a class="CobaltSorterLink" href="{Sort_URL}">TARJA
+              #</a> 
+              <!-- BEGIN Asc_On --><img src="../Themes/Cobalt/AscOn.gif" border="0" width="13" height="9"><!-- END Asc_On -->
+              <!-- BEGIN Desc_On --><img src="../Themes/Cobalt/DescOn.gif" border="0" width="13" height="9"><!-- END Desc_On --><!-- END Sorter Sorter_tad_NumTarja -->&nbsp;</td> 
+            <td class="CobaltColumnTD" colspan="5" align="middle" width="180">&nbsp;&nbsp;
+              &nbsp;
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+              CAJAS&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;--&nbsp;&nbsp;&nbsp;
+              DSP&nbsp; &nbsp;&nbsp;&nbsp; REC&nbsp;&nbsp;
+              &nbsp;&nbsp;REC&nbsp;&nbsp; &nbsp; CAI&nbsp;&nbsp;&nbsp;
+              &nbsp;EMB.</td> 
+            <td class="CobaltColumnTD" nowrap width="130" colspan="3" align="middle">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+              PRECIOS UNITARIOS
+              P.OFIC.&nbsp;&nbsp;&nbsp;ADELTO&nbsp;&nbsp;&nbsp;&nbsp;BONO</td> 
+            <td class="CobaltColumnTD" colspan="3" nowrap width="185" align="middle">
+              <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+              VALORES TOTALES&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+              FRUTA&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+              &nbsp;ADELTO&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; BONO.</p>
+ </td> 
+            <td class="CobaltColumnTD" nowrap>PR&nbsp;</td> 
+          </tr>
+ 
+          <!-- BEGIN Row -->
+          <tr style="FONT-SIZE: 8px">
+            <td class="CobaltDataTD">{tac_Semana}</td> 
+            <td class="CobaltDataTD" style="FONT-SIZE: 9px">{buq_Descripcion}&nbsp;&nbsp;
+              {emb_NumViaje}&nbsp; {Label1}</td> 
+            <td class="CobaltDataTD" style="FONT-SIZE: 9px">&nbsp;{tac_Fecha}&nbsp;</td> 
+            <td class="CobaltDataTD" title="Número de Tarja y secuencia" align="right" style="FONT-SIZE: 9px">&nbsp;{tad_NumTarja}&nbsp;&nbsp;&nbsp;&nbsp;/{tad_Secuencia}</td> 
+            <td class="CobaltDataTD" title="Cantidad Despachada en Origen" align="right" width="30" style="FONT-SIZE: 9px; BACKGROUND-COLOR: #dcedf5" bgcolor="#dcedf5">{tad_CantDespachada}&nbsp;</td> 
+            <td class="CobaltDataTD" align="right" title="Cant Recibida en puerto" style="FONT-SIZE: 9px; BACKGROUND-COLOR: #dcedf5" width="25">{tad_CantRecibida}</td> 
+            <td class="CobaltDataTD" align="right" title="Cantidad Rechazada por evaluación" style="FONT-SIZE: 9px; BACKGROUND-COLOR: #dcedf5" width="25">{tad_CantRechazada}&nbsp;</td> 
+            <td class="CobaltDataTD" title="Cantidad Caida por manipulación" style="FONT-SIZE: 9px; BACKGROUND-COLOR: #dcedf5" width="30">{tad_CantCaidas}&nbsp;</td> 
+            <td class="CobaltDataTD" align="right" style="FONT-WEIGHT: bold; FONT-SIZE: 9px; COLOR: #2e5b89; BACKGROUND-COLOR: #dcedf5" width="25">{tmp_CantEmbarcada}&nbsp;</td> 
+            <td class="CobaltDataTD" align="right" title="Precio Oficial Unitario (por caja)" width="45" style="FONT-SIZE: 9px; BACKGROUND-COLOR: #fee7e8">{tad_ValUnitario}&nbsp;</td> 
+            <td class="CobaltDataTD" align="right" width="40" style="FONT-SIZE: 9px; BACKGROUND-COLOR: #fee7e8" title="Dif. de Precio Unitaria (Adelanto)">{tmp_Adelanto}</td> 
+            <td class="CobaltDataTD" align="right" width="40" style="FONT-SIZE: 9px; BACKGROUND-COLOR: #fee7e8" title="Bono Unitario ">{tmp_Bono}</td> 
+            <td class="CobaltDataTD" align="right" width="60" style="FONT-WEIGHT: bold; FONT-SIZE: 9px; BACKGROUND-COLOR: #ffede6" title="Valor Total de Fruta (Cant. Embarcada * Precio Oficial)">{tmp_ValFruta}</td> 
+            <td class="CobaltDataTD" align="right" width="60" style="FONT-WEIGHT: bold; FONT-SIZE: 9px; BACKGROUND-COLOR: #ffede6" title="Valor de Adelanto (Cant. Embarcada * Adelanto Unit.)">{tmp_ValAdel}</td> 
+            <td class="CobaltDataTD" align="right" width="60" style="FONT-WEIGHT: bold; FONT-SIZE: 9px; BACKGROUND-COLOR: #ffede6" title="Valor Total de Bono (Cant. Embarcada * Bono Unitario)">{tmp_ValBono}</td> 
+            <td class="CobaltDataTD" align="right" style="FONT-SIZE: 9px">{tad_LiqProceso}&nbsp;</td> 
+          </tr>
+ <!-- END Row -->
+          <tr style="PADDING-BOTTOM: 3px; PADDING-TOP: 3px">
+            <td class="CobaltDataTD" nowrap colspan="4"><strong>&nbsp;&nbsp;
+              TOTALES:&nbsp;&nbsp;&nbsp; </strong></td> 
+            <td class="CobaltDataTD" nowrap align="right" style="FONT-SIZE: 9px"><strong>{txt_SumDesp}</strong></td> 
+            <td class="CobaltDataTD" nowrap align="right" style="FONT-SIZE: 9px"><strong>{txt_SumReci}</strong></td> 
+            <td class="CobaltDataTD" nowrap align="right" style="FONT-SIZE: 9px"><strong>{txt_SumRech}</strong></td> 
+            <td class="CobaltDataTD" nowrap align="right" style="FONT-SIZE: 9px"><strong>{txt_SumCaid}</strong></td> 
+            <td class="CobaltDataTD" nowrap align="right" style="FONT-SIZE: 9px"><strong>{txt_SumEmba}</strong></td> 
+            <td class="CobaltDataTD" nowrap colspan="3"></td> 
+            <td class="CobaltDataTD" nowrap align="right" style="FONT-SIZE: 9px"><strong>{txt_SumFruta}</strong></td> 
+            <td class="CobaltDataTD" nowrap align="right" style="FONT-SIZE: 9px"><strong>{txt_SumAdel}</strong></td> 
+            <td class="CobaltDataTD" nowrap align="right" style="FONT-SIZE: 9px"><strong>{txt_SumBono}</strong></td> 
+            <td class="CobaltDataTD" nowrap></td> 
+          </tr>
+ 
+          <!-- BEGIN NoRecords -->
+          <tr>
+            <td class="CobaltDataTD" colspan="16">No hay registros&nbsp;</td> 
+          </tr>
+ <!-- END NoRecords -->
+          <tr style="PADDING-BOTTOM: 3px; PADDING-TOP: 3px">
+            <td class="CobaltFooterTD" nowrap colspan="16">
+              <!-- BEGIN Navigator Navigator -->
+              <!-- BEGIN First_On --><a class="CobaltNavigatorLink" href="{First_URL}"><img src="../Themes/Aqua/FirstOn.gif" border="0" width="24" height="14"></a> <!-- END First_On -->
+              <!-- BEGIN Prev_On --><a class="CobaltNavigatorLink" href="{Prev_URL}"><img src="../Themes/Aqua/PrevOn.gif" border="0" width="24" height="14"></a> <!-- END Prev_On -->&nbsp; 
+              <!-- BEGIN Pages -->
+              <!-- BEGIN Page_On --><a class="CobaltNavigatorLink" href="{Page_URL}">{Page_Number}</a>&nbsp;<!-- END Page_On -->
+              <!-- BEGIN Page_Off -->{Page_Number}&nbsp;<!-- END Page_Off --><!-- END Pages -->
+              <!-- BEGIN Next_On --><a class="CobaltNavigatorLink" href="{Next_URL}"><img src="../Themes/Aqua/NextOn.gif" border="0" width="24" height="14"></a> <!-- END Next_On -->
+              <!-- BEGIN Last_On --><a class="CobaltNavigatorLink" href="{Last_URL}"><img src="../Themes/Aqua/LastOn.gif" border="0" width="24" height="14"></a> <!-- END Last_On --><!-- END Navigator Navigator -->&nbsp; </td> 
+          </tr>
+ 
+        </table>
+ <!-- END Grid dettarjas_list --></td> 
+    </tr>
+ 
+  </table>
+ 
+  <p></p>
+ 
+  </body>
+ 
+  </html>

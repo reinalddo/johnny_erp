@@ -1,0 +1,117 @@
+<html>
+<head>
+<base target="_self">
+<link rel="stylesheet" type="text/css" href="../Themes/Cobalt/Style.css">
+<link rel="stylesheet" type="text/css" href="../Themes/Menu/Style.css">
+<title>BUQUES / VAPORES</title>
+ 
+<script language="JavaScript" src="../LibJava/menu_func.js"></script>
+<script language="JavaScript" src="../LibJava/general.js"></script>
+<script language="JavaScript" src="../LibJava/cookies.js"></script>
+<script language="JavaScript" src="../LibJava/validaDB_ret.js"></script>
+</head>
+ 
+<body bgcolor="#fffff7" link="#000000" alink="#ff0000" vlink="#000000" text="#000000" class="CobaltPageBODY">
+{Cabecera} 
+<table background="../Themes/Cobalt/Light Streaks.bmp" border="0" width="100%" class="CobaltPageBODY">
+  <tr>
+    <td valign="top" align="middle">&nbsp; 
+      <!-- BEGIN Record buques_query -->
+      <form name="{HTMLFormName}" action="{Action}" method="post" style="MARGIN: 0px">
+        <font class="CobaltFormHeaderFont"></font> 
+        <table class="CobaltFormTABLE" cellpadding="1" border="0" cellspacing="1">
+          <!-- BEGIN Error -->
+          <tr>
+            <td class="CobaltErrorDataTD" colspan="4">{Error}</td> 
+          </tr>
+          <!-- END Error -->
+          <tr>
+            <td class="CobaltFieldCaptionTD" nowrap>&nbsp;</td> 
+            <td class="CobaltDataTD"><input class="CobaltInput" maxlength="40" size="40" value="{s_keyword}" name="{s_keyword_Name}">&nbsp;</td> 
+            <td class="CobaltFooterTD" nowrap><a class="CobaltSorterLink" href="{ClearParameters_Src}">Limpiar</a>&nbsp; </td> 
+            <td class="CobaltFooterTD" nowrap align="right">
+              <!-- BEGIN Button Button_DoSearch --><input class="CobaltButton" type="submit" value="Buscar" name="{Button_Name}"><!-- END Button Button_DoSearch -->&nbsp; </td> 
+          </tr>
+ 
+        </table>
+ 
+      </form>
+ <!-- END Record buques_query -->
+      <form name="buques_list" style="MARGIN: 0px">
+        <!-- BEGIN Grid buques_list --><font class="CobaltFormHeaderFont">LISTA
+        DE BUQUES</font> 
+        <table class="CobaltFormTABLE" cellpadding="0" border="0" cellspacing="0">
+          <tr>
+            <td class="CobaltFooterTD" nowrap colspan="2">
+              <!-- BEGIN Navigator Navigator -->
+              <!-- BEGIN First_On --><a class="CobaltNavigatorLink" href="{First_URL}"><img height="14" src="../Themes/Aqua/FirstOn.gif" width="24" border="0"></a> <!-- END First_On -->
+              <!-- BEGIN Prev_On --><a class="CobaltNavigatorLink" href="{Prev_URL}"><img height="14" src="../Themes/Aqua/PrevOn.gif" width="24" border="0"></a> <!-- END Prev_On -->&nbsp; 
+              <!-- BEGIN Pages -->
+              <!-- BEGIN Page_On --><a class="CobaltNavigatorLink" href="{Page_URL}">{Page_Number}</a>&nbsp; <!-- END Page_On -->
+              <!-- BEGIN Page_Off -->{Page_Number}&nbsp; <!-- END Page_Off --><!-- END Pages -->de
+              {Total_Pages}&nbsp; 
+              <!-- BEGIN Next_On --><a class="CobaltNavigatorLink" href="{Next_URL}"><img height="14" src="../Themes/Aqua/NextOn.gif" width="24" border="0"></a> <!-- END Next_On -->
+              <!-- BEGIN Last_On --><a class="CobaltNavigatorLink" href="{Last_URL}"><img height="14" src="../Themes/Aqua/LastOn.gif" width="24" border="0"></a> <!-- END Last_On --><!-- END Navigator Navigator -->&nbsp; </td> 
+            <td class="CobaltFooterTD" nowrap align="right" colspan="2">
+              <!-- BEGIN Button btNuevo --><input class="CobaltDataLink" style="FONT-SIZE: 9px; WIDTH: 42px; HEIGHT: 19px" onclick="JavaScript:window.enMantto = true; fAbrirWin('LiAdBu_mant.php' ,'BuqNv',' ', 400, 250); return false;" type="button" size="11" value="NUEVO" name="{Button_Name}"><!-- END Button btNuevo -->
+              <!-- BEGIN Button btCerrar --><input class="CobaltLink" title="Cierra esta pantalla de selección, sin retornar valor" style="FONT-SIZE: 9px; WIDTH: 48px; HEIGHT: 18px" onclick="fCerrar();" type="button" size="11" value="CERRAR" name="{Button_Name}"><!-- END Button btCerrar --></td> 
+          </tr>
+ 
+          <tr align="middle">
+            <td class="CobaltColumnTD" nowrap>
+              <!-- BEGIN Sorter Sorter_buq_CodBuque -->&nbsp; <a class="CobaltSorterLink" href="{Sort_URL}">CODI</a> 
+              <!-- BEGIN Asc_On --><img height="9" src="../Themes/Cobalt/AscOn.gif" width="13" border="0"><!-- END Asc_On -->
+              <!-- BEGIN Desc_On --><img height="9" src="../Themes/Cobalt/DescOn.gif" width="13" border="0"><!-- END Desc_On --><!-- END Sorter Sorter_buq_CodBuque -->&nbsp;</td> 
+            <td class="CobaltColumnTD" nowrap>
+              <!-- BEGIN Sorter Sorter_buq_Abreviatura -->&nbsp; <a class="CobaltSorterLink" href="{Sort_URL}">ABREVIATURA</a> 
+              <!-- BEGIN Asc_On --><img height="9" src="../Themes/Cobalt/AscOn.gif" width="13" border="0"><!-- END Asc_On -->
+              <!-- BEGIN Desc_On --><img height="9" src="../Themes/Cobalt/DescOn.gif" width="13" border="0"><!-- END Desc_On --><!-- END Sorter Sorter_buq_Abreviatura -->&nbsp;</td> 
+            <td class="CobaltColumnTD" nowrap>
+              <!-- BEGIN Sorter Sorter_buq_Descripcion -->&nbsp; <a class="CobaltSorterLink" href="{Sort_URL}">DSCRIPCION</a> 
+              <!-- BEGIN Asc_On --><img height="9" src="../Themes/Cobalt/AscOn.gif" width="13" border="0"><!-- END Asc_On -->
+              <!-- BEGIN Desc_On --><img height="9" src="../Themes/Cobalt/DescOn.gif" width="13" border="0"><!-- END Desc_On --><!-- END Sorter Sorter_buq_Descripcion -->&nbsp;</td> 
+            <td class="CobaltColumnTD" nowrap>
+              <!-- BEGIN Sorter Sorter_buq_Pais -->&nbsp; <a class="CobaltSorterLink" href="{Sort_URL}">PAIS</a> 
+              <!-- BEGIN Asc_On --><img height="9" src="../Themes/Cobalt/AscOn.gif" width="13" border="0"><!-- END Asc_On -->
+              <!-- BEGIN Desc_On --><img height="9" src="../Themes/Cobalt/DescOn.gif" width="13" border="0"><!-- END Desc_On --><!-- END Sorter Sorter_buq_Pais -->&nbsp;</td> 
+          </tr>
+          <!-- BEGIN Row -->
+          <tr onclick="fRetornarDatos(this, 'buques_list')">
+            <td class="CobaltDataTD" bgcolor="#faecd8"><input type="hidden" name="{buq_CodBuque_Name}" value="{buq_CodBuque}" style="WIDTH: 39px; HEIGHT: 16px" size="5">
+              <!-- BEGIN Button Button1 --><input class="CobaltDataLink" style="FONT-SIZE: 9px; WIDTH: 37px; HEIGHT: 19px" type="button" size="10" value="{buq_CodBuque}" name="{Button_Name}" onclick="JavaScript:window.enMantto = true; fAbrirWin('LiAdBu_mant.php?buq_CodBuque={buq_CodBuque}' ,'BuqMan',' ', 400, 250); return false;"><!-- END Button Button1 --></td> 
+            <td class="CobaltDataTD">&nbsp;&nbsp;&nbsp; <input name="{buq_Abreviatura_Name}" value="{buq_Abreviatura}" onmouseover="fTxtResalta(this,'#009999');" onmouseout="fTxtNormal(this,'Default');" title="'CLICK' para Seleccionarlo" maxlength="15" size="15" class="CobaltInputSB" id="buq_Abreviatura" readonly>&nbsp;</td> 
+            <td class="CobaltDataTD"><input name="{buq_Descripcion_Name}" value="{buq_Descripcion}" title="'CLICK' &#13;&#10;&#9;&#9;&#9;&#9;&#9;&#9;para Seleccionarlo" onmouseover="fTxtResalta(this,'#009999');" onmouseout="fTxtNormal(this,'Default');" maxlength="40" size="40" class="CobaltInputSB" id="buq_Descripcion" readonly>&nbsp;</td> 
+            <td class="CobaltDataTD"><input name="{buq_Pais_Name}" value="{buq_Pais}" title="'CLICK' &#13;&#10;&#9;&#9;&#9;&#9;&#9;&#9;para &#13;&#10;&#9;&#9;&#9;&#9;&#9;&#9;Seleccionarlo" onmouseover="fTxtResalta(this,'#009999');" onmouseout="fTxtNormal(this,'Default');" maxlength="10" size="10" class="CobaltInputSB" id="buq_Pais" readonly>&nbsp;</td> 
+          </tr>
+          <!-- END Row -->
+          <!-- BEGIN AltRow -->
+          <tr onclick="fRetornarDatos(this, 'buques_list')">
+            <td class="CobaltAltDataTD"><input type="hidden" name="{Alt_buq_CodBuque_Name}" value="{Alt_buq_CodBuque}" style="WIDTH: 32px; HEIGHT: 15px" size="4">
+              <!-- BEGIN Button Button2 --><input class="CobaltDataLink" style="FONT-SIZE: 9px; WIDTH: 37px; HEIGHT: 19px" type="button" size="12" value="{Alt_buq_CodBuque}" name="{Button_Name}" onclick="JavaScript:window.enMantto = true; fAbrirWin('LiAdBu_mant.php?buq_CodBuque={Alt_buq_CodBuque}' ,'BuqMan',' ', 400, 250); return false;"><!-- END Button Button2 --></td> 
+            <td class="CobaltAltDataTD">&nbsp;&nbsp;&nbsp; <input name="{Alt_buq_Abreviatura_Name}" value="{Alt_buq_Abreviatura}" onmouseover="fTxtResalta(this,'#009999');" onmouseout="fTxtNormal(this,'Default');" title="'CLICK' para Seleccionarlo" maxlength="15" size="15" class="AltCobaltInputSB" id="buq_Abreviatura" readonly>&nbsp;</td> 
+            <td class="CobaltAltDataTD"><input name="{Alt_buq_Descripcion_Name}" value="{Alt_buq_Descripcion}" onmouseover="fTxtResalta(this,'#009999');" onmouseout="fTxtNormal(this,'Default');" title="'CLICK' para Seleccionarlo" maxlength="40" size="40" class="AltCobaltInputSB" id="buq_Descripcion" readonly>&nbsp;</td> 
+            <td class="CobaltAltDataTD"><input name="{Alt_buq_Pais_Name}" value="{Alt_buq_Pais}" onmouseover="fTxtResalta(this,'#009999');" onmouseout="fTxtNormal(this,'Default');" title="'CLICK' para Seleccionarlo" maxlength="10" size="10" class="AltCobaltInputSB" id="buq_Pais" readonly>&nbsp;</td> 
+          </tr>
+          <!-- END AltRow -->
+          <tr class="CobaltFieldCaptionTD">
+            <td class="CobaltFieldCaptionTD" colspan="4">&nbsp;</td> 
+          </tr>
+          <!-- BEGIN NoRecords -->
+          <tr>
+            <td class="CobaltAltDataTD" colspan="4">NO existe información para
+              este criterio de búsqueda&nbsp;</td> 
+          </tr>
+          <!-- END NoRecords -->
+        </table>
+ <!-- END Grid buques_list --></td>
+    </form>
+ 
+  </tr>
+ 
+</table>
+ 
+<p></p>
+ 
+</body>
+ 
+</html>

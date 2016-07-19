@@ -1,0 +1,851 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset={tplCharset}">
+    <title>PRUEBA</title>
+    
+    <!-- Ext Files -->
+    <link rel="stylesheet" type="text/css" href="../LibJava/ext-2.0/resources/css/ext-all.css" />
+    <link type='text/css' rel='stylesheet' media='screen' href='../LibJava/ext-2.0/resources/css/xtheme-slate.css'></link>
+    <script type="text/javascript" src="../LibJava/ext-2.0/adapter/ext/ext-base.js"></script>
+    <script type="text/javascript" src="../LibJava/ext-2.0/ext-all.js"></script>
+        <script type="text/javascript" src="../LibJava/extExtensions.js"></script>
+	<script type="text/javascript" src="../LibJava/general.js"></script>
+	<script type="text/javascript" src="../LibJava/ext-2.0/ux/menu/EditableItem.js"></script>
+	<script type="text/javascript" src="../LibJava/ext-2.0/ux/menu/RangeMenu.js"></script>
+
+	<script type="text/javascript" src="../LibJava/ext-2.0/ux/grid/RowExpander.js"></script>
+	<script type="text/javascript" src="../LibJava/ext-2.0/ux/grid/GridFilters.js"></script>
+	<script type="text/javascript" src="../LibJava/ext-2.0/ux/grid/filter/Filter.js"></script>
+	<script type="text/javascript" src="../LibJava/ext-2.0/ux/grid/filter/StringFilter.js"></script>
+	<script type="text/javascript" src="../LibJava/ext-2.0/ux/grid/filter/DateFilter.js"></script>
+	<script type="text/javascript" src="../LibJava/ext-2.0/ux/grid/filter/ListFilter.js"></script>
+	<script type="text/javascript" src="../LibJava/ext-2.0/ux/grid/filter/NumericFilter.js"></script>
+	<script type="text/javascript" src="../LibJava/ext-2.0/ux/grid/filter/BooleanFilter.js"></script>
+	<script type='text/javascript' src='../LibJava/ext-2.0/ux/grid/GridSummary.js'></script>
+	<script type='text/javascript' src='../LibJava/ext-2.0/ux/grid/GroupSummary.js'></script>
+    <script type="text/javascript" ">
+    
+    /*-------------------------*/
+    
+    Ext.ns('Pre');
+    Ext.BLANK_IMAGE_URL = "../LibJava/ext-2.0/resources/images/default/s.gif"
+    Ext.onReady(function(){
+	Ext.QuickTips.init();
+	xg = Ext.grid;
+	var summary = new Ext.grid.GroupSummary();
+        var filters = new this.Ext.ux.grid.GridFilters({filters:[
+	    {type: 'string',  dataIndex: 'txp_NomBuque'},
+	    {type: 'string',  dataIndex: 'txp_CatProducto'},
+	    {type: 'string',  dataIndex: 'txp_Producto'},
+	    {type: 'string',  dataIndex: 'txp_Productor'}
+	]});
+        fInitExpander();      
+        fInitGridPrec([summary, filters, expander]);
+	cmProd = new Ext.grid.ColumnModel(fColumns());
+	Pre.grid1 = new xg.grdPrecios({
+	    id: 'gridPrecProd'
+	    ,ds: strProd
+	    ,renderTo: document.body
+	    ,cm: cmProd
+	    ,sm: new Ext.grid.CellSelectionModel({singleSelect:true})
+	    ,autoExpandColumn: 'txp_Productor'
+	    ,height: 450
+            ,view: new Ext.grid.GroupingView({
+		forceFit:true,
+		showGroupName: false,
+		enableNoGroups:false, // REQUIRED!
+		hideGroupedColumn: true
+	    })
+	    ,bbar: fPageToolBar()
+	});
+	Pre.grid1.getView().on('refresh', function(){
+	    Ext.each(Pre.grid1.view.getRows(),function(row)
+	    {
+		record = Pre.grid1.store.getAt(row.rowIndex);
+		if (expander.state[record.id])
+		    {
+			expander.expandRow(row);
+		    }
+	    });//each
+        });
+        //Pre.grid1.on("mouseout", function() {alert ("out") })
+        //Pre.grid1.on("mouseover", function() {alert ("over") })
+        Pre.grid1.getEl().swallowEvent([ 'mouseover','mouseout', 'mousedown', 'click', 'dblclick' ]);
+	//grid.store.load({params: {pEmb:getFromurl("pEmb"), pAnio:getFromurl("pAnio"), pSem:getFromurl("pSem"), meta: true, start:0, limit:25, sort:'txp_CatPoducto', dir:'ASC'}});
+	Pre.grid1.store.load({params: {sort:'txp_CatPoducto', dir:'ASC'}});    
+	function fModifPrecioProd(field, new_value, old_value){
+	    fModifPrecio(field, new_value, old_value, grid, Ext.getCmp("gridPrecProd")) 
+	}
+	function fModifPrecioMar(field, new_value, old_value){
+	    fModifPrecio(field, new_value, old_value, grid, Ext.getCmp("gridPrecMar")) 
+	}
+    });    
+
+function fModifPrecio(field, new_value, old_value, gridID) {
+        var olSm =Ext.getCmp(gridID).getSelectionModel();
+        if(!olSm.hasSelection()) return;
+        if (olSm.selections)
+             olRec=olSm.selections.first().data;
+        else olRec=olSm.selection.record.data;
+        var olParam= {
+            id : "OpTrTr_panelop_aplic",
+            pSeman : getFromurl("pSem"),
+            pAnio  : getFromurl("pAnio"),
+            pRope  : getFromurl("pEmb"),  // Requiere Rope en lugar de Emb
+            pNvoPr : new_value,
+            pProd  : olRec.txp_Embarcador,
+            pPrdc  : olRec.txp_CodProducto
+        }
+        Ext.Ajax.request({
+            url: 'OpTrTr_aplicaprec.php',
+            success: function(pResp, pOpt){
+                //olRec=Ext.getCmp(gridID || "gridPrecProd").getSelectionModel().selections.first().data;
+                olRec.tmp_Valor = olRec.tmp_Cantidad * olRec.tmp_PrecUnit
+            },
+            failure: function(pResp, pOpt){
+                this.setValue(old_value)
+            },
+            headers: {
+               'my-header': 'foo'
+            },
+            params: olParam,
+            scope:  field
+        });
+    }
+    
+    Ext.grid.CheckColumn = function(config){
+	Ext.apply(this, config);
+	if(!this.id){
+	    this.id = Ext.id();
+	}
+	this.renderer = this.renderer.createDelegate(this);
+    };
+    
+    Ext.grid.CheckColumn.prototype ={
+	init : function(grid){
+	    this.grid = grid;
+	    this.grid.on('render', function(){
+		var view = this.grid.getView();
+		view.mainBody.on('mousedown', this.onMouseDown, this);
+	    }, this);
+	},onMouseDown : function(e, t){
+	    if(t.className && t.className.indexOf('x-grid3-cc-'+this.id) != -1){
+		e.stopEvent();
+		var index = this.grid.getView().findRowIndex(t);
+		var record = this.grid.store.getAt(index);
+		record.set(this.dataIndex, !record.data[this.dataIndex]);
+		fModifFlete(this, record.data[this.dataIndex], record) // @fah
+	    }
+	},renderer : function(v, p, record){
+	    p.css += ' x-grid3-check-col-td';
+            var divtxt="</div>";
+	    return '<div class="x-grid3-check-col'+(v ? '-on':'')+' x-grid3-cc-'+ this.id+'"> &#160;' + divtxt;
+	}
+    };
+    
+    function fModifFlete(field, new_value, olRec) {
+	    var olParam= {
+		id : "OpTrTr_panelop_flete",
+		pSeman : getFromurl("pSem"),
+		pAnio  : getFromurl("pAnio"),
+		pEmb   : getFromurl("pEmb"), // requiere Emb 
+		pNvoPr : new_value,
+		pCant  : new_value? olRec.data.tmp_Cantidad : 0,
+		pProd  : olRec.data.txp_Embarcador,
+		pPrdc  : olRec.data.txp_CodProducto
+	    }
+	    old_value = !new_value;
+	    Ext.Ajax.request({
+		url: 'OpTrTr_aplicaflete.php',
+		success: function(pResp, pOpt){
+		},
+		failure: function(pResp, pOpt){
+		    this.setValue(old_value)
+		},
+		headers: {
+		   'my-header': 'foo'
+		},
+		params: olParam,
+		scope:  field
+	    });
+	}
+    function fVerMarcas(){
+	fVerDetalles("gridPrecMar", "mar")
+    }
+    function fVerDias(){
+	fVerDetalles("gridPrecMar", "dia")
+    }
+    function fVerTarjas(){
+	fVerDetalles("gridPrecMar", "tar")
+    }
+    
+    function fVerDetalles(gridId, pOpc, rowId, rowNum){
+        var olRec=Ext.getCmp("gridPrecProd").store.getAt(rowNum).data
+    
+	olParam= {
+	    id : "opPrecios"
+	    ,pSeman : getFromurl("pSem")
+	    ,pAnio  : getFromurl("pAnio")
+	    ,pEmb   : getFromurl("pEmb")
+	    ,pProd  : olRec.txp_Embarcador
+	    ,pPrdc  : olRec.txp_CodProducto
+	    ,meta: true
+	    ,start:0
+	    ,limit:100
+	    ,sort:'txp_CatPoducto'
+	    ,dir:'ASC'
+	    }
+	//div2= Ext.DomHelper.append(document.body, {tag: 'div', id:"divDetalle", cls: '' });
+        xg.strPrecios2 = new Ext.extend(Ext.data.GroupingStore,{  // Requerido porque se pierde el sortInfo cuando se aplica el sort
+            pruneModifiedRecords: true
+            ,groupOnSort:false 
+            ,remoteSort: false
+            ,initComponent:function(config) {
+                this.sortInfoX= this.sortInfo;  // @fah: para asegurar sortinfoal iniciar ds
+                Ext.apply(this, config); // e/o apply
+                xg.storeX.superclass.initComponent.apply(this, arguments);
+             } // e/o function initComponent
+            ,onLoad:function() {
+                xg.storeX.superclass.onLoad.apply(this, arguments);
+            }        
+            ,applySort: function(){
+                Ext.data.GroupingStore.superclass.applySort.call(this);
+                if (!this.sortInfo) this.sortInfo = this.sortInfoX;
+                var gs = this.getGroupState();
+                if(!this.sortInfo || (gs && gs != this.sortInfo.field)){
+                    this.sortData(this.groupField);
+                }
+            }
+        });
+
+	var strGrd2 = new xg.strPrecios2({
+	    id: "strMar"
+	    ,url: 'OpTrTr_precioscaptura.php?op=' + pOpc || 'mar'
+	    ,reader: new Ext.data.JsonReader(fCampos2())
+	    ,sortInfo: {field: 'txp_Productor', direction: 'ASC'}
+	    ,groupField: 'txp_Marca'
+	    ,baseParams: {
+		pEmb:getFromurl("pEmb")
+		,pAnio:getFromurl("pAnio")
+		,pSem:getFromurl("pSem")
+		,meta: true
+		,start:0
+		,limit:100
+                }
+        })
+        
+    
+	var grd2class = Ext.extend(xg.EditorGridPanel, {
+	    border:false
+	    ,plugins: []
+	    ,frame:true
+	    ,autowidth:true
+	    ,clicksToEdit: 1
+	    ,loadMask: true
+	    ,collapsible: true
+	    ,animCollapse: false
+	    ,trackMouseOver: false
+	    ,iconCls: 'icon-grid'
+	    ,initComponent:function(config) {
+		Ext.apply(this, config); // e/o apply
+		grd2class.superclass.initComponent.apply(this, arguments);
+	    } // e/o function initComponent
+	     
+	    ,onRender:function() {
+		var gridId=this.id;
+                    this.getColumnModel().getColumnById("tmp_PrecUnit").editor.on(
+                        "complete", function(fld, oVal, nVal){ fModifPrecio(fld, oVal, nVal, "gridPrecMar");}
+		    )
+                this.getColumnModel().getColumnById("tmp_PrecUnit").editor.cancelOnEsc=true
+                this.getColumnModel().getColumnById("tmp_PrecUnit").editor.selectOnFocus=true
+                xg.grdPrecios.superclass.onRender.apply(this, arguments);
+	    } // e/o function onRender
+	}); // eo extend
+	Ext.reg('grdPrecios2', grd2class);
+        
+        grd2 = new grd2class({id: "gridPrecMar"
+	    ,cm: new Ext.grid.ColumnModel(fColumns2())
+	    ,sm: new Ext.grid.CellSelectionModel({singleSelect:true})        
+	    ,ds: strGrd2
+            ,width:450
+            ,defaults: {width:25}
+	    ,height: 200
+            ,autoheight: true
+	    ,forceFit:false
+            ,view: new Ext.grid.GroupingView({
+                forceFit:true
+		,showGroupName: false
+		,enableNoGroups:false 
+		,hideGroupedColumn: true
+                ,groupTextTpl: '{text} ({[values.rs.length]} {[values.rs.length > 1 ? "detalles" : "detalle"]})'
+            })
+	    ,renderTo: rowId
+	})
+        /*new xg.grdPrecios2({
+	    id: "gridPrecMar"
+	    ,cm: new Ext.grid.ColumnModel(fColumns2())
+	    ,sm: new Ext.grid.CellSelectionModel({singleSelect:true})        
+	    ,ds: strGrd2
+            ,width:450
+            ,defaults: {width:25}
+	    ,height: 200
+	    ,forceFit:true
+            ,view: new Ext.grid.GroupingView({
+                forceFit:true
+		,showGroupName: false
+		,enableNoGroups:false 
+		,hideGroupedColumn: true
+                ,groupTextTpl: '{text} ({[values.rs.length]} {[values.rs.length > 1 ? "Items" : "Item"]})'
+            })
+	    ,renderTo: rowId
+	});*/
+        //grd2.on("mouseout", function() {alert ("b") })
+        //grd2.on("mouseover", function() {alert ("o") })
+	//Pre.grid1.disable();
+        
+	grd2.render(rowId);
+        grd2.getEl().swallowEvent([ 'mouseover','mouseout', 'mousedown', 'click', 'dblclick' ]);
+	grd2.store.load({params: olParam});    
+    }
+    function fShowError(msg, title) {
+	Ext.Msg.show({
+	     title:title || 'Error'
+	    ,msg:Ext.util.Format.ellipsis(msg, 2000)
+	    ,icon:Ext.Msg.WARNING
+	    ,buttons:Ext.Msg.OK
+	    ,minWidth:1200 > String(msg).length ? 360 : 600
+	});
+    }
+    /*------------------------------*/
+function fCampos(){
+    return [
+        {name: 'txp_Semana', type: 'int'},
+        {name: 'txp_RefOperativa', type: 'int'},
+        {name: 'txp_NombBuque', type: 'string'},
+        {name: 'txp_Embarcador', type: 'int'},
+        {name: 'txp_Productor', type: 'int'},
+        {name: 'txp_CatProducto', type: 'string'},
+        {name: 'txp_CodProducto', type: 'int'},
+        {name: 'txp_Producto', type: 'string'},
+        {name: 'tmp_Cantidad', type: 'int'},
+        {name: 'tmp_PrecUnit', type:'float'},
+        {name: 'tmp_Valor', type:'float'},
+        {name: 'tmp_Flete', type:'bool'}
+	    ];
+    }
+function fCampos2(){
+    return [
+        {name: 'txp_Semana', type: 'int'},
+        {name: 'txp_RefOperativa', type: 'int'},
+        {name: 'txp_Embarcador', type: 'int'},
+        {name: 'txp_CodProducto', type: 'int'},
+        {name: 'txp_CodMarca', type: 'int'},
+        {name: 'txp_Marca', type: 'string'},
+        {name: 'txp_CodCaja', type: 'int'},
+        {name: 'txp_CajDescrip', type: 'string'},
+        {name: 'txp_Fecha', type: 'date'},
+        {name: 'tmp_Cantidad', type: 'int'},
+        {name: 'tmp_PrecUnit', type:'float'},
+        {name: 'tmp_Valor', type:'float'},
+        {name: 'tmp_Flete', type:'bool'}
+	    ];
+    }
+function fStrPrecios(){
+    }
+function fInitExpander(){
+        expander = new xg.RowExpander({
+            tpl : new Ext.Template('<div style="padding-left:42px" id="r-{txp_Embarcador}-{txp_CodProducto}" ></div>')
+            ,enableCaching:false
+        });
+        expander.on('expand', expandedRow);
+        function expandedRow(obj, record, body, rowIndex){
+            id = "r-" + record.data.txp_Embarcador + "-" + record.data.txp_CodProducto
+            id2 = "g-" + rowIndex
+	    fVerDetalles(id2, "mar", id, rowIndex)
+        }	 
+}
+function fColumns(){
+	checkColumn = new Ext.grid.CheckColumn({
+	    idx: 'tmp_Flete',
+	    header: "F",
+	    dataIndex: 'tmp_Flete',
+	    width: 15
+	});
+	// define a custom summary function
+	Ext.grid.GroupSummary.Calculations['totalCost'] = function(v, record, field){
+	    return v + (record.data.tmp_Cantidad * record.data.tmp_PrecUnit);
+	}    
+
+        return [new Ext.grid.RowNumberer(),
+	    expander,
+	    {
+		id: 'txp_Semana',
+		header: "S",
+		width: 7,
+		sortable: true,
+		dataIndex: 'txp_Semana',
+		hideable: false}
+	    ,{
+		header: "EMB",
+		width: 7,
+		hidden: true,
+		dataIndex: 'txp_RefOperativa'}
+	    ,{
+		id:"txp_NombBuque",
+		header: "VAPOR",
+		width: 20,
+		dataIndex: 'txp_NombBuque'}
+	    ,{
+		id:"txp_Embarcador",
+		header: "COD",
+		width: 8,
+		dataIndex: 'txp_Embarcador'}
+	    ,{
+		id:"txp_Productor",
+		header: "PRODUCTOR",
+		width: 30,
+		dataIndex: 'txp_Productor'}
+	    ,{
+		id:"txp_CatProducto",
+		header: "TIPO FRUTA",
+		width: 25,
+		dataIndex: 'txp_CatProducto'}
+	    ,{
+		id:"txp_CodProducto",
+		header: "COD",
+		width: 10,
+		dataIndex: 'txp_CodProducto'}
+	    ,{
+		id:"txp_Producto",
+		header: "PRODUCTO",
+		width: 40,
+		dataIndex: 'txp_Producto'}
+	    ,{
+		id:"tmp_Cantidad",
+		header: "CANT",
+		width: 15,
+		align:'right',
+		summaryType:'sum',
+		renderer: fRendQuantity,
+		summaryRenderer: fRendQuantity,                
+		dataIndex: 'tmp_Cantidad'}
+	    ,{
+		id:"tmp_Valor",
+		header: "VALOR",
+		width: 20,
+		align:'right',
+		summaryType:'totalCost',
+		renderer: function(v, params, record){
+		    record.data.tmp_Valor= record.data.tmp_Cantidad * record.data.tmp_PrecUnit
+		    return Ext.util.Format.usMoney(record.data.tmp_Valor);
+		},
+		summaryRenderer: fRendQuantity,  
+		dataIndex: 'tmp_Valor',
+		style: 'text-align:right'}
+	    ,{
+		id:"tmp_PrecUnit",
+		header: "P.UNIT",
+		width: 15,
+		align:'right',
+		sortable: false,
+		groupable: false,
+		dataIndex: 'tmp_PrecUnit',
+		allowDecimals: true,
+		renderer: fRendQtty4
+		,editor: new Ext.form.NumberField({
+		    allowBlank: false
+		    ,allowNegative: false
+		    ,allowDecimals: true
+		    ,decimalPrecision: 2
+		    ,style: 'text-align:right'
+		    ,beforecomplete: function(){alert ("bc")}
+		    ,onbeforecomplete: function(){alert ("obc")}
+		    ,beforehide: function(){alert ("bh")}
+		    ,onbeforehide: function(){alert ("obh")}
+		    })
+		//,completeOnEnter: true
+		,selectOnFocus:true
+		,cancelOnEsc:true
+		    ,beforecomplete: function(){alert ("bcf")}
+		    ,onbeforecomplete: function(){alert ("obcf")}
+		    ,beforehide: function(){alert ("bhf")}
+		    ,onbeforehide: function(){alert ("obhf")}
+	    }, checkColumn 
+	];
+    }
+
+function fColumns2(){
+	var checkColumn = new Ext.grid.CheckColumn({
+	    idx: 'tmp_Flete',
+	    header: "F",
+	    dataIndex: 'tmp_Flete',
+	    width: 15
+	});
+	// define a custom summary function
+	Ext.grid.GroupSummary.Calculations['totalCost'] = function(v, record, field){
+	    return v + (record.data.tmp_Cantidad * record.data.tmp_PrecUnit);
+	}    
+
+        return [new Ext.grid.RowNumberer(),
+	    expander,
+	    {
+		id: 'txp_Semana',
+		header: "S",
+		width: 7,
+		sortable: true,
+		hidden: true,                
+		dataIndex: 'txp_Semana',
+		hideable: false}
+	    ,{
+		header: "EMB",
+		width: 7,
+		hidden: true,
+		dataIndex: 'txp_RefOperativa'}
+	    ,{
+		id:"txp_Embarcador",
+		header: "COD",
+		width: 8,
+		hidden: true,                
+		dataIndex: 'txp_Embarcador'}
+	    ,{
+		id:"txp_CodProducto",
+		header: "COD",
+		width: 10,
+		hidden: true,
+		dataIndex: 'txp_CodProducto'}
+            ,{
+		id:"txp_CodMarca",
+		header: "COD",
+		width: 10,
+		hidden: false,
+		dataIndex: 'txp_CodMarca'}
+            ,{
+		id:"txp_Marca",
+		header: "COD",
+		width: 40,
+		hidden: false,
+		dataIndex: 'txp_Marca'}
+            ,{
+		id:"txp_CodCaja",
+		header: "COD",
+		width: 10,
+		hidden: true,
+		dataIndex: 'txp_CodCaja'}
+            ,{
+		id:"txp_CajaDescrip",
+		header: "COD",
+		width: 10,
+		hidden: false,
+                sortable: true,
+		dataIndex: 'txp_CajaDescrip'}                      
+	    ,{
+		id:"tmp_Cantidad",
+		header: "CANT",
+		width: 15,
+		align:'right',
+                sortable: true,
+		summaryType:'sum',
+		renderer: fRendQuantity,
+		summaryRenderer: fRendQuantity,                
+		dataIndex: 'tmp_Cantidad'}
+	    ,{
+		id:"tmp_Valor",
+		header: "VALOR",
+		width: 20,
+		align:'right',
+                sortable: true,
+		summaryType:'totalCost',
+		renderer: function(v, params, record){
+		    record.data.tmp_Valor= record.data.tmp_Cantidad * record.data.tmp_PrecUnit
+		    return Ext.util.Format.usMoney(record.data.tmp_Valor);
+		},
+		summaryRenderer: fRendQuantity,  
+		dataIndex: 'tmp_Valor',
+		style: 'text-align:right'}
+	    ,{
+		id:"tmp_PrecUnit",
+		header: "P.UNIT",
+		width: 15,
+		align:'right',
+		sortable: false,
+		groupable: false,
+		dataIndex: 'tmp_PrecUnit',
+		allowDecimals: true,
+		renderer: fRendQtty4
+		,editor: new Ext.form.NumberField({
+		    allowBlank: false
+		    ,allowNegative: false
+		    ,allowDecimals: true
+		    ,decimalPrecision: 2
+		    ,style: 'text-align:right'
+		    ,beforecomplete: function(){alert ("bc")}
+		    ,onbeforecomplete: function(){alert ("obc")}
+		    ,beforehide: function(){alert ("bh")}
+		    ,onbeforehide: function(){alert ("obh")}
+		    })
+		//,completeOnEnter: true
+		,selectOnFocus:true
+		,cancelOnEsc:true
+		    ,beforecomplete: function(){alert ("bcf")}
+		    ,onbeforecomplete: function(){alert ("obcf")}
+		    ,beforehide: function(){alert ("bhf")}
+		    ,onbeforehide: function(){alert ("obhf")}
+	    }, checkColumn 
+	];
+    }
+    
+/*
+*
+*
+*/
+function fColumns2() {
+        return [new Ext.grid.RowNumberer(),
+	    {
+		id: 'txp_Semana',
+		header: "S",
+		width: 7,
+		sortable: true,
+                hidden: true,
+		dataIndex: 'txp_Semana',
+		hideable: true}
+	    ,{
+		header: "EMB",
+		width: 7,
+		hidden: true,
+		dataIndex: 'txp_RefOperativa'}
+	    ,{
+		id:"txp_Embarcador",
+		header: "COD",
+		width: 8,
+		hidden: true,                
+		dataIndex: 'txp_Embarcador'}
+	    ,{
+		id:"txp_CodMarca",
+		header: "COD.M.",
+		width: 10,
+                hidden: true,
+		dataIndex: 'txp_CodMarca'}
+	    ,{
+		id:"txp_Marca",
+		header: "MARCA",
+		width: 45,
+		dataIndex: 'txp_Marca'}
+	    ,{
+		id:"tmp_Cantidad",
+		header: "CANT",
+		width: 50,
+		align:'right',
+		summaryType:'sum',
+		renderer: fRendQuantity,
+		summaryRenderer: fRendQuantity,                
+		dataIndex: 'tmp_Cantidad'}
+	    ,{
+		id:"tmp_Valor",
+		header: "VALOR",
+		width: 40,
+		align:'right',
+		summaryType:'totalCost',
+		renderer: function(v, params, record){
+		    record.data.tmp_Valor= record.data.tmp_Cantidad * record.data.tmp_PrecUnit
+		    return Ext.util.Format.usMoney(record.data.tmp_Valor);
+		},
+		summaryRenderer: fRendQuantity,  
+		dataIndex: 'tmp_Valor',
+		style: 'text-align:right'}
+	    ,{
+		id:"tmp_PrecUnit",
+		header: "P.UNIT",
+		width: 15,
+		align:'right',
+		sortable: false,
+		groupable: false,
+		dataIndex: 'tmp_PrecUnit',
+		allowDecimals: true,
+		renderer: fRendQtty4
+		,editor: new Ext.form.NumberField({
+		    allowBlank: false
+		    ,allowNegative: false
+		    ,allowDecimals: true
+		    ,decimalPrecision: 2
+		    ,style: 'text-align:right'
+		    ,beforecomplete: function(){alert ("bc")}
+		    ,onbeforecomplete: function(){alert ("obc")}
+		    ,beforehide: function(){alert ("bh")}
+		    ,onbeforehide: function(){alert ("obh")}
+		    })
+		//,completeOnEnter: true
+		,selectOnFocus:true
+		,cancelOnEsc:true
+		    ,beforecomplete: function(){alert ("bcf")}
+		    ,onbeforecomplete: function(){alert ("obcf")}
+		    ,beforehide: function(){alert ("bhf")}
+		    ,onbeforehide: function(){alert ("obhf")}
+	    }, checkColumn 
+	];
+    }
+/*
+* Inicializacion de estructuras de grid
+*
+*/
+function fInitGridPrec(pPlugIns){
+    xg.strPrecios = new Ext.extend(Ext.data.GroupingStore,{  // Requerido porque se pierde el sortInfo cuando se aplica el sort
+        pruneModifiedRecords: true
+        ,groupOnSort:false 
+        ,remoteSort: false
+        ,initComponent:function(config) {
+            this.sortInfoX= this.sortInfo;  // @fah: para asegurar sortinfoal iniciar ds
+            Ext.apply(this, config); // e/o apply
+            xg.storeX.superclass.initComponent.apply(this, arguments);
+         } // e/o function initComponent
+        ,onLoad:function() {
+            xg.storeX.superclass.onLoad.apply(this, arguments);
+        }        
+        ,applySort: function(){
+            Ext.data.GroupingStore.superclass.applySort.call(this);
+            if (!this.sortInfo) this.sortInfo = this.sortInfoX;
+            var gs = this.getGroupState();
+            if(!this.sortInfo || (gs && gs != this.sortInfo.field)){
+                this.sortData(this.groupField);
+            }
+        }
+    });
+
+    	strProd = new xg.strPrecios({
+	    id:"strProd"
+	    ,url: 'OpTrTr_precioscaptura.php?op=pro'
+	    ,reader: new Ext.data.JsonReader(fCampos())
+	    ,sortInfo: {field: 'txp_Productor', direction: 'ASC'}
+	    ,groupField: 'txp_CatProducto'
+	    ,baseParams: {
+		pEmb:getFromurl("pEmb")
+		,pAnio:getFromurl("pAnio")
+		,pSem:getFromurl("pSem")
+		,meta: true
+		,start:0
+		,limit:100} }
+	);
+        
+    	xg.grdPrecios = Ext.extend(xg.EditorGridPanel, {
+	    border:false
+	    ,plugins: pPlugIns
+	    ,frame:true
+	    ,autowidth:true
+	    ,clicksToEdit: 1
+	    ,loadMask: true
+	    ,collapsible: true
+	    ,animCollapse: false
+	    ,trackMouseOver: false
+	    ,iconCls: 'icon-grid'
+	    ,initComponent:function(config) {
+		Ext.apply(this, config); // e/o apply
+		xg.grdPrecios.superclass.initComponent.apply(this, arguments);
+	    } // e/o function initComponent
+	     
+	    ,onRender:function() {
+		var gridId=this.id;
+		switch(this.id){
+		    case "gridPrecProd":
+			this.getColumnModel().getColumnById("tmp_PrecUnit").editor.on(
+			    "complete", function(fld, oVal, nVal){fModifPrecio(fld, oVal, nVal, "gridPrecProd");});
+			break;
+		    case "gridPrecMar":
+			this.getColumnModel().getColumnById("tmp_PrecUnit").editor.on(
+			    "complete", function(fld, oVal, nVal){
+			    fModifPrecio(fld, oVal, nVal, "gridPrecMar");
+			    }
+			)
+			break;
+		    case "gridPrecTar":
+			this.getColumnModel().getColumnById("tmp_PrecUnit").editor.on(
+			    "complete", function(fld, oVal, nVal){
+			    fModifPrecio(fld, oVal, nVal, "gridPrecTar");
+			    }
+			)
+			break;  
+		}
+		//this.getColumnModel().getColumnById("tmp_PrecUnit").editor.completeOnEnter= true
+		this.getColumnModel().getColumnById("tmp_PrecUnit").editor.cancelOnEsc=true
+		this.getColumnModel().getColumnById("tmp_PrecUnit").editor.selectOnFocus=true
+    
+		//this.getColumnModel().getColumnById("tmp_PrecUnit").completeOnEnter= true
+		this.getColumnModel().getColumnById("tmp_PrecUnit").cancelOnEsc=true
+		this.getColumnModel().getColumnById("tmp_PrecUnit").selectOnFocus=true
+		this.getColumnModel().getColumnById("tmp_PrecUnit").gridId=gridId;
+		xg.grdPrecios.superclass.onRender.apply(this, arguments);
+	    } // e/o function onRender
+	}); // eo extend
+	Ext.reg('grdPrecios', xg.grdPrecios);     
+    }
+function fPageToolBar(){
+    return  new Ext.PagingToolbar({
+	    pageSize: 25
+	    ,store: strProd
+	    ,displayInfo: true
+	    //,plugins: summary //, filters
+	    ,displayMsg: 'Registros {0} - {1} de {2}'
+	    ,emptyMsg: "No hay datos que presentar"
+	    ,items:[
+		'-'
+		, {
+		pressed: false
+		,enableToggle:false
+		,text: 'Marcas'
+		,tootTip:"Cantidades embarcadas por Marca"
+		,cls: 'x-btn-text-icon details' 
+		,handler: fVerMarcas
+		}, {
+		pressed: false
+		,enableToggle:true
+		,text: 'Dias'
+		,tootTip:"Cantidades embarcadas por Dia, Marca y Tipo de Caja"
+		,cls: 'x-btn-text-icon details' 
+		,toggleHandler: fVerDias
+		}, {
+		pressed: false
+		,enableToggle:true
+		,text: 'Tarjas'
+		,cls: 'x-btn-text-icon details' 
+		,toggleHandler: fVerTarjas}
+	    ]
+	})
+    }
+    /*------------------------------*/    
+    
+ 
+    </script>
+    <style type="text/css">
+        /* Group gridview */
+        .x-grid-group {
+            font-family:arial,tahoma,helvetica,sans-serif;
+            font-size:11px;
+            font-size-adjust:none;
+            font-style:normal;
+            font-variant:normal;
+            font-weight:bold;
+            line-height:13px;
+            white-space:nowrap;
+        }
+
+        .x-grid-emptyrow {
+            font-family:arial,tahoma,helvetica,sans-serif;
+            font-size:11px;
+            font-size-adjust:none;
+            font-style:italic;
+            font-variant:normal;
+            font-weight:bold;
+            line-height:13px;
+            white-space:nowrap;
+        }
+    
+        /* Example Styles */
+        .cell-align-right .x-grid-cell-text  {
+            text-align: right;
+        }
+    </style>
+
+</head>
+<body>
+
+</body>
+</html>

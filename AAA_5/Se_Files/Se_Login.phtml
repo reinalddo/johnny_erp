@@ -1,0 +1,272 @@
+<?php
+/**
+* @version $Id: login.php,v 1.7 2004/09/23 23:49:43 prazgod Exp $
+* @package AAA
+* @copyright (C) 2000 - 2004 Miro International Pty Ltd
+* @license http://www.gnu.org/copyleft/gpl.html GNU/GPL
+* Mambo is Free Software
+*/
+
+/** ensure this file is being included by a parent file */
+define("RelativePath", "..");
+include "../Common.php";
+include "../LibPhp/SegLib.php";
+$DBSeguridad= New clsDBSeguridad;
+/**
+*   Retorna un array que contiene una lista de valores extraidos de una BD.
+*   Es una mutacion de CCGetListValues
+*   @access     public
+*   @param      Object      $db         Conexion a BD
+*   @param      String      $sql        Sentencia SQl que recupera los datos
+*   @param      Object      $where      CAdena condicional
+*   @param      Object      $order_by   Cadena para Ordenar
+*   @param      Object      $bound_column   Columna de dato asociado
+*   @param      Object      $text_column    Columna de texto a presentar
+**/
+
+function fListValues($db, $sql, $where = "", $order_by = "", $bound_column = "", $text_column = "", $dbformat = "", $datatype = "")
+{
+    $values = "";
+    if(!strlen($bound_column))
+        $bound_column = 0;
+    if(!strlen($text_column))
+        $text_column = 1;
+    if(strlen($where))
+        $sql .= " WHERE " . $where;
+    if(strlen($order_by))
+        $sql .= " ORDER BY " . $order_by;
+    $db->query($sql);
+    if ($db->next_record())
+    {
+        do
+        {
+            $bound_column_value = $db->f($bound_column);
+            if($bound_column_value === false) {$bound_column_value = "";}
+//            list($bound_column_value, $errorclass) = CCParseValue($bound_column_value, $dbformat, $datatype, $errorclass, $fieldname);
+            $values[] = array($bound_column_value, $db->f($text_column));
+        } while ($db->next_record());
+    }
+    $db->close();
+//    $result = ($errorclass == "") ? $values : array($values, $errorclass);
+    return $values;
+}
+/**
+*   ---------------------------------------------------------------------------------------------
+*                               INICIO
+*   ---------------------------------------------------------------------------------------------
+**/
+ob_start();
+if (isset($_POST["logout"])){
+    $_SESSION["g_user"]=false;
+    $_SESSION["g_pass"]=false;
+    $_SESSION["g_dbase"]=false;
+    $_SESSION["g_empr"]=false;
+    $_SESSION["g_retPage"]=false;
+    $_SESSION["logged"] = false;
+    $g_server=$_SERVER['SERVER_NAME'];
+   header("Location: http://" . $_SERVER['SERVER_NAME'] . "/AAA/AAA_SEGURIDAD/Index.html");
+   die();
+    }
+$_SESSION["P"]=0;
+$g_user=CCGetFromPost("g_user", false);
+$g_pass=CCGetFromPost("g_pass", false);
+$lsRetPage=(isset($_SESSION["g_retPage"]))?$_SESSION["g_retPage"]:"";
+$g_VerEmpre='style="visibility:hidden"';
+$g_VerLogin='';
+$slEnabled="";
+$slEnabled_emp="disabled";
+$slEmpOptions="";
+if (!isset($_SESSION["count"])) $_SESSION["count"] =0;
+else $_SESSION["count"] +=1;
+/**
+echo "<html><head><br>USUARIO:" . $g_user . " /-  " . $_SESSION["count"];
+echo "-----";
+echo "<br>pag: " . $_SESSION["g_retPage"];
+echo "<br>usr: " . $g_user.   " / sesion : " . $_SESSION["g_user"] . "  //  ".  $_SERVER["g_user"] .  "  |||  ".  fTraeUsuario();
+echo "<br>pas: " . $g_pass .   " / sesion : " .  $_SESSION["g_pass"];
+echo "<br>emp: " . $g_empr .   " / sesion : " . $_SESSION["g_empr"];;
+echo "<br>dba: " . $g_dbase .  " / sesion : " .  $_SESSION["g_dbase"];
+echo "<br>RET: " . $g_dbase .  " / sesion : " .  $_SESSION["g_retPage"];
+echo " <br> Loged--: " . $_SESSION["logged"];
+foreach ($_POST as $k => $v) echo "<br> " . $k . " = " . $v;
+*/
+$slValorBoton=isset($_POST["login"])? $_POST["login"] : "INGRESAR AL SISTEMA";
+$_SESSION["g_empr"]=false;
+if (isset($_POST["login"])) {
+    /*
+    echo "<br><br>SESION  ---- ";
+    echo "<br>pag: " . $_SESSION["g_retPage"];
+    echo "<br>usr: " . $_SESSION["g_user"];
+    echo "<br>pas: " . $_SESSION["g_pass"];
+    echo "<br>emp: " . $_SESSION["g_empr"];
+    echo "<br>dba: " . $_SESSION["g_dbase"];
+    echo "   Loged: " . $_SESSION["logged"];
+*/
+
+    switch ($_POST["login"]) {
+    case "INGRESAR AL SISTEMA" :
+        $_SESSION["logged"] = 1;
+        $_SESSION["g_user"]=$g_user;
+        $_SESSION["g_pass"]=$g_pass;
+        if (fUsuarioValido($g_user, $g_pass)) {
+            $_SESSION["logged"] +=1;
+            $_SERVER["g_user"]=$g_user;
+            $_SESSION["g_user"] = $g_user;
+            $_SESSION["g_pass"] = $g_pass;
+//                $slSql = "SELECT emp_IDempresa, emp_Descripcion, emp_Basedatos, usu_login, usu_nombre
+            $slSql = "SELECT DISTINCT emp_Basedatos, emp_Descripcion, usu_login, usu_nombre
+                            FROM segusuario join segusperfiles  on usp_IDusuario = usu_IDusuario
+                                  JOIN segempresas on emp_idempresa = usp_IDempresa ";
+            $slWhere ="usu_login = '" . $g_user . "' AND usu_activo =1 AND emp_estado=1  ";
+
+            $alEmpresas = fListValues($DBSeguridad, $slSql , $slWhere, " emp_grupo, emp_Descripcion ", 0,1, $dbformat = "", $datatype = "", $errorclass = "", $fieldname = "");
+            $slEmpOptions="";
+            for ($i=0; $i<count($alEmpresas); $i++) {
+
+                $slSelected=($alEmpresas[$i][0] == $_SESSION["g_dbase"])? " selected " : "";
+                $slEmpOptions.="<option value='" . $alEmpresas[$i][0] . $slSelected . "' >" . $alEmpresas[$i][1] . "</option>";
+            }
+            $slEnabled_emp="";
+            $g_VerEmpre='';
+            $g_VerLogin='style="visibility:hidden"';
+            $slValorBoton="ELEGIR EMPRESA";
+        }
+        else {
+            $_SESSION["g_pass"]=false;
+            $_SESSION["g_dbase"]=false;
+            $_SESSION["logged"]=0;
+            $slEnabled="";
+            $slEnabled_emp="disabled";
+            $g_pass="";
+            echo "USUARIO INVALIDO";
+        }
+        break;
+
+    case "ELEGIR EMPRESA":
+        /*
+        echo "<br><br>SELECC EMPR ---- 1";
+        echo "<br>pag: " . $_SESSION["g_retPage"];
+        echo "<br>usr: " . $_SESSION["g_user"];
+        echo "<br>pas: " . $_SESSION["g_pass"];
+        echo "<br>emp: " . $_SESSION["g_empr"];
+        echo "<br>dba: " . $_SESSION["g_dbase"] . " //  ". $_POST["g_dbase"];
+        echo "   Loged: " . $_SESSION["logged"];
+*/
+        $g_dbase=CCGetFromPost("g_dbase", false);
+        $_SESSION["g_dbase"]=$g_dbase;
+
+        $slSql = "SELECT emp_IDempresa, emp_Descripcion, emp_Basedatos, usu_login, usu_nombre
+                        FROM segusuario join segusperfiles  on usp_IDusuario = usu_IDusuario
+                              JOIN segempresas on emp_idempresa = usp_IDempresa ";
+        $slTabla = "segusuario join segusperfiles  on usp_IDusuario = usu_IDusuario JOIN segempresas on emp_idempresa = usp_IDempresa ";
+        $slWhere ="usu_login = '" . $g_user . "' AND emp_Basedatos = '" . $g_dbase . "'";
+        $_SESSION["g_empr"] = CCDLookup("emp_Descripcion", $slTabla, $slWhere, $DBSeguridad);
+        $_SESSION ["g_dbase"] = $g_dbase;
+//        $_SESSION ["g_empr"] = CCDlookup("emp_Descripcion", "segempresas", "emp_basedatos='" .$_POST["g_dbase"] . "'", $DBSeguridad);
+        if (strlen($_SESSION["g_empr"])< 2) die ("LA EMPRESA SELECCIONADA NO EXISTE");
+/*
+echo "<br><br>SESION  ---- 3";
+echo "<br>pag: " . $_SESSION["g_retPage"];
+echo "<br>usr: " . $_SESSION["g_user"];
+echo "<br>pas: " . $_SESSION["g_pass"];
+echo "<br>emp: " . $_SESSION["g_empr"];
+echo "<br>dba: " . $_SESSION["g_dbase"];
+die();*/
+//        if ($_SESSION["g_empr"]) unset($_SESSION["g_retPage"]);
+        header("Location: " . $_SESSION["g_retPage"]);
+        exit();
+        break;
+    }
+}
+else{
+    $_SESSION["g_user"]="";
+    $_SESSION["g_pass"]="";
+    $_SESSION["g_empr"]="";
+    $_SESSION["g_dbase"]="";
+    $_SESSION["logged"]=0;
+}
+
+ob_flush();
+?>
+<html> 
+<head>
+<title>AAA Login</title>
+<meta http-equiv="Content-Type" content="text/html; <?php echo _ISO; ?>" />
+<style type="text/css">
+@import url(../css/admin_login.css);
+</style>
+<script language="javascript" type="text/javascript">
+function setFocus() {
+	if(document.loginForm.login.value == "INGRESAR AL SISTEMA") {
+		document.loginForm.g_user.select();
+		document.loginForm.g_user.focus();
+	}
+	else {
+		document.loginForm.g_dbase.focus();
+	}
+}
+</script>
+</head>
+<body  onload="setFocus();" bgcolor="#fffff7" link="#000099" alink="#ff0000" vlink="#9999cc" text="#000000" class="CobaltPageBODY"
+        style="PADDING: 0px; margin: 0; spacing: 0; background-image: url('/Images/fondo.jpg')"
+        bottommargin="0" nowrap margin="0" marginwidth="0" marginheight="0">
+<div id="wrapper">
+    <div id="header">
+           <div id="mambo"  style="WIDTH: 100%px; " cellspacing="0" cellpadding="0">
+		   	<img style="WIDTH: 100%; BORDER-COLLAPSE: collapse; HEIGHT: 50px" src="../Images/p_header.gif" alt="Cabecera" />
+		   </div>
+    </div>
+</div>
+<div id="ctr" align="center">
+	<div class="login" align="center" style="background-color:transparent; border:0; color:white">
+		<div class="login-form" >
+    	   	<img src="../Images/login.gif" alt="Login" />
+        	<form  method="post" name="loginForm" id="loginForm">
+     			<div class="form-block" style="background-color:transparent; border:0; color:#000000">
+    			    <div class="inputlabel" <? echo $g_VerLogin; ?> >
+        	        	<div class="inputlabel"  > Usuario </div>
+        		    	<div><input name="g_user" type="text" class="inputbox" <? echo $slEnabled; ?>
+                                    size="15" value=<? echo "'" . $g_user . "'"; ?>/>
+                        </div>
+        	        	<div class="inputlabel">Contrasena</div>
+        		    	<div><input name="g_pass" type="password" class="inputbox" <? echo $slEnabled; ?>
+                                    size="15" value=<? echo "'" .$g_pass . "'"; ?> />
+                        </div>
+                    </div>
+                    <div class="inputlabel" <? echo $g_VerEmpre; ?> >
+                        <div class="inputlabel">Empresa</div>
+                        <div><select size=15 name="g_dbase"  <? echo $slEnabled_emp; ?> class="inputbox"
+                                     style="FONT-SIZE: 9px; WIDTH: 180px" >
+                                    <option value="" selected> - - - - - - - - - - - - - - - - - - - - - - - -</option>
+                                    <? echo $slEmpOptions ?>
+                             </select>
+                        </div>
+                    </div>
+    	        	<input type="submit" name="login"  style="FONT-SIZE: 9px; WIDTH: 180px"   value=<? echo "'". $slValorBoton ."'"; ?> />
+    	        	<input type="submit" name="logout" style="FONT-SIZE: 9px; WIDTH: 180px"  value=" SALIR DEL SISTEMA " />
+
+            	</div>
+			</form>
+		</div>
+		<div class="login-text" valign:"top" style="font-soze:20px; font-weight:bold; color:#000000" >
+			<div class="ctr" style="background-color:transparent; border:0; color:white">
+<!--
+                <img src="../Images/security.png" width="64" height="64" alt="security" style="background-color:transparent; border:0; color:white"/>
+    --!>
+            </div>
+        	<p>Bienvenido a Forza!</p>
+			<p>Utilice un nombre de usuario y Contraseña válidos.</p>
+    	</div>
+		<div class="clr"></div>
+	</div>
+</div>
+<div id="break"></div>
+<noscript>
+!PRECAUCION! Javascript Debe habilitarse para que funcione la aplicacion
+</noscript>
+<div class="footer" align="center">
+</div>
+<?
+?>
+</body>
+</html>

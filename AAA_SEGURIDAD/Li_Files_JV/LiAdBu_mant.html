@@ -1,0 +1,116 @@
+<html>
+<head>
+<base>
+<link rel="stylesheet" type="text/css" href="../Themes/Cobalt/Style.css">
+<link rel="stylesheet" type="text/css" href="../Themes/Menu/Style.css">
+<title>BUQUES: MANTENIMIENTO</title>
+<script language="JavaScript" src="../LibJava/menu_func.js"></script>
+<script language="JavaScript">
+//Begin CCS script
+//Include JSFunctions @1-5F368366
+  </script>
+<script language="JavaScript" src="../functions.js"></script>
+<script language="JavaScript">
+  
+//End Include JSFunctions
+
+//page_liqbuques_Button_Delete_OnClick @5-EA59EA2E
+function page_liqbuques_Button_Delete_OnClick()
+{
+    var result;
+//End page_liqbuques_Button_Delete_OnClick
+
+//Confirmation Message @6-BED55CD3
+    return confirm('Borrar registro?');
+//End Confirmation Message
+
+//Close page_liqbuques_Button_Delete_OnClick @5-BC33A33A
+    return result;
+}
+//End Close page_liqbuques_Button_Delete_OnClick
+
+//page_liqbuques_Button_Cancel_OnClick @7-3F336B9D
+function page_liqbuques_Button_Cancel_OnClick()
+{
+    disableValidation = true;
+}
+//End page_liqbuques_Button_Cancel_OnClick
+
+//bind_events @1-412933F6
+function bind_events() {
+    if (document.forms["liqbuques"]) check_and_bind('document.forms["liqbuques"].Button_Delete','onclick',page_liqbuques_Button_Delete_OnClick);
+    if (document.forms["liqbuques"]) check_and_bind('document.forms["liqbuques"].Button_Cancel','onclick',page_liqbuques_Button_Cancel_OnClick);
+    forms_onload();
+}
+//End bind_events
+
+window.onload = bind_events; //Assign bind_events @1-19F7B649
+
+//End CCS script
+</script>
+</head>
+<body bgcolor="#fffff7" link="#000000" alink="#ff0000" vlink="#000000" text="#000000" class="CobaltPageBODY">
+<table background="../Themes/Cobalt/Light Streaks.bmp" border="0" width="100%" class="CobaltPageBODY">
+  <tr>
+    <td valign="top" align="middle">
+      <!-- BEGIN Record liqbuques -->
+      <form name="{HTMLFormName}" action="{Action}" method="post" style="MARGIN: 0px">
+        <font class="CobaltFormHeaderFont">{lbTitulo} </font> 
+        <table class="CobaltFormTABLE" cellpadding="3" border="0">
+          <!-- BEGIN Error -->
+          <tr>
+            <td class="CobaltErrorDataTD" colspan="2">{Error}</td> 
+          </tr>
+          <!-- END Error -->
+          <tr>
+            <td class="CobaltFieldCaptionTD" nowrap>&nbsp;CODIGO</td> 
+            <td class="CobaltDataTD"><input class="CobaltInputSB2" style="WIDTH: 64px; HEIGHT: 18px" size="9" value="{buq_Codigo}" name="{buq_Codigo_Name}"></td> 
+          </tr>
+ 
+          <tr>
+            <td class="CobaltFieldCaptionTD" nowrap>&nbsp;ABREVIATURA&nbsp;</td> 
+            <td class="CobaltDataTD"><input class="CobaltInputSB2" maxlength="40" size="14" value="{buq_Abreviatura}" name="{buq_Abreviatura_Name}" style="WIDTH: 81px; HEIGHT: 18px">&nbsp;</td> 
+          </tr>
+ 
+          <tr>
+            <td class="CobaltFieldCaptionTD" nowrap>&nbsp;DESCRIPCION&nbsp;</td> 
+            <td class="CobaltDataTD"><input class="CobaltInputSB2" maxlength="40" size="40" value="{buq_Descripcion}" name="{buq_Descripcion_Name}">&nbsp;</td> 
+          </tr>
+ 
+          <tr>
+            <td class="CobaltFieldCaptionTD" nowrap>&nbsp;PAIS ORIGEN</td> 
+            <td class="CobaltDataTD">
+              <select class="CobaltInputSB2" name="{buq_Pais_Name}">
+                <option value="" selected>-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-</option>
+ {buq_Pais_Options} 
+              </select>
+ &nbsp;</td> 
+          </tr>
+ 
+          <tr>
+            <td class="CobaltFieldCaptionTD" nowrap>&nbsp;ESTADO</td> 
+            <td class="CobaltDataTD">
+              <select name="{buq_Estado_Name}" class="CobaltInputSB2" style="WIDTH: 134px">
+                <option value="" selected>-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;</option>
+ {buq_Estado_Options} 
+              </select>
+ &nbsp;</td> 
+          </tr>
+ 
+          <tr valign="center" align="middle">
+            <td class="CobaltFooterTD" nowrap align="right" colspan="2" title="Regresa ala pantalla anterior">
+              <!-- BEGIN Button Button_Insert --><input class="" type="submit" value="AGREGAR" name="{Button_Name}" style="FONT-SIZE: 9px; WIDTH: 54px; HEIGHT: 17px" size="22"><!-- END Button Button_Insert -->
+              <!-- BEGIN Button Button_Update --><input class="" type="submit" value="GRABAR" name="{Button_Name}" style="FONT-SIZE: 9px; WIDTH: 47px; HEIGHT: 17px"><!-- END Button Button_Update -->
+              <!-- BEGIN Button Button_Delete --><input class="" type="submit" value="BORRAR" name="{Button_Name}" style="FONT-SIZE: 9px; WIDTH: 47px; HEIGHT: 17px"><!-- END Button Button_Delete -->
+              <!-- BEGIN Button Button_Cancel --><input class="" type="submit" value="CANCELAR" name="{Button_Name}" style="FONT-SIZE: 9px; WIDTH: 47px; HEIGHT: 17px"><!-- END Button Button_Cancel -->&nbsp; <a class="CobaltButton" title="Regresa a la pantalla de Búsqueda" style="HEIGHT: 18px" href="{lkRegresar_Src}">{lkRegresar}</a> </td> 
+          </tr>
+ 
+        </table>
+ 
+      </form>
+ <!-- END Record liqbuques --></td> 
+  </tr>
+</table>
+<p></p>
+</body>
+</html>

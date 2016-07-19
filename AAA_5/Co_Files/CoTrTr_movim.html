@@ -1,0 +1,229 @@
+<html>
+<head>
+<base target="_self">
+<link rel="stylesheet" type="text/css" href="../Themes/StormyWeather/Style.css">
+<link rel="stylesheet" type="text/css" href="../Themes/Menu/Style.css">
+<title>LISTA DE MOVIMIENTOS</title>
+<script language="JavaScript" src="../LibJava/menu_func.js"></script>
+<link rel="stylesheet" type="text/css" href="../Themes/Cobalt/Style.css">
+<script language="JavaScript">
+//Begin CCS script
+//Include Common JSFunctions @1-73ADA5ED
+</script>
+<script language="JavaScript" src="../DatePicker.js"></script>
+<script language="JavaScript">
+//End Include Common JSFunctions
+
+//Date Picker Object Definitions @1-3A924230
+
+var movim_query_DatePicker_s_com_FecTrans = new Object(); 
+movim_query_DatePicker_s_com_FecTrans.format           = "mm/dd/yyyy";
+movim_query_DatePicker_s_com_FecTrans.style            = "Themes/Cobalt/Style.css";
+movim_query_DatePicker_s_com_FecTrans.relativePathPart = "../";
+
+var movim_query_DatePicker_s_com_FecContab = new Object(); 
+movim_query_DatePicker_s_com_FecContab.format           = "mm/dd/yyyy";
+movim_query_DatePicker_s_com_FecContab.style            = "Themes/Cobalt/Style.css";
+movim_query_DatePicker_s_com_FecContab.relativePathPart = "../";
+
+var movim_query_DatePicker_s_com_FecDigita = new Object(); 
+movim_query_DatePicker_s_com_FecDigita.format           = "mmm/dd/yyyy";
+movim_query_DatePicker_s_com_FecDigita.style            = "Themes/Cobalt/Style.css";
+movim_query_DatePicker_s_com_FecDigita.relativePathPart = "../";
+
+var movim_query_DatePicker_s_det_FecCheque = new Object(); 
+movim_query_DatePicker_s_det_FecCheque.format           = "mm/dd/yyyy";
+movim_query_DatePicker_s_det_FecCheque.style            = "Themes/Cobalt/Style.css";
+movim_query_DatePicker_s_det_FecCheque.relativePathPart = "../";
+
+//End Date Picker Object Definitions
+
+//End CCS script
+</script>
+</head>
+<body bgcolor="#fffff7" link="#000000" alink="#ff0000" vlink="#000000" text="#000000" class="CobaltPageBODY">
+<p>{Cabecera}
+<table border="0" cellspacing="0" cellpadding="0" style="border-collapse:collapse" width="100%">
+  <tr>
+    <td align="middle">
+      <!-- BEGIN Record movim_query -->
+      <form action="{Action}" method="post" name="{HTMLFormName}">
+        <font class="CobaltFormHeaderFont">BUSCAR MOVIMIENTOS </font> 
+        <table border="1" cellpadding="0" class="CobaltFormTABLE" cellspacing="0">
+          <!-- BEGIN Error -->
+          <tr>
+            <td class="CobaltErrorDataTD" colspan="25">{Error}</td> 
+          </tr>
+ <!-- END Error -->
+          <tr>
+            <td class="CobaltFieldCaptionTD" nowrap>&nbsp;COMPROBANTE&nbsp;</td> 
+            <td class="CobaltDataTD">&nbsp;<input class="CobaltInput" maxlength="3" name="{s_com_TipoComp_Name}" size="3" value="{s_com_TipoComp}" style="HEIGHT: 18px; WIDTH: 27px">&nbsp;<input class="CobaltInput" maxlength="10" name="{s_com_NumComp_Name}" size="10" value="{s_com_NumComp}">&nbsp;</td> 
+            <td class="CobaltFieldCaptionTD" nowrap>&nbsp;RN:&nbsp;</td> 
+            <td class="CobaltDataTD">&nbsp;<input class="CobaltInput" maxlength="10" name="{s_com_RegNumero_Name}" size="10" value="{s_com_RegNumero}">&nbsp;</td> 
+            <td class="CobaltFieldCaptionTD" nowrap>&nbsp;EMISION&nbsp;</td> 
+            <td class="CobaltDataTD">&nbsp;<input class="CobaltInput" maxlength="10" name="{s_com_FecTrans_Name}" size="10" value="{s_com_FecTrans}">&nbsp; 
+              <!-- BEGIN DatePicker DatePicker_s_com_FecTrans --><a class="CobaltDataLink" href="javascript:showDatePicker('{Name}','{FormName}','{DateControl}');"><img border="0" src="../Themes/DatePicker/DatePicker1.gif"></a><!-- END DatePicker DatePicker_s_com_FecTrans -->&nbsp;</td> 
+          </tr>
+ 
+          <tr>
+            <td class="CobaltFieldCaptionTD" nowrap>&nbsp;CONTABILIZA:</td> 
+            <td class="CobaltDataTD">&nbsp;<input class="CobaltInput" maxlength="10" name="{s_com_FecContab_Name}" size="10" value="{s_com_FecContab}">&nbsp; 
+              <!-- BEGIN DatePicker DatePicker_s_com_FecContab --><a class="CobaltDataLink" href="javascript:showDatePicker('{Name}','{FormName}','{DateControl}');"><img border="0" src="../Themes/DatePicker/DatePicker1.gif"></a><!-- END DatePicker DatePicker_s_com_FecContab -->&nbsp;</td> 
+            <td class="CobaltFieldCaptionTD" nowrap>&nbsp;PERIODO&nbsp;</td> 
+            <td class="CobaltDataTD">&nbsp;<input class="CobaltInput" maxlength="5" name="{s_com_NumPeriodo_Name}" size="5" value="{s_com_NumPeriodo}">&nbsp;</td> 
+            <td class="CobaltFieldCaptionTD" nowrap>&nbsp;DIGITADO:&nbsp;</td> 
+            <td class="CobaltDataTD" colspan="2">&nbsp;<input class="CobaltInput" maxlength="15" name="{s_com_Usuario_Name}" size="15" value="{s_com_Usuario}">&nbsp;<input class="CobaltInput" maxlength="10" name="{s_com_FecDigita_Name}" size="10" value="{s_com_FecDigita}">&nbsp; 
+              <!-- BEGIN DatePicker DatePicker_s_com_FecDigita --><a class="CobaltDataLink" href="javascript:showDatePicker('{Name}','{FormName}','{DateControl}');"><img border="0" src="../Themes/DatePicker/DatePicker1.gif"></a><!-- END DatePicker DatePicker_s_com_FecDigita --></td> 
+          </tr>
+ 
+          <tr>
+            <td class="CobaltFieldCaptionTD" nowrap>&nbsp;AUXILIAR:&nbsp;</td> 
+            <td class="CobaltDataTD">&nbsp;<input class="CobaltInput" maxlength="10" name="{s_det_IDAuxiliar_Name}" size="10" value="{s_det_IDAuxiliar}" style="HEIGHT: 18px; WIDTH: 46px" title="Código de Auxiliar">&nbsp;<input class="CobaltInput" maxlength="25" name="{s_desc_auxil_Name}" size="25" title="Nombres, Apellidos del Auxiliar" value="{s_desc_auxil}"></td> 
+            <td class="CobaltFieldCaptionTD" nowrap>&nbsp;CODIGO CUENTA&nbsp;</td> 
+            <td class="CobaltDataTD">&nbsp;<input class="CobaltInput" maxlength="15" name="{s_det_CodCuenta_Name}" size="15" value="{s_det_CodCuenta}"></td> 
+            <td class="CobaltFieldCaptionTD" nowrap>&nbsp;VALOR DEBITO:&nbsp;</td> 
+            <td class="CobaltDataTD">&nbsp;<input class="CobaltInput" maxlength="12" name="{s_det_ValDebito_Name}" size="12" value="{s_det_ValDebito}">&nbsp;</td> 
+          </tr>
+ 
+          <tr>
+            <td class="CobaltFieldCaptionTD" nowrap>
+              <p>&nbsp;VALOR CREDITO&nbsp;</p>
+ </td> 
+            <td class="CobaltDataTD">&nbsp;<input class="CobaltInput" maxlength="12" name="{s_det_ValCredito_Name}" size="12" value="{s_det_ValCredito}">&nbsp;</td> 
+            <td class="CobaltFieldCaptionTD" nowrap>&nbsp;GLOSA&nbsp;</td> 
+            <td class="CobaltDataTD">&nbsp;<input class="CobaltInput" maxlength="40" name="{s_det_Glosa_Name}" size="40" value="{s_det_Glosa}">&nbsp;</td> 
+            <td class="CobaltFieldCaptionTD" nowrap>&nbsp;CHEQUE&nbsp;</td> 
+            <td class="CobaltDataTD">&nbsp;<input class="CobaltInput" maxlength="10" name="{s_det_NumCheque_Name}" size="10" value="{s_det_NumCheque}" style="HEIGHT: 18px; WIDTH: 53px">&nbsp;<input class="CobaltInput" maxlength="10" name="{s_det_FecCheque_Name}" size="10" value="{s_det_FecCheque}">
+              <!-- BEGIN DatePicker DatePicker_s_det_FecCheque --><a class="CobaltDataLink" href="javascript:showDatePicker('{Name}','{FormName}','{DateControl}');"><img border="0" src="../Themes/DatePicker/DatePicker1.gif"></a><!-- END DatePicker DatePicker_s_det_FecCheque --></td> 
+          </tr>
+ 
+          <tr>
+            <td class="CobaltFieldCaptionTD" nowrap>&nbsp;</td> 
+            <td class="CobaltDataTD">&nbsp;&nbsp;</td> 
+            <td class="CobaltFieldCaptionTD" nowrap>Ordenar por&nbsp;</td> 
+            <td class="CobaltDataTD" colspan="3">&nbsp; 
+              <select class="CobaltSelect" name="concomprobantes_condetallOrder">
+                {concomprobantes_condetallOrder_Options} 
+              </select>
+ &nbsp; 
+              <select class="CobaltSelect" name="concomprobantes_condetallDir">
+                {concomprobantes_condetallDir_Options} 
+              </select>
+ &nbsp;</td> 
+          </tr>
+ 
+          <tr>
+            <td align="middle" class="CobaltFooterTD" colspan="27" nowrap>
+              <!-- BEGIN Button Button_DoSearch --><input class="" name="{Button_Name}" type="submit" value="Buscar"><!-- END Button Button_DoSearch -->&nbsp; </td>
+          </tr>
+ 
+        </table>
+ 
+      </form>
+ 
+      <!-- END Record movim_query -->
+      <!-- BEGIN Grid movim_lista -->
+      <a class="CobaltDataLink" href="{Link1_Src}" title="Haga Click para Definir un Otro Criterio de Bùsqueda">{Link1}</a>
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+      <font class="CobaltFormHeaderFont">LISTA DE MOVIMIENTOS </font>
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Num.
+      Registros:&nbsp; {concomprobantes_condetall_TotalRecords} 
+      <table border="1" cellpadding="3" cellspacing="1" border="0"  style="border-collapse:collapse" >
+	      <colgroup span="7"></colgroup>
+	      <colgroup >
+			  <col align="char" char="."></col>
+			  <col align="char" char="."></col>
+		  </colgroup>
+	      <colgroup span="2"></colgroup>
+          <tr>
+          <td class="CobaltFooterTD" colspan="11" nowrap>
+            <!-- BEGIN Navigator Navigator -->
+                  <!-- BEGIN First_On --><a class="CobaltNavigatorLink" href="{First_URL}"><img height="14" src="../Themes/Aqua/FirstOn.gif" width="24" border="0"></a> <!-- END First_On -->
+                  <!-- BEGIN Prev_On --><a class="CobaltNavigatorLink" href="{Prev_URL}"><img height="14" src="../Themes/Aqua/PrevOn.gif" width="24" border="0"></a> <!-- END Prev_On -->&nbsp;
+                  <!-- BEGIN Pages -->
+                  <!-- BEGIN Page_On --><a class="CobaltNavigatorLink" href="{Page_URL}">{Page_Number}</a>&nbsp; <!-- END Page_On -->
+                  <!-- BEGIN Page_Off -->{Page_Number}&nbsp; <!-- END Page_Off --><!-- END Pages -->de
+                  {Total_Pages}&nbsp;
+                  <!-- BEGIN Next_On --><a class="CobaltNavigatorLink" href="{Next_URL}"><img height="14" src="../Themes/Aqua/NextOn.gif" width="24" border="0"></a> <!-- END Next_On -->
+                  <!-- BEGIN Last_On --><a class="CobaltNavigatorLink" href="{Last_URL}"><img height="14" src="../Themes/Aqua/LastOn.gif" width="24" border="0"></a> <!-- END Last_On -->
+				  <!-- END Navigator Navigator -->&nbsp; </td>
+        </tr>
+
+        <tr align="middle">
+          <td class="CobaltColumnTD" nowrap>
+            <!-- BEGIN Sorter Sorter_com_TipoComp --><a class="CobaltSorterLink" href="{Sort_URL}">COMPROB.</a><!-- END Sorter Sorter_com_TipoComp -->&nbsp;</td> 
+          <td class="CobaltColumnTD" nowrap>
+            <!-- BEGIN Sorter Sorter_com_FecTrans --><a class="CobaltSorterLink" href="{Sort_URL}">F/EMISION</a><!-- END Sorter Sorter_com_FecTrans -->&nbsp;</td> 
+          <td class="CobaltColumnTD" nowrap>
+            <!-- BEGIN Sorter Sorter_com_FecContab --><a class="CobaltSorterLink" href="{Sort_URL}">F/
+            CONTAB.</a><!-- END Sorter Sorter_com_FecContab -->&nbsp;</td> 
+          <td class="CobaltColumnTD" nowrap>
+            <!-- BEGIN Sorter Sorter_com_Usuario --><a class="CobaltSorterLink" href="{Sort_URL}">DIGITADO</a><!-- END Sorter Sorter_com_Usuario -->&nbsp;</td> 
+          <td class="CobaltColumnTD" nowrap>
+            <!-- BEGIN Sorter Sorter_com_NumPeriodo --><a class="CobaltSorterLink" href="{Sort_URL}">PER,</a><!-- END Sorter Sorter_com_NumPeriodo -->&nbsp;</td> 
+          <td class="CobaltColumnTD" nowrap>
+            <!-- BEGIN Sorter Sorter_det_CodCuenta --><a class="CobaltSorterLink" href="{Sort_URL}">CÓD.
+            CUENTA</a><!-- END Sorter Sorter_det_CodCuenta -->&nbsp;</td> 
+          <td class="CobaltColumnTD" nowrap>
+            <!-- BEGIN Sorter Sorter_det_IDAuxiliar --><a class="CobaltSorterLink" href="{Sort_URL}">AUXILIAR</a><!-- END Sorter Sorter_det_IDAuxiliar -->&nbsp;</td> 
+          <td class="CobaltColumnTD" nowrap>
+            <!-- BEGIN Sorter Sorter_det_ValDebito --><a class="CobaltSorterLink" href="{Sort_URL}">DEBITO</a><!-- END Sorter Sorter_det_ValDebito -->&nbsp;</td> 
+          <td class="CobaltColumnTD" nowrap>
+            <!-- BEGIN Sorter Sorter_det_ValCredito --><a class="CobaltSorterLink" href="{Sort_URL}">CREDITO</a><!-- END Sorter Sorter_det_ValCredito -->&nbsp;</td> 
+          <td class="CobaltColumnTD" nowrap>
+            <!-- BEGIN Sorter Sorter_det_Glosa --><a class="CobaltSorterLink" href="{Sort_URL}">GLOSA</a><!-- END Sorter Sorter_det_Glosa -->&nbsp;</td> 
+          <td class="CobaltColumnTD" nowrap>
+            <!-- BEGIN Sorter Sorter_det_NumCheque --><a class="CobaltSorterLink" href="{Sort_URL}">CHEQUE</a><!-- END Sorter Sorter_det_NumCheque -->&nbsp;</td> 
+        </tr>
+ 
+        <!-- BEGIN Row -->
+        <tr>
+          <td class="CobaltDataTD">&nbsp;<a class="CobaltDataLink" href="{lnCompr_Src}" title="Ver el Comprobante">{lnCompr}</a>&nbsp;</td> 
+          <td class="CobaltDataTD" title="Fecha en que fué emitido el comprobante">&nbsp;{com_FecTrans}&nbsp;</td> 
+          <td class="CobaltDataTD" title="Fecha para efecto Contable">&nbsp;{com_FecContab}&nbsp;</td> 
+          <td class="CobaltDataTD" title="Nombre de usuario que digitó el comprobante">&nbsp;{com_Usuario}&nbsp;{com_FecDigita}</td> 
+          <td class="CobaltDataTD" title="Período Contable ql que se aplica este comprobante">&nbsp;{com_NumPeriodo}&nbsp;</td> 
+          <td class="CobaltDataTD">&nbsp;{det_CodCuenta}&nbsp;</td> 
+          <td class="CobaltDataTD" nowrap title="Código y Descripción de Auxiliar">&nbsp;{det_IDAuxiliar}&nbsp;
+            &nbsp;{per_Apellidos}{act_Descripcion}</td> 
+          <td class="CobaltDataTD" align="right" title="Valor al Débito">&nbsp;{det_ValDebito}&nbsp;</td>
+          <td class="CobaltDataTD" align="right" title="Valor al Crédito">&nbsp;{det_ValCredito}&nbsp;</td>
+          <td class="CobaltDataTD" nowrap title="">&nbsp;{det_Glosa}&nbsp;</td> 
+          <td class="CobaltDataTD" nowrap title="Número de cheque, si se aplica">&nbsp;{det_NumCheque}&nbsp;&nbsp;&nbsp;&nbsp;</td> 
+        </tr>
+ <!-- END Row -->
+        <!-- BEGIN AltRow -->
+        <tr>
+          <td class="CobaltAltDataTD">&nbsp;<a class="CobaltDataLink" href="{alt_lnCompr_Src}" title="Ver el Comprobante">{alt_lnCompr}</a>&nbsp;</td> 
+          <td class="CobaltAltDataTD" title="Fecha en que fué emitido el comprobante">&nbsp;{Alt_com_FecTrans}&nbsp;</td> 
+          <td class="CobaltAltDataTD" title="Fecha para efecto Contable">&nbsp;{Alt_com_FecContab}&nbsp;</td> 
+          <td class="CobaltAltDataTD" nowrap title="Nombre de usuario y fecha en que digitó el comprobante">&nbsp;{Alt_com_Usuario}&nbsp;{Alt_com_FecDigita}</td> 
+          <td class="CobaltAltDataTD" title="Período Contable ql que se aplica este comprobante">&nbsp;{Alt_com_NumPeriodo}&nbsp;</td> 
+          <td class="CobaltAltDataTD">&nbsp;{Alt_det_CodCuenta}&nbsp;</td> 
+          <td class="CobaltAltDataTD" nowrap title="Código y Descripción de Auxiliar">&nbsp;{Alt_det_IDAuxiliar}&nbsp;
+            &nbsp;{Alt_per_Apellidos}{Alt_act_Descripcion}</td> 
+          <td class="CobaltAltDataTD" align="right" title="Valor al Débito">&nbsp;{Alt_det_ValDebito}&nbsp;</td> 
+          <td class="CobaltAltDataTD" align="right" title="Valor al Crédito">&nbsp;{Alt_det_ValCredito}&nbsp;</td> 
+          <td class="CobaltAltDataTD">&nbsp;{Alt_det_Glosa}&nbsp;</td> 
+          <td class="CobaltAltDataTD" nowrap title="Número de cheque y fecha de vencimiento, si se aplica">&nbsp;{Alt_det_NumCheque}&nbsp;</td> 
+        </tr>
+ <!-- END AltRow -->
+        <!-- BEGIN NoRecords -->
+        <tr>
+          <td class="CobaltAltDataTD" colspan="11">No hay Movimientos&nbsp;</td> 
+        </tr>
+ <!-- END NoRecords -->
+        <tr height="5">
+          <td class="CobaltFooterTD" colspan="11"  >&nbsp;</td>
+        </tr>
+      </table>
+ <!-- END Grid movim_lista -->&nbsp;</p>
+ </td> 
+  </tr>
+ 
+  <tr>
+    <td>&nbsp;</td> 
+  </tr>
+</table>
+</body>
+</html>

@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <base target="_self">
+        <title>ORDENES DE COMPRA - IB </title>
+        <link rel="stylesheet" type="text/css" href="../LibJs/DataTables/media/css/jquery-ui.min.css"/>
+        <link rel="stylesheet" type="text/css" href="../LibJs/DataTables/media/css/bootstrap.css"/>
+        <script type="text/javascript" language="javascript" src="../LibJs/DataTables/media/js/jquery.js"></script>
+        <script type="text/javascript" language="javascript" src="../LibJs/DataTables/media/js/bootstrap.min.js"></script>
+        <script type="text/javascript" language="javascript" src="../LibJs/DataTables/media/js/jquery-ui.min.js"></script>
+        <script type="text/javascript">
+            function obtenerDetalle(id, element) {
+                //$('#comprobantes').css('background-color', 'white');
+                var rows = $("#comprobantes tr");
+                //alert(rows.length);
+                for(x=0;x<rows.length;x++){
+                    $(rows[x]).css('background-color', 'white');
+                }
+                $(element).css('background-color', '#f5f5f5');
+                $('#detalle_ordenes_emitidas').html('<img class="center-block" src="http://preloaders.net/preloaders/287/Filling%20broken%20ring.gif">');
+                $.ajax({url: "InTrTr_octoib.php", type: 'POST', data: {
+                        'accion': "2",
+                        'txtNumero': id
+                    }, success: function(result) {
+                        $("#detalle_ordenes_emitidas").html('');
+                        $("#detalle_ordenes_emitidas").html(result);
+
+                    }});
+
+            }
+
+            function generarIb(id, e) {
+                e.stopPropagation();
+                $.ajax({url: "InTrTr_octoib.php", type: 'POST', data: {
+                        'accion': "3",
+                        'txtNumero': id
+                    }, success: function(result) {
+                        $('#ordenes_emitidas').html('');
+                        $("#detalle_ordenes_emitidas").html(result);
+                        filtrar();
+                    }});
+            }
+
+            function generarImpresion(id, e) {
+                e.stopPropagation();
+                window.open("InTrTr_ordencompra.rpt.php?pQryCom=com_TipoComp='OC' AND com_NumComp=" + id, '_blank', "width=800, height=450");
+            }
+
+            function filtrar() {                
+                $('#ordenes_emitidas').html('<img class="center-block" src="http://preloaders.net/preloaders/287/Filling%20broken%20ring.gif">');
+                $.ajax({url: "InTrTr_octoib.php", type: 'POST', data: {
+                        'accion': "1",
+                        'txtNumero': $('#txtNumero').val(),
+                        'txtFechaDesde': $('#txtFechaDesde').val(),
+                        'txtCodItem': $('#txtCodItem').val(),
+                        'txtProveedor': $('#txtProveedor').val(),
+                        'txtFechaHasta': $('#txtFechaHasta').val(),
+                        'txtCodAlterno': $('#txtCodAlterno').val(),
+                        'txtBodega': $('#txtBodega').val(),
+                        'txtItem': $('#txtItem').val()
+                    }, success: function(result) {
+
+                        //$("#detalle_ordenes_emitidas").html('');
+                        $("#ordenes_emitidas").html('');
+                        $("#ordenes_emitidas").html(result);
+                    }});
+            }
+
+            $(document).ready(function() {
+                $("#txtFechaDesde").datepicker({dateFormat: "yy-mm-dd"});
+                $("#txtFechaHasta").datepicker({dateFormat: "yy-mm-dd"});
+
+                $("#filtrar").click(function() {
+                    $("#detalle_ordenes_emitidas").html('');
+                    filtrar();
+                });
+               
+            });
+
+        </script>
+        <style>
+            body {
+                color: #333;
+                font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+                font-size: 11px;
+                line-height: 1;
+            }
+            
+        </style>
+    </head>
+    <body>
+        <div class="container">
+            </br>
+            <div class="panel panel-default">
+                <div class="panel-heading">Filtros de B&uacute;squeda</div>
+                <div class="panel-body">
+                    <form class="form-horizontal" role="form">
+                        <div class="form-group">        
+                            <label class="control-label col-sm-1" for="txtNumero">N&uacute;mero</label>
+                            <div class="col-sm-3"><input class="form-control" type="text" id="txtNumero" name="txtNumero"></div>                
+                            <label class="control-label col-sm-1" for="txtFechaDesde">Fecha desde</label>
+                            <div class="col-sm-3"><input class="form-control" type="text" id="txtFechaDesde" name="txtFechaDesde"></div>                
+                            <label class="control-label col-sm-1" for="txtCodItem">Cod Item</label>
+                            <div class="col-sm-3"><input class="form-control" type="text" id="txtCodItem" name="txtCodItem"></div>                
+                        </div>     
+                        <div class="form-group">        
+                            <label class="control-label col-sm-1" for="txtProveedor">Proveedor</label>
+                            <div class="col-sm-3"><input class="form-control" type="text" id="txtProveedor" name="txtProveedor"></div>                
+                            <label class="control-label col-sm-1" for="txtFechaHasta">Fecha hasta</label>
+                            <div class="col-sm-3"><input class="form-control" type="text" id="txtFechaHasta" name="txtFechaHasta"></div>                
+                            <label class="control-label col-sm-1" for="txtCodAlterno">Cod Alterno</label>
+                            <div class="col-sm-3"><input class="form-control" type="text" id="txtCodAlterno" name="txtCodAlterno"></div>                
+                        </div>
+                        <div class="form-group">        
+                            <label class="control-label col-sm-1" for="txtProveedor">Bodega</label>
+                            <div class="col-sm-3"><input class="form-control" type="text" id="txtBodega" name="txtBodega"></div>                
+                            <label class="control-label col-sm-1" for="txtItem">Descripci&oacuten del item</label>
+                            <div class="col-sm-3"><input class="form-control" type="text" id="txtItem" name="txtItem"></div>                                    
+                            <div class="col-sm-4"><input class="btn btn-primary" type="button" id="filtrar" name="filtrar" value="Buscar"></div>                
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="row">
+                <div class ="col-lg-12">
+                    <div class ="col-lg-6" id="ordenes_emitidas">
+
+                    </div>
+                    <div class ="col-lg-6" id="detalle_ordenes_emitidas">
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </body>
+
+
+
+</html>

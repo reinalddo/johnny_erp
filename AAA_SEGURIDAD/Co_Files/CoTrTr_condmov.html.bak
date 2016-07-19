@@ -1,0 +1,338 @@
+<html>
+<head>
+<base target="_self">
+<link rel="stylesheet" type="text/css" href="../Themes/Cobalt/Style.css">
+<link rel="stylesheet" type="text/css" href="../Themes/Menu/Style.css">
+<title>SELECCION DE MOVIMIENTOS CONTABLES</title>
+
+<script language="JavaScript" src="../LibJava/menu_func.js"></script>
+<script language="JavaScript" src="../LibJava/general.js"></script>
+<script language="JavaScript" src="../LibJava/cookies.js"></script>
+<script language="JavaScript" src="../LibJava/validations.js"></script>
+<script language="JavaScript" src="../LibJava/construct.js"></script>
+<script language="JavaScript" src="../LibJava/validaDB.js"></script>
+
+<script language="JavaScript">
+gaCampos = new Array();
+
+gaCampos["com_TipoComp"  		] = new oCampo( "C", "Tipo Comprob.", "com_TipoComp", "com_TipoComp");
+gaCampos["com_NumComp"          ] = new oCampo( "N", "com_NumComp", "com_NumComp");
+gaCampos["com_FecTrans"      	] = new oCampo( "F", "Fec.Trans", "com_FecTrans");
+gaCampos["com_FecContab"   		] = new oCampo( "F", "Fecha", "com_FecContab");
+gaCampos["com_FecVencim"		] = new oCampo( "F", "Grupo", "com_FecVencim");
+gaCampos["com_NumPeriodo"   	] = new oCampo( "N", "Periodo");
+gaCampos["com_Emisor"   		] = new oCampo( "N", "Emisor");
+gaCampos["com_CodReceptor"   	] = new oCampo( "N", "Receptor");
+gaCampos["com_Receptor"   		] = new oCampo( "C", "Receptor");
+gaCampos["com_Concepto"   		] = new oCampo( "C", "Concepto");
+gaCampos["com_RefOperat"   		] = new oCampo( "N", "Ref.Operat");
+gaCampos["com_EstProceso"   	] = new oCampo( "N", "Estado");
+gaCampos["com_EstOperacion"   	] = new oCampo( "N", "Est.Oper.");
+gaCampos["com_Usuario"   		] = new oCampo( "C", "Usuario");
+gaCampos["com_FecDigita"   		] = new oCampo( "F", "FecDigita");
+gaCampos["com_NumPeriodo"   	] = new oCampo( "N", "Periodo");
+gaCampos["det_CodCuenta"     	] = new oCampo( "C", "Cuenta");
+gaCampos["cue_Descripcion"   	] = new oCampo( "C", "Descr Cuenta");
+gaCampos["det_IDAuxiliar"   	] = new oCampo( "N", "Auxiliar ");
+gaCampos["aux_Descripcion"   	] = new oCampo( "C", "Descr auxil.");
+gaCampos["det_ValDebito"    	] = new oCampo( "N", "Debito  ");
+gaCampos["det_ValCredito"   	] = new oCampo( "N", "Credito ");
+gaCampos["det_Glosa"        	] = new oCampo( "C", "Glosa      ");
+gaCampos["det_EstEjecucion"   	] = new oCampo( "N", "Edo.Ejecuc.");
+gaCampos["det_FecEjecucion"   	] = new oCampo( "F", "Fec.Ejecuc.");
+gaCampos["det_EstLibros"    	] = new oCampo( "N", "Est. Libros   ");
+gaCampos["det_FecLibros"    	] = new oCampo( "F", "Fec. Libros   ");
+gaCampos["det_RefOperativa"   	] = new oCampo( "N", "Ref.Operat.");
+gaCampos["det_NumCheque"    	] = new oCampo( "N", "Num. Cheque   ");
+gaCampos["det_FecCheque"    	] = new oCampo( "F", "Fec. Cheque   ");
+
+ignore_fields="aux_Descripcion";
+/*
+*	Ejecuta un reporte basado en un criterio definido por el usuario en pantalla y 'traducido' 
+*	@param	pUrl	String		Direccion del archivo a ejecutar
+*	@param	pTipo	Integer		Tipo de Query a generar: 1=condiciones individuales para cada campo, 
+*							    caso contrario un solo string conteniendo todas las condiciones
+*/
+function fEjecuta(e, pUrl, pTipo){
+	if (!e) e = window.event;
+	if (e.shiftKey) pUrl+="?pExcel=1&"
+	//else pUrl+="?"
+	
+	fInicializaQuery();
+	if (pUrl.length < 3 ) {
+		alert("NO SE HA DEFINIDO EL REPORTE A EJECUTAR");
+		return false;
+		}
+	else slUrl = pUrl;
+
+	if (!pTipo) { //						Generar una sola cadena con las condicion es individuales + "AND"
+		
+		if (slUrl.charAt(slUrl.length-1) != "&")
+			slUrl += "?" + "pQryCom=" ;
+		else
+			slUrl += "pQryCom=" ;
+		pTipo=false;
+	}
+	else {		//							Condiciones individuales concatenadas con "&"
+		slUrl += "?";
+	}
+
+	if (fGeneraQry(pTipo)) {
+		if (gaString['qry'].length > 0 ) {
+		slUrl += gaString['qry'] + "&pCond=" + gaString['txt'] + gaString['ext'];
+		}
+		if (getFromurl("jsDbg")) alert ("CRITERIO DEFINIDO: " + gaString['qry'] +  gaString['ext']);
+		fAbrirWin(slUrl, 'w', ' ', 900, 600)
+	}
+	if (gaString['err'] > 0) {
+		alert ("HA DEFINIDO MAL EL CRITERIO DE SELECCION: " + gaString['txt']);
+	}
+	return false;
+}
+
+var oValida = new oValidador();
+/**
+*               Define parametros necesarios para la validacion de cada campo, y ejecuta el proceso,
+*               solo si el contenido del control ha cambiado
+*               @param          oControl        object: Elemento en el que ocurre el evento
+*               @param          psTexto         String: Nombre del elemento que presenta texto asociado al primer obj.
+*               @param          pbValFlag       Bool:   Debe ejecutar una busqueda inicial o solo abre la seleccion
+*               @return         void
+*/
+function fValidaIte(oControl, psText, pbValFlag)
+{
+                if (oControl.value.length == 0 ) {
+                    document.getElementById("aux_Descripcion").value ="";
+                    return;
+                }
+                oValida.Desti   = oControl.name + ", " + psText;
+                oValida.Focus   = "";
+                oValida.Mensj   = "** SELECCIONE UN ITEM **";
+                if (parseInt(oControl.value * 1) > 0 ) {
+                        oValida.Cond    = "act_Codauxiliar = "  + oControl.value;
+                        }
+                else {
+                        oValida.Cond    = " act_Descripcion LIKE '" + oControl.value + "%' " +
+                                                          " OR act_Descripcion1 LIKE '"         + oControl.value + "%'" ;
+                }
+                oValida.Tipo=3;                                                                                                                         //Retornar valores
+                oValida.Skeywd  = oControl.value;
+                oValida.Formul  = "concomprobantesSearch";
+                oValida.Tabla   = "conactivos"; //Para forzar la pagina de busqueda
+                oValida.Campos  = "CodAuxiliar,Descripcion";
+                oValida.Selec   = "act_CodAuxiliar as CodAuxiliar, concat(act_Descripcion, ' ', act_Descripcion1) as Descripcion";
+                oValida.PageR   = "../In_Files/InTrTr_items.php?pOpCode=R&pGral=1";
+                oValida.Params += "&pOrig=act_descrip&s_keyword=" + oControl.value+"&";
+    			setCookie("coDestino", oValida.Campos);
+    			setCookie("coOrigen", oValida.Campos);
+    			setCookie("coCompon", "concomprobantesSearch");
+    			setCookie("coFocus", "aux_Descripcion");
+    			setCookie("coSufijo", '');
+                oValida.Aplicar(pbValFlag);
+}
+/**
+*               recibe datos de la pagina secundaria, de consulta
+*               @param          oControl        object: Elemento en el que ocurre el evento
+*               @param          psTexto         String: Nombre del elemento que presenta texto asociado al primer obj.
+*               @param          pbValFlag       Bool:   Debe ejecutar una busqueda inicial o solo abre la seleccion
+*               @return         void
+*/
+oDatos=null;
+function fRecibeDatosAux(pDest, pVal){
+    for (var i=0; i < pDest.length; i++){
+                document.getElementById(pDest[i].replace(/ /g,"")).value = pVal[i];
+    }
+}
+
+//Begin CCS script
+//Include Common JSFunctions @1-73ADA5ED
+</script>
+<script language="JavaScript" src="../DatePicker.js"></script>
+<script language="JavaScript">
+//End Include Common JSFunctions
+
+//Date Picker Object Definitions @1-5F1674CB
+
+var concomprobantesSearch_DatePicker_s_com_FecTrans = new Object(); 
+concomprobantesSearch_DatePicker_s_com_FecTrans.format           = "yyyy/mm/dd";
+concomprobantesSearch_DatePicker_s_com_FecTrans.style            = "Themes/Cobalt/Style.css";
+concomprobantesSearch_DatePicker_s_com_FecTrans.relativePathPart = "../";
+
+var concomprobantesSearch_DatePicker_s_com_FecContab = new Object(); 
+concomprobantesSearch_DatePicker_s_com_FecContab.format           = "yyyy/mm/dd";/*"dd/mm/yy";*/
+concomprobantesSearch_DatePicker_s_com_FecContab.style            = "Themes/Cobalt/Style.css";
+concomprobantesSearch_DatePicker_s_com_FecContab.relativePathPart = "../";
+
+var concomprobantesSearch_DatePicker_s_com_FecVencim = new Object(); 
+concomprobantesSearch_DatePicker_s_com_FecVencim.format           = "yyyy/mm/dd";
+concomprobantesSearch_DatePicker_s_com_FecVencim.style            = "Themes/Cobalt/Style.css";
+concomprobantesSearch_DatePicker_s_com_FecVencim.relativePathPart = "../";
+
+//End Date Picker Object Definitions
+
+//End CCS script
+</script>
+</head>
+ 
+<body bgcolor="#fffff7" link="#000000" alink="#ff0000" vlink="#000000" text="#000000" class="CobaltPageBODY" style="PADDING-RIGHT: 0px; PADDING-LEFT: 0px; PADDING-BOTTOM: 0px; PADDING-TOP: 0px; magin: 0; spacing: 0" bottommargin="0" nowrap leftmargin="0" topmargin="17" rightmargin="0" marginwidth="0" marginheight="0">
+{Cabecera} 
+<table background="../Themes/Cobalt/Light Streaks.bmp" border="0" width="100%">
+  <tr>
+    <td align="middle">
+      <!-- BEGIN Record concomprobantesSearch -->
+      <form style="MARGIN: 0px; pad: 0" name="{HTMLFormName}" action="{Action}" method="post">
+        <font class="CobaltFormHeaderFont"><strong>SELECCION DE&nbsp;MOVIMIENTOS</strong> </font> 
+        <table class="CobaltFormTABLE" style="BORDER-COLLAPSE: collapse" cellspacing="1" cellpadding="2" border="0">
+          <!-- BEGIN Error -->
+          <tr>
+            <td class="CobaltErrorDataTD" colspan="4">{Error}</td> 
+          </tr>
+          <!-- END Error -->
+          <tr>
+            <td class="CobaltFooterTD" nowrap align="middle" colspan="4" style="HEIGHT: 22px; font-size:12" >CABECERA
+              DE COMPROBANTE&nbsp; </td> 
+          </tr>
+ 
+          <tr>
+            <td class="CobaltFieldCaptionTD" nowrap>COMPROBANTE&nbsp;</td> 
+            <td class="CobaltDataTD" title="TIPO, NUMERO DE COMPROBANTE, NUMERO DE REGISTRO">
+              <select class="CobaltInputSB2" name="{com_TipoComp_Name}">
+                <option value="" selected>-&nbsp;-&nbsp;-&nbsp;&nbsp;--&nbsp;-&nbsp;-&nbsp;&nbsp;-&nbsp;--&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;</option> {com_TipoComp_Options} 
+              </select>
+ &nbsp; <input class="CobaltInputSB2" style="WIDTH: 47px; HEIGHT: 17px" size="6" value="{com_NumComp}" name="{com_NumComp_Name}">&nbsp;&nbsp; <input class="CobaltInputSB2" style="WIDTH: 40px; HEIGHT: 17px"  size="5" value="{com_RegNumero}" name="{com_RegNumero_Name}"></td> 
+            <td class="CobaltFieldCaptionTD" nowrap>FECHA &nbsp;EMISION&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+            <td class="CobaltDataTD" style="WIDTH: 160px"><input class="CobaltInputSB2"  size="8" value="{com_FecTrans}" name="{com_FecTrans_Name}">&nbsp;
+              <!-- BEGIN DatePicker DatePicker_s_com_FecTrans --><a class="CobaltDataLink" href="javascript:showDatePicker('{Name}','{FormName}','{DateControl}');"><img src="../Themes/DatePicker/DatePicker1.gif" border="0"></a><!-- END DatePicker DatePicker_s_com_FecTrans --></td> 
+          </tr>
+ 
+          <tr>
+            <td class="CobaltFieldCaptionTD" nowrap>FECHA&nbsp;CONTABLE /PERIODO</td> 
+            <td class="CobaltDataTD"><input class="CobaltInputSB2" title="FECHA CONTABLE"  size="8" value="{com_FecContab}" name="{com_FecContab_Name}">&nbsp; 
+              <!-- BEGIN DatePicker DatePicker_s_com_FecContab --><a class="CobaltDataLink" href="javascript:showDatePicker('{Name}','{FormName}','{DateControl}');"><img src="../Themes/DatePicker/DatePicker1.gif" border="0"></a><!-- END DatePicker DatePicker_s_com_FecContab -->&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+              &nbsp; <input class="CobaltInputSB2" title="NUMERO DE PERIODO CONTABLE" style="WIDTH: 51px; HEIGHT: 18px"  size="3" value="{com_NumPeriodo}" name="{com_NumPeriodo_Name}">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </td> 
+            <td class="CobaltFieldCaptionTD" nowrap>FECHA DE VENCIM.</td> 
+            <td class="CobaltDataTD"><input class="CobaltInputSB2" title="FCEHA DE VENCIMIENTO DEL DOCUMENTO"  size="8" value="{com_FecVencim}" name="{com_FecVencim_Name}">&nbsp; 
+              <!-- BEGIN DatePicker DatePicker_s_com_FecVencim --><a class="CobaltDataLink" href="javascript:showDatePicker('{Name}','{FormName}','{DateControl}');"><img src="../Themes/DatePicker/DatePicker1.gif" border="0"></a><!-- END DatePicker DatePicker_s_com_FecVencim --></td> 
+          </tr>
+ 
+          <tr>
+            <td class="CobaltFieldCaptionTD" nowrap>Emisor&nbsp;</td> 
+            <td class="CobaltDataTD"><input class="CobaltInputSB2" title="ENTIDAD EMISORA DEL DOCUMENTO (BODEGA, BANCO, CAJA ETC)" style="WIDTH: 46px; HEIGHT: 17px"  size="6" value="{com_Emisor}" name="{com_Emisor_Name}"></td>
+            <td class="CobaltFieldCaptionTD" nowrap>Receptor&nbsp;</td> 
+            <td class="CobaltDataTD"><input class="CobaltInputSB2" title="ENTIDAD RECEPTORA DEL DOCUMENTO (CLIENTE, PRODUCTOR, EMPLEADO, ETC)" style="WIDTH: 45px; HEIGHT: 17px"  size="6" value="{com_CodReceptor}" name="{com_CodReceptor_Name}">&nbsp; <input class="CobaltInputSB2" title="NOMBRE DEL BENEFICIARIO DEL DOCUMENTO" style="WIDTH: 77px; HEIGHT: 17px"  size="14" value="{com_Receptor}" name="{com_Receptor_Name}"></td> 
+          </tr>
+ 
+          <tr>
+            <td class="CobaltFieldCaptionTD" nowrap>Concepto&nbsp;</td> 
+            <td class="CobaltDataTD"><input class="CobaltInputSB2" title="CONCEPTO GENERAL DEL COMPROBANTE" style="WIDTH: 198px; HEIGHT: 17px" maxlength="250" size="34" value="{com_Concepto}" name="{com_Concepto_Name}">&nbsp;</td> 
+            <td class="CobaltFieldCaptionTD" nowrap></td> 
+            <td class="CobaltDataTD"></td> 
+          </tr>
+ 
+          <tr>
+            <td class="CobaltFieldCaptionTD" nowrap>RefERENCIA OperatIVA&nbsp;</td> 
+            <td class="CobaltDataTD"><input class="CobaltInputSB2" title="REFERENCIA OPERATIVA (SEMANA)"  size="5" value="{com_RefOperat}" name="{com_RefOperat_Name}">&nbsp;</td> 
+            <td class="CobaltFieldCaptionTD" nowrap>Proceso&nbsp; NUMERO</td> 
+            <td class="CobaltDataTD"><input class="CobaltInputSB2" style="WIDTH: 42px; HEIGHT: 17px" size="6" value="{com_NumProceso}" name="{com_NumProceso_Name}"></td> 
+          </tr>
+ 
+          <tr>
+            <td class="CobaltFieldCaptionTD" nowrap>EstADO &nbsp;Proceso&nbsp;</td> 
+            <td class="CobaltDataTD"><input class="CobaltInputSB2" title="ESTADO DE PROCESAMIENTO" style="WIDTH: 28px; HEIGHT: 17px"  size="4" value="{com_EstProceso}" name="{com_EstProceso_Name}">&nbsp;&nbsp; <input class="CobaltInputSB2" title="ESTADO DE OPERACION" style="WIDTH: 29px; HEIGHT: 17px" size="4" value="{com_EstOperacion}" name="{com_EstOperacion_Name}"></td> 
+            <td class="CobaltFieldCaptionTD" nowrap>DigitaCION</td> 
+            <td class="CobaltDataTD"><input class="CobaltInputSB2" style="WIDTH: 64px; HEIGHT: 17px"  size="10" value="{com_Usuario}" name="{com_Usuario_Name}">&nbsp; <input class="CobaltInputSB2" size="8" value="{com_FecDigita}" name="{com_FecDigita_Name}"></td> 
+          </tr>
+ 
+        </table>
+
+        <table class="CobaltFormTABLE" cellpadding="1" border="0" cellspacing="1">
+          <!-- BEGIN Error -->
+          <tr>   <td class="CobaltErrorDataTD" colspan="4">{Error}</td>   </tr>
+          <!-- END Error -->
+          <tr>
+            <td class="CobaltFooterTD" nowrap align="middle" colspan="4" style="HEIGHT: 22px; font-size:12">
+                DETALLE CONTABLE
+            </td>
+          </tr>
+
+          <tr>
+            <td class="CobaltFieldCaptionTD" nowrap>&nbsp;Cuenta&nbsp;</td>
+            <td class="CobaltDataTD" style="WIDTH: 325px">
+                <input name="det_CodCuenta"  size="12" class="CobaltInputSB2" style="WIDTH: 79px; HEIGHT: 17px" title="CODIGO DE CUENTA">&nbsp;&nbsp;
+                <input class="CobaltInputSB2" style="WIDTH: 142px; HEIGHT: 17px" size="23" name="cue_Descripcion" title="DESCRIPCION DE LA CUENTA">
+            </td>
+            <td class="CobaltFieldCaptionTD" nowrap>&nbsp;Auxiliar&nbsp;</td>
+            <td class="CobaltDataTD">
+                <input id="det_IDAuxiliar" name="det_IDAuxiliar"  size="5" class="CobaltInputSB2" style="WIDTH: 43px; HEIGHT: 17px"
+                        onblur="fValidaIte(this, 'aux_Descripcion', false)" title="CODIGO DE AUXILIAR">&nbsp;&nbsp;
+                <input id="aux_Descripcion" class="CobaltInputSB2" style="WIDTH: 150px; HEIGHT: 17px; font-size:9px" size="100" name="aux_Descripcion" title="DESCRIPCION DE AUXILIAR">
+            </td>
+          </tr>
+
+          <tr>
+            <td class="CobaltFieldCaptionTD" nowrap>&nbsp;VALOR&nbsp;
+              Debito&nbsp; / CREDITO&nbsp;</td>
+            <td class="CobaltDataTD"><input name="det_ValDebito" size="12" class="CobaltInputSB2" title="VALOR AL DEBITO">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+              &nbsp; <input class="CobaltInputSB2" size="12" name="det_ValCredito" title="VALOR AL CREDITO">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+            <td class="CobaltFieldCaptionTD" nowrap>&nbsp;&nbsp;Glosa</td>
+            <td class="CobaltDataTD"><input class="CobaltInputSB2" style="WIDTH: 164px; HEIGHT: 17px" maxlength="40" size="26" name="det_Glosa" title="GLOSA CONTABLE"></td>
+          </tr>
+
+          <tr>
+            <td class="CobaltFieldCaptionTD" nowrap>&nbsp;ESTADO DE
+              Ejecucion&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+            <td class="CobaltDataTD"><input name="det_EstEjecucion"  size="5" class="CobaltInputSB2" title="ESTADO DE EJECUCION">&nbsp;<input name="det_FecEjecucion" size="8" class="CobaltInputSB2" title="FECHA DE EJECUCION"></td>
+            <td class="CobaltFieldCaptionTD" nowrap>ESTADO En Libros</td>
+            <td class="CobaltDataTD"><input name="det_EstLibros"  size="5" class="CobaltInputSB2" title="ESTADO EN LIBROS">&nbsp;<input name="det_FecLibros"  size="8" class="CobaltInputSB2" title="FECHA EN LIBROS"></td>
+          </tr>
+
+          <tr>
+            <td class="CobaltFieldCaptionTD" nowrap>&nbsp;Ref Operativa&nbsp;</td>
+            <td class="CobaltDataTD"><input name="det_RefOperativa" size="10" class="CobaltInputSB2" title="REFERENCIA OPERATIVA, NUMERO DE ORDEN DE SERVICIO, TRAMITE, ETC">&nbsp;</td>
+            <td class="CobaltFieldCaptionTD" nowrap>Cheque&nbsp; NRO/FECHA</td>
+            <td class="CobaltDataTD"><input name="det_NumCheque" size="5" class="CobaltInputSB2" style="WIDTH: 41px; HEIGHT: 17px" title="NUMERO DE CHEQUE">&nbsp;<input name="{det_FecCheque}" size="8" class="CobaltInputSB2" title="FECHA DE VENCIMIENTO DEL CHEQUE">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+          </tr>
+
+          <tr>
+            <td class="CobaltFooterTD" nowrap align="right" colspan="4">&nbsp; </td>
+          </tr>
+          <tr>
+            <td  nowrap colspan="4">
+			 	  <div class="normalbox" style="PADDING-RIGHT: 4px; PADDING-LEFT: 4px; PADDING-BOTTOM: 4px; MARGIN: 20px; PADDING-TOP: 0px; TEXT-ALIGN: center">
+			        <span class="spantitle" style="LEFT: 0px; MARGIN: 0px; POSITION: relative; TOP: -10px">&nbsp;
+			        &nbsp; FORMATOS DE REPORTE &nbsp; &nbsp; </span>
+			        <div style="align:center">
+						<input class="CobaltDataLink" title="Lista Secuencial de comprobnates, con detalle simple de las transacciones" style="FONT-SIZE: 9px; WIDTH: 131px; HEIGHT: 25px" onclick="fEjecuta(event, '../In_Files/InTrTr_repgen.rpt.php')" type="button" size="16" value="LISTA SIMPLE" name="Button_21">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+						<input class="CobaltDataLink" title="Movim. Contables Html" style="FONT-SIZE: 9px; WIDTH: 131px; HEIGHT: 25px" onclick="fEjecuta(event, 'CoTrTr_movimientos.rpt.php')" type="button" value="MOVIM. CONTABLES HTML" name="Button_22">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+						<input class="CobaltDataLink" title="Resumen Movim. Cont." style="FONT-SIZE: 9px; WIDTH: 131px; HEIGHT: 25px" onclick="fEjecuta(event, 'CoTrTr_movimientosresumen.rpt.php')" type="button" value="RESUMEN MOVIM CONT." name="Button_23">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+						<input class="CobaltDataLink" style="FONT-SIZE: 9px; WIDTH: 131px; HEIGHT: 25px" onclick="fEjecuta('')" type="button" value="" name="Button_23">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+					</div>
+			         <div style="align:center">
+			            <input name="Button_25" type="button" value="MOVIM. CONTABLES PDF" class="CobaltDataLink" title="Movimientos de Cuentas epeficadas por el usuario" onclick="fEjecuta(event, '../Co_Files/CoTrTr_movimi.rpt.php')" style="FONT-SIZE: 9px; WIDTH: 131px; HEIGHT: 25px" size="16" title="Listado de las transacciones agrupadas por Cuenta y Auxiliar">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+						<input name="Button_26" type="button" value="CUENTAS POR PAGAR" title="CUENTAS POR PAGAR" class="CobaltDataLink" onclick="fEjecuta(event, 'CoTrTr_CuentasPagar.rpt.php')" style="FONT-SIZE: 9px; WIDTH: 131px; HEIGHT: 25px" ]>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+						<input name="Button_27" type="button" value="RESUMEN DE GASTOS" class="CobaltDataLink" title="RESUMEN DE GASTOS" onclick="fEjecuta(event, 'CoTrTr_resumengasto.rpt.php')" style="FONT-SIZE: 9px; WIDTH: 131px; HEIGHT: 25px">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+						<input name="Button_28" type="button" value="  " title="Listado dest las transacciones agrupadas por Cuenta y Auxiliar" class="CobaltDataLink" onclick="fEjecuta('')" style="FONT-SIZE: 9px; WIDTH: 131px; HEIGHT: 25px" >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+			         </div>
+				  
+				  <div style="align:center">
+			            <input name="Button_35" type="button" value="MOVIMIENTOS HTML-EXCEL" class="CobaltDataLink" title="Movimientos de Cuentas en formato simple" onclick="fEjecuta(event, '../Co_Files/CoTrTr_movimientosimple.rpt.php')" style="FONT-SIZE: 9px; WIDTH: 131px; HEIGHT: 25px" size="16" title="Listado de las transacciones agrupadas por Cuenta y Auxiliar">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+						<input name="Button_36" type="button" value="" title="" class="CobaltDataLink" onclick="" style="FONT-SIZE: 9px; WIDTH: 131px; HEIGHT: 25px" ]>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+						<input name="Button_37" type="button" value="" class="CobaltDataLink" title="" onclick="" style="FONT-SIZE: 9px; WIDTH: 131px; HEIGHT: 25px">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+						<input name="Button_38" type="button" value="" title="" class="CobaltDataLink" onclick="fEjecuta('')" style="FONT-SIZE: 9px; WIDTH: 131px; HEIGHT: 25px" >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+			         </div>
+			     </div>
+			 </td>
+		 </tr>
+
+        </table>
+
+
+      </form>
+ <!-- END Record concomprobantesSearch -->
+	</td> 
+  </tr>
+</table>
+<iframe id="frValida" name="frValida" style="visibility:hidden">
+</iframe>
+</body>
+</html>

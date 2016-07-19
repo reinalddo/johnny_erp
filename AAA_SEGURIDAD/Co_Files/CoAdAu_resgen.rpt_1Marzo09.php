@@ -1,0 +1,172 @@
+<?php
+/**
+*    Resumen General de Auxiliares tipo Activos, en formato pdf.
+*    @package	 eContab
+*    @subpackage Administracion
+*    @program    CoAdAu
+*    @author     fausto Astudillo H.
+*    @version    1.0 01/Dic/05
+*    @see	 CoAdAu_mant.php
+*/
+
+//error_reporting(E_ALL);
+include("../LibPhp/ezPdfReport.php");
+/**
+*   Definicion de Query que selecciona los datos a presentar
+*   access  public
+*   @param   object   Refrencia a la conexxion de BD
+*   @param  string    Condicion de busqueda
+*   @return object    Referencia del Recordset.
+*/
+function &fDefineQry(&$db, $pQry=false){
+    $db->Execute("DROP TABLE IF EXISTS tmp_marcas");
+    $db->Execute("DROP TABLE IF EXISTS tmp_tipos");
+    $db->Execute("DROP TABLE IF EXISTS tmp_grupos");
+    $db->execute("CREATE TEMPORARY TABLE tmp_marcas
+                    SELECT par_secuencia, par_descripcion
+                           FROM genparametros
+                           WHERE par_clave = 'IMARCA' ");
+    $db->execute("CREATE TEMPORARY TABLE tmp_grupos
+                    SELECT par_secuencia, par_descripcion
+                           FROM genparametros
+                           WHERE par_clave = 'ACTGRU' ");
+    $db->execute("CREATE TEMPORARY TABLE tmp_tipos
+                    SELECT par_secuencia, par_descripcion
+                           FROM genparametros
+                           WHERE par_clave = 'ACTCLA' ");
+
+    $slSql = "SELECT
+                c.par_descripcion   AS CAT,
+                act_codauxiliar     AS ID,
+                concat(act_Descripcion, ' ', act_descripcion1)  AS DES,
+                act_NumSerie        AS SER,
+                uni_Abreviatura     AS UNI,
+                m.par_descripcion   AS MAR,
+                act_Modelo          AS MDL,
+                t.par_descripcion   AS TIP,
+                g.par_descripcion   AS GRU,
+                cat_Activo          AS COD,
+                if(cat_Activo>0,'A',' ') AS ACT
+             FROM ((((concategorias  JOIN conactivos ON act_codauxiliar = cat_codauxiliar
+                LEFT JOIN tmp_marcas m on m.par_secuencia = act_marca)
+                LEFT JOIN genparametros c on c.par_secuencia = cat_categoria )
+                LEFT JOIN tmp_tipos t on t.par_secuencia = act_tipo )
+                LEFT JOIN tmp_grupos g on g.par_secuencia = act_grupo )
+                LEFT JOIN genunmedida on uni_codUnidad = act_unimedida
+            WHERE  c.par_clave = 'CAUTI'
+
+                      ";
+             ;
+
+    if ($pQry) $slSql .= " WHERE "  . $pQry ;
+    $slSql .=  " ORDER  BY 1,8,9,2";
+
+    $rsLiq = $db->Execute($slSql);
+    IF(!$rsLiq) fErrorPage('','NO SE GENERO LISTA DE AUXILIARES', true,false);
+    return $rsLiq;
+}
+/** Process the Report Header
+*   You can access any property / method from ezPdfReport Object using var $rpt and group data from variable $group received as parameters
+*   To put any text, line, rectangle, etc into your report, use the object $rpt->pdf and its "ez functions" (see ezPdf manual),
+*   be care of functions that don´t move the insertion point to void text overlapping
+*   Note: This function REDEFINES the top margin.
+*   @access public
+*   @param  object      $rpt        Reference to current report object
+*   @param  object      $hdr        Reference to current header report object
+*   @return void
+*/
+function before_header(&$rpt, &$hdr){
+    $ilTxtSize=10;  //
+    $ilLeading=0;  //
+    include_once ("RptHeader.inc.php");
+  }
+/** CAbecera de grupo CATegoria
+*   @access public
+*   @param  object      $group      Reference to report object
+*   @param  object      $group      Reference to current groups data
+*   @return void
+*/
+function before_group_CAT (&$rpt, &$group) {
+    global $db;
+    $rpt->putText($group->currValue . '  - - - - - - ', 10, 15);
+    $group->resume[0]['resume_text'] = 'Numero de ' . $group->currValue . ": ";
+    }
+
+//--------------------------------------------------------------------------------------------------------------------
+//                          Procesamiento
+//--------------------------------------------------------------------------------------------------------------------
+//
+$slQry   = fGetParam('pQryTar', false);
+$db = NewADOConnection(DBTYPE);
+$db->SetFetchMode(ADODB_FETCH_ASSOC);
+$db->Connect(DBSRVR, DBUSER, DBPASS, DBNAME) or die("<BR> <BR> no hay acceso al servidor");
+$db->debug=fGetParam('pAdoDbg', 0);
+set_time_limit (0) ;
+$rs = fDefineQry($db, $slQry );
+$slFontName = fGetParam('pFon', 'Helvetica');   //                          Fonst Name from URL
+$ilFontSize = fGetParam('pSiz', 9); //                                      Font Size from url
+$slPosition = fGetParam('pPos', "landscape"); //                                      Font Size from url
+//$rep = new ezPdfReport($rs, "A4", "portrait", "Times", 8);
+//rep = new ezPdfReport($rs, array(29,15.8), "landscape", "Helvetica", 6);
+$rep = new ezPdfReport($rs, array(21.5,27.8), $slPosition, $slFontName, $ilFontSize);
+$rep->title="LISTA GENERAL DE AUXILIARES";
+//$rep->subTitle="-";
+$rep->condition=fGetParam('pCond', '');
+$rep->titleOpts=array('T'=>array('font'=>$slFontName, 'fontSize'=>10, 'justification'=>'center', 'leading'=>12),
+                      'S'=>array('font'=>$slFontName, 'fontSize'=>9 , 'justification'=>'center', 'leading'=>10),
+                      'C'=>array('font'=>$slFontName, 'fontSize'=>8 , 'justification'=>'center', 'leading'=>8 )); // Options for T=Title, S=Subtitle, C=Condition
+$rep->margins = array(1,1,3.5,1.5);
+$rep->colHead = array(  'ID' =>'CODIGO',
+                        'DES' =>'NUM.',
+                        'SER' =>'SERIE',
+                        'UNI' =>'UNI MED',
+                        'MAR' =>'MARCA',
+                        'MDL' =>'MODELO',
+                        'TIP'=>'TIPO ITEM',
+                        'GRU'=>'GRUPO',
+                        'COD'=>'CODIGO ANT.',
+                        'ACT'=>'EDO'
+                        );
+$rep->rptOpt = array('fontSize'=>10, 'titleFontSize' => 2, 'showHeadings'=>0,'shaded'=>1, 'splitRows'=>0,
+                      'shaded'=>0, 'showLines'=>0, 'maxWidth'=>990, 'innerLineThickness'=>0, 'rowGap'=>1);
+
+$rep->setDefaultColPro('format', ""); //     Default Format for columns  total long:decimal places:thousands sep:decimal sep:
+$rep->setDefaultColPro('type', "C");        //      Default column type
+$rep->setDefaultColPro('repeat', false);       
+
+$rep->setDefaultColOpt('justification', 'left');
+
+$rep->setDefaultColOpt('width', 80);
+$rep->colOpt['ID' ]['width']=35;
+$rep->colOpt['DES']['width']=120;
+$rep->colOpt['SER']['width']=60;
+$rep->colOpt['UNI']['width']=25;
+$rep->colOpt['MAR']['width']=65;
+$rep->colOpt['MOD']['width']=50;
+$rep->colOpt['TIP']['width']=50;
+$rep->colOpt['GRU']['width']=50;
+$rep->colOpt['COD']['width']=50;
+$rep->columns['TIP']->repeat=false;
+$rep->columns['GRU']->repeat=false;
+$rep->columns['MAR']->repeat=false;
+$rep->columns['UNI']->repeat=false;
+
+//$rep->addGrp('general');                           // Not required, exist by default
+$rep->groups['general']->fontSize=8;                 // set font size for this group (has no efect yet, because ezTable sets fontsize for entire table)
+    $rep->groups['general']->textCol='DES';          // set the column for text at resume line of group
+    $rep->addResumeLine('general','-', 'Num. Total de Auxiliares:', 1);         // Add a resume line for group 'general' using sums in all columns bt default
+        $rep->groups['general']->linesBefore=1;
+        $rep->setAggregate('general',0, 'MAR','C');  // Change aggregate to '-' (nothing)  for column 'CO' in resumline 1 of Group 'CO'
+
+$rep->addGrp('CAT');
+$rep->groups['CAT']->fontSize=8;                 // set font size for this group (has no efect yet, because ezTable sets fontsize for entire table)
+    $rep->groups['CAT']->textCol='DES';          // set the column for text at resume line of group
+    $rep->addResumeLine('CAT','-', 'Numero de Auxiliares:', 1);         // Add a resume line for group 'general' using sums in all columns bt default
+        $rep->groups['CAT']->linesAfter=1;
+        $rep->setAggregate('CAT',0, 'MAR','C');
+$rep->run();
+$rep->view($rep->title, $rep->saveFile("ACT_RES_"));
+?>
+
+
+

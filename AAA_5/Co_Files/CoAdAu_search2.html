@@ -1,0 +1,190 @@
+<html>
+<head>
+<base target="_self">
+<link rel="stylesheet" type="text/css" href="../Themes/Cobalt/Style.css">
+  <link rel="stylesheet" type="text/css" href="../Themes/Menu/Style.css">
+    <title>AUXILIARES: CONSULTA</title>
+ 
+    <script language="JavaScript" src="../LibJava/menu_func.js"></script>
+    <script language="JavaScript" src="../LibJava/cookies.js"></script>
+    <script language="JavaScript" src="../LibJava/general.js"></script>
+    <script language="JavaScript" src="../LibJava/validaDB_ret.js"></script>
+    </head>
+ 
+    <body bgcolor="#fffff7" link="#000000" text="#000000">
+    {Cabecera} 
+    <table border="0" width="100%" cellpadding="0" cellspacing="0" style="BORDER-RIGHT: 0px; PADDING-RIGHT: 0px; BORDER-TOP: 0px; PADDING-LEFT: 0px; PADDING-BOTTOM: 0px; BORDER-LEFT: 0px; PADDING-TOP: 0px; BORDER-BOTTOM: 0px; BORDER-COLLAPSE: collapse; cellpadding: 0">
+      <tr>
+      <td valign="top" align="middle" class="">
+      <!-- BEGIN Record auxquery -->
+      <form name="{HTMLFormName}" action="{Action}" method="post" style="MARGIN: 0px">
+        <font class="CobaltFormHeaderFont"  tabindex="9999" >{pMensj}<br>
+        </font> 
+        <table class="CobaltFormTABLE" border="0">
+          <!-- BEGIN Error -->
+          <tr>
+          <td class="CobaltErrorDataTD" colspan="5">{Error}</td> 
+          </tr>
+          <!-- END Error -->
+          <tr>
+          <td class="CobaltFieldCaptionTD" nowrap>&nbsp;</td> 
+          <td class="CobaltDataTD">
+          <input class="CobaltInput" tabindex="9999" accesskey="b" maxlength="20" size="40" value="{s_keyword}" name="{s_keyword_Name}">&nbsp;</td>
+          <td class="CobaltDataTD">
+          <input type="checkbox" name="{s_actividad_Name}" tabindex="9999" value="1" class="CobaltInput" title="Marque para buscar sólo 'Activos', Desmarque para presentar 'Activos' e 'Inactivos'" {s_actividad}>&nbsp;Presentar
+          solo Auxiliares 'Activos'</td> 
+          <td class="CobaltFooterTD" nowrap><a class="CobaltSorterLink" href="{ClearParameters_Src}">Limpiar</a>&nbsp; </td> 
+          <td class="CobaltFooterTD" nowrap align="right">
+          <!-- BEGIN Button Button_DoSearch -->
+          <input class="CobaltButton" type="submit" tabindex="9999" value="BUSCAR" name="{Button_Name}" onblur="fEnfocaFila('btMantto', 'tablaDatos', 2)">
+          <!-- END Button Button_DoSearch -->&nbsp; </td> 
+          </tr>
+ 
+        </table>
+ 
+      </form>
+ 
+      <!-- END Record auxquery -->
+      <!-- BEGIN Grid auxlist -->
+      <form name="auxlist" style="MARGIN: 0px">
+        <font class="CobaltFormHeaderFont">LISTA DE
+        AUXILIARES&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        &nbsp; <font size="3">({conpersonas_per_concatego_TotalRecords}
+        Reg)&nbsp; </font> 
+        <table id="tabladatos" class="CobaltFormTABLE" cellpadding="0" cellspacing="0" style="BORDER-COLLAPSE: collapse" border="1">
+          <tr valign="center" align="middle" height="22">
+          <td class="CobaltFooterTD" nowrap colspan="3" valign="center" align="middle">
+          <!-- BEGIN Navigator Navigator -->
+          <!-- BEGIN First_On --><a class="CobaltNavigatorLink" tabindex="9999" href="{First_URL}"><img height="14" src="../Themes/Aqua/FirstOn.gif" width="24" border="0"></a>
+          <!-- END First_On -->
+          <!-- BEGIN Prev_On --><a class="CobaltNavigatorLink" tabindex="9999" href="{Prev_URL}"><img height="14" src="../Themes/Aqua/PrevOn.gif" width="24" border="0"></a>
+          <!-- END Prev_On -->&nbsp; 
+          <!-- BEGIN Pages -->
+          <!-- BEGIN Page_On --><a class="CobaltNavigatorLink" tabindex="9999" href="{Page_URL}">{Page_Number}</a>&nbsp;
+          <!-- END Page_On -->
+          <!-- BEGIN Page_Off -->{Page_Number}&nbsp; 
+          <!-- END Page_Off -->
+          <!-- END Pages -->de {Total_Pages}&nbsp; 
+          <!-- BEGIN Next_On --><a class="CobaltNavigatorLink" tabindex="9999" href="{Next_URL}"><img height="14" src="../Themes/Aqua/NextOn.gif" width="24" border="0"></a>
+          <!-- END Next_On -->
+          <!-- BEGIN Last_On --><a class="CobaltNavigatorLink"  tabindex="9999" href="{Last_URL}"><img height="14" src="../Themes/Aqua/LastOn.gif" width="24" border="0"></a>
+          <!-- END Last_On -->
+          <!-- END Navigator Navigator -->&nbsp; </td> 
+          <td class="CobaltFooterTD" nowrap align="right" tabindex="9999" title="Permite Agregar un auxiliar Nuevo" valign="center">
+          <!-- BEGIN Button BtNuevo -->
+          <input class="CobaltLink"  tabindex="9999" style="FONT-SIZE: 9px; WIDTH: 47px; HEIGHT: 19px" type="button" size="12" value="NUEVO" name="{Button_Name}" onclick="JavaScript:window.enMantto = true; fAbrirWin('CoAdAu_mant.php' ,'Win',' ', 900, 550); return false;">
+          <!-- END Button BtNuevo -->&nbsp;
+          <!-- BEGIN Button btCerrar -->
+          <input class="CobaltLink"  tabindex="9999" title="Cierra esta pantalla de selección, sin retornar valor" style="FONT-SIZE: 9px; WIDTH: 48px; HEIGHT: 18px" onclick="fCierrar();" type="button" size="11" value="CERRAR" name="{Button_Name}">
+          <!-- END Button btCerrar -->&nbsp;</td> 
+          </tr>
+ 
+          <tr height="20" valign="center" align="middle">
+          <td class="CobaltColumnTD" nowrap>
+          <!-- BEGIN Sorter Sorter_per_CodAuxiliar -->&nbsp; <a class="CobaltSorterLink" href="{Sort_URL}">COD.</a> 
+          <!-- BEGIN Asc_On --><img height="9" tabindex="9999" src="../Themes/Cobalt/AscOn.gif" width="13" border="0">
+          <!-- END Asc_On -->
+          <!-- BEGIN Desc_On --><img height="9" tabindex="9999" src="../Themes/Cobalt/DescOn.gif" width="13" border="0">
+          <!-- END Desc_On -->
+          <!-- END Sorter Sorter_per_CodAuxiliar -->&nbsp;</td> 
+          <td class="CobaltColumnTD" nowrap>
+          <!-- BEGIN Sorter Sorter_per_Apellidos -->&nbsp; <a class="CobaltSorterLink" href="{Sort_URL}">NOMBRE</a> 
+          <!-- BEGIN Asc_On --><img height="9" tabindex="9999" src="../Themes/Cobalt/AscOn.gif" width="13" border="0">
+          <!-- END Asc_On -->
+          <!-- BEGIN Desc_On --><img height="9" tabindex="9999" src="../Themes/Cobalt/DescOn.gif" width="13" border="0">
+          <!-- END Desc_On -->
+          <!-- END Sorter Sorter_per_Apellidos -->&nbsp;</td> 
+          <td class="CobaltColumnTD" nowrap>
+          <!-- BEGIN Sorter Sorter_par_Descripcion -->&nbsp; <a class="CobaltSorterLink" href="{Sort_URL}">CATEGORIA</a> 
+          <!-- BEGIN Asc_On --><img height="9" tabindex="9999" src="../Themes/Cobalt/AscOn.gif" width="13" border="0">
+          <!-- END Asc_On -->
+          <!-- BEGIN Desc_On --><img height="9" tabindex="9999" src="../Themes/Cobalt/DescOn.gif" width="13" border="0">
+          <!-- END Desc_On -->
+          <!-- END Sorter Sorter_par_Descripcion -->&nbsp;</td> 
+          <td class="CobaltColumnTD" nowrap>
+          <!-- BEGIN Sorter Sorter_cat_Activo -->&nbsp; <a class="CobaltSorterLink" onfocus="fEnfocaFila('btMantto', 'tablaDatos', 2)" href="{Sort_URL}">ESTADO</a>
+          <!-- BEGIN Asc_On --><img height="9" tabindex="9999" src="../Themes/Cobalt/AscOn.gif" width="13" border="0">
+          <!-- END Asc_On -->
+          <!-- BEGIN Desc_On --><img height="9" tabindex="9999" src="../Themes/Cobalt/DescOn.gif" width="13" border="0">
+          <!-- END Desc_On -->
+          <!-- END Sorter Sorter_cat_Activo -->&nbsp;</td> 
+          </tr>
+          <!-- BEGIN Row -->
+          <tr onclick="fRetornarDatos(this,  'auxlist');">
+          <td class="CobaltDataTD">
+          <input type="hidden" name="{CodAuxiliar_Name}" value="{CodAuxiliar}" style="WIDTH: 24px; HEIGHT: 22px" size="3" id="CodAuxiliar">
+          <!-- BEGIN Button btMantto -->
+          <input class="CobaltLink" style="FONT-SIZE: 9px; WIDTH: 47px; HEIGHT: 17px"
+                 type="button" size="12" value="{CodAuxiliar}"
+                 name="{Button_Name}"
+                 
+                 tabindex="1"
+                 onfocus="fCambiarFondo(this.parentNode.parentNode, '#CCCCCC')"
+                 onblur="fCambiarFondo(this.parentNode.parentNode, '')">
+          <!-- END Button btMantto --></td> 
+          <td class="CobaltDataTD">&nbsp;&nbsp;&nbsp; 
+          <input tabindex="9999" onmouseover="fTxtResalta(this,  '#009999')" onmouseout="fTxtNormal(this)" class="CobaltInputSB" id="Descripcion" tabindex="-1" readonly maxlength="25" size="30" value="{Descripcion}" name="{Descripcion_Name}" style="WIDTH: 180px; HEIGHT: 15px">&nbsp;</td>
+          <td class="CobaltDataTD">&nbsp;&nbsp;&nbsp; 
+          <input tabindex="9999" onmouseover="fTxtResalta(this,  '#009999')" onmouseout="fTxtNormal(this)" name="{Categoria_Name}" value="{Categoria}" maxlength="25" size="19" class="CobaltInputSB" id="Categoria" tabindex="-1" readonly style="WIDTH: 114px; HEIGHT: 15px">&nbsp;</td>
+          <td class="CobaltDataTD">&nbsp;&nbsp; 
+          <input tabindex="9999" onmouseover="fTxtResalta(this,  '#009999')" onmouseout="fTxtNormal(this)" name="{Actividad_Name}" value="{Actividad}" maxlength="4" size="4" class="CobaltInputSB" id="Actividad" tabindex="-1" readonly>&nbsp;</td>
+            <td>
+              <input class="CobaltDataLink" style="FONT-SIZE: 9px; WIDTH: 40px; HEIGHT: 17px"
+                     type="button" value="Modif.." name="Button4"
+                     tabindex="9999"
+                     onclick="JavaScript:window.enMantto = true; fAbrirWin('CoAdAu_mant.php?per_CodAuxiliar={CodAuxiliar}' ,'Win',' ', 900, 550); return false;"
+                     title="-CLICK- Para Editar / Modificar este Auxiliar">
+            </td>
+          </tr>
+          <!-- END Row -->
+          <!-- BEGIN AltRow -->
+          <tr onclick="fRetornarDatos(this, 'auxlist');">
+          <td class="CobaltAltDataTD">
+          <input type="hidden" tabindex="1" name="{Alt_CodAuxiliar_Name}" value="{Alt_CodAuxiliar}" style="WIDTH: 26px; HEIGHT: 22px" size="3" id="CodAuxiliar">
+          <!-- BEGIN Button btMantto2 -->
+          <input class="CobaltLink" style="FONT-SIZE: 9px; WIDTH: 47px; HEIGHT: 17px"
+                 type="button" size="12" value="{Alt_CodAuxiliar}" name="{Button_Name}"
+                 onfocus="fCambiarFondo(this.parentNode.parentNode, '#CCCCCC')" tabindex="1"
+                 onblur="fCambiarFondo(this.parentNode.parentNode, '')">
+          <!-- END Button btMantto2 --></td> 
+          <td class="CobaltAltDataTD">&nbsp;&nbsp;&nbsp; 
+          <input tabindex="9999" onmouseover="fTxtResalta(this,  '#009999')" onmouseout="fTxtNormal(this)" name="{Alt_Descripcion_Name}" value="{Alt_Descripcion}" maxlength="25" size="30" class="AltCobaltInputSB" id="Descripcion" tabindex="-1" readonly style="WIDTH: 180px; HEIGHT: 15px">&nbsp;</td>
+          <td class="CobaltAltDataTD">&nbsp;&nbsp;&nbsp; 
+          <input tabindex="9999" onmouseover="fTxtResalta(this,  '#009999')" onmouseout="fTxtNormal(this)" name="{Alt_Categoria_Name}" value="{Alt_Categoria}" maxlength="25" size="19" class="AltCobaltInputSB" id="Categoria" tabindex="-1" readonly style="WIDTH: 113px; HEIGHT: 15px">&nbsp;</td>
+          <td class="CobaltAltDataTD">&nbsp;&nbsp; 
+          <input tabindex="9999" onmouseover="fTxtResalta(this,  '#009999')" onmouseout="fTxtNormal(this)" name="{Alt_Actividad_Name}" value="{Alt_Actividad}" maxlength="4" size="4" class="AltCobaltInputSB" id="Actividad" tabindex="-1" readonly>&nbsp;</td>
+                      <td>
+              <input class="CobaltDataLink" style="FONT-SIZE: 9px; WIDTH: 40px; HEIGHT: 17px"
+                     type="button" value="Modif.." name="Button4"
+                     tabindex="9999"
+                     onclick="JavaScript:window.enMantto = true; fAbrirWin('CoAdAu_mant.php?per_CodAuxiliar={Alt_CodAuxiliar}' ,'Win',' ', 900, 550); return false;"
+                     title="-CLICK- Para Editar / Modificar este Auxiliar">
+            </td>
+          </tr>
+          <!-- END AltRow -->
+          <!-- BEGIN NoRecords -->
+          <tr>
+          <td class="CobaltAltDataTD" colspan="4">No existe información para
+          esta consulta&nbsp;</td>
+          </tr>
+          <!-- END NoRecords -->
+          <tr>
+          
+          <td class="CobaltFooterTD" colspan="4" hight="5">&nbsp;
+          <input class="CobaltInputSB2" size="1" accesskey="c" tabindex = "2" style="WIDTH: 0px; HEIGHT: 0px" name="temp" onfocus="fEnfocaFila('btMantto', 'tablaDatos', 2)">
+          </td>
+          </tr>
+ 
+        </table>
+ 
+      </form>
+ 
+      <!-- END Grid auxlist --></font></td> 
+      <td>&nbsp;</td> 
+      </tr>
+ 
+    </table>
+ 
+    </body>
+ 
+    </html>

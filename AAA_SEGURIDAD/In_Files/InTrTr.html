@@ -1,0 +1,149 @@
+<html>
+<head>
+<base target="_self">
+<link rel="stylesheet" type="text/css" href="../Themes/StormyWeather/Style.css">
+<link rel="stylesheet" type="text/css" href="../Themes/Menu/Style.css">
+<title>TRANSACCIONES</title>
+<script language="JavaScript" src="../LibJava/menu_func.js"></script>
+<link rel="stylesheet" type="text/css" href="../Themes/Cobalt/Style.css">
+</head>
+<body bgcolor="#fffff7" link="#000000" alink="#ff0000" vlink="#000000" text="#000000" class="CobaltPageBODY">
+{Cabecera}
+<table border="0" align="center" cellspacing="0" cellpadding="0">
+  <tbody>
+    <tr>
+      <td>&nbsp;</td> 
+    </tr>
+    <tr>
+      <td valign="top" align="middle">&nbsp; 
+        <!-- BEGIN Record InTrTr_qry --><font class="CobaltFormHeaderFont">{lbTituloQry} </font> 
+        <form action="{Action}" method="post" name="{HTMLFormName}" target="_self">
+          <table border="0" cellpadding="1" class="CobaltFormTABLE" align="center" cellspacing="0">
+            <!-- BEGIN Error -->
+            <tr>
+              <td class="CobaltErrorDataTD" colspan="8">{Error}</td> 
+            </tr>
+            <!-- END Error -->
+            <tr>
+              <td class="CobaltFieldCaptionTD" nowrap>&nbsp;COMPROBANTE #</td> 
+              <td class="CobaltDataTD"><input class="CobaltInput" maxlength="3" name="{s_com_TipoComp_Name}" size="3" value="{s_com_TipoComp}" title="Tipo de Comprobante"><input class="CobaltInput" maxlength="10" name="{s_com_NumComp_Name}" size="10" value="{s_com_NumComp}" title="Nmero de Comprobante"><input class="CobaltInput" maxlength="10" name="{s_com_RegNumero_Name}" size="10" value="{s_com_RegNumero}" title="ID.  de Transaccion  (Interno) "></td> 
+              <td class="CobaltFieldCaptionTD">&nbsp;FECHA DE EMISION</td> 
+              <td class="CobaltDataTD">&nbsp;<input class="CobaltInput" maxlength="10" name="{s_com_FecTrans_Name}" size="10" value="{s_com_FecTrans}" title="Fecha en que se emiti�el comprobante (dd/mm/aa)"></td> 
+              <td class="CobaltFieldCaptionTD">FECHA CONTABLE</td> 
+              <td class="CobaltDataTD"><input class="CobaltInput" title="Fecha de efecto contable de la transacci�" maxlength="10" size="10" value="{s_com_FecContab}" name="{s_com_FecContab_Name}"></td> 
+              <td class="CobaltFieldCaptionTD">&nbsp;FECHA DIGITACION</td> 
+              <td class="CobaltDataTD"><input class="CobaltInput" title="Fecha en que se Digit�por primera vez el comprobante" maxlength="10" size="10" value="{s_com_FecDigita}" name="{s_com_FecDigita_Name}"></td> 
+            </tr>
+ 
+            <tr>
+              <td class="CobaltFieldCaptionTD" nowrap>&nbsp;BENEFICIARIO/Receptor </td> 
+              <td class="CobaltDataTD"><input class="CobaltInput" maxlength="40" name="{s_com_Receptor_Name}" size="40" value="{s_com_Receptor}" style="WIDTH: 146px; HEIGHT: 16px" title="Nombre de la Persona o Entidad que recibe el producto de la transacci�"></td> 
+              <td class="CobaltFieldCaptionTD">&nbsp;CONCEPTO</td> 
+              <td class="CobaltDataTD" colspan="0" width="0">&nbsp;<input class="CobaltInput" name="{s_com_Concepto_Name}" size="50" value="{s_com_Concepto}" style="WIDTH: 191px; HEIGHT: 18px" title="Texto o Glosa que describe la transacci�"></td> 
+              <td class="CobaltFieldCaptionTD">&nbsp;ESTADO</td> 
+              <td class="CobaltDataTD">
+                <select class="CobaltSelect" style="FONT-SIZE: 9px; WIDTH: 68px; HEIGHT: 22px" name="{s_com_EstProceso_Name}">
+                  <option value="" selected>--------------------------</option>
+ {s_com_EstProceso_Options} 
+                </select>
+ </td> 
+              <td class="CobaltFieldCaptionTD">&nbsp;SEMANA</td>
+              <td class="CobaltDataTD"><input class="CobaltInput" name="com_RefOperat" size="50" value="" style="WIDTH: 51px; HEIGHT: 18px" title="Semana dest procesamiento, Ref.Operativa]"></td>
+            </tr>
+            
+             <tr>
+              <td class="CobaltFieldCaptionTD" nowrap>&nbsp;EMISOR </td> 
+              <td class="CobaltDataTD"><input class="CobaltInput" maxlength="40" name="{s_com_emisor_Name}" size="40" value="{s_com_emisor}" style="WIDTH: 146px; HEIGHT: 16px" title="Emisor"></td> 
+              <td class="CobaltFieldCaptionTD">&nbsp;LIBRO</td> 
+              <td class="CobaltDataTD" colspan="0" width="0">&nbsp;
+                  <select class="CobaltSelect" style="FONT-SIZE: 9px; WIDTH: 68px; HEIGHT: 22px" name="{s_com_Libro_Name}">
+                  <option value="" selected>--------------------------</option>
+ {s_com_Libro_Options} 
+                </select>
+              </td> 
+              <td class="CobaltFieldCaptionTD">&nbsp;SUPERVISOR</td> 
+              <td class="CobaltDataTD">
+                  <select class="CobaltSelect" style="FONT-SIZE: 9px; WIDTH: 68px; HEIGHT: 22px" name="{s_com_Supervisor_Name}">
+                  <option value="" selected>--------------------------</option>
+ {s_com_Supervisor_Options} 
+                </select>
+              </td> 
+              <td class="CobaltFieldCaptionTD">&nbsp;CONTENEDOR</td>
+              <td class="CobaltDataTD"><input class="CobaltInput" name="{s_com_Contenedor_Name}" size="50" value="{s_com_Contenedor}" style="WIDTH: 51px; HEIGHT: 18px" title="Descripcion del comtenedor"></td>
+            </tr>
+ 
+            <tr>
+              <td align="middle" class="CobaltFooterTD" colspan="8" nowrap>
+                <!-- BEGIN Button Button_DoSearch --><input class="CobaltButton" name="{Button_Name}" type="submit" value="Buscar"><!-- END Button Button_DoSearch -->&nbsp; 
+                <!-- BEGIN Button btCancelar --><input class="CobaltButton" name="{Button_Name}" type="submit" value="CANCELAR"><!-- END Button btCancelar -->&nbsp; </td> 
+            </tr>
+ 
+          </table>
+ 
+        </form>
+ 
+        <!-- END Record InTrTr_qry -->
+        <!-- BEGIN Grid InTrTr_list -->
+         <form action="{Action}" method="post" name="{HTMLFormName}" class="" target="_self">
+          <font class="CobaltFormHeaderFont">LISTA DE COMPROBANTES: </font> 
+          <table border="1" cellpadding="1" class="CobaltFormTABLE" cellspacing="0">
+            <tr>
+              <td class="CobaltFooterTD" colspan="7" nowrap>&nbsp; 
+                <!-- BEGIN Navigator Navigator -->
+                  <!-- BEGIN First_On --><a class="CobaltNavigatorLink" href="{First_URL}"><img height="14" src="../Themes/Aqua/FirstOn.gif" width="24" border="0"></a> <!-- END First_On -->
+                  <!-- BEGIN Prev_On --><a class="CobaltNavigatorLink" href="{Prev_URL}"><img height="14" src="../Themes/Aqua/PrevOn.gif" width="24" border="0"></a> <!-- END Prev_On -->&nbsp;
+                  <!-- BEGIN Pages -->
+                  <!-- BEGIN Page_On --><a class="CobaltNavigatorLink" href="{Page_URL}">{Page_Number}</a>&nbsp; <!-- END Page_On -->
+                  <!-- BEGIN Page_Off -->{Page_Number}&nbsp; <!-- END Page_Off --><!-- END Pages -->de
+                  {Total_Pages}&nbsp;
+                  <!-- BEGIN Next_On --><a class="CobaltNavigatorLink" href="{Next_URL}"><img height="14" src="../Themes/Aqua/NextOn.gif" width="24" border="0"></a> <!-- END Next_On -->
+                  <!-- BEGIN Last_On --><a class="CobaltNavigatorLink" href="{Last_URL}"><img height="14" src="../Themes/Aqua/LastOn.gif" width="24" border="0"></a> <!-- END Last_On -->
+				  <!-- END Navigator Navigator -->&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;<a class="CobaltNavigatorLink" title="Permite A�dir un Nuevo Comprobante" href="{concomprobantes_Insert_Src}" target="_self">Agregar
+                Nuevo </a> </td> 
+            </tr>
+            <tr align="middle">
+              <td class="CobaltColumnTD" nowrap>
+                <!-- BEGIN Sorter Sorter_com_NumComp --><a class="CobaltSorterLink" href="{Sort_URL}">COMPROBANTE</a><!-- END Sorter Sorter_com_NumComp -->&nbsp;</td> 
+              <td class="CobaltColumnTD" nowrap>
+                <!-- BEGIN Sorter Sorter_com_FecTrans --><a class="CobaltSorterLink" href="{Sort_URL}">F/&nbsp;TRANS</a><!-- END Sorter Sorter_com_FecTrans -->&nbsp;</td> 
+              <td class="CobaltColumnTD" nowrap>
+                <!-- BEGIN Sorter Sorter_com_FecContab --><a class="CobaltSorterLink" href="{Sort_URL}">F/
+                CONTAB.</a><!-- END Sorter Sorter_com_FecContab -->&nbsp;</td> 
+              <td class="CobaltColumnTD" nowrap>CONCEPTO&nbsp;&nbsp;</td> 
+
+              <td class="CobaltColumnTD" nowrap>
+                <!-- BEGIN Sorter Sorter_com_Usuario --><a class="CobaltSorterLink" href="{Sort_URL}">DIGITADO</a><!-- END Sorter Sorter_com_Usuario -->&nbsp;</td>
+
+              <!--<td class="CobaltColumnTD" nowrap align="middle">DIGITADO</td> -->
+              <td class="CobaltColumnTD" nowrap width="50">ESTADO</td> 
+              <td class="CobaltColumnTD" nowrap>
+                <!-- BEGIN Sorter Sorter_com_RefOperat --><a class="CobaltSorterLink" href="{Sort_URL}">REF.</a><!-- END Sorter Sorter_com_RefOperat -->&nbsp;</td> 
+            </tr>
+            <!-- BEGIN Row -->
+            <tr valign="top">
+              <td class="CobaltDataTD" align="left">&nbsp;&nbsp;<input name="{hTipoComp_Name}" style="WIDTH: 27px; HEIGHT: 22px" type="hidden" value="{hTipoComp}">&nbsp;<input name="{hNumComp_Name}" style="WIDTH: 18px; HEIGHT: 22px" type="hidden" value="{hNumComp}">&nbsp;<a class="CobaltDataLink" href="{com_Comproba_Src}">{com_Comproba}</a>&nbsp; </td> 
+              <td class="CobaltDataTD" align="middle">{com_FecTrans}&nbsp;</td> 
+              <td class="CobaltDataTD" align="middle">{com_FecContab}&nbsp;</td> 
+              <td class="CobaltDataTD" width="500" style="FONT-SIZE: 11px">{com_Concepto}&nbsp; </td> 
+              <td class="CobaltDataTD" width="120" nowrap align="left">{com_Usuario}&nbsp;&nbsp;</td> 
+              <td class="CobaltDataTD" width="50">{com_EstProceso}</td> 
+              <td class="CobaltDataTD">{com_RefOperat}&nbsp;</td> 
+            </tr>
+            <!-- END Row -->
+            <!-- BEGIN NoRecords -->
+            <tr>
+              <td class="CobaltDataTD" colspan="7">No hay Comprobantes&nbsp;</td> 
+            </tr>
+            <!-- END NoRecords -->
+            <tr height="5">
+              <td class="CobaltFooterTD" nowrap colspan="7"></td> 
+            </tr>
+          </table>
+        </form>
+ <!-- END Grid InTrTr_list --></td> 
+    </tr>
+  </tbody>
+</table>
+</body>
+</html>

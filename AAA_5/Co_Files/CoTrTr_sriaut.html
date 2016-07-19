@@ -1,0 +1,312 @@
+<html>
+<head>
+<meta name="GENERATOR" content="CodeCharge Studio 2.3.2.24">
+<base target="_self">
+<link rel="stylesheet" type="text/css" href="../Themes/Cobalt/Style.css">
+<link rel="stylesheet" type="text/css" href="../Themes/Menu/Style.css">
+<title>AUTORIZACIONES SRI</title>
+<script language="JavaScript1.2" src="../LibJava/browser_detect.js"> </script>
+<script language=" javascript1.2" src="../LibJava/fechas.js&quot"> </script>
+<script language=" javascript1.2" src="../LibJava/menu_func.js"></script>
+<script language="JavaScript1.2" src="../LibJava/validaDB.js"></script>
+<script language="JavaScript1.2" src="../LibJava/validations.js"></script>
+<script language="JavaScript1.2" src="../LibJava/general.js"></script>
+<script language="JavaScript1.2" type="text/javascript">
+//Begin CCS script
+//Include JSFunctions @1-FB634A57
+  </script>
+<script language="JavaScript" type="text/javascript" src="../functions.js"></script>
+<script language="JavaScript" type="text/javascript">
+  
+//End Include JSFunctions
+
+//Include Common JSFunctions @1-A1D84A39
+</script>
+<script language="JavaScript" type="text/javascript" src="../DatePicker.js"></script>
+<script language="JavaScript" type="text/javascript">
+//End Include Common JSFunctions
+
+//Date Picker Object Definitions @1-2EE0B031
+
+var autsri_mant_DatePicker_aut_FecEmision = new Object(); 
+autsri_mant_DatePicker_aut_FecEmision.format           = "dd/mmm/yy";
+autsri_mant_DatePicker_aut_FecEmision.style            = "Themes/Cobalt/Style.css";
+autsri_mant_DatePicker_aut_FecEmision.relativePathPart = "../";
+
+var autsri_mant_DatePicker_aut_FecVigencia = new Object(); 
+autsri_mant_DatePicker_aut_FecVigencia.format           = "dd/mmm/yy";
+autsri_mant_DatePicker_aut_FecVigencia.style            = "Themes/Cobalt/Style.css";
+autsri_mant_DatePicker_aut_FecVigencia.relativePathPart = "../";
+
+//End Date Picker Object Definitions
+
+//page_autsri_mant_Button_Delete_OnClick @41-826F342F
+function page_autsri_mant_Button_Delete_OnClick()
+{
+    var result;
+//End page_autsri_mant_Button_Delete_OnClick
+
+//Confirmation Message @42-BED55CD3
+    return confirm('Borrar registro?');
+//End Confirmation Message
+
+//Close page_autsri_mant_Button_Delete_OnClick @41-BC33A33A
+    return result;
+}
+//End Close page_autsri_mant_Button_Delete_OnClick
+
+//bind_events @1-C0843B31
+function bind_events() {
+    if (document.forms["autsri_mant"]) check_and_bind('document.forms["autsri_mant"].Button_Delete','onclick',page_autsri_mant_Button_Delete_OnClick);
+    forms_onload();
+}
+//End bind_events
+
+window.onload = bind_events; //Assign bind_events @1-19F7B649
+//End CCS script
+//
+var oValida = new oValidador();
+	oValida.Formul="autsri_mant";
+/**
+*		Define parametros necesarios para la validacion de cada campo, y ejecuta el proceso,
+*		solo si el contenido del control ha cambiado
+*		@param		oControl	object:	Elemento en el que ocurre el evento
+*		@param		psTexto		String:	Nombre del elemento que presenta texto asociado al primer obj.
+*		@param		pbValidaIni	Bool:	Debe ejecutar una busqueda inicial o solo abre la seleccion
+*		@return		void
+*
+*/
+function fValidacion(oControl, psText, pbValFlag)
+{
+	pbValFlag=(pbValFlag==undefined)?true:pbValFlag										// Si no se ha definido, asume verdadero
+	if(fActivaSeleccion()) return false;
+	oValida.Skeywd	= oControl.value;
+	if ((fCambio(oControl) && !window.mSelectflag) || (oControl.value != "" && eval("document.liqembarques." + psText + ".value == ''")) ) {
+//		window.status="Validando";														// Solo si ha cambiado el contenido
+		oValida.PageR 	= "../Li_Files/LiAdTc.php";
+		oValida.Tipo=3;																//Retornar valores
+		oValida.Skeywd  = oControl.value;
+		slText = " AND cte_Codigo = '" + oControl.value + 
+				 "' OR cte_Referencia LIKE '" + oControl.value + "%' ";
+				 "' OR cte_Descripcion LIKE '" + oControl.value + "%' ";
+		
+		switch (oControl.name ) {
+			case "emb_CodVapor":
+			    if (!oControl.value) return true;
+				oValida.Cond 	= "buq_CodBuque = '" + oControl.value + "' OR buq_Abreviatura LIKE '" + oControl.value + 
+								  "%' AND buq_Descripcion LIKE '" + oControl.value + "%' AND buq_Estado >=1 " 
+				oValida.Selec   = oValida.Cond;
+				oValida.Tabla 	= "liqbuques";
+				oValida.Campos 	= "buq_CodBuque,buq_Descripcion";
+				oValida.Selec   = oValida.Campos;
+				oValida.Desti 	= "emb_CodVapor,txt_Vapor";
+				oValida.PageR 	= "../Li_Files/LiAdBu_search.php"
+				oValida.Focus	= "emb_NumViaje"
+				oValida.Mensj	= "<<<<< SELECCIONE UN VAPOR  >>>>>>>";
+				oValida.Aplicar(pbValFlag);
+				break;
+		}
+	}
+}
+</script>
+</head>
+ 
+<body bgcolor="#fffff7" link="#000000" alink="#ff0000" vlink="#000000" text="#000000" class="CobaltPageBODY" style="PADDING-RIGHT: 0px; PADDING-LEFT: 0px; PADDING-BOTTOM: 0px; PADDING-TOP: 0px; magin: 0; spacing: 0" bottommargin="0" nowrap leftmargin="0" topmargin="17" rightmargin="0" marginwidth="0" marginheight="0">
+{Cabecera} &nbsp; 
+<table background="../Themes/Cobalt/Light Streaks.bmp" border="0" width="100%" align="center" style="MARGIN: 0px; BORDER-COLLAPSE: collapse">
+  <tr>
+    <td align="center" style="MARGIN: 0px">&nbsp; 
+      <!-- BEGIN Record autsri_Search -->
+      <form name="{HTMLFormName}" action="{Action}" method="post" style="MARGIN:0">
+        <font class="CobaltFormHeaderFont">Buscar Autorizacion </font> 
+        <table class="CobaltFormTABLE" cellpadding="3" border="0" style="MARGIN: 0px; BORDER-COLLAPSE: collapse">
+          <!-- BEGIN Error -->
+          <tr>
+            <td class="CobaltErrorDataTD" colspan="6">{Error}</td> 
+          </tr>
+          <!-- END Error -->
+          <tr>
+            <td class="CobaltFieldCaptionTD" nowrap>&nbsp;PROVEEDOR&nbsp;</td> 
+            <td class="CobaltDataTD"><input class="CobaltInput" maxlength="10" size="10" value="{s_aut_IdAuxiliar}" name="{s_aut_IdAuxiliar_Name}">&nbsp;</td> 
+            <td class="CobaltFieldCaptionTD" nowrap>Tipo DocumENTO&nbsp;</td> 
+            <td class="CobaltDataTD"><input class="CobaltInput" maxlength="3" size="3" value="{s_aut_TipoDocum}" name="{s_aut_TipoDocum_Name}">&nbsp;</td> 
+            <td class="CobaltFieldCaptionTD" nowrap>Aut. Sri #&nbsp;</td> 
+            <td class="CobaltDataTD"><input class="CobaltInput" maxlength="10" size="10" value="{s_aut_AutSri}" name="{s_aut_AutSri_Name}">&nbsp;</td> 
+          </tr>
+ 
+          <tr>
+            <td class="CobaltFooterTD" nowrap align="right" colspan="6">
+              <!-- BEGIN Button Button_DoSearch --><input class="CobaltButton" type="submit" value="Buscar" name="{Button_Name}"><!-- END Button Button_DoSearch -->&nbsp; </td> 
+          </tr>
+ 
+        </table>
+ 
+      </form>
+ <!-- END Record autsri_Search -->
+      <!-- BEGIN Grid autsri_list --><font class="CobaltFormHeaderFont">Lista de
+      Autorizaciones Sri </font> 
+      <table class="CobaltFormTABLE" cellpadding="3" border="0">
+        <tr>
+          <td class="CobaltColumnTD" nowrap>
+            <!-- BEGIN Sorter Sorter_aut_AutSri --><a class="CobaltSorterLink" href="{Sort_URL}">Nro.Aut
+            Sri</a> 
+            <!-- BEGIN Asc_On --><img src="../Themes/Cobalt/AscOn.gif" border="0"><!-- END Asc_On -->
+            <!-- BEGIN Desc_On --><img src="../Themes/Cobalt/DescOn.gif" border="0"><!-- END Desc_On --><!-- END Sorter Sorter_aut_AutSri -->&nbsp;</td> 
+          <td class="CobaltColumnTD" nowrap>
+            <!-- BEGIN Sorter Sorter_aut_TipoDocum --><a class="CobaltSorterLink" href="{Sort_URL}">Tipo
+            Docum</a> 
+            <!-- BEGIN Asc_On --><img src="../Themes/Cobalt/AscOn.gif" border="0"><!-- END Asc_On -->
+            <!-- BEGIN Desc_On --><img src="../Themes/Cobalt/DescOn.gif" border="0"><!-- END Desc_On --><!-- END Sorter Sorter_aut_TipoDocum -->&nbsp;</td> 
+          <td class="CobaltColumnTD" nowrap>
+            <!-- BEGIN Sorter Sorter_aut_IdAuxiliar --><a class="CobaltSorterLink" href="{Sort_URL}">Proveedor</a> 
+            <!-- BEGIN Asc_On --><img src="../Themes/Cobalt/AscOn.gif" border="0"><!-- END Asc_On -->
+            <!-- BEGIN Desc_On --><img src="../Themes/Cobalt/DescOn.gif" border="0"><!-- END Desc_On --><!-- END Sorter Sorter_aut_IdAuxiliar -->&nbsp;</td> 
+          <td class="CobaltColumnTD" nowrap>
+            <!-- BEGIN Sorter Sorter_aur_RucImprenta --><a class="CobaltSorterLink" href="{Sort_URL}">Ruc
+            Imprenta</a> 
+            <!-- BEGIN Asc_On --><img src="../Themes/Cobalt/AscOn.gif" border="0"><!-- END Asc_On -->
+            <!-- BEGIN Desc_On --><img src="../Themes/Cobalt/DescOn.gif" border="0"><!-- END Desc_On --><!-- END Sorter Sorter_aur_RucImprenta -->&nbsp;</td> 
+          <td class="CobaltColumnTD" nowrap>
+            <!-- BEGIN Sorter Sorter_aut_AutImprenta --><a class="CobaltSorterLink" href="{Sort_URL}">Aut
+            Imprenta</a> 
+            <!-- BEGIN Asc_On --><img src="../Themes/Cobalt/AscOn.gif" border="0"><!-- END Asc_On -->
+            <!-- BEGIN Desc_On --><img src="../Themes/Cobalt/DescOn.gif" border="0"><!-- END Desc_On --><!-- END Sorter Sorter_aut_AutImprenta -->&nbsp;</td> 
+          <td class="CobaltColumnTD" nowrap>
+            <!-- BEGIN Sorter Sorter_aut_FecEmision --><a class="CobaltSorterLink" href="{Sort_URL}">F/
+            Emision</a> 
+            <!-- BEGIN Asc_On --><img src="../Themes/Cobalt/AscOn.gif" border="0"><!-- END Asc_On -->
+            <!-- BEGIN Desc_On --><img src="../Themes/Cobalt/DescOn.gif" border="0"><!-- END Desc_On --><!-- END Sorter Sorter_aut_FecEmision -->&nbsp;</td> 
+          <td class="CobaltColumnTD" nowrap>
+            <!-- BEGIN Sorter Sorter_aut_FecVigencia --><a class="CobaltSorterLink" href="{Sort_URL}">F/
+            Vigencia</a> 
+            <!-- BEGIN Asc_On --><img src="../Themes/Cobalt/AscOn.gif" border="0"><!-- END Asc_On -->
+            <!-- BEGIN Desc_On --><img src="../Themes/Cobalt/DescOn.gif" border="0"><!-- END Desc_On --><!-- END Sorter Sorter_aut_FecVigencia -->&nbsp;</td> 
+          <td class="CobaltColumnTD" nowrap>
+            <!-- BEGIN Sorter Sorter_aut_NroInicial --><a class="CobaltSorterLink" href="{Sort_URL}">Nro
+            Inicial&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Nro Final</a> 
+            <!-- BEGIN Asc_On --><img src="../Themes/Cobalt/AscOn.gif" border="0"><!-- END Asc_On -->
+            <!-- BEGIN Desc_On --><img src="../Themes/Cobalt/DescOn.gif" border="0"><!-- END Desc_On --><!-- END Sorter Sorter_aut_NroInicial -->&nbsp;</td> 
+          <td class="CobaltColumnTD" nowrap>
+            <!-- BEGIN Sorter Sorter_aut_FecRegistro --><a class="CobaltSorterLink" href="{Sort_URL}">&nbsp;Digitado</a> 
+            <!-- BEGIN Asc_On --><img src="../Themes/Cobalt/AscOn.gif" border="0"><!-- END Asc_On -->
+            <!-- BEGIN Desc_On --><img src="../Themes/Cobalt/DescOn.gif" border="0"><!-- END Desc_On --><!-- END Sorter Sorter_aut_FecRegistro -->&nbsp;</td> 
+        </tr>
+        <!-- BEGIN Row -->
+        <tr>
+          <td class="CobaltDataTD"><a class="CobaltDataLink" href="{aut_AutSri_Src}">{aut_AutSri}</a>&nbsp;</td> 
+          <td class="CobaltDataTD">{aut_TipoDocum}&nbsp;</td> 
+          <td class="CobaltDataTD">{aut_IdAuxiliar}&nbsp;{txt_Nombre}</td> 
+          <td class="CobaltDataTD">{aur_RucImprenta}&nbsp;</td> 
+          <td class="CobaltDataTD">{aut_AutImprenta}&nbsp;</td> 
+          <td class="CobaltDataTD">{aut_FecEmision}&nbsp;</td> 
+          <td class="CobaltDataTD">{aut_FecVigencia}&nbsp;</td> 
+          <td class="CobaltDataTD">{aut_NroInicial}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{aut_NroFinal}</td> 
+          <td class="CobaltDataTD">{aut_Usuario}&nbsp;&nbsp;&nbsp;{aut_FecRegistro}&nbsp;</td> 
+        </tr>
+        <!-- END Row -->
+        <!-- BEGIN NoRecords -->
+        <tr>
+          <td class="CobaltDataTD" colspan="9">No hay registros&nbsp;</td> 
+        </tr>
+        <!-- END NoRecords -->
+        <tr>
+          <td class="CobaltFooterTD" nowrap colspan="9"><a class="CobaltNavigatorLink" href="{genautsri_Insert_Src}">Agregar
+            Nuevo</a>&nbsp; 
+            <!-- BEGIN Navigator Navigator -->
+            <!-- BEGIN First_On --><a class="CobaltNavigatorLink" href="{First_URL}"><img src="../Themes/Cobalt/FirstOn.gif" border="0"></a> <!-- END First_On -->
+            <!-- BEGIN Prev_On --><a class="CobaltNavigatorLink" href="{Prev_URL}"><img src="../Themes/Cobalt/PrevOn.gif" border="0"></a> <!-- END Prev_On -->&nbsp; 
+            <!-- BEGIN Pages -->
+            <!-- BEGIN Page_On --><a class="CobaltNavigatorLink" href="{Page_URL}">{Page_Number}</a>&nbsp;<!-- END Page_On -->
+            <!-- BEGIN Page_Off -->{Page_Number}&nbsp;<!-- END Page_Off --><!-- END Pages -->de
+            {Total_Pages}&nbsp; 
+            <!-- BEGIN Next_On --><a class="CobaltNavigatorLink" href="{Next_URL}"><img src="../Themes/Cobalt/NextOn.gif" border="0"></a> <!-- END Next_On -->
+            <!-- BEGIN Last_On --><a class="CobaltNavigatorLink" href="{Last_URL}"><img src="../Themes/Cobalt/LastOn.gif" border="0"></a> <!-- END Last_On --><!-- END Navigator Navigator -->&nbsp; </td> 
+        </tr>
+ 
+      </table>
+ <!-- END Grid autsri_list -->
+      <!-- BEGIN Record autsri_mant -->
+      <form name="{HTMLFormName}" action="{Action}" method="post">
+        <font class="CobaltFormHeaderFont">Agregar/Modificar Autorizacion
+        Sri&nbsp; </font> 
+        <table class="CobaltFormTABLE" cellpadding="3" border="0">
+          <!-- BEGIN Error -->
+          <tr>
+            <td class="CobaltErrorDataTD" colspan="4">{Error}</td> 
+          </tr>
+          <!-- END Error -->
+          <tr>
+            <td class="CobaltFieldCaptionTD" nowrap>nro autorizacion&nbsp;</td> 
+            <td class="CobaltDataTD"><input class="CobaltInputSB2" maxlength="10" size="10" value="{aut_AutSri}" name="{aut_AutSri_Name}" title="nURO DE aUTORIZACIÓN  SRI PARA EMISION DE COMPROBANTES">&nbsp;</td> 
+            <td class="CobaltFieldCaptionTD" nowrap>Imprenta</td> 
+            <td class="CobaltDataTD"><input class="CobaltInputSB2" maxlength="15" size="15" value="{aut_RucImprenta}" name="{aut_RucImprenta_Name}" title="RUC DE LA IMPRENTA"></td> 
+          </tr>
+ 
+          <tr>
+            <td class="CobaltFieldCaptionTD" nowrap>PROVEEDOR&nbsp;</td> 
+            <td class="CobaltDataTD"><input class="CobaltInputSB2" maxlength="10" size="10" value="{aut_IdAuxiliar}" name="{aut_IdAuxiliar_Name}" title="CODIGO DEL PROVEEDOR PARA QUIEN SE REGISTRA ESTA AUTORIZACION">&nbsp;<input class="CobaltInputSB2" value="{txt_DescAuxiliar}" name="{txt_DescAuxiliar_Name}"></td> 
+            <td class="CobaltFieldCaptionTD" nowrap>Tipo Docum</td> 
+            <td class="CobaltDataTD" title="TIPO DE DOCUMENTO QUE SE EMITE">
+              <select class="CobaltInputSB2" name="{aut_TipoDocum_Name}">
+                <option value="" selected>-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;</option>
+ {aut_TipoDocum_Options} 
+              </select>
+ </td> 
+          </tr>
+ 
+          <tr>
+            <td class="CobaltFieldCaptionTD" nowrap>AUTORIZAC. IMPR</td> 
+            <td class="CobaltDataTD"><input class="CobaltInputSB2" maxlength="10" size="10" value="{aut_AutImprenta}" name="{aut_AutImprenta_Name}" title="NRO DE AUTORIZACION DE LA IMPRENTA">&nbsp;</td> 
+            <td class="CobaltFieldCaptionTD" nowrap></td> 
+            <td class="CobaltDataTD"></td> 
+          </tr>
+ 
+          <tr>
+            <td class="CobaltFieldCaptionTD" nowrap>FECHA Emision&nbsp;</td> 
+            <td class="CobaltDataTD"><input class="CobaltInputSB2" maxlength="9" size="9" value="{aut_FecEmision}" name="{aut_FecEmision_Name}" title="FECHA DE EMISION DE LA AUTORIZAC.">
+              <!-- BEGIN DatePicker DatePicker_aut_FecEmision --><a class="CobaltDataLink" href="javascript:showDatePicker('{Name}','{FormName}','{DateControl}');"><img src="../Themes/DatePicker/DatePicker1.gif" border="0"></a><!-- END DatePicker DatePicker_aut_FecEmision -->&nbsp;</td> 
+            <td class="CobaltFieldCaptionTD" nowrap>fecha &nbsp;Vigencia</td> 
+            <td class="CobaltDataTD"><input class="CobaltInputSB2" maxlength="9" size="9" value="{aut_FecVigencia}" name="{aut_FecVigencia_Name}" title="FECHA DE VIGENCIA DE LOS DOCUMENTOS EMITIDOS">&nbsp; 
+              <!-- BEGIN DatePicker DatePicker_aut_FecVigencia --><a class="CobaltDataLink" href="javascript:showDatePicker('{Name}','{FormName}','{DateControl}');"><img src="../Themes/DatePicker/DatePicker1.gif" border="0"></a><!-- END DatePicker DatePicker_aut_FecVigencia -->&nbsp;</td> 
+          </tr>
+ 
+          <tr>
+            <td class="CobaltFieldCaptionTD" nowrap>Nro Inicial&nbsp;</td> 
+            <td class="CobaltDataTD"><input class="CobaltInputSB2" maxlength="10" size="10" value="{aut_NroInicial}" name="{aut_NroInicial_Name}" title="NUMERO INCIAL ">&nbsp;</td> 
+            <td class="CobaltFieldCaptionTD" nowrap>Nro Final</td> 
+            <td class="CobaltDataTD"><input class="CobaltInputSB2" maxlength="10" size="10" value="{aut_NroFinal}" name="{aut_NroFinal_Name}" title="NUMERO FINAL"></td> 
+          </tr>
+ 
+          <tr>
+            <td class="CobaltFieldCaptionTD" nowrap>fecha registro</td> 
+            <td class="CobaltDataTD" title="FECHA Y USUARIO QUE HA REGISTRADO ESTA INFORMACIÓN"><input class="CobaltInputSB" maxlength="9" size="16" value="{aut_FecRegistro}" name="{aut_FecRegistro_Name}" title="Fecha de Registro" readonly disabled style="WIDTH: 118px; HEIGHT: 15px">&nbsp;&nbsp;<input class="CobaltInputSB" maxlength="12" size="12" value="{aut_Usuario}" name="{aut_Usuario_Name}" readonly disabled></td> 
+            <td class="CobaltFieldCaptionTD" nowrap></td> 
+            <td class="CobaltDataTD"></td> 
+          </tr>
+ 
+          <tr>
+            <td class="CobaltFooterTD" nowrap align="center" colspan="4">
+              <!-- BEGIN Button Button_Insert --><input class="CobaltButton" type="submit" value="Agregar" name="{Button_Name}"><!-- END Button Button_Insert -->
+              <!-- BEGIN Button Button_Update --><input class="CobaltButton" type="submit" value="Enviar" name="{Button_Name}"><!-- END Button Button_Update -->
+              <!-- BEGIN Button Button_Delete --><input class="CobaltButton" type="submit" value="Borrar" name="{Button_Name}"><!-- END Button Button_Delete -->&nbsp; </td> 
+          </tr>
+ 
+        </table>
+ 
+      </form>
+ <!-- END Record autsri_mant --></td> 
+    <td>&nbsp;</td> 
+  </tr>
+ 
+  <tr>
+    <td>&nbsp;</td> 
+    <td>&nbsp;</td> 
+  </tr>
+ 
+</table>
+ 
+<p></p>
+ 
+</body>
+ 
+</html>

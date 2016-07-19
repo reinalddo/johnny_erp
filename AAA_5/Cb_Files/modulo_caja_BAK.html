@@ -1,0 +1,241 @@
+<html>
+<head>
+  <title>Módulo de Caja</title>
+	<link rel="stylesheet" type="text/css" href="extjs2.1.1/resources/css/ext-all.css" />
+  
+    <!-- GC -->
+ 	<!-- LIBS -->
+ 	<script type="text/javascript" src="extjs2.1.1/adapter/ext/ext-base.js"></script>
+ 	<!-- ENDLIBS -->
+
+    <script type="text/javascript" src="extjs2.1.1/ext-all.js"></script>
+  
+   
+	<style type="text/css">
+	html, body {
+        font:normal 12px verdana;
+        margin:0;
+        padding:0;
+        border:0 none;
+        overflow:hidden;
+        height:100%;
+    }
+	p {
+	    margin:5px;
+	}
+    .settings {
+        background-image:url(extjs2.1.1/shared/icons/fam/folder_wrench.png);
+    }
+    .nav {
+        background-image:url(extjs2.1.1/shared/icons/fam/folder_go.png);
+    }
+    </style>
+	<script type="text/javascript">
+    Ext.onReady(function(){
+
+        // NOTE: This is an example showing simple state management. During development,
+        // it is generally best to disable state management as dynamically-generated ids
+        // can change across page loads, leading to unpredictable results.  The developer
+        // should ensure that stable state ids are set for stateful components in real apps.
+        Ext.state.Manager.setProvider(new Ext.state.CookieProvider());
+        
+       var viewport = new Ext.Viewport({
+            layout:'border',
+            items:[
+                new Ext.BoxComponent({ // raw
+                    region:'north',
+                    el: 'north',
+                    height:32
+                }),{
+                    region:'south',
+                    contentEl: 'south',
+                    split:true,
+                    height: 100,
+                    minSize: 100,
+                    maxSize: 200,
+                    collapsible: true,
+                    title:'Barra de Estado',
+                    margins:'0 0 0 0'
+                }, {
+                    region:'east',
+                    title: 'Propiedades',
+                    collapsible: true,
+                    split:true,
+                    width: 225,
+                    minSize: 175,
+                    maxSize: 400,
+                    layout:'fit',
+                    margins:'0 5 0 0',
+                    items:
+                        new Ext.TabPanel({
+                            border:false,
+                            activeTab:1,
+                            tabPosition:'bottom',
+                            items:[{
+                                html:'<p>A TabPanel component can be a region.</p>',
+                                title: 'A Tab',
+                                autoScroll:true
+                            },
+                            new Ext.grid.PropertyGrid({
+                                title: 'Property Grid',
+                                closable: true,
+                                source: {
+                                    "(name)": "Properties Grid",
+                                    "grouping": false,
+                                    "autoFitColumns": true,
+                                    "productionQuality": false,
+                                    "created": new Date(Date.parse('10/15/2006')),
+                                    "tested": false,
+                                    "version": .01,
+                                    "borderWidth": 1
+                                }
+                            })]
+                        })
+                 },{
+                    region:'west',
+                    id:'west-panel',
+                    title:'Panel de Control',
+                    split:true,
+                    width: 200,
+                    minSize: 175,
+                    maxSize: 400,
+                    collapsible: true,
+                    margins:'0 0 0 5',
+                    layout:'accordion',
+                    layoutConfig:{
+                        animate:true
+                    },
+                    items: [{
+                        contentEl: 'west',
+                        title:'Funciones',
+                        html:'<div id=panel_funciones></div>',
+                        border:false,
+                        iconCls:'nav'
+                    },{
+                        title:'Consultas',
+                        html:'<div id=panel_consultas></div>',
+                        border:false,
+                        iconCls:'settings'
+                    },{
+                        title:'Reportes',
+                        html:'<div id=panel_reportes></div>',
+                        border:false,
+                        iconCls:'settings'
+                    }]
+                },
+                tabss= new Ext.TabPanel({
+                    region:'center',
+                    deferredRender:false,
+                    activeTab:0,
+                    items:[{
+                        contentEl:'center0',
+                        title: 'Inicio',
+                        closable:true,
+                        autoScroll:true
+                    },{
+                        contentEl:'center1',
+                        title: 'Cuentas x Cobrar',
+                        closable:true,
+                        autoScroll:true
+                    },{
+                        contentEl:'center2',
+                        title: 'Cuentas x Pagar',
+                        closable:true,
+                        autoScroll:true
+                    }]
+                })
+             ]
+        });
+      
+        
+        function addTab(){
+           tabss.add({
+            title: 'New Tab ',
+            iconCls: 'tabs',
+            html: 'Tab Body <br/><br/>',
+            closable:true
+        }).show();
+		}
+
+		new Ext.Button({
+        text: 'Función 1',
+        handler: addTab,
+        //iconCls:'new-tab'
+		}).render(document.body, 'panel_funciones');
+		
+		new Ext.Button({
+        text: 'Función 2',
+        handler: addTab,
+        //iconCls:'new-tab'
+		}).render(document.body, 'panel_funciones');
+		
+		new Ext.Button({
+        text: 'Función 3',
+        handler: addTab,
+        //iconCls:'new-tab'
+		}).render(document.body, 'panel_funciones');
+		
+		new Ext.Button({
+        text: 'Consulta 1',
+        handler: addTab,
+        //iconCls:'new-tab'
+		}).render(document.body, 'panel_consultas');
+		
+		new Ext.Button({
+        text: 'Consulta 2',
+        handler: addTab,
+        iconCls:'new-tab'
+		}).render(document.body, 'panel_consultas');
+		
+		new Ext.Button({
+        text: 'Consulta 3',
+        handler: addTab,
+        iconCls:'new-tab'
+		}).render(document.body, 'panel_consultas');
+		
+		new Ext.Button({
+        text: 'Reporte 1',
+        handler: addTab,
+        iconCls:'new-tab'
+		}).render(document.body, 'panel_reportes');
+		
+		new Ext.Button({
+        text: 'Reporte 2',
+        handler: addTab,
+        iconCls:'new-tab'
+		}).render(document.body, 'panel_reportes');
+  
+});
+	</script>
+</head>
+<body>
+<script type="text/javascript" src="extjs2.1.1/shared/examples.js"></script><!-- EXAMPLES -->
+  <div id="west">
+   
+  </div>
+  <div id="north">
+    <p></p>
+  </div>
+  <div id="center0">
+        <p>Panel de Inicio</p>
+        <hr>
+       
+  </div>
+   <div id="center1">
+        <p>Cuentas por Cobrar</p>
+        <hr>
+       
+  </div>
+  <div id="center2">
+        <p>Cuentas por Cobrar</p>
+        <hr>
+  </div>
+ 
+  <div id="props-panel" style="width:200px;height:200px;overflow:hidden;">
+  </div>
+  <div id="south">
+    
+  </div>
+
+ </body>
+</html>

@@ -1,0 +1,531 @@
+<html>
+<head>
+<base target="_self">
+<link rel="stylesheet" type="text/css" href="../Themes/Cobalt/Style.css">
+<link rel="stylesheet" type="text/css" href="../Themes/Menu/Style.css">
+<title>EMBARQUES</title>
+<script language="JavaScript" src="../LibJava/browser_detect.js";</script>
+<script language=" javascript" src="../LibJava/fechas.js";</script>
+<script language=" javascript" src="../LibJava/menu_func.js"></script>
+<script language="JavaScript" src="../LibJava/validaDB.js"></script>
+<script language="JavaScript" src="../LibJava/validations.js"></script>
+<script language="JavaScript" src="../LibJava/general.js"></script>
+<script language="JavaScript">
+
+function fValidarFecha(formName, textName)
+{
+var errMsg="", lenErr=false, dateErr=false;
+ var testObj=eval('document.' + formName + '.' + textName + '.value');
+
+ if (testObj.indexOf('/') > 0 ) {
+    var testStr=testObj.split('/');
+    }
+ else {
+    var testStr = Array();
+    testStr[0]=testObj.substring(0,2);
+    testStr[1]=testObj.substring(2,4);
+    testStr[2]=testObj.substring(4,6);
+}
+ if(testStr.length>3 || testStr.length<3 )
+ {
+  lenErr=true;
+  dateErr=true;
+  errMsg+="Hay un Error en el formato de Fecha Digitada. (" + textName + ")";
+ }
+ 
+ var monthsArr = new Array("Ene", "Feb", "Mar", "Abr", "May", "Jun", "Jul", "Ago" ,"Sep", "Oct", "Nov", "Dic");
+ var monthsNum = new Array("1", "2", "3", "4", "5", "6", "7", "8" ,"9", "10", "11", "12");
+ var daysArr = new Array;
+ for (var i=0; i<12; i++)
+ {
+  if(i!=1)				// Si no es el 2do mes
+  {
+   if((i/2)==(Math.round(i/2)))			// Meses pares
+   {
+    if(i<=6)							// Antes de Junio
+    {     daysArr[i]="31";    }
+    else
+    {     daysArr[i]="30";    }
+   }
+   else						// Mese Impares
+   {
+    if(i<=6)
+    {     daysArr[i]="30";    }
+    else
+    {     daysArr[i]="31";    }
+   }
+  }
+  else					// El segundo mes
+  {
+   if((testStr[2]/4)==(Math.round(testStr[2]/4)))	// año bisiesto
+   {    daysArr[i]="29";   }
+   else
+   {    daysArr[i]="28";   }
+  }
+ }
+ var monthErr=false, yearErr=false;
+ if((testStr[2]>99 || testStr[2]<1) &&!lenErr)
+ {
+  yearErr=true;
+  dateErr=true;
+  errMsg+="\nEl año \"" + testStr[2] + "\" no es correcto.";
+ }
+ if (!lenErr) {
+    var numMonth= parseInt(testStr[1]*1); //                                fah001
+    if (numMonth != NaN && numMonth > 0 && numMonth < 13 )  { var setMonth= parseInt(testStr[1] -1);}
+    else {for(var i=0; i<12; i++)
+            { if(testStr[1].toLowerCase() == monthsArr[i].toLowerCase())
+                  { var setMonth=i;
+                    break;
+                  }
+            }
+     }
+    }
+ if(!lenErr && (setMonth==undefined))
+ {
+  monthErr=true;
+  errMsg+="\nEl mes \"" + testStr[1] + "\" es incorrecto.";
+  dateErr=true;
+ }
+ if(!monthErr && !yearErr && !lenErr)
+ {
+  if(testStr[0]>daysArr[setMonth])
+  {
+   errMsg+=monthsArr[setMonth] + '/' + testStr[2] + ' No tiene ' + testStr[0] + ' días.';
+   dateErr=true;
+  }
+ }
+ if(!dateErr)
+ {
+    eval('document.' + formName + '.' + textName + '.value = \'' + testStr[0] + '/' + monthsArr[setMonth] + '/' + testStr[2] + '\'')
+    return true;
+ }
+ else
+ {
+  eval('document.' + formName + '.' + textName + '.focus()');
+  eval('document.' + formName + '.' + textName + '.select()');
+  alert(errMsg + '\n____________________________\n\nEjemplo de fecha válida :\n23/02/04   o   23/Feb/04');
+  return false;
+ }
+}
+//
+var oValida = new oValidador();
+	oValida.Formul="liqembarques";
+/**
+*		Define parametros necesarios para la validacion de cada campo, y ejecuta el proceso,
+*		solo si el contenido del control ha cambiado
+*		@param		oControl	object:	Elemento en el que ocurre el evento
+*		@param		psTexto		String:	Nombre del elemento que presenta texto asociado al primer obj.
+*		@param		pbValidaIni	Bool:	Debe ejecutar una busqueda inicial o solo abre la seleccion
+*		@return		void
+*
+*/
+function fValidacion(oControl, psText, pbValFlag)
+{
+	pbValFlag=(pbValFlag==undefined)?true:pbValFlag										// Si no se ha definido, asume verdadero
+	if(fActivaSeleccion()) return false;
+	oValida.Skeywd	= oControl.value;
+	if ((fCambio(oControl) && !window.mSelectflag) || (oControl.value != "" && eval("document.liqembarques." + psText + ".value == ''")) ) {
+//		window.status="Validando";														// Solo si ha cambiado el contenido
+		oValida.PageR 	= "../Li_Files/LiAdTc.php";
+		oValida.Tipo=3;																//Retornar valores
+		oValida.Skeywd  = oControl.value;
+		slText = " AND cte_Codigo = '" + oControl.value + 
+				 "' OR cte_Referencia LIKE '" + oControl.value + "%' ";
+				 "' OR cte_Descripcion LIKE '" + oControl.value + "%' ";
+		
+		switch (oControl.name ) {
+			case "emb_CodVapor":
+			    if (!oControl.value) return true;
+				oValida.Cond 	= "buq_CodBuque = '" + oControl.value + "' OR buq_Abreviatura LIKE '%" + oControl.value + 
+								  "%' OR  buq_Descripcion LIKE '%" + oControl.value + "%' AND buq_Estado >=1 " 
+				oValida.Selec   = oValida.Cond;
+				oValida.Tabla 	= "liqbuques";
+				oValida.Campos 	= "buq_CodBuque,buq_Descripcion";
+				oValida.Selec   = oValida.Campos;
+				oValida.Desti 	= "emb_CodVapor,txt_Vapor";
+				oValida.PageR 	= "../Li_Files/LiAdBu_search.php"
+				oValida.Focus	= "emb_NumViaje"
+				oValida.Mensj	= "<<<<< SELECCIONE UN VAPOR  >>>>>>>";
+				oValida.Aplicar(pbValFlag);
+				break;
+			case "emb_CodMarca":
+				oValida.Cond 	= "par_Secuencia = '" + oControl.value + "' OR par_Descripcion LIKE '" + oControl.value + "%' ";
+				oValida.Tabla 	= "genparametros";
+				oValida.Campos 	= "par_Secuencia,par_Descripcion";
+				oValida.Selec   = oValida.Campos;
+				oValida.Desti 	= "emb_CodMarca,txt_Marca";
+				oValida.PageR 	= "../Li_Files/LiAdMa_search.php";
+				oValida.Focus	= "emb_CodCaja";
+				oValida.Mensj	= "<<<<< SELECCIONE UN EMPAQUE  >>>>>>>";
+				oValida.Aplicar(pbValFlag);
+				break;
+
+			case "emb_CodCaja":
+				oValida.Cond 	= "caj_Codcaja = '" + oControl.value + "' OR caj_Abreviatura LIKE '" + oControl.value + "%' ";
+				oValida.Tabla 	= "liqcajas";
+				oValida.Campos 	= "caj_CodCaja,caj_Descripcion,caj_Componente1,caj_Componente2,caj_Componente3,caj_Componente4";
+				oValida.Selec   = oValida.Campos;
+				oValida.Desti 	= "emb_CodCaja,txt_Empaque,emb_CodCompon1,emb_CodCompon2,emb_CodCompon3,emb_CodCompon4";
+				oValida.PageR 	= "../Li_Files/LiAdTc_search.php";
+//				oValida.Focus	= "emb_CodCompon1";
+				oValida.Focus	= "txt_Empaque";
+				oValida.Mensj	= "<<<<< SELECCIONE UN EMPAQUE  >>>>>>>";
+				
+				oValida.Aplicar(pbValFlag);
+				break;
+
+			case "emb_CodCompon1":
+				oValida.Cond 	= "cte_Clase = '1' " + slText;
+				oValida.Selec   = oValida.Cond;
+				oValida.Tabla 	= "liqcomponent";
+				oValida.Campos 	= "cte_Codigo,cte_Descripcion";
+				oValida.Selec   = oValida.Campos;
+				oValida.Desti 	= "emb_CodCompon1,txt_Compon1";
+				oValida.PageR 	= "../Li_Files/LiAdCo_Search.php"
+				oValida.Focus	= "emb_CodCompon2"
+				oValida.Mensj	= "<<<<< SELECCIONE UN COMPONENTE CARTON >>>>>>>";
+				
+				oValida.CondEx	= "cte_Clase = '1' ";
+				oValida.Aplicar(pbValFlag);
+				break;
+			case "emb_CodCompon2":
+				oValida.Cond 	= "cte_Clase = '2' " + slText;
+				oValida.Tabla 	= "liqcomponent";
+				oValida.Campos 	= "cte_Codigo,cte_Descripcion";
+				oValida.Selec   = oValida.Campos;
+				oValida.Desti 	= "emb_CodCompon2,txt_Compon2";
+				oValida.PageR 	= "../Li_Files/LiAdCo_Search.php";
+				oValida.Focus	= "emb_CodCompon3";
+				oValida.Mensj	= "<<<<< SELECCIONE UN COMPONENTE PLASTICO >>>>>>>";
+				
+				oValida.CondEx	= "cte_Clase = '2' ";
+				oValida.Aplicar(pbValFlag);
+				break;
+
+			case "emb_CodCompon3":
+				oValida.Cond 	= "cte_Clase = '3' " + slText;
+				oValida.Tabla 	= "liqcomponent";
+				oValida.Campos 	= "cte_Codigo,cte_Descripcion";
+				oValida.Selec   = oValida.Campos;
+				oValida.Desti 	= "emb_CodCompon3,txt_Compon3";
+				oValida.PageR 	= "../Li_Files/LiAdCo_Search.php";
+				oValida.Focus	= "emb_CodCompon4";
+				oValida.Mensj	= "<<<<< SELECCIONE UN COMPONENTE MATERIALES >>>>>>>";
+				
+				oValida.CondEx	= "cte_Clase = '3' ";
+				oValida.Aplicar(pbValFlag);
+				break;
+
+			case "emb_CodCompon4":
+				oValida.Cond 	= "cte_Clase =  '4' " + slText;
+				oValida.Tabla 	= "liqcomponent";
+				oValida.Campos 	= "cte_Codigo,cte_Descripcion";
+				oValida.Selec   = oValida.Campos;
+				oValida.Desti 	= "emb_CodCompon4,txt_Compon4";
+				oValida.PageR 	= "../Li_Files/LiAdCo_Search.php";
+				oValida.Focus	= "emb_PrecOficial";
+				oValida.Mensj	= "<<<<< SELECCIONE UN COMPONENTE ETIQUETA >>>>>>>";
+				
+				oValida.CondEx	= "cte_Clase = '4' ";
+				oValida.Aplicar(pbValFlag);
+				break;
+
+			case "emb_Consignatario":
+			    oValida.CondEx	= "cat_Categoria = 50 " ;
+				oValida.Cond 	= "per_CodAuxiliar LIKE '" 		+ oControl.value +
+								  "' OR per_Apellidos LIKE '"  + oControl.value + 
+								  "%' OR per_Nombres LIKE '" 	+ oControl.value + "%' AND  " +
+								  "par_Descripcion LIKE 'Cliente%'";
+				oValida.Tabla 	= "(conpersonas per LEFT JOIN concategorias cat ON per.per_CodAuxiliar = cat.cat_CodAuxiliar) " + 
+								  "LEFT JOIN genparametros par ON par_clave = 'CAUTI' AND cat.cat_Categoria = par.par_Secuencia ";
+				oValida.Selec	= "per_CodAuxiliar as CodAuxiliar, concat(per_Apellidos, ' ', per_Nombres) as Descripcion, " +
+								  "if(cat_activo = 1,'ACTIVO', 'INACT.') as Estado, par_Descripcion as Categoria";
+				oValida.Campos 	= "CodAuxiliar,Descripcion";
+				oValida.Desti 	= "emb_Consignatario,txt_Consignat";
+				oValida.PageR 	= "../Co_Files/CoAdAu_search2.php";
+				oValida.Focus	= "emb_CodVapor";
+				oValida.Mensj	= "<<<<< SELECCIONE UN CLIENTE >>>>>>>";
+				oValida.Aplicar(pbValFlag);
+				break;
+
+			}
+		}
+//	else window.status="Sin validar";
+}
+/**
+*		Actualizacion en cascada de los componenetes del empaque, para presentar la descripcion 
+*		de cada uno
+*/
+function fCascada() {
+/*
+	if (document.liqembarques.text_Compon1 == "" ) {
+		window.OldValue=document.liqembarques.emb_CodCompon1.value;
+		fValidacion(document.liqembarques.emb_CodCompon1, "txt_Compon1"); }
+	if (document.liqembarques.text_Compon2 == "" ) {
+		window.OldValue=document.liqembarques.emb_CodCompon2.value; 
+		fValidacion(document.liqembarques.emb_CodCompon2, "txt_Compon2");}
+	if (document.liqembarques.text_Compon3 == "" ) {
+		window.OldValue=document.liqembarques.emb_CodCompon3.value;
+		fValidacion(document.liqembarques.emb_CodCompon3, "txt_Compon3");}
+	if (document.liqembarques.text_Compon4 == "" ) {
+		window.OldValue=document.liqembarques.emb_CodCompon4.value;
+		fValidacion(document.liqembarques.emb_CodCompon4, "txt_Compon4");
+		document.liqembarques.emb_PrecOficial.focus();
+		document.liqembarques.emb_PrecOficial.select();}
+*/
+	document.liqembarques.txt_Compon1.value="";
+	document.liqembarques.txt_Compon2.value="";
+	document.liqembarques.txt_Compon3.value="";
+	document.liqembarques.txt_Compon4.value="";
+}
+//Begin CCS script
+//Include JSFunctions @1-5F368366
+  </script>
+<script language="JavaScript" src="../functions.js"></script>
+<script language="JavaScript">
+  
+//End Include JSFunctions
+
+//Include Common JSFunctions @1-73ADA5ED
+</script>
+<script language="JavaScript" src="../DatePicker.js"></script>
+<script language="JavaScript">
+//End Include Common JSFunctions
+
+//Date Picker Object Definitions @1-715A7211
+
+var liqembarques_DatePicker_emb_FecInicio = new Object(); 
+liqembarques_DatePicker_emb_FecInicio.format           = "dd/mmm/yy";
+liqembarques_DatePicker_emb_FecInicio.style            = "Themes/Cobalt/Style.css";
+liqembarques_DatePicker_emb_FecInicio.relativePathPart = "../";
+
+var liqembarques_DatePicker_emb_FecTermino = new Object(); 
+liqembarques_DatePicker_emb_FecTermino.format           = "dd/mmm/yy";
+liqembarques_DatePicker_emb_FecTermino.style            = "Themes/Cobalt/Style.css";
+liqembarques_DatePicker_emb_FecTermino.relativePathPart = "../";
+
+var liqembarques_DatePicker_emb_FecZarpe = new Object(); 
+liqembarques_DatePicker_emb_FecZarpe.format           = "dd/mmm/yy";
+liqembarques_DatePicker_emb_FecZarpe.style            = "Themes/Cobalt/Style.css";
+liqembarques_DatePicker_emb_FecZarpe.relativePathPart = "../";
+
+//End Date Picker Object Definitions
+
+//page_liqembarques_Button_Delete_OnClick @5-9D022EFE
+function page_liqembarques_Button_Delete_OnClick()
+{
+    var result;
+//End page_liqembarques_Button_Delete_OnClick
+
+//Confirmation Message @6-8243B274
+    return confirm('Delete record?');
+//End Confirmation Message
+
+//Close page_liqembarques_Button_Delete_OnClick @5-BC33A33A
+    return result;
+}
+//End Close page_liqembarques_Button_Delete_OnClick
+
+//page_liqembarques_Button_Cancel_OnClick @7-DCE528BA
+function page_liqembarques_Button_Cancel_OnClick()
+{
+    disableValidation = true;
+}
+//End page_liqembarques_Button_Cancel_OnClick
+
+//page_liqembarques_btNUEVO_OnClick @474-27F7EDBF
+function page_liqembarques_btNUEVO_OnClick()
+{
+    disableValidation = true;
+}
+//End page_liqembarques_btNUEVO_OnClick
+
+//page_liqembarques_btBUSQUEDA_OnClick @475-6FE6EB96
+function page_liqembarques_btBUSQUEDA_OnClick()
+{
+    disableValidation = true;
+}
+//End page_liqembarques_btBUSQUEDA_OnClick
+
+//DEL      // -------------------------
+//DEL
+//DEL      // -------------------------
+
+//bind_events @1-6AE8312D
+function bind_events() {
+    if (document.forms["liqembarques"]) check_and_bind('document.forms["liqembarques"].Button_Delete','onclick',page_liqembarques_Button_Delete_OnClick);
+    if (document.forms["liqembarques"]) check_and_bind('document.forms["liqembarques"].Button_Cancel','onclick',page_liqembarques_Button_Cancel_OnClick);
+    if (document.forms["liqembarques"]) check_and_bind('document.forms["liqembarques"].btNUEVO','onclick',page_liqembarques_btNUEVO_OnClick);
+    if (document.forms["liqembarques"]) check_and_bind('document.forms["liqembarques"].btBUSQUEDA','onclick',page_liqembarques_btBUSQUEDA_OnClick);
+    forms_onload();
+}
+//End bind_events
+
+window.onload = bind_events; //Assign bind_events @1-19F7B649
+//End CCS script
+</script>
+</head>
+ 
+<body bgcolor="#fffff7" link="#000000" alink="#ff0000" vlink="#000000" text="#000000" class="CobaltPageBODY">
+{Cabecera} 
+<table background="../Themes/Cobalt/Light Streaks.bmp" border="0" width="100%" cellspacing="1" cellpadding="0" align="center">
+  <tr>
+    <td align="middle" valign="top">
+      <!-- BEGIN Record liqembarques -->
+      <form name="{HTMLFormName}" action="{Action}" method="post">
+        &nbsp; <font class="CobaltFormHeaderFont" align="center">EMBARQUES </font> 
+        <table class="CobaltFormTABLE" cellpadding="1" border="0" cellspacing="1" >
+          <!-- BEGIN Error -->
+          <tr>
+            <td class="CobaltErrorDataTD" colspan="6">{Error}</td> 
+          </tr>
+ <!-- END Error -->
+          <tr>
+            <td class="CobaltFieldCaptionTD" nowrap>&nbsp;</td> 
+            <td class="CobaltDataTD">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <input class="CobaltInputSB" style="FONT-WEIGHT: bolder; WIDTH: 69px; COLOR: #cc0000; HEIGHT: 15px" size="11" value="{emb_RefOperativa}" name="{emb_RefOperativa_Name}"></td> 
+            <td class="CobaltFieldCaptionTD" nowrap>&nbsp;AÑO DE OPERACION</td> 
+            <td class="CobaltDataTD">&nbsp; <input class="CobaltInputSB2" maxlength="10" size="10" value="{emb_AnoOperacion}" name="{emb_AnoOperacion_Name}" title="Dos Dígitos del Año en que se procesa el embarque"></td> 
+            <td class="CobaltFieldCaptionTD" nowrap>&nbsp;CONSIGNATARIO</td> 
+            <td class="CobaltDataTD">&nbsp; <input class="CobaltInputSB2" onblur="fValidacion(this, 'txt_Compon2'); return true" value="{emb_Consignatario}" name="{emb_Consignatario_Name}" maxlength="10" size="5" style="WIDTH: 41px; HEIGHT: 18px" title="Código del Cliente a quien se realiza el embarque"><input class="CobaltInputSB2" value="{txt_Consignat}" name="{txt_Consignat_Name}" style="WIDTH: 98px; HEIGHT: 18px" size="15" title="Nombre del Cliente / Consignatario del Embarque" readonly tabindex="-1"></td> 
+          </tr>
+
+          <tr>
+            <td class="CobaltFieldCaptionTD" nowrap style="border:0">&nbsp;VAPOR</td>
+            <td class="CobaltDataTD">&nbsp; <input class="CobaltInputSB2" onblur="fValidacion(this, 'txt_Vapor'); return true" ondblclick="fValidacion(this, 'txt_Vapor', false); return true" value="{emb_CodVapor}" name="{emb_CodVapor_Name}" maxlength="10" size="5" style="WIDTH: 42px; HEIGHT: 18px" title="Código del Vapor"><input class="CobaltInputSB2" style="WIDTH: 113px; HEIGHT: 17px" size="18" value="{txt_Vapor}" name="{txt_Vapor_Name}" title="Nombre del Vapor" readonly tabindex="-1">&nbsp;
+              VIAJE: <input class="CobaltInputSB2" maxlength="10" size="4" value="{emb_NumViaje}" name="{emb_NumViaje_Name}" style="WIDTH: 32px; HEIGHT: 17px"></td>
+            <td class="CobaltFieldCaptionTD" nowrap>&nbsp;SEMANA</td>
+            <td class="CobaltDataTD">&nbsp;INICIO: <input class="CobaltInputSB2" maxlength="5" size="1" value="{emb_SemInicio}" name="{emb_SemInicio_Name}" style="WIDTH: 22px; HEIGHT: 18px" title="Semana en la que se inicia el Embarque. Mínima semana para Recepcion de tarjas de este embarque">&nbsp;&nbsp;
+              CIERRE: <input class="CobaltInputSB2" maxlength="5" size="2" value="{emb_SemTermino}" name="{emb_SemTermino_Name}" style="WIDTH: 25px; HEIGHT: 18px" title="Semana en la que termina el Embarque. Máxima semana para Recepcion de tarjas de este embarque"></td>
+            <td class="CobaltFieldCaptionTD" nowrap>&nbsp;&nbsp;</td>
+            <td class="CobaltDataTD"></td>
+          </tr>
+
+          <tr>
+            <td class="CobaltFieldCaptionTD" nowrap>&nbsp;FECHA DE INICIO&nbsp;</td>
+            <td class="CobaltDataTD">&nbsp; <input class="CobaltInputSB2" maxlength="9" size="9" value="{emb_FecInicio}" onchange="fValidarFecha('liqembarques', 'emb_FecInicio');" name="{emb_FecInicio_Name}" title="Fecha Mínima en la que se recibe fruta para este embarque">
+              <!-- BEGIN DatePicker DatePicker_emb_FecInicio --><a class="CobaltDataLink" href="javascript:showDatePicker('{Name}','{FormName}','{DateControl}');"><img tabindex="-1" height="15" src="../Themes/DatePicker/DatePicker1.gif" width="17" border="0"></a> <!-- END DatePicker DatePicker_emb_FecInicio -->&nbsp;</td>
+            <td class="CobaltFieldCaptionTD" nowrap>&nbsp;FECHA DE CIERRE</td>
+            <td class="CobaltDataTD">&nbsp; <input class="CobaltInputSB2" maxlength="9" size="9" value="{emb_FecTermino}" onchange="fValidarFecha('liqembarques', 'emb_FecTermino')" name="{emb_FecTermino_Name}" title="Fecha Máxima en la que se recibe fruta para este embarque">
+              <!-- BEGIN DatePicker DatePicker_emb_FecTermino --><a class="CobaltDataLink" href="javascript:showDatePicker('{Name}','{FormName}','{DateControl}');"><img tabindex="-1" height="15" src="../Themes/DatePicker/DatePicker1.gif" width="17" border="0"></a> <!-- END DatePicker DatePicker_emb_FecTermino -->&nbsp;</td>
+            <td class="CobaltFieldCaptionTD" nowrap>&nbsp;FECHA DE ZARPE</td>
+            <td class="CobaltDataTD">&nbsp; <input class="CobaltInputSB2" maxlength="9" size="9" value="{emb_FecZarpe}" onchange="fValidarFecha('liqembarques',
+			  		 'emb_FecZarpe')" name="{emb_FecZarpe_Name}" title="Fecha en que zarpará el Buque">
+              <!-- BEGIN DatePicker DatePicker_emb_FecZarpe --><a class="CobaltDataLink" href="javascript:showDatePicker('{Name}','{FormName}','{DateControl}');"><img height="15" src="../Themes/DatePicker/DatePicker1.gif" width="17" border="0"></a> <!-- END DatePicker DatePicker_emb_FecZarpe -->&nbsp;</td> 
+          </tr>
+ 
+          <tr>
+            <td class="CobaltFieldCaptionTD" nowrap>&nbsp;PTO EMBARQUE</td> 
+            <td class="CobaltDataTD">&nbsp; 
+              <select name="{emb_CodPuerto_Name}" class="CobaltInputSB2" style="WIDTH: 120px">
+                <option value="" selected>-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;</option>
+ {emb_CodPuerto_Options} 
+              </select>
+ &nbsp;</td> 
+            <td class="CobaltFieldCaptionTD" nowrap>&nbsp;PAIS DESTINO&nbsp;</td> 
+            <td class="CobaltDataTD">&nbsp; 
+              <select class="CobaltInputSB2" name="{emb_CodPais_Name}">
+                <option value="0" selected>-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;</option>
+ {emb_CodPais_Options} 
+              </select>
+ &nbsp; </td> 
+            <td class="CobaltFieldCaptionTD" nowrap>&nbsp;PTO. DESTINO</td> 
+            <td class="CobaltDataTD">&nbsp;
+              <select name="{emb_Destino_Name}" >
+                <option value="" selected>- - - - - - - - - - </option>
+ {emb_Destino_Options} 
+              </select>
+ &nbsp;</td> 
+          </tr>
+ 
+          <tr>
+            <td class="CobaltFieldCaptionTD" nowrap>&nbsp;DESCRIPCION</td> 
+            <td class="CobaltDataTD" colspan="3">&nbsp; <input class="CobaltInputSB2" maxlength="80" size="30" value="{emb_Descripcion1}" name="{emb_Descripcion1_Name}" style="WIDTH: 166px; HEIGHT: 17px" title="Texto descriptivo (Opcional)">&nbsp; <input class="CobaltInputSB2" maxlength="40" size="30" value="{emb_Descripcion2}" name="{emb_Descripcion2_Name}" style="WIDTH: 167px; HEIGHT: 17px" title="Texto descriptivo para Facturación (Opcional)">&nbsp;</td> 
+            <td class="CobaltFieldCaptionTD" nowrap>&nbsp;PRODUCTO</td> 
+            <td class="CobaltDataTD">&nbsp; 
+              <select id="tad_CodProducto" style="FONT-SIZE: 9px; WIDTH: 90px" name="{emb_CodProducto_Name}">
+                <option value="" selected>-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;</option>
+ {emb_CodProducto_Options} 
+              </select>
+ </td> 
+          </tr>
+ 
+          <tr>
+            <td class="CobaltFieldCaptionTD" nowrap>&nbsp;MARCA&nbsp;</td> 
+            <td class="CobaltDataTD" colspan="2">&nbsp; <input name="{emb_CodMarca_Name}" value="{emb_CodMarca}" onfocus="fValorPrevio(this)" onblur="fValidacion(this, 'txt_Marca'); return true" maxlength="10" size="5" class="CobaltInputSB2" style="WIDTH: 38px; HEIGHT: 17px" title="Código de Marca de Producto">&nbsp; <input class="CobaltInputSB2" value="{txt_Marca}" name="{txt_Marca_Name}" title="Descripcón de Marca" readonly tabindex="-1"></td> 
+            <td class="CobaltDataTD" nowrap>&nbsp;</td> 
+            <td class="CobaltFieldCaptionTD" nowrap>&nbsp;ESTADO</td> 
+            <td class="CobaltDataTD">&nbsp; 
+              <select name="{emb_Estado_Name}"  style="WIDTH: 90px">
+                <option value="" selected>-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;</option>
+ {emb_Estado_Options} 
+              </select>
+ &nbsp;</td> 
+          </tr>
+ 
+          <tr class="CobaltDataTD">
+          </tr>
+ 
+          <tr height="25" valign="center">
+            <td class="CobaltDataTD" nowrap align="middle" colspan="6"><font color="#006699"><font color="#006699" size="3"><b><font color="#006699" size="3"><b>VALORES
+              POR OMISION PARA TARJAS:</b></font></b></font></font> </td> 
+          </tr>
+ 
+          <tr>
+            <td class="CobaltFieldCaptionTD" rowspan="2" nowrap>&nbsp;EMPAQUE</td> 
+            <td class="CobaltDataTD" rowspan="2" valign="top">&nbsp; <input class="CobaltInputSB2" onfocus="fValorPrevio(this)" onblur="fValidacion(this, 'txt_Empaque'); return true" style="WIDTH: 41px; HEIGHT: 17px" maxlength="10" size="5" value="{emb_CodCaja}" name="{emb_CodCaja_Name}" title="Código de Empaque de Caja">&nbsp; <input class="CobaltInputSB2" id="txt_Empaque" style="WIDTH: 109px; HEIGHT: 17px" size="18" value="{txt_Empaque}" name="{txt_Empaque_Name}" title="Nombre de Empaque" readonly tabindex="-1"></td> 
+            <td class="CobaltFieldCaptionTD" nowrap>&nbsp;CARTON:</td> 
+            <td class="CobaltDataTD">&nbsp; <input class="CobaltInputSB2" onblur="fValidacion(this, 'txt_Compon2'); return true" style="WIDTH: 35px; HEIGHT: 18px" maxlength="5" size="3" value="{emb_CodCompon1}" name="{emb_CodCompon1_Name}" title="Código del Componente Cartón"><input class="CobaltInputSB2" style="WIDTH: 113px; HEIGHT: 18px; text-size: 7" readonly value="{txt_Compon1}" name="{txt_Compon1_Name}" size="17" title="Descripción del Componente Cartón" tabindex="-1"></td> 
+            <td class="CobaltFieldCaptionTD" nowrap>&nbsp;PLASTICO: </td> 
+            <td class="CobaltDataTD">&nbsp; <input class="CobaltInputSB2" onblur="fValidacion(this, 'txt_Compon2'); return true" style="WIDTH: 36px; HEIGHT: 18px" maxlength="5" size="2" value="{emb_CodCompon2}" name="{emb_CodCompon2_Name}" title="Código del Componente Plàstico"><input class="CobaltInputSB2" style="WIDTH: 100px; HEIGHT: 18px; text-size: 5" readonly value="{txt_Compon2}" name="{txt_Compon2_Name}" size="15" title="Descripción del Componente Plástico" tabindex="-1"></td> 
+          </tr>
+ 
+          <tr>
+            <td class="CobaltFieldCaptionTD" nowrap>&nbsp;MATERIALES:</td> 
+            <td class="CobaltDataTD">&nbsp; <input class="CobaltInputSB2" onblur="fValidacion(this, 'txt_Compon3');" style="WIDTH: 35px; HEIGHT: 18px" maxlength="5" size="1" value="{emb_CodCompon3}" name="{emb_CodCompon3_Name}" title="Código del Componente Material"><input class="CobaltInputSB2" style="WIDTH: 110px; HEIGHT: 18px; text-size: 7" readonly value="{txt_Compon3}" name="{txt_Compon3_Name}" size="17" title="Descripción del Componente Material" tabindex="-1"></td> 
+            <td class="CobaltFieldCaptionTD" nowrap>&nbsp;ETIQUETA:</td> 
+            <td class="CobaltDataTD">&nbsp; <input class="CobaltInputSB2" onblur="fValidacion(this, 'txt_Compon4');" style="WIDTH: 37px; HEIGHT: 18px" maxlength="5" size="2" value="{emb_CodCompon4}" name="{emb_CodCompon4_Name}" title="Código del Componente Etiquetas"><input class="CobaltInputSB2" style="WIDTH: 97px; HEIGHT: 18px; text-size: 7" readonly value="{txt_Compon4}" name="{txt_Compon4_Name}" size="13" title="Descripción del Componente Etiquetas" tabindex="-1"></td> 
+          </tr>
+ 
+          <tr>
+            <td class="CobaltFieldCaptionTD" nowrap>&nbsp;PRECIO OFICIAL</td> 
+            <td class="CobaltDataTD">&nbsp; <input class="CobaltInputSB2" maxlength="12" size="12" value="{emb_PrecOficial}" name="{emb_PrecOficial_Name}">&nbsp;</td> 
+            <td class="CobaltFieldCaptionTD" nowrap>&nbsp;DIF. PRECIO</td> 
+            <td class="CobaltDataTD">&nbsp; <input class="CobaltInputSB2" maxlength="12" size="12" value="{emb_DifPrecio}" name="{emb_DifPrecio_Name}">&nbsp;</td> 
+            <td class="CobaltFieldCaptionTD" nowrap>&nbsp;PRECIO VENTA</td> 
+            <td class="CobaltDataTD">&nbsp; <input class="CobaltInputSB2" maxlength="12" size="12" value="{emb_PreVenta}" name="{emb_PreVenta_Name}">&nbsp;</td> 
+          </tr>
+ 
+          <tr>
+            <td class="CobaltFieldCaptionTD" nowrap>&nbsp;</td> 
+            <td class="CobaltDataTD"></td> 
+            <td class="CobaltFieldCaptionTD" nowrap>&nbsp;</td> 
+            <td class="CobaltDataTD">&nbsp; <input type="hidden" name="{emb_CodBuque_Name}" value="{emb_CodBuque}" style="WIDTH: 61px; HEIGHT: 14px" size="7">&nbsp;</td> 
+            <td class="CobaltFieldCaptionTD" nowrap>&nbsp;&nbsp;</td> 
+            <td class="CobaltDataTD"></td> 
+          </tr>
+ 
+          <tr height="18" valign="center" align="middle">
+            <td class="CobaltFooterTD" nowrap align="middle" colspan="6">
+              <!-- BEGIN Button Button_Insert --><input class="CobaltDataLink" type="submit" value="AÑADIR" name="{Button_Name}" title="GRABA EL REGISTRO DIGITADO" style="FONT-SIZE: 9px; WIDTH: 58px; HEIGHT: 20px"><!-- END Button Button_Insert -->&nbsp;&nbsp;&nbsp; 
+              <!-- BEGIN Button Button_Update --><input class="CobaltDataLink" type="submit" value="GRABAR" name="{Button_Name}" title="GRABA LAS MODIFICACIONES EFECTUADAS" style="FONT-SIZE: 9px; WIDTH: 58px; HEIGHT: 20px"><!-- END Button Button_Update -->&nbsp;&nbsp; 
+              <!-- BEGIN Button Button_Delete --><input class="CobaltDataLink" type="submit" value="ELIMINAR" name="{Button_Name}" title="ELIMINA EL EMBRAQUE ACTUAL" style="FONT-SIZE: 9px; WIDTH: 58px; HEIGHT: 20px"><!-- END Button Button_Delete -->&nbsp;&nbsp;&nbsp; 
+              <!-- BEGIN Button Button_Cancel --><input class="CobaltDataLink" type="submit" value="CANCELAR" name="{Button_Name}" title="CANCELA LAS MODIFICACIONES REALIZADAS" style="FONT-SIZE: 9px; WIDTH: 58px; HEIGHT: 20px"><!-- END Button Button_Cancel -->&nbsp;&nbsp;&nbsp;
+              &nbsp; &nbsp;&nbsp;&nbsp;&nbsp; 
+              <!-- BEGIN Button btNUEVO --><input class="CobaltDataLink" type="submit" value="NUEVO" name="{Button_Name}" title="AÑADIR UN NUEVO EMBARQUE" style="FONT-SIZE: 9px; WIDTH: 58px; HEIGHT: 20px"><!-- END Button btNUEVO -->&nbsp;&nbsp;&nbsp; 
+              <!-- BEGIN Button btBUSQUEDA --><input class="" type="submit" value="BUSCAR" name="{Button_Name}" title="CARGA VENTANA PARA CONSULTA / MODIFICACION DE EMBARQUES" style="FONT-SIZE: 9px; WIDTH: 58px; HEIGHT: 20px"><!-- END Button btBUSQUEDA --></td> 
+          </tr>
+ 
+        </table>
+ 
+      </form>
+ <!-- END Record liqembarques --></td> 
+  </tr>
+ 
+</table>
+ <iframe style="WIDTH: 00px; HEIGHT: 0px" name="frValida"></iframe>
+<p></p>
+ 
+</body>
+ 
+</html>

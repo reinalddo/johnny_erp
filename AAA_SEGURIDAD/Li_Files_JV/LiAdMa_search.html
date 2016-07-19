@@ -1,0 +1,176 @@
+<html>
+<head>
+<base target="_self">
+<link rel="stylesheet" type="text/css" href="../Themes/Cobalt/Style.css">
+<link rel="stylesheet" type="text/css" href="../Themes/Menu/Style.css">
+<title>MARCAS: SELECCION</title>
+ 
+<script language="JavaScript" src="../LibJava/menu_func.js"></script>
+<script language="JavaScript" src="../LibJava/cookies.js"></script>
+<script language="JavaScript" src="../LibJava/validaDB_ret.js"></script>
+<script language="JavaScript" src="../LibJava/general.js"></script>
+<script language="JavaScript">
+//Begin CCS script
+//Include JSFunctions @1-5F368366
+  </script>
+<script language="JavaScript" src="../functions.js"></script>
+<script language="JavaScript">
+  
+//End Include JSFunctions
+
+//Button1_OnClick @61-EF81859E
+function Button1_OnClick()
+{
+    var result;
+//End Button1_OnClick
+
+//Custom Code @62-2A29BDB7
+    // -------------------------
+	window.enMantto=true;
+	// -------------------------
+//End Custom Code
+
+//Close Button1_OnClick @61-BC33A33A
+    return result;
+}
+//End Close Button1_OnClick
+
+//page_marcas_list_btNuevo_OnClick @60-A23962D1
+function page_marcas_list_btNuevo_OnClick()
+{
+    disableValidation = true;
+}
+//End page_marcas_list_btNuevo_OnClick
+
+//page_marcas_list_btCerrar_OnClick @70-870B693E
+function page_marcas_list_btCerrar_OnClick()
+{
+    disableValidation = true;
+}
+//End page_marcas_list_btCerrar_OnClick
+
+//DEL      // -------------------------
+//DEL  alert("CERRAR");
+//DEL  	    // -------------------------
+
+//bind_events @1-9F1A3632
+function bind_events() {
+//    if (document.all["Button1"]) check_and_bind('document.all["Button1"]','onclick',Button1_OnClick);
+//    if (document.forms["marcas_list"]) check_and_bind('document.forms["marcas_list"].btNuevo','onclick',page_marcas_list_btNuevo_OnClick);
+//    if (document.forms["marcas_list"]) check_and_bind('document.forms["marcas_list"].btCerrar','onclick',page_marcas_list_btCerrar_OnClick);
+    forms_onload();
+}
+//End bind_events
+
+window.onload = bind_events; //Assign bind_events @1-19F7B649
+
+//End CCS script
+</script>
+</head>
+ 
+<body bgcolor="#fffff7" link="#000000" alink="#ff0000" vlink="#000000" text="#000000" class="CobaltPageBODY">
+<br>
+<table background="../Themes/Cobalt/Light Streaks.bmp" border="0" width="100%" class="CobaltPageBODY" style="BORDER-COLLAPSE: collapse">
+  <tr>
+    <td valign="top" nowrap align="middle" width="80%">
+      <!-- BEGIN Record marcas_qry -->
+      <form name="{HTMLFormName}" action="{Action}" method="post" target="_self">
+        <table class="CobaltFormTABLE" border="0">
+          <!-- BEGIN Error -->
+          <tr>
+            <td class="CobaltErrorDataTD" colspan="4">{Error}</td> 
+          </tr>
+ <!-- END Error -->
+          <tr>
+            <td class="CobaltFieldCaptionTD" nowrap></td> 
+            <td class="CobaltDataTD" title="Si está activado, presenta solo marcas de este tipo"><input class="CobaltInput" style="WIDTH: 222px; HEIGHT: 17px" maxlength="10" size="31" value="{s_keyword}" name="{s_keyword_Name}">&nbsp; 
+              <!-- BEGIN RadioButton s_Uso -->
+              <!-- BEGIN RadioButton RadioButton2 --><input class="CobaltInput" type="radio" value="{Value}" name="{RadioButton2_Name}" title="Si está activado, presenta solo marcas de este tipo" {Check}>{Description} <!-- END RadioButton RadioButton2 --><input class="CobaltInput" type="radio" value="{Value}" name="{s_Uso_Name}" title="Si está activado, presenta solo marcas de este tipo" {Check}>{Description} <!-- END RadioButton s_Uso --></td> 
+            <td class="CobaltFooterTD" nowrap><a class="CobaltSorterLink" href="{ClearParameters_Src}">Limpiar</a>&nbsp; </td> 
+            <td class="CobaltFooterTD" nowrap align="right">
+              <!-- BEGIN Button Button_DoSearch --><input class="CobaltButton" type="submit" value="Buscar" name="{Button_Name}"><!-- END Button Button_DoSearch -->&nbsp; </td> 
+          </tr>
+ 
+        </table>
+ 
+      </form>
+ <!-- END Record marcas_qry --></td> 
+  </tr>
+ 
+  <tr>
+    <td valign="top" align="middle" nowrap width="80%" style="BORDER-COLLAPSE: collapse"><font class="CobaltFormHeaderFont" style="BORDER-COLLAPSE: collapse">MARCAS</font> 
+      <!-- BEGIN Grid marcas_list -->
+      <form method="post" name="marcas_list" style="BORDER-COLLAPSE: collapse">
+        <table border="1" class="CobaltFormTABLE" cellspacing="0" cellpadding="0" width="70%" style="BORDER-COLLAPSE: collapse">
+          <tr>
+            <td colspan="4" nowrap class="CobaltFooterTD">
+              <!-- BEGIN Navigator Navigator -->
+              <!-- BEGIN First_On --><a class="CobaltNavigatorLink" href="{First_URL}"><img height="14" src="../Themes/Aqua/FirstOn.gif" width="24" border="0"></a> <!-- END First_On -->
+              <!-- BEGIN Prev_On --><a class="CobaltNavigatorLink" href="{Prev_URL}"><img height="14" src="../Themes/Aqua/PrevOn.gif" width="24" border="0"></a> <!-- END Prev_On -->&nbsp; 
+              <!-- BEGIN Pages -->
+              <!-- BEGIN Page_On --><a class="CobaltNavigatorLink" href="{Page_URL}">{Page_Number}</a>&nbsp; <!-- END Page_On -->
+              <!-- BEGIN Page_Off -->{Page_Number}&nbsp; <!-- END Page_Off --><!-- END Pages -->de
+              {Total_Pages}&nbsp; 
+              <!-- BEGIN Next_On --><a class="CobaltNavigatorLink" href="{Next_URL}"><img height="14" src="../Themes/Aqua/NextOn.gif" width="24" border="0"></a> <!-- END Next_On -->
+              <!-- BEGIN Last_On --><a class="CobaltNavigatorLink" href="{Last_URL}"><img height="14" src="../Themes/Aqua/LastOn.gif" width="24" border="0"></a> <!-- END Last_On --><!-- END Navigator Navigator -->&nbsp; </td> 
+            <td class="CobaltFooterTD" nowrap align="right">
+              <!-- BEGIN Button btNuevo --><input class="CobaltLink" title="ABRE UNA VENTANA PARA AGREGAR UNA MARCA NUEVA"  onclick="fAbrirWin('LiAdMa_mant.php','Win',' ', 400, 300); return false;" type="button" value="NUEVA" name="{Button_Name}" style="FONT-SIZE: 9px; WIDTH: 48px; HEIGHT: 18px" size="11">
+              <!-- END Button btNuevo -->
+              <!-- BEGIN Button btCerrar --><input class="CobaltLink" title="Cierra esta pantalla de selección, sin retornar valor" style="FONT-SIZE: 9px; WIDTH: 53px; HEIGHT: 18px" onclick="fCerrar();" type="button" size="12" value="CERRAR" name="{Button_Name}"><!-- END Button btCerrar --></td> 
+          </tr>
+ 
+          <tr valign="center" align="middle">
+            <td nowrap class="CobaltColumnTD">
+              <!-- BEGIN Sorter Sorter_par_Secuencia -->&nbsp; <a class="CobaltSorterLink" href="{Sort_URL}">COD.</a> 
+              <!-- BEGIN Asc_On --><img height="9" src="../Themes/Cobalt/AscOn.gif" width="13" border="0"><!-- END Asc_On -->
+              <!-- BEGIN Desc_On --><img height="9" src="../Themes/Cobalt/DescOn.gif" width="13" border="0"><!-- END Desc_On --><!-- END Sorter Sorter_par_Secuencia -->&nbsp;</td> 
+            <td nowrap class="CobaltColumnTD">
+              <!-- BEGIN Sorter Sorter_par_Descripcion -->&nbsp; <a class="CobaltSorterLink" href="{Sort_URL}">DESCRIPCION</a> 
+              <!-- BEGIN Asc_On --><img height="9" src="../Themes/Cobalt/AscOn.gif" width="13" border="0"><!-- END Asc_On -->
+              <!-- BEGIN Desc_On --><img height="9" src="../Themes/Cobalt/DescOn.gif" width="13" border="0"><!-- END Desc_On --><!-- END Sorter Sorter_par_Descripcion -->&nbsp;</td> 
+            <td nowrap class="CobaltColumnTD">
+              <!-- BEGIN Sorter Sorter_par_Valor1 -->&nbsp; <a class="CobaltSorterLink" href="{Sort_URL}">CLASE</a> 
+              <!-- BEGIN Asc_On --><img height="9" src="../Themes/Cobalt/AscOn.gif" width="13" border="0"><!-- END Asc_On -->
+              <!-- BEGIN Desc_On --><img height="9" src="../Themes/Cobalt/DescOn.gif" width="13" border="0"><!-- END Desc_On --><!-- END Sorter Sorter_par_Valor1 -->&nbsp;</td> 
+            <td nowrap class="CobaltColumnTD">
+              <!-- BEGIN Sorter Sorter_par_Valor3 -->&nbsp; <a class="CobaltSorterLink" href="{Sort_URL}">APLICA
+              A</a> 
+              <!-- BEGIN Asc_On --><img height="9" src="../Themes/Cobalt/AscOn.gif" width="13" border="0"><!-- END Asc_On -->
+              <!-- BEGIN Desc_On --><img height="9" src="../Themes/Cobalt/DescOn.gif" width="13" border="0"><!-- END Desc_On --><!-- END Sorter Sorter_par_Valor3 -->&nbsp;</td> 
+            <td nowrap class="CobaltColumnTD">
+              <!-- BEGIN Sorter Sorter_par_Valor4 -->&nbsp; <a class="CobaltSorterLink" href="{Sort_URL}">ESTADO</a> 
+              <!-- BEGIN Asc_On --><img height="9" src="../Themes/Cobalt/AscOn.gif" width="13" border="0"><!-- END Asc_On -->
+              <!-- BEGIN Desc_On --><img height="9" src="../Themes/Cobalt/DescOn.gif" width="13" border="0"><!-- END Desc_On --><!-- END Sorter Sorter_par_Valor4 -->&nbsp;</td> 
+          </tr>
+ 
+          <!-- BEGIN Row -->
+          <tr valign="center" onclick="fRetornarDatos(this, 'marcas_list');" title="-CLICK- Para Seleccionar esta Marca" align="middle">
+            <td class="CobaltDataTD" style="FONT-SIZE: 8px">&nbsp; <input type="hidden" name="{par_Secuencia_Name}" value="{par_Secuencia}" style="WIDTH: 53px; HEIGHT: 16px" size="6" id="par_Secuencia">&nbsp; 
+              <!-- BEGIN Button Button1 --><input class="CobaltDataLink" type="button" value="{par_Secuencia}" name="Button1" style="FONT-SIZE: 9px; WIDTH: 32px; HEIGHT: 17px" onclick="window.enMantto = true; fAbrirWin('LiAdMa_mant.php?par_Secuencia={par_Secuencia}' ,'Win',' ', 400, 300); return false;" size="2" title="-CLICK- Para Editar / Modificar esta Marca"><!-- END Button Button1 --></td> 
+            <td class="CobaltDataTD">&nbsp;&nbsp;&nbsp; <input name="{par_Descripcion_Name}" value="{par_Descripcion}" onmouseover="fTxtResalta(this,  '#009999')" onmouseout="fTxtNormal(this)" maxlength="25" class="CobaltInputSB" style="WIDTH: 122px; HEIGHT: 17px" id="par_Descripcion">&nbsp;</td> 
+            <td onmouseover="fTxtResalta(this,  '#009999')" onmouseout="fTxtNormal(this)" class="CobaltDataTD" nowrap align="left"><input type="hidden" name="{par_Valor1_Name}" value="{par_Valor1}" style="WIDTH: 14px; HEIGHT: 7px" size="1" id="par_Valor1">&nbsp;&nbsp;&nbsp;&nbsp;{txt_Clase}</td> 
+            <td onmouseover="fTxtResalta(this,  '#009999')" onmouseout="fTxtNormal(this)" class="CobaltDataTD" nowrap><input type="hidden" name="{par_Valor3_Name}" value="{par_Valor3}" style="WIDTH: 10px; HEIGHT: 10px" size="1" id="par_Valor3">&nbsp;{txt_Aplica}&nbsp;&nbsp;&nbsp;&nbsp;</td> 
+            <td onmouseover="fTxtResalta(this,  '#009999')" onmouseout="fTxtNormal(this)" class="CobaltDataTD" nowrap><input type="hidden" name="{par_Valor4_Name}" value="{par_Valor4}" style="WIDTH: 13px; HEIGHT: 11px" size="1" id="par_Valor4">&nbsp;&nbsp;&nbsp;{txt_Estado}&nbsp;&nbsp;&nbsp;</td> 
+          </tr>
+ <!-- END Row -->
+          <!-- BEGIN NoRecords -->
+          <tr>
+            <td colspan="5" class="CobaltDataTD" valign="center">No hay
+              registros&nbsp;</td> 
+          </tr>
+ <!-- END NoRecords -->
+          <tr height="5" style="FONT-SIZE: 8px">
+            <td colspan="5" class="CobaltColumnTD" valign="center">&nbsp;</td> 
+          </tr>
+ 
+        </table>
+ 
+      </form>
+ <!-- END Grid marcas_list --></td> 
+  </tr>
+ 
+</table>
+ 
+</body>
+ 
+</html>

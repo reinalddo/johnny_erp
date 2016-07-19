@@ -1,0 +1,206 @@
+<html>
+<head>
+<base>
+<link rel="stylesheet" type="text/css" href="../Themes/StormyWeather/Style.css">
+<link rel="stylesheet" type="text/css" href="../Themes/Menu/Style.css">
+<title>TIPO DE CAJA </title>
+<script language="JavaScript" src="../LibJava/menu_func.js"></script>
+<script language="JavaScript" src="../LibJava/browser_detect.js"></script>
+<link rel="stylesheet" type="text/css" href="../Themes/Cobalt/Style.css">
+<script language="JavaScript" >
+if (document.getElementsByTagName("*")) {
+   document.all = document.getElementsByTagName("*")
+}
+
+function uno(src,color_entrada) {
+    src.bgColor=color_entrada;src.style.cursor="hand";
+}
+function dos(src,color_default) {
+    src.bgColor=color_default;src.style.cursor="default";
+}
+function resaltado(src,color_entrada) {
+    src.style.backgroundcolor=color_entrada;
+    src.style.cursor="hand";
+}
+function normal(src,color_default) {
+    src.style.backgroundcolor=color_default;src.style.cursor="default";
+}
+function fRetornarDatos(obj)
+{
+//    alert(navigator.userAgent);
+//  alert("filas:" + 	obj.parentNode.rows[4].cells[2].name	);
+    alert("hijo:" + 	document.caj_Descripcion);
+//    if (isIE)   ilFilas=obj.parentElement.rows.length;
+//    if (isNS4)  ilFilas=obj.parentNode.rows.length;
+//    ilFilas=isIE? obj.parentElement.rows.length : obj.parentNode.rows.length;
+    ilFilas=obj.parentNode.rows.length;
+    slCmd="";
+    alDest= new Array();
+    alOrig= new Array();
+    slForm= window.opener.parent.top.oValida.Formul?window.opener.parent.top.oValida.Formul+".":"";
+//    alert("id:" + obj.rowIndex + " / " + obj.uniqueNumber)
+    window.opener.parent.top.oValida.Desti.indexOf(",")>0?alDest=window.opener.parent.top.oValida.Desti.split(","):alDest[0]=window.opener.parent.top.oValida.Desti;
+    window.opener.parent.top.oValida.Campos.indexOf(",")>0?alOrig=window.opener.parent.top.oValida.Campos.split(","):alOrig[0]=window.opener.parent.top.oValida.Campos;
+    for (i=0;i< alDest.length;i++) {
+        slCmd += "window.opener.parent.top.document." + slForm + alDest[i] + ".value=document."
+        if ((ilFilas -2) > 1) {                                                         //Si la consulta tiene mas de una respuesta
+            slCmd += alOrig[i] + "[" + (obj.rowIndex -1) + "].outerText; \n"}                //Aplica contexto de array para identificar los elementos HTML
+        else                                                                            //Si la consulta arroja un resultado unico
+            slCmd += alOrig[i]+ ".outerText; \n"                                             //Aplica identificacion por nombre de loc componentes HTML
+    }
+    alert(slCmd + "        ");
+    eval(slCmd)
+//  alert("Comando Generado:" + slCmd);
+    window.opener.parent.top.focus()
+    window.close();
+}
+</script>
+</head>
+<body bgcolor="#fffff7" link="#000000" alink="#ff0000" vlink="#000000" text="#000000" class="CobaltPageBODY">
+<p>{Cabecera}
+
+
+<table border="0" cellspacing="0" cellpadding="0" bgcolor="#000000" align="center" width="317">
+<tr>
+<td>
+<table border="0" cellspacing="1" cellpadding="0" align="center" width="325">
+<tr onMouseOver="uno(this,'cccccc');" onMouseOut="dos(this,'FFFFFF');" bgcolor="#FFFFFF">
+<td align="center" width="108" valign="middle" height="17">
+<font face="Arial, Helvetica, sans-serif" size="1">PASA POR ENCIMA</font></td>
+<td width="114" height="17">
+<div align="center"><font face="Arial,Helvetica, sans-serif" size="1">PASA POR ENCIMA</font></div>
+</td>
+<td width="99" height="17">
+<div align="center"><font face="Arial,Helvetica, sans-serif" size="1">PASA POR ENCIMA</font></div>
+</td>
+</tr>
+<tr bgcolor="#FFFFFF">
+<td width="108"> </td>
+<td width="114"> </td>
+<td width="99"> </td>
+</tr>
+<tr bgcolor="#FFFFFF">
+<td width="108"> </td>
+<td width="114"> </td>
+<td width="99"> </td>
+</tr>
+</table>
+</td>
+</tr>
+</table>
+
+
+
+<table background="../Themes/Cobalt/Light Streaks.bmp" border="0" width="100%" cellspacing="0" cellpadding="0">
+  <tr>
+    <td valign="top" align="middle">
+      <p>
+      <!-- BEGIN Record cjas_query --></p>
+ 
+      <p>&nbsp;</p>
+ 
+      <form action="{Action}" method="post" name="{HTMLFormName}">
+        <strong><font size="4"><font color="#00659c">BUSCAR TIPOS DE CAJA <font class="CobaltFormHeaderFont"></font></font></font></strong> 
+        <table border="0" cellpadding="3" class="CobaltFormTABLE">
+          <!-- BEGIN Error -->
+          <tr>
+            <td class="CobaltErrorDataTD" colspan="4">{Error}</td> 
+          </tr>
+          <!-- END Error -->
+          <tr>
+            <td class="CobaltFieldCaptionTD" nowrap>&nbsp;MARCA&nbsp;</td> 
+            <td class="CobaltDataTD">
+              <select class="CobaltSelect" name="{s_caj_CodMarca_Name}">
+                <option selected value="">- - - - - - - - - - - - - - </option>
+ {s_caj_CodMarca_Options} 
+              </select>
+ &nbsp;</td> 
+            <td class="CobaltFieldCaptionTD">ABREVIATURA&nbsp;</td> 
+            <td class="CobaltDataTD"><input class="CobaltInput" maxlength="5" name="{s_caj_Abreviatura_Name}" size="5" value="{s_caj_Abreviatura}"></td> 
+          </tr>
+ 
+          <tr>
+            <td class="CobaltFieldCaptionTD" nowrap>&nbsp;DESCRIPCION</td> 
+            <td class="CobaltDataTD">&nbsp;<input class="CobaltInput" maxlength="25" name="{s_caj_Descripcion_Name}" size="25" value="{s_caj_Descripcion}"></td> 
+            <td class="CobaltFieldCaptionTD">TIPO DE CAJA&nbsp;</td> 
+            <td class="CobaltDataTD"><input class="CobaltInput" maxlength="15" name="{s_caj_TipoCaja_Name}" size="15" value="{s_caj_TipoCaja}" style="WIDTH: 61px; HEIGHT: 20px"></td> 
+          </tr>
+ 
+          <tr>
+            <td class="CobaltFooterTD" nowrap colspan="4" align="middle">&nbsp; 
+              <!-- BEGIN Button Button_DoSearch --><input class="CobaltButton" name="{Button_Name}" type="submit" value="Buscar"><!-- END Button Button_DoSearch -->&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+              &nbsp;&nbsp;<a class="CobaltSorterLink" title="Limpia la condición de Búsqueda, y presenta todos los registros" href="{ClearParameters_Src}">LIMPIAR</a> </td> 
+          </tr>
+ 
+        </table>
+ 
+      </form>
+ <!-- END Record cjas_query -->
+      <!-- BEGIN Grid cjas_list --><font color="#00659c">LISTA DE TIPOS DE CAJA</font> 
+      <table border="0" cellpadding="3" class="CobaltFormTABLE">
+        <!-- BEGIN Error -->
+        <tr>
+          <td class="CobaltErrorDataTD" colspan="4">{Error}</td> 
+        </tr>
+        <!-- END Error -->
+      </table>
+ 
+      <table border="0" cellpadding="1" class="CobaltFormTABLE" cellspacing="0">
+        <tr align="middle">
+          <td class="CobaltColumnTD" nowrap>
+            <!-- BEGIN Sorter Sorter_caj_CodCaja --><a class="CobaltSorterLink" href="{Sort_URL}">COD</a><!-- END Sorter Sorter_caj_CodCaja -->&nbsp;</td> 
+          <td class="CobaltColumnTD" nowrap>
+            <!-- BEGIN Sorter Sorter_caj_Descripcion --><a class="CobaltSorterLink" href="{Sort_URL}">DESCRIPCION</a><!-- END Sorter Sorter_caj_Descripcion -->&nbsp;</td> 
+          <td class="CobaltColumnTD" nowrap>
+            <!-- BEGIN Sorter Sorter_caj_CodMarca --><a class="CobaltSorterLink" href="{Sort_URL}">MARCA</a><!-- END Sorter Sorter_caj_CodMarca -->&nbsp; </td> 
+          <td class="CobaltColumnTD" nowrap>
+            <!-- BEGIN Sorter Sorter_caj_TipoCaja --><a class="CobaltSorterLink" href="{Sort_URL}">TIPO
+            DE CAJA</a><!-- END Sorter Sorter_caj_TipoCaja -->&nbsp;</td> 
+          <td class="CobaltColumnTD" nowrap>
+            <!-- BEGIN Sorter Sorter_caj_Abreviatura --><a class="CobaltSorterLink" href="{Sort_URL}">ABREV</a><!-- END Sorter Sorter_caj_Abreviatura -->&nbsp;</td> 
+        </tr>
+        <!-- BEGIN Row -->
+        <tr onMouseOver="resaltado(this,'cccccc');" onMouseOut="normal(this,'Default');" onclick="fRetornarDatos(this);">
+          <td class="CobaltDataTD" id="caj_codCaja" align="middle"><a class="CobaltDataLink" href="{caj_CodCaja_Src}" target="_self">{caj_CodCaja}</a>&nbsp;</td>
+          <td class="CobaltDataTD" id="caj_Descripcion">{caj_Descripcion}&nbsp;</td>
+          <td class="CobaltDataTD">&nbsp;&nbsp;{caj_CodMarca}&nbsp;</td> 
+          <td class="CobaltDataTD">&nbsp;&nbsp;&nbsp;{caj_TipoCaja}&nbsp;</td> 
+          <td class="CobaltDataTD">&nbsp;&nbsp;&nbsp;{caj_Abreviatura}&nbsp;</td> 
+        </tr>
+        <!-- END Row -->
+        <!-- BEGIN AltRow -->
+        <tr onMouseOver="resaltado(this,'cccccc');" onMouseOut="normal(this,'Default');" onclick="fRetornarDatos(this);">
+          <td class="CobaltAltDataTD" id="caj_codCaja" align="middle"><a class="CobaltDataLink" href="{Alt_caj_CodCaja_Src}">{Alt_caj_CodCaja}</a>&nbsp;</td>
+          <td class="CobaltAltDataTD" id="caj_Descripcion">{Alt_caj_Descripcion}&nbsp;</td>
+          <td class="CobaltAltDataTD">&nbsp;&nbsp;{Alt_caj_CodMarca}&nbsp;</td> 
+          <td class="CobaltAltDataTD">&nbsp;&nbsp;&nbsp;{Alt_caj_TipoCaja}&nbsp;</td> 
+          <td class="CobaltAltDataTD">&nbsp;&nbsp;&nbsp;{Alt_caj_Abreviatura}&nbsp;</td> 
+        </tr>
+        <!-- END AltRow -->
+        <!-- BEGIN NoRecords -->
+        <tr>
+          <td class="CobaltAltDataTD" colspan="5">No hay cajas &nbsp;</td> 
+        </tr>
+        <!-- END NoRecords -->
+        <tr>
+          <td class="CobaltFooterTD" colspan="5" nowrap><a class="CobaltNavigatorLink" title="Añade un nuevo Tipo de Caja" href="{liqcajas_Insert_Src}">Nuevo</a>*&nbsp; 
+            <!-- BEGIN Navigator Navigator -->
+            <!-- BEGIN First_On --><a class="CobaltNavigatorLink" href="{First_URL}"><img src="../Themes/Aqua/FirstOn.gif" border="0"></a> <!-- END First_On -->
+            <!-- BEGIN Prev_On --><a class="CobaltNavigatorLink" href="{Prev_URL}"><img src="../Themes/Aqua/PrevOn.gif" border="0"></a> <!-- END Prev_On -->&nbsp;{Page_Number}&nbsp;de
+            {Total_Pages}&nbsp; 
+            <!-- BEGIN Next_On --><a class="CobaltNavigatorLink" href="{Next_URL}"><img src="../Themes/Aqua/NextOn.gif" border="0"></a> <!-- END Next_On --><!-- END Navigator Navigator -->&nbsp; </td> 
+        </tr>
+ 
+      </table>
+ <!-- END Grid cjas_list --></td> 
+    <td valign="top">&nbsp;</td> 
+  </tr>
+ 
+  <tr>
+    <td>&nbsp;</td> 
+    <td>&nbsp;</td> 
+  </tr>
+</table>
+ </p>
+</body>
+</html>

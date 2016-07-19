@@ -1,0 +1,117 @@
+<html>
+<head>
+<base target="_self">
+<link rel="stylesheet" type="text/css" href="../Themes/Menu/Style.css">
+<title>ATRIBUTOS</title>
+<link rel="stylesheet" type="text/css" href="../Themes/Cobalt/Style.css">
+</head>
+<body bgcolor="#fffff7" link="#000000" alink="#ff0000" vlink="#000000" text="#000000" class="CobaltPageBODY">
+<p>
+<table background="../Themes/Cobalt/Light Streaks.bmp" border="0" width="100%" cellspacing="0" cellpadding="0">
+  <tr>
+    <td align="middle">&nbsp; 
+      <!-- BEGIN EditableGrid perfil_modu -->
+      <form action="{Action}" method="post" name="{HTMLFormName}">
+        &nbsp;&nbsp; <input name="FormState" style="WIDTH: 155px; HEIGHT: 9px" type="hidden" value="{FormState}">{FormScript} <font class="CobaltFormHeaderFont">{lbTitulo} </font> 
+        <table border="0" cellpadding="1" class="CobaltFormTABLE" style="WIDTH: 409px; HEIGHT: 103px">
+          <!-- BEGIN Error -->
+          <tr>
+            <td class="CobaltErrorDataTD" colspan="2" height="15">{Error}</td> 
+          </tr>
+          <!-- END Error -->
+          <tr>
+            <td class="CobaltColumnTD" height="15" nowrap width="60%">COMPONENTE </td> 
+            <td class="CobaltColumnTD">ACCESO</td> 
+          </tr>
+          <!-- BEGIN Row -->
+          <!-- BEGIN RowError -->
+          <tr>
+            <td class="CobaltErrorDataTD" colspan="2">{Error}</td> 
+          </tr>
+          <!-- END RowError -->
+          <tr height="15">
+            <td class="CobaltDataTD" nowrap><input name="{atr_CodModulo_Name}" class="CobaltInputSB" disabled style="WIDTH: 25px; HEIGHT: 17px" type="text" value="{atr_CodModulo}"><a class="CobaltInput" href="{lSubmod_Src}">{lSubmod} </a>{eAplicacion}&nbsp;-{mod_descripcion}</td>
+            <td class="CobaltDataTD">
+              <select class="CobaltSelect" name="{atr_nivel_Name}" style="WIDTH: 107px; HEIGHT: 18px">
+                <option selected value="">- - - - - - - - - - - -</option>
+ {atr_nivel_Options} 
+              </select>
+ </td> 
+          </tr>
+          <!-- END Row -->
+          <!-- BEGIN NoRecords -->
+          <tr>
+            <td class="CobaltDataTD" colspan="2" height="15">No hay registros</td> 
+          </tr>
+          <!-- END NoRecords -->
+          <tr>
+            <td align="right" class="CobaltFooterTD" colspan="2" height="15">
+              <!-- BEGIN Navigator Navigator -->
+              <!-- BEGIN Prev_On --><a class="StormyWeatherNavigatorLink" href="{Prev_URL}"><img src="../Themes/Aqua/PrevOn.gif" border="0"></a> <!-- END Prev_On -->&nbsp;{Page_Number}&nbsp;de
+              {Total_Pages}&nbsp; 
+              <!-- BEGIN Next_On --><a class="StormyWeatherNavigatorLink" href="{Next_URL}"><img src="../Themes/Aqua/NextOn.gif" border="0"></a> <!-- END Next_On --><!-- END Navigator Navigator -->&nbsp; 
+              <!-- BEGIN Button Button_Submit --><input class="CobaltButton" name="{Button_Name}" style="WIDTH: 51px; HEIGHT: 18px" type="submit" value="OK.."><!-- END Button Button_Submit -->&nbsp; </td> 
+          </tr>
+ 
+        </table>
+ 
+      </form>
+ <!-- END EditableGrid perfil_modu -->
+      <!-- BEGIN EditableGrid perfil_subm -->
+      <form action="{Action}" method="post" name="{HTMLFormName}">
+        <input name="FormState" style="WIDTH: 155px; HEIGHT: 13px" type="hidden" value="{FormState}">{FormScript} 
+        <table border="0" cellpadding="1" class="CobaltFormTABLE">
+          <!-- BEGIN Error -->
+          <tr>
+            <td class="CobaltErrorDataTD" colspan="2">{Error}</td> 
+          </tr>
+          <!-- END Error -->
+          <tr>
+            <td class="CobaltColumnTD" nowrap>SUBCOMPONENTES</td> 
+            <td class="CobaltColumnTD" nowrap>Acceso&nbsp;</td> 
+          </tr>
+          <!-- BEGIN Row -->
+          <!-- BEGIN RowError -->
+          <tr>
+            <td class="CobaltErrorDataTD" colspan="2">{Error}</td> 
+          </tr>
+          <!-- END RowError -->
+          <tr>
+            <td class="CobaltDataTD"><input name="{atr_CodModulo_Name}" style="WIDTH: 9px; HEIGHT: 14px" type="hidden" value="{atr_CodModulo}"><a class="CobaltDataLink" href="{lOpciones_Src}">{lOpciones} </a>{eModulo}&nbsp;-{mod_descripcion}&nbsp;</td> 
+            <td class="CobaltDataTD">
+              <select class="CobaltSelect" name="{atr_nivel_Name}">
+                <option selected value="">- - - - - - - - - - - -</option>
+ {atr_nivel_Options} 
+              </select>
+ &nbsp;</td> 
+          </tr>
+          <!-- END Row -->
+          <!-- BEGIN NoRecords -->
+          <tr>
+            <td class="CobaltDataTD" colspan="2">No hay registros&nbsp;</td> 
+          </tr>
+          <!-- END NoRecords -->
+          <tr>
+            <td align="right" class="CobaltFooterTD" colspan="2" height="15" nowrap>
+              <!-- BEGIN Navigator Navigator -->
+              <!-- BEGIN Prev_On --><a class="CobaltNavigatorLink" href="{Prev_URL}"><img src="Themes/Aqua/PrevOn.gif" border="0"></a> <!-- END Prev_On -->&nbsp;{Page_Number}&nbsp;de
+              {Total_Pages}&nbsp; 
+              <!-- BEGIN Next_On --><a class="CobaltNavigatorLink" href="{Next_URL}"><img src="Themes/Aqua/NextOn.gif" border="0"></a> <!-- END Next_On --><!-- END Navigator Navigator -->&nbsp; 
+              <!-- BEGIN Button Button_Submit --><input class="CobaltButton" name="{Button_Name}" style="WIDTH: 51px; HEIGHT: 17px" type="submit" value="OK.."><!-- END Button Button_Submit -->&nbsp; </td> 
+          </tr>
+ 
+        </table>
+ 
+      </form>
+ <!-- END EditableGrid perfil_subm --></td> 
+  </tr>
+ 
+  <tr>
+    <td align="middle" valign="top">&nbsp; 
+    </form>
+ </td> 
+</tr>
+</table>
+ </p>
+</body>
+</html>

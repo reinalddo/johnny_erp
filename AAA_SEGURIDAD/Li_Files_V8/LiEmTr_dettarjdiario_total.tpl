@@ -1,0 +1,139 @@
+<html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+<title>DETALLE DE TARJAS {$gsSubTitul}</title>
+</head>
+  <link rel="stylesheet" type="text/css" media="screen, print" href="../css/report.css" title="CSS para pantalla" />
+  <link rel="stylesheet" type="text/css" media="screen" href="../css/AAA_basico.css" title="CSS para pantalla" />
+<body align:"center" id="top" style="font-family:'Arial'; ">
+{report recordset=$agData record=rec}
+<table width="100%" border="1" cellpadding="0" cellspacing="0">
+{report_header}
+<div id="container"  style="height: 98% !important">
+  <div class="tableContainer">
+    <span style="text-shadow: red 0.2em 0.3em 0.2em; font-size:14pt; font-weight:bold">	</span>
+	<table  cellspacing="0" >
+	  <thead>
+			<tr>
+			<td>Fecha</td>
+			<td>Semana</td>
+			<td>Codigo</td>
+			<td>Grupo/Productor</td>
+			<td>Productor</td>
+			
+			<td>Empresa</td>
+			<td>Zona</td>
+			<td>Producto</td>
+			<td>Marca</td>
+			<td>Vapor</td>
+			<td>Puerto</td>
+			<td>Tarja #</td>
+			
+			<td>Hora Inicio</td>
+			<td>Hora Cierre</td>
+			<td>Placa</td>
+			<td>Transportista</td>
+			
+			<td>Codigo Palet</td>
+			<td>Declaradas</td>
+			<td>Rechazadas</td>
+			<td>Caidas</td>
+			<td>Embarcadas</td>
+			<td>Faltantes/Sobrantes</td>
+			<td>A Pagar</td>
+			<td>Contenedor</td>
+			
+			<td>Destino</td>
+		 	<td>Destino Final</td>
+		        <td>Cod. Empacador</td>
+			<td>Calidad</td>
+			<td>Peso</td>
+			<td>Calibre</td>
+			<td>Dedo. x Clus.</td>
+			<td>Clus. Caja</td>
+			<td>Cod. Evaluador</td>
+			<td>Evaluador</td>
+			<td>Cod. Alterno</td>
+			</tr>
+         </thead>	 
+{/report_header}
+
+{report_detail}
+	<tr style="white-space:nowrap">
+			<td>{$rec.txp_Fecha}</td>
+			<td>{$rec.txp_Semana}</td>
+			
+			<td>{$rec.txp_Embarcador}</td>
+			<td>{$rec.txp_Productor}</td>
+			<td>{$rec.txt_Grupo}</td>
+			
+			<td>{$rec.txp_Shipper}</td>
+			<td>{$rec.txp_NombZona}</td>
+			<td>{$rec.txp_Producto}</td>
+			<td>{$rec.txp_Marca}</td>
+			<td>{$rec.vapor}</td>
+			<td>{$rec.txp_PtoDescripcion}</td>
+			<td>{$rec.txp_NumTarja}</td>
+			
+			<td>{$rec.txp_Hora}</td>
+			<td>{$rec.txp_HoraFin}</td>
+			<td>{$rec.txp_Transporte}</td>
+			<td>{$rec.txp_RefTranspor}</td>
+			
+			<td>{$rec.txp_PaletInfo}</td>
+			<td class="colnum">{$rec.despa|number_format:0}</td>
+			<td class="colnum">{$rec.rechazo|number_format:0}</td>
+			<td class="colnum">{$rec.caidas|number_format:0}</td>
+			<td class="colnum">{$rec.txp_CantNeta|number_format:0}</td>
+			<td class="colnum">{$rec.txp_Faltante|number_format:0}</td>
+			<td class="colnum">{$rec.txp_CantPagar|number_format:0}</td>
+			<td>{$rec.txp_Contenedor}</td>
+			
+			<td>{$rec.txt_Destino}</td>
+			<td>{$rec.txt_DestiFinal}</td>
+			<td>{$rec.txp_CodOrigen}</td>
+	                <td>{$rec.txp_Calidad}</td>
+			<td>{$rec.txp_Peso}</td>
+			<td>{$rec.txp_Largo}</td>
+			<td>{$rec.txp_NumDedos}</td>
+			<td>{$rec.txp_ClusCaja}</td>
+			<td>{$rec.txp_CodEvaluador}</td>
+			<td>{$rec.txt_Evaluador}</td>
+			<td>{$rec.txp_Observaciones}</td>
+	
+	
+			{assign var=tdespa  value=$tdespa+$rec.despa}
+			{assign var=trechazo  value=$trechazo+$rec.rechazo}
+			{assign var=tcaidas  value=$tcaidas+$rec.caidas}
+			{assign var=tCantNeta  value=$tCantNeta+$rec.txp_CantNeta}
+			{assign var=tfaltante  value=$tfaltante+$rec.txp_Faltante}
+			{assign var=tCantPagar  value=$tCantPagar+$rec.txp_CantPagar}
+         </tr>
+{/report_detail}
+
+
+
+{report_footer}
+    <tr style="font-weight:bold;text-align:right; vertical-align:middle;">
+      <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+      <td></td><td></td><td></td><td></td>
+      <td></td><td></td><td></td><td></td>
+       <td> Totales: </td>
+       <td>{$tdespa}</td>
+       <td>{$trechazo}</td>
+       <td>{$tcaidas}</td>
+       <td>{$tCantNeta}</td>
+       <td>{$tfaltante}</td>
+       <td>{$tCantPagar}</td>
+       <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+       <td></td><td></td><td></td><td></td>
+    </tr>
+{/report_footer}
+
+
+
+</table>
+{/report}
+</body>
+</html>

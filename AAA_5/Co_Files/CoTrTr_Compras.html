@@ -1,0 +1,220 @@
+<html>
+<head>
+<meta name="GENERATOR" content="CodeCharge Studio 2.3.2.24">
+<base target="_self">
+<link rel="stylesheet" type="text/css" href="../Themes/Cobalt/Style.css">
+<link rel="stylesheet" type="text/css" href="../Themes/Menu/Style.css">
+<title>COMPRAS</title>
+<script language="JavaScript" src="../LibJava/menu_func.js"></script>
+<script language="JavaScript" type="text/javascript">
+//Begin CCS script
+//Include JSFunctions @1-FB634A57
+  </script>
+<script language="JavaScript" type="text/javascript" src="../functions.js"></script>
+<script language="JavaScript" type="text/javascript">
+  
+//End Include JSFunctions
+
+//Include Common JSFunctions @1-A1D84A39
+</script>
+<script language="JavaScript" type="text/javascript" src="../DatePicker.js"></script>
+<script language="JavaScript" type="text/javascript">
+//End Include Common JSFunctions
+
+//Date Picker Object Definitions @1-3CC522C6
+
+var invcompras_DatePicker_cpr_FecEmision = new Object(); 
+invcompras_DatePicker_cpr_FecEmision.format           = "dd/mmm/yy";
+invcompras_DatePicker_cpr_FecEmision.style            = "Themes/Cobalt/Style.css";
+invcompras_DatePicker_cpr_FecEmision.relativePathPart = "../";
+
+var invcompras_DatePicker_cpr_FecRecepcion = new Object(); 
+invcompras_DatePicker_cpr_FecRecepcion.format           = "dd/mmm/yy";
+invcompras_DatePicker_cpr_FecRecepcion.style            = "Themes/Cobalt/Style.css";
+invcompras_DatePicker_cpr_FecRecepcion.relativePathPart = "../";
+
+var invcompras_DatePicker_cpr_FecRegistro = new Object(); 
+invcompras_DatePicker_cpr_FecRegistro.format           = "dd/mmm/yy";
+invcompras_DatePicker_cpr_FecRegistro.style            = "Themes/Cobalt/Style.css";
+invcompras_DatePicker_cpr_FecRegistro.relativePathPart = "../";
+
+//End Date Picker Object Definitions
+
+//page_invcompras_Button_Submit_OnClick @49-4396E0F8
+function page_invcompras_Button_Submit_OnClick()
+{
+    var result;
+//End page_invcompras_Button_Submit_OnClick
+
+//Confirmation Message @50-96FAE8C2
+    return confirm('Enviar registro?');
+//End Confirmation Message
+
+//Close page_invcompras_Button_Submit_OnClick @49-BC33A33A
+    return result;
+}
+//End Close page_invcompras_Button_Submit_OnClick
+
+//page_invcompras_Cancel_OnClick @51-CDE0FF59
+function page_invcompras_Cancel_OnClick()
+{
+    disableValidation = true;
+}
+//End page_invcompras_Cancel_OnClick
+
+//bind_events @1-133F3F4E
+function bind_events() {
+    if (document.forms["invcompras"]) check_and_bind('document.forms["invcompras"].Button_Submit','onclick',page_invcompras_Button_Submit_OnClick);
+    if (document.forms["invcompras"]) check_and_bind('document.forms["invcompras"].Cancel','onclick',page_invcompras_Cancel_OnClick);
+    forms_onload();
+}
+//End bind_events
+
+window.onload = bind_events; //Assign bind_events @1-19F7B649
+//End CCS script
+</script>
+</head>
+<body bgcolor="#fffff7" link="#000000" alink="#ff0000" vlink="#000000" text="#000000" class="CobaltPageBODY" style="PADDING-RIGHT: 0px; PADDING-LEFT: 0px; PADDING-BOTTOM: 0px; PADDING-TOP: 0px; magin: 0; spacing: 0" bottommargin="0" nowrap leftmargin="0" topmargin="17" rightmargin="0" marginwidth="0" marginheight="0">
+{Cabecera}
+<table background="../Themes/Cobalt/Light Streaks.bmp" border="0" width="100%">
+  <tr>
+    <td>
+      <!-- BEGIN EditableGrid invcompras -->
+      <form name="{HTMLFormName}" action="{Action}" method="post">
+        <font class="CobaltFormHeaderFont">Lista de Invcompras </font><input type="hidden" value="{FormState}" name="FormState">{FormScript} <br>
+        Total de Registros:&nbsp; {invcompras_TotalRecords}&nbsp; 
+        <table class="CobaltFormTABLE" cellpadding="3" border="0" style="BORDER-RIGHT: 0px; PADDING-RIGHT: 0px; BORDER-TOP: 0px; PADDING-LEFT: 0px; PADDING-BOTTOM: 0px; MARGIN: 0px; BORDER-LEFT: 0px; PADDING-TOP: 0px; BORDER-BOTTOM: 0px">
+          <!-- BEGIN Error -->
+          <tr>
+            <td class="CobaltErrorDataTD" colspan="19" style="BORDER-RIGHT: 0px; BORDER-TOP: 0px; MARGIN: 0px; BORDER-LEFT: 0px; BORDER-BOTTOM: 0px">{Error}</td> 
+          </tr>
+          <!-- END Error -->
+          <tr>
+            <td class="CobaltColumnTD" nowrap>&nbsp;</td> 
+            <td class="CobaltColumnTD" nowrap>
+              <!-- BEGIN Sorter Sorter_cpr_TipoDocum --><a class="CobaltSorterLink" href="{Sort_URL}">DOCUMENTO</a> 
+              <!-- BEGIN Asc_On --><img src="../Themes/Cobalt/AscOn.gif" border="0"><!-- END Asc_On -->
+              <!-- BEGIN Desc_On --><img src="../Themes/Cobalt/DescOn.gif" border="0"><!-- END Desc_On --><!-- END Sorter Sorter_cpr_TipoDocum -->&nbsp;</td> 
+            <td class="CobaltColumnTD" nowrap>
+              <!-- BEGIN Sorter Sorter_cpr_IdAuxiliar --><a class="CobaltSorterLink" href="{Sort_URL}">PROVEEDOR</a> 
+              <!-- BEGIN Asc_On --><img src="../Themes/Cobalt/AscOn.gif" border="0"><!-- END Asc_On -->
+              <!-- BEGIN Desc_On --><img src="../Themes/Cobalt/DescOn.gif" border="0"><!-- END Desc_On --><!-- END Sorter Sorter_cpr_IdAuxiliar -->&nbsp;</td> 
+            <td class="CobaltColumnTD" nowrap>
+              <!-- BEGIN Sorter Sorter_cpr_NumAutoriz --><a class="CobaltSorterLink" href="{Sort_URL}">AUTORIZACION
+              #</a> 
+              <!-- BEGIN Asc_On --><img src="../Themes/Cobalt/AscOn.gif" border="0"><!-- END Asc_On -->
+              <!-- BEGIN Desc_On --><img src="../Themes/Cobalt/DescOn.gif" border="0"><!-- END Desc_On --><!-- END Sorter Sorter_cpr_NumAutoriz -->&nbsp;</td> 
+            <td class="CobaltColumnTD" nowrap>
+              <!-- BEGIN Sorter Sorter_cpr_ImpIva --><a class="CobaltSorterLink" href="{Sort_URL}">BASE
+              IMP. IVA</a> 
+              <!-- BEGIN Asc_On --><img src="../Themes/Cobalt/AscOn.gif" border="0"><!-- END Asc_On -->
+              <!-- BEGIN Desc_On --><img src="../Themes/Cobalt/DescOn.gif" border="0"><!-- END Desc_On --><!-- END Sorter Sorter_cpr_ImpIva -->&nbsp;</td> 
+            <td class="CobaltColumnTD" nowrap>
+              <!-- BEGIN Sorter Sorter_cpr_CeroIva --><a class="CobaltSorterLink" href="{Sort_URL}">BASE
+              IMP. IVA 0%</a> 
+              <!-- BEGIN Asc_On --><img src="../Themes/Cobalt/AscOn.gif" border="0"><!-- END Asc_On -->
+              <!-- BEGIN Desc_On --><img src="../Themes/Cobalt/DescOn.gif" border="0"><!-- END Desc_On --><!-- END Sorter Sorter_cpr_CeroIva -->&nbsp;</td> 
+            <td class="CobaltColumnTD" nowrap>
+              <!-- BEGIN Sorter Sorter_cpr_ImpIce --><a class="CobaltSorterLink" href="{Sort_URL}">BASE
+              IMP. ICE</a> 
+              <!-- BEGIN Asc_On --><img src="../Themes/Cobalt/AscOn.gif" border="0"><!-- END Asc_On -->
+              <!-- BEGIN Desc_On --><img src="../Themes/Cobalt/DescOn.gif" border="0"><!-- END Desc_On --><!-- END Sorter Sorter_cpr_ImpIce -->&nbsp;</td> 
+            <td class="CobaltColumnTD" nowrap>
+              <!-- BEGIN Sorter Sorter_cpr_CeroIce --><a class="CobaltSorterLink" href="{Sort_URL}">BASE
+              IMP. ICE 0%</a> 
+              <!-- BEGIN Asc_On --><img src="../Themes/Cobalt/AscOn.gif" border="0"><!-- END Asc_On -->
+              <!-- BEGIN Desc_On --><img src="../Themes/Cobalt/DescOn.gif" border="0"><!-- END Desc_On --><!-- END Sorter Sorter_cpr_CeroIce -->&nbsp;</td> 
+            <td class="CobaltColumnTD" nowrap>
+              <!-- BEGIN Sorter Sorter_cpr_FecEmision --><a class="CobaltSorterLink" href="{Sort_URL}">FECHA
+              EMISION</a> 
+              <!-- BEGIN Asc_On --><img src="../Themes/Cobalt/AscOn.gif" border="0"><!-- END Asc_On -->
+              <!-- BEGIN Desc_On --><img src="../Themes/Cobalt/DescOn.gif" border="0"><!-- END Desc_On --><!-- END Sorter Sorter_cpr_FecEmision -->&nbsp;</td> 
+            <td class="CobaltColumnTD" nowrap>
+              <!-- BEGIN Sorter Sorter_cpr_FecRecepcion --><a class="CobaltSorterLink" href="{Sort_URL}">FECHA
+              RECEPCION</a> 
+              <!-- BEGIN Asc_On --><img src="../Themes/Cobalt/AscOn.gif" border="0"><!-- END Asc_On -->
+              <!-- BEGIN Desc_On --><img src="../Themes/Cobalt/DescOn.gif" border="0"><!-- END Desc_On --><!-- END Sorter Sorter_cpr_FecRecepcion -->&nbsp;</td> 
+            <td class="CobaltColumnTD" nowrap>
+              <!-- BEGIN Sorter Sorter_cpr_Solicita --><a class="CobaltSorterLink" href="{Sort_URL}">SOLICITA</a> 
+              <!-- BEGIN Asc_On --><img src="../Themes/Cobalt/AscOn.gif" border="0"><!-- END Asc_On -->
+              <!-- BEGIN Desc_On --><img src="../Themes/Cobalt/DescOn.gif" border="0"><!-- END Desc_On --><!-- END Sorter Sorter_cpr_Solicita -->&nbsp;</td> 
+            <td class="CobaltColumnTD" nowrap>
+              <!-- BEGIN Sorter Sorter_cpr_Destino --><a class="CobaltSorterLink" href="{Sort_URL}">DESTINO</a> 
+              <!-- BEGIN Asc_On --><img src="../Themes/Cobalt/AscOn.gif" border="0"><!-- END Asc_On -->
+              <!-- BEGIN Desc_On --><img src="../Themes/Cobalt/DescOn.gif" border="0"><!-- END Desc_On --><!-- END Sorter Sorter_cpr_Destino -->&nbsp;</td> 
+            <td class="CobaltColumnTD" nowrap>
+              <!-- BEGIN Sorter Sorter_cpr_Autoriza --><a class="CobaltSorterLink" href="{Sort_URL}">&nbsp;AUTORIZA</a> 
+              <!-- BEGIN Asc_On --><img src="../Themes/Cobalt/AscOn.gif" border="0"><!-- END Asc_On -->
+              <!-- BEGIN Desc_On --><img src="../Themes/Cobalt/DescOn.gif" border="0"><!-- END Desc_On --><!-- END Sorter Sorter_cpr_Autoriza -->&nbsp;</td> 
+            <td class="CobaltColumnTD" nowrap>
+              <!-- BEGIN Sorter Sorter_cpr_Observac --><a class="CobaltSorterLink" href="{Sort_URL}">OBSERVACIONES</a> 
+              <!-- BEGIN Asc_On --><img src="../Themes/Cobalt/AscOn.gif" border="0"><!-- END Asc_On -->
+              <!-- BEGIN Desc_On --><img src="../Themes/Cobalt/DescOn.gif" border="0"><!-- END Desc_On --><!-- END Sorter Sorter_cpr_Observac -->&nbsp;</td> 
+            <td class="CobaltColumnTD" nowrap>
+              <!-- BEGIN Sorter Sorter_cpr_Usuario --><a class="CobaltSorterLink" href="{Sort_URL}">DIGITADO
+              POR</a> 
+              <!-- BEGIN Asc_On --><img src="../Themes/Cobalt/AscOn.gif" border="0"><!-- END Asc_On -->
+              <!-- BEGIN Desc_On --><img src="../Themes/Cobalt/DescOn.gif" border="0"><!-- END Desc_On --><!-- END Sorter Sorter_cpr_Usuario -->&nbsp;</td> 
+            <td class="CobaltColumnTD" nowrap>Borrar &nbsp;</td> 
+          </tr>
+          <!-- BEGIN Row -->
+          <!-- BEGIN RowError -->
+          <tr>
+            <td class="CobaltErrorDataTD" colspan="19">{Error}</td> 
+          </tr>
+          <!-- END RowError -->
+          <tr>
+            <td class="CobaltDataTD"><input class="CobaltInput" maxlength="10" size="1" value="{cpr_RegNumero}" name="{cpr_RegNumero_Name}" style="WIDTH: 14px; HEIGHT: 17px">&nbsp;</td> 
+            <td class="CobaltDataTD"><input class="CobaltInput" maxlength="3" size="2" value="{cpr_TipoDocum}" name="{cpr_TipoDocum_Name}" style="WIDTH: 24px; HEIGHT: 17px">&nbsp;<input class="CobaltInput" maxlength="15" size="7" value="{cpr_NumDocum}" name="{cpr_NumDocum_Name}" style="WIDTH: 49px; HEIGHT: 17px"></td> 
+            <td class="CobaltDataTD"><input class="CobaltInput" maxlength="10" size="10" value="{cpr_IdAuxiliar}" name="{cpr_IdAuxiliar_Name}">&nbsp;</td> 
+            <td class="CobaltDataTD"><input class="CobaltInput" maxlength="15" size="12" value="{cpr_NumAutoriz}" name="{cpr_NumAutoriz_Name}" style="WIDTH: 78px; HEIGHT: 17px">&nbsp;</td> 
+            <td class="CobaltDataTD"><input class="CobaltInput" maxlength="12" size="9" value="{cpr_ImpIva}" name="{cpr_ImpIva_Name}" style="WIDTH: 65px; HEIGHT: 17px">&nbsp;</td> 
+            <td class="CobaltDataTD"><input class="CobaltInput" maxlength="12" size="10" value="{cpr_CeroIva}" name="{cpr_CeroIva_Name}" style="WIDTH: 68px; HEIGHT: 17px">&nbsp;</td> 
+            <td class="CobaltDataTD"><input class="CobaltInput" maxlength="12" size="9" value="{cpr_ImpIce}" name="{cpr_ImpIce_Name}" style="WIDTH: 63px; HEIGHT: 17px">&nbsp;</td> 
+            <td class="CobaltDataTD"><input class="CobaltInput" maxlength="12" size="10" value="{cpr_CeroIce}" name="{cpr_CeroIce_Name}" style="WIDTH: 67px; HEIGHT: 17px">&nbsp;</td> 
+            <td class="CobaltDataTD"><input class="CobaltInput" maxlength="9" size="7" value="{cpr_FecEmision}" name="{cpr_FecEmision_Name}" style="WIDTH: 53px; HEIGHT: 17px">
+              <!-- BEGIN DatePicker DatePicker_cpr_FecEmision --><a class="CobaltDataLink" href="javascript:showDatePicker('{Name}','{FormName}','{DateControl}');"><img src="../Themes/DatePicker/DatePicker1.gif" border="0"></a><!-- END DatePicker DatePicker_cpr_FecEmision -->&nbsp;</td> 
+            <td class="CobaltDataTD"><input class="CobaltInput" maxlength="9" size="7" value="{cpr_FecRecepcion}" name="{cpr_FecRecepcion_Name}" style="WIDTH: 55px; HEIGHT: 17px">
+              <!-- BEGIN DatePicker DatePicker_cpr_FecRecepcion --><a class="CobaltDataLink" href="javascript:showDatePicker('{Name}','{FormName}','{DateControl}');"><img src="../Themes/DatePicker/DatePicker1.gif" border="0"></a><!-- END DatePicker DatePicker_cpr_FecRecepcion -->&nbsp;</td> 
+            <td class="CobaltDataTD"><input class="CobaltInput" maxlength="10" size="10" value="{cpr_Solicita}" name="{cpr_Solicita_Name}">&nbsp;</td> 
+            <td class="CobaltDataTD"><input class="CobaltInput" maxlength="10" size="10" value="{cpr_Destino}" name="{cpr_Destino_Name}">&nbsp;</td> 
+            <td class="CobaltDataTD"><input class="CobaltInput" maxlength="10" size="10" value="{cpr_Autoriza}" name="{cpr_Autoriza_Name}">&nbsp;</td> 
+            <td class="CobaltDataTD"><input class="CobaltInput" maxlength="200" size="34" value="{cpr_Observac}" name="{cpr_Observac_Name}" style="WIDTH: 185px; HEIGHT: 17px">&nbsp;</td> 
+            <td class="CobaltDataTD"><input class="CobaltInput" maxlength="12" size="10" value="{cpr_Usuario}" name="{cpr_Usuario_Name}" style="WIDTH: 70px; HEIGHT: 17px">&nbsp;<input class="CobaltInput" maxlength="9" size="6" value="{cpr_FecRegistro}" name="{cpr_FecRegistro_Name}" style="WIDTH: 48px; HEIGHT: 17px">
+              <!-- BEGIN DatePicker DatePicker_cpr_FecRegistro --><a class="CobaltDataLink" href="javascript:showDatePicker('{Name}','{FormName}','{DateControl}');"><img src="../Themes/DatePicker/DatePicker1.gif" border="0"></a><!-- END DatePicker DatePicker_cpr_FecRegistro --></td> 
+            <td class="CobaltDataTD">
+              <!-- BEGIN CheckBox CheckBox_Delete --><input class="CobaltInput" type="checkbox" value="1" name="{CheckBox_Delete_Name}" {CheckBox_Delete}><!-- END CheckBox CheckBox_Delete -->&nbsp;</td> 
+          </tr>
+          <!-- END Row -->
+          <!-- BEGIN NoRecords -->
+          <tr>
+            <td class="CobaltDataTD" colspan="19">No hay registros&nbsp;</td> 
+          </tr>
+          <!-- END NoRecords -->
+          <tr>
+            <td class="CobaltFooterTD" nowrap align="right" colspan="19">
+              <!-- BEGIN Navigator Navigator -->
+              <!-- BEGIN First_On --><a class="CobaltNavigatorLink" href="{First_URL}"><img src="../Themes/Cobalt/FirstOn.gif" border="0"></a> <!-- END First_On -->
+              <!-- BEGIN Prev_On --><a class="CobaltNavigatorLink" href="{Prev_URL}"><img src="../Themes/Cobalt/PrevOn.gif" border="0"></a> <!-- END Prev_On -->&nbsp; 
+              <!-- BEGIN Pages -->
+              <!-- BEGIN Page_On --><a class="CobaltNavigatorLink" href="{Page_URL}">{Page_Number}</a>&nbsp;<!-- END Page_On -->
+              <!-- BEGIN Page_Off -->{Page_Number}&nbsp;<!-- END Page_Off --><!-- END Pages -->de
+              {Total_Pages}&nbsp; 
+              <!-- BEGIN Next_On --><a class="CobaltNavigatorLink" href="{Next_URL}"><img src="../Themes/Cobalt/NextOn.gif" border="0"></a> <!-- END Next_On -->
+              <!-- BEGIN Last_On --><a class="CobaltNavigatorLink" href="{Last_URL}"><img src="../Themes/Cobalt/LastOn.gif" border="0"></a> <!-- END Last_On --><!-- END Navigator Navigator -->&nbsp; 
+              <!-- BEGIN Button Button_Submit --><input class="CobaltButton" type="submit" value="Enviar" name="{Button_Name}"><!-- END Button Button_Submit -->&nbsp; 
+              <!-- BEGIN Button Cancel --><input class="CobaltButton" type="submit" value="Cancelar" name="{Button_Name}"><!-- END Button Cancel -->&nbsp; </td> 
+          </tr>
+ 
+        </table>
+ 
+      </form>
+ <!-- END EditableGrid invcompras --></td> 
+  </tr>
+ 
+  <tr>
+    <td>&nbsp;</td> 
+  </tr>
+</table>
+</body>
+</html>

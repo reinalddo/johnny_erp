@@ -1,0 +1,4 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<info>
+	<infoitem key="UD_Recordset1" value="name:REG;datatype:int,name:USR;datatype:string,name:SEC;datatype:int,name:TIP;datatype:string,name:COM;datatype:int,name:FTR;datatype:date,name:FCO;datatype:date,name:CEM;datatype:int,name:CRE;datatype:int,name:REC;datatype:string,name:CON;datatype:blob,name:CCU;datatype:string,name:ABC;datatype:string,name:CAU;datatype:string,name:CUE;datatype:string,name:DES;datatype:string,name:CHE;datatype:int,name:VDB;datatype:real,name:VCR;datatype:real" />
+</info>

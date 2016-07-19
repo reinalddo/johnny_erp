@@ -1,0 +1,191 @@
+<html>
+<head>
+<meta name="GENERATOR" content="CodeCharge Studio 2.3.2.24">
+<base target="_self">
+<link rel="stylesheet" type="text/css" href="../Themes/Cobalt/Style.css">
+<link rel="stylesheet" type="text/css" href="../Themes/Menu/Style.css">
+<title>AUTORIZACIONES SRI</title>
+<script language="JavaScript1.2" src="../LibJava/general.js" type="text/javascript"></script>
+<script language="JavaScript1.3" src="../LibJava/fechas.js"></script>
+<script language="JavaScript" type="text/javascript">
+//Begin CCS script
+//Include JSFunctions @1-FB634A57
+  </script>
+<script language="JavaScript" type="text/javascript" src="../functions.js"></script>
+<script language="JavaScript" type="text/javascript">
+  
+//End Include JSFunctions
+
+//Include Common JSFunctions @1-A1D84A39
+</script>
+<script language="JavaScript" type="text/javascript" src="../DatePicker.js"></script>
+<script language="JavaScript" type="text/javascript">
+//End Include Common JSFunctions
+
+//Date Picker Object Definitions @1-A1D72AA9
+
+var genautsri_DatePicker_aut_FecEmision = new Object(); 
+genautsri_DatePicker_aut_FecEmision.format           = "dd/mmm/yy";
+genautsri_DatePicker_aut_FecEmision.style            = "Themes/Cobalt/Style.css";
+genautsri_DatePicker_aut_FecEmision.relativePathPart = "../";
+
+var genautsri_DatePicker_aut_FecVigencia = new Object(); 
+genautsri_DatePicker_aut_FecVigencia.format           = "dd/mmm/yy";
+genautsri_DatePicker_aut_FecVigencia.style            = "Themes/Cobalt/Style.css";
+genautsri_DatePicker_aut_FecVigencia.relativePathPart = "../";
+
+//End Date Picker Object Definitions
+
+//page_genautsri_Button_Delete_OnClick @5-A6FA15E5
+function page_genautsri_Button_Delete_OnClick()
+{
+    var result;
+//End page_genautsri_Button_Delete_OnClick
+
+//Confirmation Message @91-5707426A
+    return confirm('ELIMINA EL REGISTRO?');
+//End Confirmation Message
+
+//Close page_genautsri_Button_Delete_OnClick @5-BC33A33A
+    return result;
+}
+//End Close page_genautsri_Button_Delete_OnClick
+
+//page_genautsri_Button_Cancel_OnClick @7-5C152905
+function page_genautsri_Button_Cancel_OnClick()
+{
+    disableValidation = true;
+}
+//End page_genautsri_Button_Cancel_OnClick
+
+//bind_events @1-33350A74
+function bind_events() {
+    if (document.forms["genautsri"]) check_and_bind('document.forms["genautsri"].Button_Delete','onclick',page_genautsri_Button_Delete_OnClick);
+    if (document.forms["genautsri"]) check_and_bind('document.forms["genautsri"].Button_Cancel','onclick',page_genautsri_Button_Cancel_OnClick);
+    forms_onload();
+}
+//End bind_events
+
+window.onload = bind_events; //Assign bind_events @1-19F7B649
+//End CCS script
+function fConfirmaEliminar(){
+	if(confirm('Borrar registro?')){
+		return true		
+	}
+	return false;
+}
+function fRetornar()
+{
+	if (window.opener && window.opener.fCargarFechas) {
+		with (document.genautsri){
+			window.opener.fCargarFechas(aut_FecEmision.value,aut_FecVigencia.value, aut_NroInicial.value, aut_NroFinal.value)
+			}
+	}
+	window.close()
+}	
+</script>
+</head>
+ 
+<body bgcolor="#fffff7" link="#000000" alink="#ff0000" vlink="#000000" text="#000000" class="CobaltPageBODY" style="PADDING-RIGHT: 0px; PADDING-LEFT: 0px; PADDING-BOTTOM: 0px; PADDING-TOP: 0px; magin: 0; spacing: 0" bottommargin="0" nowrap leftmargin="0" topmargin="17" rightmargin="0" marginwidth="0" marginheight="0">
+{Cabecera} 
+<table background="../Themes/Cobalt/Light Streaks.bmp" border="0" width="100%" cellspacing="0" cellpadding="0">
+  <tr>
+    <td align="center">&nbsp; 
+      <!-- BEGIN Record genautsri -->
+      <form name="{HTMLFormName}" action="{Action}" method="post" style:?margin:0; border:0?>
+        <font class="CobaltFormHeaderFont">AUTORIZACIONES SRI </font> 
+        <table class="CobaltFormTABLE" cellpadding="3" border="0" style:?margin:0; border:0; border-collapse:collapse?>
+          <!-- BEGIN Error -->
+          <tr>
+            <td class="CobaltErrorDataTD" colspan="2">{Error}</td> 
+          </tr>
+          <!-- END Error -->
+          <tr>
+            <td class="CobaltFieldCaptionTD" nowrap>NUMERO AUT. Sri&nbsp;</td> 
+            <td class="CobaltDataTD"><input class="CobaltInput" value="{aut_ID}" name="{aut_ID_Name}" style="FONT-WEIGHT: bold; WIDTH: 79px; COLOR: #cc0000; HEIGHT: 17px" size="10"><input type="hidden" name="{aut_AutSri_Name}" value="{aut_AutSri}" style="WIDTH: 85px; HEIGHT: 18px" size="10"></td> 
+          </tr>
+ 
+          <tr>
+            <td class="CobaltFieldCaptionTD" nowrap>&nbsp;PROVEEDOR&nbsp;</td> 
+            <td class="CobaltDataTD"><input class="CobaltInput" maxlength="10" size="3" value="{aut_IdAuxiliar}" name="{aut_IdAuxiliar_Name}" style="WIDTH: 54px; HEIGHT: 20px">&nbsp;{txt_Apellidos}&nbsp;{txt_Nombres}&nbsp;{txt_Ruc}</td> 
+          </tr>
+ 
+          <tr>
+            <td class="CobaltFieldCaptionTD" nowrap>Tipo DocumENTO&nbsp;</td> 
+            <td class="CobaltDataTD">
+              <select name="{aut_TipoDocum_Name}" class="CobaltSelect" style="WIDTH: 357px">
+                <option value="" selected>Seleccionar Valor</option>
+ {aut_TipoDocum_Options} 
+              </select>
+ &nbsp;</td> 
+          </tr>
+ 
+          <tr>
+            <td class="CobaltFieldCaptionTD" nowrap>FecHA Emision&nbsp;</td> 
+            <td class="CobaltDataTD"><input class="CobaltInput" maxlength="9" size="9" value="{aut_FecEmision}" name="{aut_FecEmision_Name}" onchange="fValidarFecObj(this)">
+              <!-- BEGIN DatePicker DatePicker_aut_FecEmision --><a class="CobaltDataLink" href="javascript:showDatePicker('{Name}','{FormName}','{DateControl}');"><img src="../Themes/DatePicker/DatePicker1.gif" border="0"></a><!-- END DatePicker DatePicker_aut_FecEmision -->&nbsp;</td> 
+          </tr>
+ 
+          <tr>
+            <td class="CobaltFieldCaptionTD" nowrap>FecHA Vigencia&nbsp;</td> 
+            <td class="CobaltDataTD"><input class="CobaltInput" maxlength="9" size="9" value="{aut_FecVigencia}" name="{aut_FecVigencia_Name}" onchange="fValidarFecObj(this)">
+              <!-- BEGIN DatePicker DatePicker_aut_FecVigencia --><a class="CobaltDataLink" href="javascript:showDatePicker('{Name}','{FormName}','{DateControl}');"><img src="../Themes/DatePicker/DatePicker1.gif" border="0"></a><!-- END DatePicker DatePicker_aut_FecVigencia -->&nbsp;</td> 
+          </tr>
+ 
+          <tr>
+            <td class="CobaltDataTD" nowrap></td> 
+            <td class="CobaltDataTD">DATOS OPCIONALES:</td> 
+          </tr>
+ 
+          <tr>
+            <td class="CobaltFieldCaptionTD" nowrap>Nro Inicial&nbsp;</td> 
+            <td class="CobaltDataTD"><input class="CobaltInput" maxlength="10" size="10" value="{aut_NroInicial}" name="{aut_NroInicial_Name}">&nbsp;</td> 
+          </tr>
+ 
+          <tr>
+            <td class="CobaltFieldCaptionTD" nowrap>Nro Final&nbsp;</td> 
+            <td class="CobaltDataTD"><input class="CobaltInput" maxlength="10" size="10" value="{aut_NroFinal}" name="{aut_NroFinal_Name}">&nbsp;</td> 
+          </tr>
+ 
+          <tr>
+            <td class="CobaltFieldCaptionTD" nowrap>RUC DE&nbsp;Imprenta&nbsp;</td> 
+            <td class="CobaltDataTD"><input class="CobaltInput" maxlength="15" size="15" value="{aut_RucImprenta}" name="{aut_RucImprenta_Name}"></td> 
+          </tr>
+ 
+          <tr>
+            <td class="CobaltFieldCaptionTD" nowrap>Autorizacion de Imprenta</td> 
+            <td class="CobaltDataTD"><input class="CobaltInput" maxlength="15" size="15" value="{aut_AutImprenta}" name="{aut_AutImprenta_Name}"></td> 
+          </tr>
+ 
+          <tr>
+            <td class="CobaltFieldCaptionTD" nowrap>DIGITADO</td> 
+            <td class="CobaltDataTD"><input class="CobaltInputSB" maxlength="12" size="3" value="{aut_Usuario}" name="{aut_Usuario_Name}" style="WIDTH: 44px; HEIGHT: 20px" readonly><input class="CobaltInputSB" maxlength="9" size="4" value="{aut_FecRegistro}" name="{aut_FecRegistro_Name}" style="WIDTH: 84px; HEIGHT: 20px" readonly>&nbsp;</td> 
+          </tr>
+ 
+          <tr>
+            <td class="CobaltFooterTD" nowrap align="center" colspan="2">
+              <!-- BEGIN Button Button_Insert --><input class="CobaltButton" type="submit" value="GRABAR" name="{Button_Name}"><!-- END Button Button_Insert -->
+              <!-- BEGIN Button Button_Update --><input class="CobaltButton" type="submit" value="GRABAR" name="{Button_Name}" onclick="fRetornar()"><!-- END Button Button_Update -->
+              <!-- BEGIN Button Button_Delete --><input class="CobaltButton" type="submit" value="BORRAR" name="{Button_Name}"><!-- END Button Button_Delete -->
+              <!-- BEGIN Button Button_Cancel --><input class="CobaltButton" type="submit" value="Cancelar" name="{Button_Name}"><!-- END Button Button_Cancel -->&nbsp; </td> 
+          </tr>
+ 
+        </table>
+ 
+      </form>
+ <!-- END Record genautsri --></td> 
+    <td>&nbsp;</td> 
+  </tr>
+ 
+  <tr>
+    <td>&nbsp;</td> 
+    <td>&nbsp;</td> 
+  </tr>
+ 
+</table>
+ 
+<p></p>
+ 
+</body>
+ 
+</html>

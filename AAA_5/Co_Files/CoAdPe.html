@@ -1,0 +1,199 @@
+<html>
+<head>
+<base target="_self">
+<link rel="stylesheet" type="text/css" href="../Themes/StormyWeather/Style.css">
+<link rel="stylesheet" type="text/css" href="../Themes/Menu/Style.css">
+<title>PERIODOS</title>
+<script language="JavaScript" src="../LibJava/menu_func.js"></script>
+<link rel="stylesheet" type="text/css" href="../Themes/Cobalt/Style.css">
+<script language="JavaScript">
+//Begin CCS script
+//Include JSFunctions @1-5F368366
+  </script>
+  <script language="JavaScript" src="../functions.js"></script>
+  <script language="JavaScript">
+  
+//End Include JSFunctions
+
+//Include Common JSFunctions @1-73ADA5ED
+</script>
+<script language="JavaScript" src="../DatePicker.js"></script>
+<script language="JavaScript">
+//End Include Common JSFunctions
+
+//Date Picker Object Definitions @1-A8B1517A
+
+var periodos_DatePicker_per_FecInicial = new Object(); 
+periodos_DatePicker_per_FecInicial.format           = "dd/mm/yy";
+periodos_DatePicker_per_FecInicial.style            = "Themes/Cobalt/Style.css";
+periodos_DatePicker_per_FecInicial.relativePathPart = "../";
+
+var periodos_DatePicker_per_FecFinal = new Object(); 
+periodos_DatePicker_per_FecFinal.format           = "dd/mm/yy";
+periodos_DatePicker_per_FecFinal.style            = "Themes/Cobalt/Style.css";
+periodos_DatePicker_per_FecFinal.relativePathPart = "../";
+
+//End Date Picker Object Definitions
+
+//page_periodos_qry_per_Aplicacion_OnChange @5-418F604F
+function page_periodos_qry_per_Aplicacion_OnChange()
+{
+    var result;
+//End page_periodos_qry_per_Aplicacion_OnChange
+
+//Custom Code @37-2A29BDB7
+    // -------------------------
+	window.location.href =  " ../Co_Files/CoAdPe.php?per_Aplicacion=" + document.forms["periodos_qry"].per_Aplicacion.value
+    // -------------------------
+//End Custom Code
+
+//Close page_periodos_qry_per_Aplicacion_OnChange @5-BC33A33A
+    return result;
+}
+//End Close page_periodos_qry_per_Aplicacion_OnChange
+
+//page_periodos_Button_Submit_OnClick @33-DFB0EE46
+function page_periodos_Button_Submit_OnClick()
+{
+    var result;
+//End page_periodos_Button_Submit_OnClick
+
+//Confirmation Message @34-96FAE8C2
+    return confirm('Enviar registro?');
+//End Confirmation Message
+
+//Close page_periodos_Button_Submit_OnClick @33-BC33A33A
+    return result;
+}
+//End Close page_periodos_Button_Submit_OnClick
+
+//bind_events @1-9605E96F
+function bind_events() {
+    if (document.forms["periodos"]) check_and_bind('document.forms["periodos"].Button_Submit','onclick',page_periodos_Button_Submit_OnClick);
+    if (document.forms["periodos_qry"]) check_and_bind('document.forms["periodos_qry"].per_Aplicacion','onchange',page_periodos_qry_per_Aplicacion_OnChange);
+    forms_onload();
+}
+//End bind_events
+
+window.onload = bind_events; //Assign bind_events @1-19F7B649
+
+//End CCS script
+</script>
+</head>
+<body bgcolor="#fffff7" link="#000000" alink="#ff0000" vlink="#000000" text="#000000" class="CobaltPageBODY">
+<p>{Cabecera}
+<table border="0" align="center" style="border-collapse: collapse">
+  <tr>
+    <td align="middle" valign="top">
+      <!-- BEGIN Record periodos_qry -->
+      <form action="{Action}" method="post" name="{HTMLFormName}">
+        <table border="0" cellpadding="1" class="CobaltFormTABLE" align="center" width="800" style="border-collapse: collapse">
+          <!-- BEGIN Error -->
+          <tr>
+            <td class="CobaltErrorDataTD">{Error}</td> 
+          </tr>
+ <!-- END Error -->
+          <tr>
+            <td class="CobaltDataTD" align="middle">
+              <select class="CobaltSelect" name="{per_Aplicacion_Name}" style="HEIGHT: 22px; WIDTH: 232px">
+                <option selected value="">-&nbsp;Seleccione&nbsp;el&nbsp;tipo&nbsp;de&nbsp;periodo&nbsp;- </option>
+ {per_Aplicacion_Options} 
+              </select>
+ </td> 
+          </tr>
+ 
+        </table>
+ 
+      </form>
+ <!-- END Record periodos_qry -->
+      <!-- BEGIN EditableGrid periodos -->
+      <form action="{Action}" method="post" name="{HTMLFormName}">
+        <font class="CobaltFormHeaderFont">Lista de periodos </font><input name="FormState" type="hidden" value="{FormState}">{FormScript} 
+        <table border="0" cellpadding="0" cellspacing="1" style="border-collapse: collapse">
+          <!-- BEGIN Error -->
+          <tr>
+            <td class="CobaltErrorDataTD" colspan="13">{Error}</td> 
+          </tr>
+ <!-- END Error -->
+          <tr>
+            <td class="CobaltColumnTD" nowrap>
+              <!-- BEGIN Sorter Sorter_per_Aplicacion --><!-- END Sorter Sorter_per_Aplicacion -->&nbsp;</td> 
+            <td class="CobaltColumnTD" nowrap>
+              <!-- BEGIN Sorter Sorter_per_NumPeriodo --><a class="CobaltSorterLink" href="{Sort_URL}">NUM.</a><!-- END Sorter Sorter_per_NumPeriodo -->&nbsp;</td> 
+            <td class="CobaltColumnTD" nowrap>
+              <!-- BEGIN Sorter Sorter_per_FecInicial --><u>FECHA&nbsp;&nbsp;
+              INICIAL</u><a class="CobaltSorterLink" href="{Sort_URL}"></a><!-- END Sorter Sorter_per_FecInicial -->&nbsp; </td> 
+            <td class="CobaltColumnTD" nowrap>
+              <!-- BEGIN Sorter Sorter_per_FecFinal --><u>FECH. TERMINO</u><a class="CobaltSorterLink" href="{Sort_URL}"></a><!-- END Sorter Sorter_per_FecFinal -->&nbsp; </td> 
+            <td class="CobaltColumnTD" nowrap>
+              <!-- BEGIN Sorter Sorter_per_Ano --><a class="CobaltSorterLink" href="{Sort_URL}">&nbsp;AÑO</a><!-- END Sorter Sorter_per_Ano -->&nbsp;</td>
+            <td class="CobaltColumnTD" nowrap>
+              <!-- BEGIN Sorter Sorter_per_Mes --><a class="CobaltSorterLink" href="{Sort_URL}">MES</a><!-- END Sorter Sorter_per_Mes -->&nbsp;</td> 
+            <td class="CobaltColumnTD" nowrap>
+              <!-- BEGIN Sorter Sorter_per_Semana --><a class="CobaltSorterLink" href="{Sort_URL}">SEMANA</a><!-- END Sorter Sorter_per_Semana -->&nbsp; </td> 
+            <td class="CobaltColumnTD" nowrap>
+              <!-- BEGIN Sorter Sorter_per_Estado --><a class="CobaltSorterLink" href="{Sort_URL}">ESTADO</a><!-- END Sorter Sorter_per_Estado -->&nbsp; </td> 
+            <td class="CobaltColumnTD" nowrap>
+              <!-- BEGIN Sorter Sorter_per_Bandera --><a class="CobaltSorterLink" href="{Sort_URL}">BANDERA</a><!-- END Sorter Sorter_per_Bandera -->&nbsp;</td> 
+            <td class="CobaltColumnTD" nowrap>
+              <!-- BEGIN Sorter Sorter_per_PerContable --><a class="CobaltSorterLink" href="{Sort_URL}">PER.
+              CONTABLE</a><!-- END Sorter Sorter_per_PerContable -->&nbsp;</td> 
+            <td class="CobaltColumnTD" nowrap>BORRAR&nbsp;&nbsp;</td> 
+          </tr>
+ 
+          <!-- BEGIN Row -->
+          <!-- BEGIN RowError -->
+          <tr>
+            <td class="CobaltErrorDataTD" colspan="13">{Error}</td> 
+          </tr>
+ <!-- END RowError -->
+          <tr valign="top" height="10">
+            <td class="CobaltDataTD"><input type="text" name="{per_Aplicacion_Name}" value="{per_Aplicacion}" maxlength="3" size="3" class="CobaltInput">&nbsp;</td> 
+            <td class="CobaltDataTD"><input class="CobaltInput" maxlength="5" name="{per_NumPeriodo_Name}" size="5" value="{per_NumPeriodo}" style="HEIGHT: 20px; WIDTH: 34px">&nbsp;</td> 
+            <td class="CobaltDataTD"><input class="CobaltInput" maxlength="10" name="{per_FecInicial_Name}" size="10" value="{per_FecInicial}" style="HEIGHT: 20px; WIDTH: 63px">
+              <!-- BEGIN DatePicker DatePicker_per_FecInicial --><a class="CobaltDataLink" href="javascript:showDatePicker('{Name}','{FormName}','{DateControl}');"><img border="0" src="../Themes/DatePicker/DatePicker1.gif"></a><!-- END DatePicker DatePicker_per_FecInicial -->&nbsp;</td> 
+            <td class="CobaltDataTD"><input class="CobaltInput" maxlength="10" name="{per_FecFinal_Name}" size="10" value="{per_FecFinal}" style="HEIGHT: 20px; WIDTH: 67px">
+              <!-- BEGIN DatePicker DatePicker_per_FecFinal --><a class="CobaltDataLink" href="javascript:showDatePicker('{Name}','{FormName}','{DateControl}');"><img border="0" src="../Themes/DatePicker/DatePicker1.gif"></a><!-- END DatePicker DatePicker_per_FecFinal -->&nbsp;</td> 
+            <td class="CobaltDataTD"><input class="CobaltInput" maxlength="5" name="{per_Ano_Name}" size="5" value="{per_Ano}" style="HEIGHT: 20px; WIDTH: 38px">&nbsp; </td>
+            <td class="CobaltDataTD"><input class="CobaltInput" maxlength="5" name="{per_Mes_Name}" size="5" value="{per_Mes}" style="HEIGHT: 20px; WIDTH: 36px">&nbsp; </td> 
+            <td class="CobaltDataTD"><input class="CobaltInput" maxlength="5" name="{per_Semana_Name}" size="5" value="{per_Semana}" style="HEIGHT: 20px; WIDTH: 44px">&nbsp; </td> 
+            <td class="CobaltDataTD">
+              <select name="{per_Estado_Name}" class="CobaltSelect" style="HEIGHT: 22px; WIDTH: 107px">
+                <option selected value="">-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp; </option>
+ {per_Estado_Options} 
+              </select>
+ &nbsp; </td> 
+            <td class="CobaltDataTD"><input class="CobaltInput" maxlength="5" name="{per_Bandera_Name}" size="5" value="{per_Bandera}" style="HEIGHT: 20px; WIDTH: 37px">&nbsp; </td> 
+            <td class="CobaltDataTD" align="middle"><input class="CobaltInput" maxlength="10" name="{per_PerContable_Name}" size="10" value="{per_PerContable}" style="HEIGHT: 20px; WIDTH: 40px">&nbsp;</td> 
+            <td class="CobaltDataTD">
+              <!-- BEGIN CheckBox CheckBox_Delete --><input class="CobaltInput" name="{CheckBox_Delete_Name}" type="checkbox" value="1" {CheckBox_Delete}><!-- END CheckBox CheckBox_Delete -->&nbsp;</td> 
+          </tr>
+ <!-- END Row -->
+          <!-- BEGIN NoRecords -->
+          <tr>
+            <td class="CobaltDataTD" colspan="13">No hay periodos
+              definidos&nbsp;</td> 
+          </tr>
+ <!-- END NoRecords -->
+          <tr>
+            <td align="left" class="CobaltFooterTD" colspan="13" nowrap>
+              <!-- BEGIN Navigator Navigator -->
+              <!-- BEGIN First_On --><a class="CobaltNavigatorLink" href="{First_URL}"><img border="0" src="../Themes/Aqua/FirstOn.gif"></a> <!-- END First_On -->
+              <!-- BEGIN Prev_On --><a class="CobaltNavigatorLink" href="{Prev_URL}"><img border="0" src="../Themes/Aqua/PrevOn.gif"></a> <!-- END Prev_On -->&nbsp;{Page_Number}&nbsp;de
+              {Total_Pages}&nbsp; 
+              <!-- BEGIN Next_On --><a class="CobaltNavigatorLink" href="{Next_URL}"><img border="0" src="../Themes/Aqua/NextOn.gif"></a> <!-- END Next_On -->
+              <!-- BEGIN Last_On --><a class="CobaltNavigatorLink" href="{Last_URL}"><img border="0" src="../Themes/Aqua/LastOn.gif"></a> <!-- END Last_On --><!-- END Navigator Navigator -->&nbsp; 
+              <!-- BEGIN Button Button_Submit --><input class="CobaltButton" name="{Button_Name}" type="submit" value="Enviar"><!-- END Button Button_Submit -->&nbsp; 
+              <!-- BEGIN Button Cancel --><input class="CobaltButton" name="{Button_Name}" type="submit" value="Cancelar"><!-- END Button Cancel -->&nbsp; </td> 
+          </tr>
+ 
+        </table>
+ 
+      </form>
+ <!-- END EditableGrid periodos -->&nbsp;</td> 
+  </tr>
+ 
+</table>
+ </p>
+</body>
+</html>

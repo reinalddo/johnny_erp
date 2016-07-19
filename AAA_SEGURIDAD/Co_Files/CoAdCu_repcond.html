@@ -1,0 +1,107 @@
+<html>
+<head>
+<base target="_self">
+<link rel="stylesheet" type="text/css" href="../Themes/Cobalt/Style.css">
+<link rel="stylesheet" type="text/css" href="../Themes/Menu/Style.css">
+<title>CRITERIO DE SELECCION DE CUENTAS</title>
+<script language="JavaScript" src="../LibJava/menu_func.js"></script>
+<script language="JavaScript" src="../LibJava/validations.js"></script>
+<script language="JavaScript" src="../LibJava/general.js"></script>
+<script language="JavaScript">
+function fPlanCuentas()  {
+	with (document.concuentasSearch) {
+		var slSql = '';
+		if (!isBlank(s_Cue_CodCuenta.value)) 	slSql = " cue_codcuenta LIKE '" + s_Cue_CodCuenta.value + "%'";
+		if (!isBlank(s_cue_Descripcion.value)) 	slSql += (slSql ? " AND " : "") + " cue_descripcion LIKE '" + s_cue_descripcion.value +"%'";
+		if (!isBlank(s_Cue_Padre.value)) 		slSql += (slSql ? " AND " : "") + " (cue_padre = " + s_Cue_Padre.value + " OR cue_ID = " + s_Cue_Padre.value + " ) " ;
+		if (!isBlank(s_cue_TipMovim.value)) 		slSql += (slSql ? " AND " : "") + " cue_tipmovim = " + s_cue_TipMovim.value;
+		if (!isBlank(s_cue_ReqAuxiliar.value)) 	slSql += (slSql ? " AND " : "") + " cue_ReqAuxiliar = " + s_cue_ReqAuxiliar.value;
+		if (!isBlank(s_cue_TipAuxiliar.value)) 	slSql += (slSql ? " AND " : "") + " cue_TipAuxiliar = " + s_cue_TipAuxiliar.value;
+		if (!isBlank(s_cue_Estado.value)) 		slSql += (slSql ? " AND " : "") + " cue_estado = " + s_cue_Estado.value;
+		fAbrirWin("../Co_Files/CoAdCu_repplan.rpt.php?pQryCta=" + slSql, 'w', '', 900, 600);
+	}
+}
+</script>
+</head>
+ 
+<body bgcolor="#fffff7" link="#000000" alink="#ff0000" vlink="#000000" text="#000000" class="CobaltPageBODY" style="PADDING-RIGHT: 0px; PADDING-LEFT: 0px; PADDING-BOTTOM: 0px; PADDING-TOP: 0px; magin: 0; spacing: 0" bottommargin="0" nowrap leftmargin="0" topmargin="17" rightmargin="0" marginwidth="0" marginheight="0">
+{Cabecera} 
+<table background="../Themes/Cobalt/Light Streaks.bmp" border="0" width="100%" class="CobaltPageBODY" cellspacing="0" cellpadding="0" style="PADDING-RIGHT: 0px; PADDING-LEFT: 0px; PADDING-BOTTOM: 0px; MARGIN: 0px; PADDING-TOP: 0px; BORDER-COLLAPSE: collapse">
+  <tr>
+    <td align="middle">&nbsp; 
+      <!-- BEGIN Record concuentasSearch -->
+      <form name="{HTMLFormName}" action="{Action}" method="post" style="MARGIN: 0px">
+        <font class="CobaltFormHeaderFont">SELECCION DE CUENTAS </font> 
+        <table class="CobaltFormTABLE" cellpadding="1" border="0" cellspacing="0" style="MARGIN: 0px; BORDER-COLLAPSE: collapse">
+          <!-- BEGIN Error -->
+          <tr>
+            <td class="CobaltErrorDataTD" colspan="13">{Error}</td> 
+          </tr>
+          <!-- END Error -->
+          <tr>
+            <td class="CobaltFieldCaptionTD" nowrap>&nbsp;Cod Cuenta&nbsp;</td> 
+            <td class="CobaltDataTD" colspan="3"><input class="CobaltInputSB2" maxlength="15" size="15" value="{s_Cue_CodCuenta}" name="{s_Cue_CodCuenta_Name}">&nbsp;</td> 
+            <td class="CobaltFieldCaptionTD" nowrap>&nbsp;Descripcion&nbsp;</td> 
+            <td class="CobaltDataTD"><input class="CobaltInputSB2" maxlength="40" size="40" value="{s_cue_Descripcion}" name="{s_cue_Descripcion_Name}">&nbsp;</td> 
+          </tr>
+ 
+          <tr>
+            <td class="CobaltFieldCaptionTD" nowrap>&nbsp;Cuenta Padre&nbsp;</td> 
+            <td class="CobaltDataTD" colspan="3">
+              <select name="{s_Cue_Padre_Name}" class="CobaltInputSB2" style="WIDTH: 190px">
+                <option value="" selected>-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;</option>
+ {s_Cue_Padre_Options} 
+              </select>
+ &nbsp;</td> 
+            <td class="CobaltFieldCaptionTD" nowrap>&nbsp;Tipo Movimiento&nbsp;</td> 
+            <td class="CobaltDataTD">
+              <select name="{s_cue_TipMovim_Name}" class="CobaltInputSB2">
+                <option value="" selected>-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;</option>
+ {s_cue_TipMovim_Options} 
+              </select>
+ &nbsp;</td> 
+          </tr>
+ 
+          <tr>
+            <td class="CobaltFieldCaptionTD" nowrap>&nbsp;Requiere
+              Auxiliar&nbsp;</td> 
+            <td class="CobaltDataTD">
+              <select name="{s_cue_ReqAuxiliar_Name}" class="CobaltInputSB2" style="WIDTH: 77px">
+                <option value="" selected>-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;</option>
+ {s_cue_ReqAuxiliar_Options} 
+              </select>
+ </td> 
+            <td class="CobaltFieldCaptionTD">Tipo</td> 
+            <td class="CobaltDataTD">
+              <select name="{s_cue_TipAuxiliar_Name}" class="CobaltInputSB2" style="WIDTH: 88px">
+                <option value="" selected>-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;</option>
+ {s_cue_TipAuxiliar_Options} 
+              </select>
+ </td> 
+            <td class="CobaltFieldCaptionTD" nowrap>&nbsp;Estado&nbsp;</td> 
+            <td class="CobaltDataTD">
+              <select name="{s_cue_Estado_Name}" class="CobaltInputSB2">
+                <option value="" selected>-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;</option>
+ {s_cue_Estado_Options} 
+              </select>
+ &nbsp;</td> 
+          </tr>
+ 
+          <tr align="middle">
+            <td class="CobaltFooterTD" nowrap align="middle" colspan="14">
+              <!-- BEGIN Button Button_DoSearch --><input class="CobaltInputSB2" type="button" value="PLAN DE CUENTAS" name="{Button_Name}" onclick="fPlanCuentas()" title="Generacion del plan de cuentas en formato PDF"><!-- END Button Button_DoSearch -->&nbsp; </td> 
+          </tr>
+ 
+        </table>
+ 
+      </form>
+ <!-- END Record concuentasSearch --></td> 
+  </tr>
+ 
+</table>
+ 
+<p></p>
+ 
+</body>
+ 
+</html>

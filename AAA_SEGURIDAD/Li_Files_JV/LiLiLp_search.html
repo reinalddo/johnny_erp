@@ -1,0 +1,402 @@
+<html>
+<head>
+<base target="_self">
+<link rel="stylesheet" type="text/css" href="../Themes/Cobalt/Style.css">
+<link rel="stylesheet" type="text/css" href="../Themes/Menu/Style.css">
+<title>LISTA DE PRECIOS</title>
+ 
+<script language="JavaScript" src="../LibJava/fechas.js"></script>
+<script language="JavaScript" src="../LibJava/general.js"></script>
+<script language="JavaScript" src="../LibJava/validaDB.js"></script>
+<script language="JavaScript" src="../LibJava/validations.js"></script>
+<script language="JavaScript" src="../LibJava/menu_func.js"></script>
+<script language="JavaScript1.2">
+var bolRefreshFlag	= false;
+var oValida = new oValidador();
+	oValida.Formul="";
+function fprueba(oControl, psText, pbValFlag)
+{
+    fProductor(oControl, psText, pbValFlag)
+}
+/**
+*		Define parametros necesarios para la validacion de cada campo, y ejecuta el proceso,
+*		solo si el contenido del control ha cambiado
+*		@param		oControl	object:	Elemento en el que ocurre el evento
+*		@param		psTexto		String:	Nombre del elemento que presenta texto asociado al primer obj.
+*		@param		pbValFlag	Bool:	Debe ejecutar una busqueda inicial o solo abre la seleccion
+*		@return		void
+*/
+function fProductor(oControl, psText, pbValFlag)
+{
+window.status="00 ";
+	if (bolRefreshFlag) {								// No continuar pues se refresca la pantalla
+		bolRefreshFlag	= false;	
+		return false;
+	}
+	var sRe = /^ta[cr]_/;
+	var slSufijo = '';
+	slCampo='';
+	oValida.Formul="liqprecaja_list";
+	slSufijo = '_' + fTraefila(oControl.name);
+	slCampo = oControl.id;
+	pbValFlag=(pbValFlag==undefined)?true:pbValFlag										// Si no se ha definido, asume verdadero
+	var lsText = document.forms[oValida.Formul][psText + slSufijo].value;
+	if (isChanged(oControl) ||
+	    (psText && isBlank(lsText) && !isBlank(oControl.value) ) ) {	// Solo si ha cambiado el contenido
+		oValida.Tipo=3;																//Retornar valores
+		oValida.Skeywd  = oControl.value;
+    	oValida.Desti 	= "pre_Productor" + slSufijo + ", per_Apellidos" + slSufijo;
+    	oValida.Focus	= "pre_PreUnitario"+ slSufijo;
+    	oValida.Mensj	= "** SELECCIONE UN PRODUCTOR **";
+    	if (parseInt(oControl.value * 1) > 0 ) {
+    		oValida.Cond 	= "per_Codauxiliar = " 	+ oControl.value;
+    		}
+    	else {
+    		oValida.Cond 	= " per_Apellidos LIKE '" + oControl.value + "%' " +
+    						  " OR per_Nombres LIKE '" 	+ oControl.value + "%'" ;
+    	}
+    	oValida.Tabla 	= "conpersonas JOIN concategorias ON cat_categoria = 52 AND cat_codauxiliar = per_codauxiliar";
+    	oValida.Campos 	= "CodAuxiliar,Descripcion";
+    	oValida.Selec   = "per_CodAuxiliar as CodAuxiliar, concat(per_Apellidos, ' ', per_Nombres) as Descripcion";
+    	oValida.PageR 	= "../Co_Files/CoAdAu_search2.php";
+    	oValida.Aplicar(pbValFlag);
+    	this.oldValue=oControl.value;
+    }
+	return false;
+}
+
+/**
+*   Analiza que dato cambió el usuario y recalcula pre_preUnitario, pre_DifUnitario y txt_PreReal
+*   según cada caso
+* 	@access public
+* 	@param  object   oElem    	Elemento cambiado
+* 	@return void
+*/
+function fCambioPrecios(oElem)
+{
+	var i = fTraefila(oElem.name) -1;
+	with(document.liqprecaja_list){
+		if (!isNumeric(pre_PreUnitario[i].value))		pre_PreUnitario[i].value = 0;
+		if (!isNumeric(pre_DifUnitario[i].value))  		pre_DifUnitario[i].value = 0;
+		if (oElem.id == "txt_PreReal")
+			pre_DifUnitario[i].value = parseFloat(pre_PreUnitario[i].value) - parseFloat(txt_PreReal[i].value) ;
+		else
+			txt_PreReal[i].value   = parseFloat(pre_PreUnitario[i].value) - parseFloat(pre_DifUnitario[i].value);
+	}
+}
+
+/**
+*   Elabora un URL-query_string para cargar un script PHP que realiza el proceso en la DB
+* 	@access public
+* 	@param  object   oElem    	Elemento disparado
+* 	@return void
+*/
+function fAplicaLista(oElem)
+{
+	var i = fTraefila(oElem.name) -1;
+	var slQryStr = '?';
+	with(document.liqprecaja_qry){
+		if(isNumeric(pre_Ano.value) 	&& pre_Ano.value != 0) 			slQryStr +=  'pAno=' + pre_Ano.value;
+			else return;
+		if(isNumeric(pre_Semana.value) 	&& pre_Semana.value != 0) 		slQryStr +=  '&pSemana=' + pre_Semana.value;
+	}
+	with(document.liqprecaja_list){
+		if 	(!isNumeric(pre_Estado[i].value) || pre_Estado[i].value == 0 ) {
+			alert("SOLO PUEDE APLICAR LAS LISTAS QUE HAYAN SIDO GRABADAS " + pre_Estado[i].value );
+			return;
+		}
+		if (isNumeric(pre_PreUnitario[i].value)) slQryStr +=  '&pUni=' + pre_PreUnitario[i].value ;
+		if (isNumeric(pre_PreUnitario[i].value)) slQryStr +=  '&pDif=' + pre_DifUnitario[i].value 
+		if (isNumeric(pre_PreUnitario[i].value)) slQryStr +=  '&pLid=' + pre_ID[i].value ;
+		slCond="pQry= AND par_Clave = 'IMARCA' " ;
+		if(isNumeric(pre_RefOperativa[i].value) 	&& pre_RefOperativa[i].value != 0) 				slCond = (slCond.length >0 ? slCond + ' AND ' : '') + 'emb_RefOperativa|' 		+ pre_RefOperativa[i].value;
+		if(isNumeric(pre_GruLiquidacion[i].value) 	&& pre_GruLiquidacion[i].value != 0) 			slCond = (slCond.length >0 ? slCond + ' AND ' : '') + 'tac_GrupLiquidacion|' 	+ pre_GruLiquidacion[i].value;
+		if(isNumeric(pre_Zona[i].value) 			&& pre_Zona[i].value != 0) 						slCond = (slCond.length >0 ? slCond + ' AND ' : '') + 'tac_Zona|'				+ pre_Zona[i].value;
+		if(isNumeric(pre_Productor[i].value)    	&& pre_Productor[i].value != 0) 				slCond = (slCond.length >0 ? slCond + ' AND ' : '') + 'tac_Embarcador|' 		+ pre_Productor[i].value;
+		if(isNumeric(pre_CodProducto[i].value) 		&& pre_CodProducto[i].value != 0)  				slCond = (slCond.length >0 ? slCond + ' AND ' : '') + 'tad_CodProducto|' 		+ pre_CodProducto[i].value;
+		if(isNumeric(pre_CodMarca[i].value) 		&& pre_CodMarca[i].value != 0) 					slCond = (slCond.length >0 ? slCond + ' AND ' : '') + 'tad_CodMarca|'     		+ pre_CodMarca[i].value;
+		if(isNumeric(pre_CodEmpaque[i].value)   	&& pre_CodEmpaque[i].value != 0) 				slCond = (slCond.length >0 ? slCond + ' AND ' : '') + 'tad_CodCaja|' 		    + pre_CodEmpaque[i].value;
+		slQryStr += '&' + slCond;
+
+		if(fValidarFecha('liqprecaja_list', pre_FecInicio[i].name)) 		slCond = (slCond.length >0 ? slCond + ' AND ' : '') + '&pFini=' + pre_FecInicio[i].value;
+		if(fValidarFecha('liqprecaja_list', pre_FecFin[i].name)) 		slCond = (slCond.length >0 ? slCond + ' AND ' : '') + '&pFFin=' + pre_FecFin[i].value;
+
+		fAbrirWin('LiLiLp_proces.pro.php' + slQryStr, 'WProc', '', 700, 350)
+	}
+}
+//Begin CCS script
+//Include JSFunctions @1-5F368366
+  </script>
+<script language="JavaScript" src="../functions.js"></script>
+<script language="JavaScript">
+  
+//End Include JSFunctions
+
+//Include Common JSFunctions @1-73ADA5ED
+</script>
+<script language="JavaScript" src="../DatePicker.js"></script>
+<script language="JavaScript">
+//End Include Common JSFunctions
+
+//Date Picker Object Definitions @1-2EE96B84
+
+var liqprecaja_list_DatePicker_pre_FecInicio = new Object(); 
+liqprecaja_list_DatePicker_pre_FecInicio.format           = "dd/mmm/yy";
+liqprecaja_list_DatePicker_pre_FecInicio.style            = "Themes/Cobalt/Style.css";
+liqprecaja_list_DatePicker_pre_FecInicio.relativePathPart = "../";
+
+var liqprecaja_list_DatePicker_pre_FecFin = new Object(); 
+liqprecaja_list_DatePicker_pre_FecFin.format           = "dd/mmm/yy";
+liqprecaja_list_DatePicker_pre_FecFin.style            = "Themes/Cobalt/Style.css";
+liqprecaja_list_DatePicker_pre_FecFin.relativePathPart = "../";
+
+//End Date Picker Object Definitions
+
+//page_liqprecaja_list_Button_Submit_OnClick @244-35388896
+function page_liqprecaja_list_Button_Submit_OnClick()
+{
+    var result;
+//End page_liqprecaja_list_Button_Submit_OnClick
+
+//Confirmation Message @245-96FAE8C2
+    return confirm('Enviar registro?');
+//End Confirmation Message
+
+//Close page_liqprecaja_list_Button_Submit_OnClick @244-BC33A33A
+    return result;
+}
+//End Close page_liqprecaja_list_Button_Submit_OnClick
+
+//page_liqprecaja_list_Cancel_OnClick @243-738D9B61
+function page_liqprecaja_list_Cancel_OnClick()
+{
+    disableValidation = true;
+}
+//End page_liqprecaja_list_Cancel_OnClick
+
+//DEL      // -------------------------
+//DEL  alert('b')
+//DEL      // -------------------------
+
+//bind_events @1-F2A25CDD
+function bind_events() {
+    if (document.forms["liqprecaja_list"]) check_and_bind('document.forms["liqprecaja_list"].Button_Submit','onclick',page_liqprecaja_list_Button_Submit_OnClick);
+    if (document.forms["liqprecaja_list"]) check_and_bind('document.forms["liqprecaja_list"].Cancel','onclick',page_liqprecaja_list_Cancel_OnClick);
+    forms_onload();
+}
+//End bind_events
+
+window.onload = bind_events; //Assign bind_events @1-19F7B649
+
+//End CCS script
+</script>
+</head>
+ 
+<body bgcolor="#fffff7" link="#000000" alink="#ff0000" vlink="#000000" text="#000000" class="CobaltPageBODY" style="PADDING-RIGHT: 0px; PADDING-LEFT: 0px; PADDING-BOTTOM: 0px; PADDING-TOP: 0px; magin: 0; spacing: 0" bottommargin="0" nowrap leftmargin="0" topmargin="17" rightmargin="0" marginwidth="0" marginheight="0">
+{Cabecera} 
+<table background="../Themes/Cobalt/Light Streaks.bmp" border="0" width="100%" class="CobaltPageBODY">
+  <tr>
+    <td align="middle">&nbsp; 
+      <!-- BEGIN Record liqprecaja_qry -->
+      <form name="{HTMLFormName}" action="{Action}" method="post" style="MARGIN: 0px">
+        <font color="#336699">LISTA DE PRECIOS DE FRUTA <font class="CobaltFormHeaderFont"></font></font> 
+        <table class="CobaltFormTABLE" cellpadding="3" border="0">
+          <!-- BEGIN Error -->
+          <tr>
+            <td class="CobaltErrorDataTD" colspan="2">{Error} </td> 
+          </tr>
+ <!-- END Error -->
+          <tr>
+            <td class="CobaltFieldCaptionTD" nowrap>AÑO
+            <td class="CobaltDataTD"><input class="CobaltInputSB2" maxlength="5" size="5" value="{pre_Ano}" name="{pre_Ano_Name}">&nbsp; </td>
+            <td class="CobaltFieldCaptionTD" nowrap>SEMANA&nbsp; </td> 
+            <td class="CobaltDataTD"><input class="CobaltInputSB2" maxlength="5" size="5" value="{pre_Semana}" name="{pre_Semana_Name}">&nbsp; </td> 
+            <td class="CobaltDataTD" nowrap align="right" colspan="2">
+              <!-- BEGIN Button Button_DoSearch --><input class="CobaltDataLink" type="submit" value="Buscar" name="{Button_Name}"><!-- END Button Button_DoSearch -->&nbsp; </td> 
+          </tr>
+ 
+        </table>
+ 
+      </form>
+ <!-- END Record liqprecaja_qry -->
+      <!-- BEGIN EditableGrid liqprecaja_list -->
+      <form name="{HTMLFormName}" action="{Action}" method="post" style="MARGIN: 0px">
+        <font class="CobaltFormHeaderFont">CONDICIONES DE APLICACION </font> <input type="hidden" value="{FormState}" name="FormState">{FormScript} 
+        <table class="CobaltFormTABLE" cellpadding="1" border="0" cellspacing="1" style="BORDER-COLLAPSE: collapse">
+          <tr>
+            <td class="CobaltFooterTD" nowrap align="middle" colspan="10">
+              <!-- BEGIN Navigator Navigator -->
+              <!-- BEGIN First_On --><a class="CobaltNavigatorLink" href="{First_URL}"><img height="14" src="../Themes/RockIt/FirstOn.gif" width="40" border="0"></a> <!-- END First_On -->&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+              &nbsp; 
+              <!-- BEGIN Prev_On --><a class="CobaltNavigatorLink" href="{Prev_URL}"><img height="14" src="../Themes/RockIt/PrevOn.gif" width="40" border="0"></a> <!-- END Prev_On -->&nbsp; 
+              <!-- BEGIN Pages -->
+              <!-- BEGIN Page_On --><a class="CobaltNavigatorLink" href="{Page_URL}">{Page_Number}</a>&nbsp; <!-- END Page_On -->
+              <!-- BEGIN Page_Off -->{Page_Number}&nbsp; <!-- END Page_Off --><!-- END Pages -->de
+              {Total_Pages}&nbsp; 
+              <!-- BEGIN Next_On --><a class="CobaltNavigatorLink" href="{Next_URL}"><img height="14" src="../Themes/RockIt/NextOn.gif" width="40" border="0"></a> <!-- END Next_On -->&nbsp;&nbsp;&nbsp; 
+              <!-- BEGIN Last_On --><a class="CobaltNavigatorLink" href="{Last_URL}"><img title="Ir a la última página deresultados, además permite añadir registros" height="14" src="../Themes/RockIt/LastOn.gif" width="40" border="0"></a> <!-- END Last_On --><!-- END Navigator Navigator -->&nbsp;&nbsp;&nbsp;&nbsp;
+              &nbsp;
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+              &nbsp; &nbsp; </td> 
+            <td class="CobaltFooterTD" nowrap align="middle" colspan="2">
+              <!-- BEGIN Button Button_Submit --><input class="CobaltDataLink" style="FONT-SIZE: 9px; WIDTH: 58px; HEIGHT: 20px" type="submit" value="GRABAR" name="{Button_Name}" accesskey="g" title="Graba el Contenido de la pantalla. (Presione Alt-G para ejecutar directamente)"><!-- END Button Button_Submit -->
+              <!-- BEGIN Button Cancel --><input class="CobaltDataLink" style="FONT-SIZE: 9px; WIDTH: 58px; HEIGHT: 20px" tabindex="font_size: 9" type="submit" size="12" value="CANCELAR" name="{Button_Name}"><!-- END Button Cancel --></td> 
+          </tr>
+ 
+          <!-- BEGIN Error -->
+          <tr>
+            <td class="CobaltErrorDataTD" colspan="14">{Error} </td> 
+          </tr>
+ <!-- END Error -->
+          <tr align="middle">
+            <td class="CobaltColumnTD" nowrap>
+              <!-- BEGIN Sorter Sorter_pre_ID --><a class="CobaltSorterLink" href="{Sort_URL}">ID</a> 
+              <!-- BEGIN Asc_On --><img height="9" src="../Themes/Cobalt/AscOn.gif" width="13" border="0"><!-- END Asc_On -->
+              <!-- BEGIN Desc_On --><img height="9" src="../Themes/Cobalt/DescOn.gif" width="13" border="0"><!-- END Desc_On --><!-- END Sorter Sorter_pre_ID -->&nbsp; </td> 
+            <td class="CobaltColumnTD">
+              <!-- BEGIN Sorter Sorter_pre_RefOperativa --><a class="CobaltSorterLink" href="{Sort_URL}">EMBARQUE</a> 
+              <!-- BEGIN Asc_On --><img height="9" src="../Themes/Cobalt/AscOn.gif" width="13" border="0"><!-- END Asc_On -->
+              <!-- BEGIN Desc_On --><img height="9" src="../Themes/Cobalt/DescOn.gif" width="13" border="0"><!-- END Desc_On --><!-- END Sorter Sorter_pre_RefOperativa -->&nbsp;&nbsp;&nbsp;&nbsp; 
+              <!-- BEGIN Sorter Sorter_pre_CodProducto --><a class="CobaltSorterLink" title="Ordenar por producto" href="{Sort_URL}">PROD</a> 
+              <!-- BEGIN Asc_On --><img height="9" src="../Themes/Cobalt/AscOn.gif" width="13" border="0"><!-- END Asc_On -->
+              <!-- BEGIN Desc_On --><img height="9" src="../Themes/Cobalt/DescOn.gif" width="13" border="0"><!-- END Desc_On --><!-- END Sorter Sorter_pre_CodProducto --></td> 
+            <td class="CobaltColumnTD" nowrap title="PRODUCTO / MARCA y EMPAQUE">&nbsp; 
+              <!-- BEGIN Sorter Sorter_pre_CodMarca --><a class="CobaltSorterLink" title="Ordenar por Marca" href="{Sort_URL}">MAR</a> 
+              <!-- BEGIN Asc_On --><img height="9" src="../Themes/Cobalt/AscOn.gif" width="13" border="0"><!-- END Asc_On -->
+              <!-- BEGIN Desc_On --><img height="9" src="../Themes/Cobalt/DescOn.gif" width="13" border="0"><!-- END Desc_On --><!-- END Sorter Sorter_pre_CodMarca -->&nbsp;&nbsp;
+              &nbsp; 
+              <!-- BEGIN Sorter Sorter_pre_CodEmpaque --><a class="CobaltSorterLink" title="Ordenar por Empaque" href="{Sort_URL}">EMP</a> 
+              <!-- BEGIN Asc_On --><img height="9" src="../Themes/Cobalt/AscOn.gif" width="13" border="0"><!-- END Asc_On -->
+              <!-- BEGIN Desc_On --><img height="9" src="../Themes/Cobalt/DescOn.gif" width="13" border="0"><!-- END Desc_On --><!-- END Sorter Sorter_pre_CodEmpaque --></td> 
+            <td class="CobaltColumnTD" nowrap>
+              <!-- BEGIN Sorter Sorter_pre_GruLiquidacion --><a class="CobaltSorterLink" href="{Sort_URL}">GRUPO</a> 
+              <!-- BEGIN Asc_On --><img height="9" src="../Themes/Cobalt/AscOn.gif" width="13" border="0"><!-- END Asc_On -->
+              <!-- BEGIN Desc_On --><img height="9" src="../Themes/Cobalt/DescOn.gif" width="13" border="0"><!-- END Desc_On --><!-- END Sorter Sorter_pre_GruLiquidacion -->&nbsp;&nbsp;&nbsp;
+              &nbsp; 
+              <!-- BEGIN Sorter Sorter_pre_Zona --><a class="CobaltSorterLink" href="{Sort_URL}">ZONA</a> 
+              <!-- BEGIN Asc_On --><img height="9" src="../Themes/Cobalt/AscOn.gif" width="13" border="0"><!-- END Asc_On -->
+              <!-- BEGIN Desc_On --><img height="9" src="../Themes/Cobalt/DescOn.gif" width="13" border="0"><!-- END Desc_On --><!-- END Sorter Sorter_pre_Zona --></td> 
+            <td class="CobaltColumnTD">
+              <!-- BEGIN Sorter Sorter_pre_Productor --><a class="CobaltSorterLink" href="{Sort_URL}">PRODUCTOR</a> 
+              <!-- BEGIN Asc_On --><img height="9" src="../Themes/Cobalt/AscOn.gif" width="13" border="0"><!-- END Asc_On -->
+              <!-- BEGIN Desc_On --><img height="9" src="../Themes/Cobalt/DescOn.gif" width="13" border="0"><!-- END Desc_On --><!-- END Sorter Sorter_pre_Productor -->&nbsp; </td> 
+            <td class="CobaltColumnTD" nowrap width="90">
+              <!-- BEGIN Sorter Sorter_pre_FecInicio --><a class="CobaltSorterLink" href="{Sort_URL}">DESDE</a> 
+              <!-- BEGIN Asc_On --><img height="9" src="../Themes/Cobalt/AscOn.gif" width="13" border="0"><!-- END Asc_On -->
+              <!-- BEGIN Desc_On --><img height="9" src="../Themes/Cobalt/DescOn.gif" width="13" border="0"><!-- END Desc_On --><!-- END Sorter Sorter_pre_FecInicio -->&nbsp; 
+              <!-- BEGIN Sorter Sorter_pre_FecFin --><a class="CobaltSorterLink" href="{Sort_URL}">HASTA</a> 
+              <!-- BEGIN Asc_On --><img height="9" src="../Themes/Cobalt/AscOn.gif" width="13" border="0"><!-- END Asc_On -->
+              <!-- BEGIN Desc_On --><img height="9" src="../Themes/Cobalt/DescOn.gif" width="13" border="0"><!-- END Desc_On --><!-- END Sorter Sorter_pre_FecFin --></td> 
+            <td class="CobaltColumnTD" nowrap>
+              <!-- BEGIN Sorter Sorter_pre_PreUnitario --><a class="CobaltSorterLink" href="{Sort_URL}">P.
+              OFIC</a> 
+              <!-- BEGIN Asc_On --><img height="9" src="../Themes/Cobalt/AscOn.gif" width="13" border="0"><!-- END Asc_On -->
+              <!-- BEGIN Desc_On --><img height="9" src="../Themes/Cobalt/DescOn.gif" width="13" border="0"><!-- END Desc_On --><!-- END Sorter Sorter_pre_PreUnitario -->&nbsp; </td> 
+            <td class="CobaltColumnTD" nowrap>
+              <!-- BEGIN Sorter Sorter_pre_DifUnitario --><a class="CobaltSorterLink" href="{Sort_URL}">ADEL.</a> 
+              <!-- BEGIN Asc_On --><img height="9" src="../Themes/Cobalt/AscOn.gif" width="13" border="0"><!-- END Asc_On -->
+              <!-- BEGIN Desc_On --><img height="9" src="../Themes/Cobalt/DescOn.gif" width="13" border="0"><!-- END Desc_On --><!-- END Sorter Sorter_pre_DifUnitario -->&nbsp; </td> 
+            <td class="CobaltColumnTD" nowrap></td> 
+            <td class="CobaltColumnTD" width="68">
+              <!-- BEGIN Sorter Sorter_pre_Usuario -->Digitado 
+              <!-- BEGIN Asc_On --><img height="9" src="../Themes/Cobalt/AscOn.gif" width="13" border="0"><!-- END Asc_On -->
+              <!-- BEGIN Desc_On --><img height="9" src="../Themes/Cobalt/DescOn.gif" width="13" border="0"><!-- END Desc_On --><!-- END Sorter Sorter_pre_Usuario -->&nbsp; </td> 
+            <td class="CobaltColumnTD">
+              <!-- BEGIN Sorter Sorter_pre_Estado --><a class="CobaltSorterLink" href="{Sort_URL}">E.</a> 
+              <!-- BEGIN Asc_On --><img height="9" src="../Themes/Cobalt/AscOn.gif" width="13" border="0"><!-- END Asc_On -->
+              <!-- BEGIN Desc_On --><img height="9" src="../Themes/Cobalt/DescOn.gif" width="13" border="0"><!-- END Desc_On --><!-- END Sorter Sorter_pre_Estado -->&nbsp; </td> 
+            <td class="CobaltColumnTD" nowrap>Borrar &nbsp; </td> 
+          </tr>
+ 
+          <!-- BEGIN Row -->
+          <!-- BEGIN RowError -->
+          <tr>
+            <td class="CobaltErrorDataTD" colspan="14">{Error} </td> 
+          </tr>
+ <!-- END RowError -->
+          <tr valign="top" style="BORDER-BOTTOM-WIDTH: 4px">
+            <td class="CobaltDataTD" nowrap><input name="{pre_ID_Name}" value="{pre_ID}" maxlength="10" size="5" class="CobaltInputSB2" style="WIDTH: 41px" tabindex="-1" readonly id="pre_ID"><input type="hidden" name="{pre_Ano_Name}" value="{pre_Ano}" style="WIDTH: 10px; HEIGHT: 11px" size="1"><input type="hidden" name="{pre_Semana_Name}" value="{pre_Semana}" style="WIDTH: 13px; HEIGHT: 11px" size="1"><input style="WIDTH:  18px;  HEIGHT:  11px" type="hidden" size="2" value="{caj_Descripcion}" name="{caj_Descripcion_Name}"><input style="WIDTH:  13px;  HEIGHT:  10px" type="hidden" size="1" value="{caj_Abreviatura}" name="{caj_Abreviatura_Name}"></td> 
+            <td class="CobaltDataTD">
+              <select name="{pre_RefOperativa_Name}" class="CobaltInputSB2" style="FONT-SIZE: 9px; WIDTH: 175px" id="pre_RefOperativa">
+                <option value="" selected>-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-</option>
+ 
+                <option value="9999">T&nbsp;O&nbsp;D&nbsp;O&nbsp;S</option>
+ {pre_RefOperativa_Options} 
+              </select>
+ 
+              <select id= "pre_CodProducto" name="{pre_CodProducto_Name}" class="CobaltInputSB2" style="FONT-SIZE: 9px; WIDTH: 175px">
+                <option value="" selected>-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;</option>
+ {pre_CodProducto_Options} 
+              </select>
+ </td> 
+            <td class="CobaltDataTD" title="PRODUCTO / MARCA Y EMPAQUE">
+              <select class="CobaltInputSB2" name="{pre_CodMarca_Name}" style="WIDTH: 120px" id="pre_CodMarca">
+                <option value="" selected>-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;</option>
+ 
+                <option value="9999">T&nbsp;O&nbsp;D&nbsp;A&nbsp;S&nbsp;</option>
+ {pre_CodMarca_Options} 
+              </select>
+ 
+              <select name="{pre_CodEmpaque_Name}" class="CobaltInputSB2" style="WIDTH: 120px" id="pre_CodEmpaque">
+                <option value="" selected>-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;</option>
+ 
+                <option value="9999">T&nbsp;O&nbsp;D&nbsp;O&nbsp;S&nbsp;</option>
+ {pre_CodEmpaque_Options} 
+              </select>
+ &nbsp; </td> 
+            <td class="CobaltDataTD">
+              <select class="CobaltInputSB2" name="{pre_GruLiquidacion_Name}" style="WIDTH: 113px" id="pre_GruLiquidacion">
+                <option value="" selected>-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;</option>
+ 
+                <option value="9999">T&nbsp;O&nbsp;D&nbsp;O&nbsp;S</option>
+ {pre_GruLiquidacion_Options} 
+              </select>
+ 
+              <select class="CobaltInputSB2" name="{pre_Zona_Name}" style="WIDTH: 113px" id="pre_Zona">
+                <option value="" selected>-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;</option>
+ 
+                <option value="">T&nbsp;O&nbsp;D&nbsp;O&nbsp;S</option>
+ {pre_Zona_Options} 
+              </select>
+ </td> 
+            <td class="CobaltDataTD">
+                <input class="CobaltInputSB2" maxlength="10" size="5"
+                    type="text"
+                    onchange="fProductor(this, 'per_Apellidos', true)"
+                    value="{pre_Productor}" name="{pre_Productor_Name}"
+                    style="WIDTH: 53px; HEIGHT: 18px" id="pre_Productor">&nbsp;
+              &nbsp; <input class="CobaltInputSB" maxlength="25" size="18" value="{per_Apellidos}" name="{per_Apellidos_Name}" style="FONT-SIZE: 9px; TEXT-TRANSFORM: uppercase; WIDTH: 116px" id="per_Apellidos"></td>
+            <td class="CobaltDataTD"><input class="CobaltInputSB2" maxlength="8" size="8" value="{pre_FecInicio}" name="{pre_FecInicio_Name}" style="FONT-SIZE: 9px; TEXT-TRANSFORM: uppercase" id="pre_FecInicio">
+              <!-- BEGIN DatePicker DatePicker_pre_FecInicio --><a class="CobaltDataLink" href="javascript:showDatePicker('{Name}','{FormName}','{DateControl}');"><img tabindex="-1" height="15" src="../Themes/DatePicker/DatePicker1.gif" width="17" border="0"></a> <!-- END DatePicker DatePicker_pre_FecInicio --><input class="CobaltInputSB2" style="FONT-SIZE: 9px; TEXT-TRANSFORM: uppercase" maxlength="8" size="8" value="{pre_FecFin}" name="{pre_FecFin_Name}" id="pre_FecFin">
+              <!-- BEGIN DatePicker DatePicker_pre_FecFin --><a class="CobaltDataLink" href="javascript:showDatePicker('{Name}','{FormName}','{DateControl}');"><img tabindex="-1" height="15" src="../Themes/DatePicker/DatePicker1.gif" width="17" border="0"></a> <!-- END DatePicker DatePicker_pre_FecFin --></td> 
+            <td nowrap class="CobaltDataTD" style="BACKGROUND-COLOR: #cfdfef">
+            <input class="CobaltInputSB2" maxlength="12" size="5" value="{pre_PreUnitario}" name="{pre_PreUnitario_Name}" style="FONT-SIZE: 9px; WIDTH: 42px; HEIGHT: 18px; BACKGROUND-COLOR: #cfdfef; TEXT-ALIGN: right" title="Precio Oficial por Caja" onchange="fCambioPrecios(this)" id="pre_PreUnitario"></td> 
+            <td nowrap class="CobaltDataTD" style="BACKGROUND-COLOR: #cfdfef"><input class="CobaltInputSB2" maxlength="12" size="5" value="{pre_DifUnitario}" name="{pre_DifUnitario_Name}" style="FONT-SIZE: 9px; WIDTH: 42px; HEIGHT: 18px; BACKGROUND-COLOR: #cfdfef; TEXT-ALIGN: right" title="Adelanto: Dif de Precio Oficial - Precio al Productor (Negativo cuando el precio al Productor es mayop que el Precio Oficial" onchange="fCambioPrecios(this)" id="pre_DifUnitario"></td> 
+            <td nowrap class="CobaltDataTD" style="BACKGROUND-COLOR: #c5d8eb"><input class="CobaltInputSB2" id="txt_PreReal" style="FONT-SIZE: 9px; WIDTH: 42px; COLOR: #330099; HEIGHT: 18px; BACKGROUND-COLOR: #cfdfef; TEXT-ALIGN: right" onchange="fCambioPrecios(this)" size="7" value="{txt_PreReal}" name="{txt_PreReal_Name}"></td> 
+            <td class="CobaltDataTD" width="68"><input class="CobaltInputSB" maxlength="15" size="9" value="{pre_Usuario}" name="{pre_Usuario_Name}" style="FONT-SIZE: 9px; TEXT-TRANSFORM: uppercase; WIDTH: 75px; HEIGHT: 17px" disabled><input class="CobaltInputSB" style="FONT-SIZE: 9px; TEXT-TRANSFORM: uppercase; WIDTH: 75px; HEIGHT: 17px" size="9" value="{TextBox1}" name="{TextBox1_Name}" disabled></td> 
+            <td class="CobaltDataTD" align="middle"><input class="CobaltInputSB" maxlength="5" size="1" value="{pre_Estado}" name="{pre_Estado_Name}" style="WIDTH: 16px; HEIGHT: 18px" disabled id="pre_Estado">
+              <!-- BEGIN Button Button1 --><input class="CobaltDataLink" title="Aplica el Precio Oficial y Adelanto especificado a todas las tarjas que cumplan con las condiciones de Embarque, Producto, Marca, Empaque, etc que se han definido para esta línea" style="FONT-SIZE: 8px; WIDTH: 49px; HEIGHT: 21px" type="button" size="8" value="APLICAR ..." name="{Button_Name}" onclick="fAplicaLista(this);"><!-- END Button Button1 --></td> 
+            <td nowrap class="CobaltDataTD">
+              <!-- BEGIN CheckBox CheckBox_Delete --><input class="CobaltInput" type="checkbox" value="1" name="{CheckBox_Delete_Name}" style="FONT-SIZE: 9px; WIDTH: 16px; HEIGHT: 18px" size="16" {CheckBox_Delete}><!-- END CheckBox CheckBox_Delete -->&nbsp; </td> 
+          </tr>
+ <!-- END Row -->
+          <!-- BEGIN NoRecords -->
+          <tr>
+            <td class="CobaltDataTD" colspan="14">No hay registros&nbsp; </td> 
+          </tr>
+ <!-- END NoRecords -->
+          <tr>
+            <td class="CobaltFooterTD" colspan="14" height="5">&nbsp; </td> 
+          </tr>
+ 
+        </table>
+ 
+      </form>
+ <!-- END EditableGrid liqprecaja_list --></td> 
+  </tr>
+ 
+</table>
+<iframe style="WIDTH: 0px; HEIGHT: 0px" name="frValida"></iframe>
+</body>
+ 
+</html>

@@ -1,0 +1,15 @@
+/* this file is only for running the LiveGrid Plus examples */
+
+#explanation, #settings {
+  background-color:#EEEEFF;
+  font-size:smaller;
+}
+
+#explanation p { margin:1em; }
+
+p.ricoBookmark { clear:both; }
+
+#settings form {
+  font-size:smaller;
+  margin:4px;
+}

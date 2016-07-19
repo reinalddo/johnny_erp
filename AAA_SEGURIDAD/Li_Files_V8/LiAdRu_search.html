@@ -1,0 +1,177 @@
+<html>
+<head>
+<base target="_self">
+<link rel="stylesheet" type="text/css" href="../Themes/Cobalt/Style.css">
+<link rel="stylesheet" type="text/css" href="../Themes/Menu/Style.css">
+<title>RUBROS: SELECCION</title>
+ 
+<script language="JavaScript" src="../LibJava/general.js"></script>
+<script language="JavaScript" src="../LibJava/cookies.js"></script>
+<script language="JavaScript" src="../LibJava/validaDB_ret.js"></script>
+<script language="JavaScript" src="../LibJava/menu_func.js"></script>
+</head>
+ 
+<body bgcolor="#fffff7" link="#000000" alink="#ff0000" vlink="#000000" text="#000000" class="CobaltPageBODY" style="PADDING-RIGHT: 0px; PADDING-LEFT: 0px; PADDING-BOTTOM: 0px; PADDING-TOP: 0px; magin: 0; spacing: 0" bottommargin="0" nowrap leftmargin="0" topmargin="17" rightmargin="0" marginwidth="0" marginheight="0">
+{Cabecera} 
+<table background="../Themes/Cobalt/Light Streaks.bmp" border="0" width="100%" class="CobaltPageBODY" cellspacing="0" cellpadding="0" align="center">
+  <tr>
+    <td valign="top" align="middle">&nbsp; 
+      <!-- BEGIN Record liqrubros_qry -->
+      <form name="{HTMLFormName}" action="{Action}" method="post" style="MARGIN: 0px">
+        <table class="CobaltFormTABLE" cellpadding="3" border="0">
+          <!-- BEGIN Error -->
+          <tr>
+            <td class="CobaltErrorDataTD" colspan="2">{Error}</td> 
+          </tr>
+          <!-- END Error -->
+          <tr>
+            <td class="CobaltFieldCaptionTD" nowrap>&nbsp;</td> 
+            <td class="CobaltDataTD"><input class="CobaltInput" maxlength="5" size="15" value="{s_keyword}" name="{s_keyword_Name}" style="WIDTH: 146px; HEIGHT: 17px">&nbsp; 
+              <!-- BEGIN Button Button_DoSearch --><input class="" type="submit" value="BUSCAR" name="{Button_Name}" style="FONT-SIZE: 9px; WIDTH: 51px; HEIGHT: 20px" size="21"><!-- END Button Button_DoSearch --></td> 
+          </tr>
+ 
+        </table>
+ 
+      </form>
+ <!-- END Record liqrubros_qry -->
+      <!-- BEGIN Grid liqrubros_list --><font class="CobaltFormHeaderFont">LISTA
+      DE
+      RUBROS&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+      ( </font> {liqrubros_r_genvarproceso_TotalRecords}&nbsp;Regs.) 
+      <table class="CobaltFormTABLE" cellpadding="2" border="0" cellspacing="0" align="center">
+        <tr>
+          <td class="CobaltFooterTD" nowrap colspan="14">
+            <!-- BEGIN Navigator Navigator -->
+            <!-- BEGIN First_On --><a class="CobaltNavigatorLink" href="{First_URL}"><img height="13" src="../Themes/Cobalt/FirstOn.gif" width="38" border="0"></a> <!-- END First_On -->
+            <!-- BEGIN Prev_On --><a class="CobaltNavigatorLink" href="{Prev_URL}"><img height="13" src="../Themes/Cobalt/PrevOn.gif" width="35" border="0"></a> <!-- END Prev_On -->&nbsp; 
+            <!-- BEGIN Pages -->
+            <!-- BEGIN Page_On --><a class="CobaltNavigatorLink" href="{Page_URL}">{Page_Number}</a>&nbsp; <!-- END Page_On -->
+            <!-- BEGIN Page_Off -->{Page_Number}&nbsp; <!-- END Page_Off --><!-- END Pages -->de
+            {Total_Pages}&nbsp; 
+            <!-- BEGIN Next_On --><a class="CobaltNavigatorLink" href="{Next_URL}"><img height="13" src="../Themes/Cobalt/NextOn.gif" width="34" border="0"></a> <!-- END Next_On -->
+            <!-- BEGIN Last_On --><a class="CobaltNavigatorLink" href="{Last_URL}"><img height="13" src="../Themes/Cobalt/LastOn.gif" width="37" border="0"></a> <!-- END Last_On --><!-- END Navigator Navigator -->&nbsp; 
+            <!-- BEGIN Button btNuevo --><input class="CobaltLink" title="Abre un apantalla para Añadir una Variable" style="FONT-SIZE: 9px; WIDTH: 48px; HEIGHT: 18px" onclick="JavaScript:window.enMantto      = true; fAbrirWin('LiAdRu_mant.php' ,'WinRu',' ', 870, 450); return false;" type="button" size="11" value="NUEVO" name="{Button_Name}"><!-- END Button btNuevo -->
+            <!-- BEGIN Button btCerrar --><input class="CobaltLink" title="Cierra esta pantalla de selección, sin retornar valor" style="FONT-SIZE: 9px; WIDTH: 48px; HEIGHT: 18px" onclick="fCerrar();" type="button" size="11" value="CERRAR" name="{Button_Name}"><!-- END Button btCerrar --></td> 
+        </tr>
+ 
+        <tr align="middle" valign="center">
+          <td class="CobaltColumnTD" nowrap>
+            <!-- BEGIN Sorter Sorter_rub_CodRubro --><a class="CobaltSorterLink" href="{Sort_URL}">ID</a> 
+            <!-- BEGIN Asc_On --><img height="9" src="../Themes/Cobalt/AscOn.gif" width="13" border="0"><!-- END Asc_On -->
+            <!-- BEGIN Desc_On --><img height="9" src="../Themes/Cobalt/DescOn.gif" width="13" border="0"><!-- END Desc_On --><!-- END Sorter Sorter_rub_CodRubro -->&nbsp;</td> 
+          <td class="CobaltColumnTD" nowrap>
+            <!-- BEGIN Sorter Sorter_rub_Abreviatura --><a class="CobaltSorterLink" style="FONT-SIZE: 9px" href="{Sort_URL}">ABREV.</a> 
+            <!-- BEGIN Asc_On --><img height="9" src="../Themes/Cobalt/AscOn.gif" width="13" border="0"><!-- END Asc_On -->
+            <!-- BEGIN Desc_On --><img height="9" src="../Themes/Cobalt/DescOn.gif" width="13" border="0"><!-- END Desc_On --><!-- END Sorter Sorter_rub_Abreviatura -->&nbsp;</td> 
+          <td class="CobaltColumnTD" nowrap style="FONT-SIZE: 9px">
+            <!-- BEGIN Sorter Sorter_rub_TipoProceso --><a class="CobaltSorterLink" style="FONT-SIZE: 9px" href="{Sort_URL}">PR</a> 
+            <!-- BEGIN Asc_On --><img height="9" src="../Themes/Cobalt/AscOn.gif" width="13" border="0"><!-- END Asc_On -->
+            <!-- BEGIN Desc_On --><img height="9" src="../Themes/Cobalt/DescOn.gif" width="13" border="0"><!-- END Desc_On --><!-- END Sorter Sorter_rub_TipoProceso -->&nbsp;</td> 
+          <td class="CobaltColumnTD" nowrap>
+            <!-- BEGIN Sorter Sorter_rub_Grupo --><a class="CobaltSorterLink" style="FONT-SIZE: 9px" href="{Sort_URL}">GRU</a> 
+            <!-- BEGIN Asc_On --><img height="9" src="../Themes/Cobalt/AscOn.gif" width="13" border="0"><!-- END Asc_On -->
+            <!-- BEGIN Desc_On --><img height="9" src="../Themes/Cobalt/DescOn.gif" width="13" border="0"><!-- END Desc_On --><!-- END Sorter Sorter_rub_Grupo -->&nbsp;</td> 
+          <td class="CobaltColumnTD" nowrap>
+            <!-- BEGIN Sorter Sorter_rub_DescLarga --><a class="CobaltSorterLink" style="FONT-SIZE: 9px" href="{Sort_URL}">DESCRIPCION</a> 
+            <!-- BEGIN Asc_On --><img height="9" src="../Themes/Cobalt/AscOn.gif" width="13" border="0"><!-- END Asc_On -->
+            <!-- BEGIN Desc_On --><img height="9" src="../Themes/Cobalt/DescOn.gif" width="13" border="0"><!-- END Desc_On --><!-- END Sorter Sorter_rub_DescLarga -->&nbsp;</td> 
+          <td class="CobaltColumnTD" nowrap>
+            <!-- BEGIN Sorter Sorter_run_DescCorta --><a class="CobaltSorterLink" style="FONT-SIZE: 9px" href="{Sort_URL}">DESC
+            CORTA</a> 
+            <!-- BEGIN Asc_On --><img height="9" src="../Themes/Cobalt/AscOn.gif" width="13" border="0"><!-- END Asc_On -->
+            <!-- BEGIN Desc_On --><img height="9" src="../Themes/Cobalt/DescOn.gif" width="13" border="0"><!-- END Desc_On --><!-- END Sorter Sorter_run_DescCorta -->&nbsp;</td> 
+          <td class="CobaltColumnTD" nowrap style="FONT-SIZE: 9px">
+            <!-- BEGIN Sorter Sorter_rub_PosOrdinal --><a class="CobaltSorterLink" style="FONT-SIZE: 9px" href="{Sort_URL}">ORDEN</a> 
+            <!-- BEGIN Asc_On --><img height="9" src="../Themes/Cobalt/AscOn.gif" width="13" border="0"><!-- END Asc_On -->
+            <!-- BEGIN Desc_On --><img height="9" src="../Themes/Cobalt/DescOn.gif" width="13" border="0"><!-- END Desc_On --><!-- END Sorter Sorter_rub_PosOrdinal -->&nbsp;</td> 
+          <td class="CobaltColumnTD" nowrap>
+            <!-- BEGIN Sorter Sorter_rub_variablea --><a class="CobaltSorterLink" style="FONT-SIZE: 9px" href="{Sort_URL}">OPERANDO
+            1</a> 
+            <!-- BEGIN Asc_On --><img height="9" src="../Themes/Cobalt/AscOn.gif" width="13" border="0"><!-- END Asc_On -->
+            <!-- BEGIN Desc_On --><img height="9" src="../Themes/Cobalt/DescOn.gif" width="13" border="0"><!-- END Desc_On --><!-- END Sorter Sorter_rub_variablea -->&nbsp;</td> 
+          <td class="CobaltColumnTD" nowrap style="FONT-SIZE: 9px">
+            <!-- BEGIN Sorter Sorter_rub_Operacion --><a class="CobaltSorterLink" style="FONT-SIZE: 9px" href="{Sort_URL}">OP</a> 
+            <!-- BEGIN Asc_On --><img height="9" src="../Themes/Cobalt/AscOn.gif" width="13" border="0"><!-- END Asc_On -->
+            <!-- BEGIN Desc_On --><img height="9" src="../Themes/Cobalt/DescOn.gif" width="13" border="0"><!-- END Desc_On --><!-- END Sorter Sorter_rub_Operacion -->&nbsp;</td> 
+          <td class="CobaltColumnTD" nowrap>
+            <!-- BEGIN Sorter Sorter_rub_Variableb --><a class="CobaltSorterLink" style="FONT-SIZE: 9px" href="{Sort_URL}">OPERANDO
+            2</a> 
+            <!-- BEGIN Asc_On --><img height="9" src="../Themes/Cobalt/AscOn.gif" width="13" border="0"><!-- END Asc_On -->
+            <!-- BEGIN Desc_On --><img height="9" src="../Themes/Cobalt/DescOn.gif" width="13" border="0"><!-- END Desc_On --><!-- END Sorter Sorter_rub_Variableb -->&nbsp;</td> 
+          <td class="CobaltColumnTD" nowrap>
+            <!-- BEGIN Sorter Sorter_rub_IndContab --><a class="CobaltSorterLink" style="FONT-SIZE: 9px" href="{Sort_URL}">CONTAB</a> 
+            <!-- BEGIN Asc_On --><img height="9" src="../Themes/Cobalt/AscOn.gif" width="13" border="0"><!-- END Asc_On -->
+            <!-- BEGIN Desc_On --><img height="9" src="../Themes/Cobalt/DescOn.gif" width="13" border="0"><!-- END Desc_On --><!-- END Sorter Sorter_rub_IndContab -->&nbsp;</td> 
+          <td class="CobaltColumnTD" nowrap>
+            <!-- BEGIN Sorter Sorter_rub_IndDbCr --><a class="CobaltSorterLink" style="FONT-SIZE: 9px" href="{Sort_URL}">DB
+            /&nbsp;CR</a> 
+            <!-- BEGIN Asc_On --><img height="9" src="../Themes/Cobalt/AscOn.gif" width="13" border="0"><!-- END Asc_On -->
+            <!-- BEGIN Desc_On --><img height="9" src="../Themes/Cobalt/DescOn.gif" width="13" border="0"><!-- END Desc_On --><!-- END Sorter Sorter_rub_IndDbCr -->&nbsp;</td> 
+          <td class="CobaltColumnTD" nowrap>
+            <!-- BEGIN Sorter Sorter_rub_Fecha --><a class="CobaltSorterLink" style="FONT-SIZE: 9px" href="{Sort_URL}">MODIFICADO</a> 
+            <!-- BEGIN Asc_On --><img height="9" src="../Themes/Cobalt/AscOn.gif" width="13" border="0"><!-- END Asc_On -->
+            <!-- BEGIN Desc_On --><img height="9" src="../Themes/Cobalt/DescOn.gif" width="13" border="0"><!-- END Desc_On --><!-- END Sorter Sorter_rub_Fecha -->&nbsp;</td> 
+          <td class="CobaltColumnTD" nowrap>
+            <!-- BEGIN Sorter Sorter_rub_Activo --><a class="CobaltSorterLink" style="FONT-SIZE: 9px" href="{Sort_URL}">ESTADO</a> 
+            <!-- BEGIN Asc_On --><img height="9" src="../Themes/Cobalt/AscOn.gif" width="13" border="0"><!-- END Asc_On -->
+            <!-- BEGIN Desc_On --><img height="9" src="../Themes/Cobalt/DescOn.gif" width="13" border="0"><!-- END Desc_On --><!-- END Sorter Sorter_rub_Activo -->&nbsp;</td> 
+        </tr>
+        <!-- BEGIN Row -->
+        <tr style="FONT-SIZE: 9px" title="Click para seleccionar este Rubro" onmouseover="fTxtResalta(this,'#009999');" onmouseout="fTxtNormal(this);">
+          <td class="CobaltDataTD"><input type="hidden" name="{rub_CodRubro_Name}" value="{rub_CodRubro}" style="WIDTH: 29px; HEIGHT: 22px" size="3">
+            <!-- BEGIN Button btMantt --><input class="CobaltLink" title="CLICK- Para Editar / Modificar este Rubro" style="FONT-SIZE: 9px; WIDTH: 34px; HEIGHT: 18px" onclick="JavaScript:window.enMantto=true; fAbrirWin('LiAdRu_mant.php?rub_CodRubro={rub_CodRubro}' ,'WinRu',' ', 850, 450); return false;" type="button" size="7" value="{rub_CodRubro}" name="{Button_Name}"><!-- END Button btMantt --></td> 
+          <td class="CobaltDataTD">{rub_Abreviatura}&nbsp;</td> 
+          <td class="CobaltDataTD">{rub_TipoProceso}&nbsp;</td> 
+          <td class="CobaltDataTD">{rub_Grupo}&nbsp;</td> 
+          <td class="CobaltDataTD">{rub_DescLarga}&nbsp;</td> 
+          <td class="CobaltDataTD">{run_DescCorta}&nbsp;</td> 
+          <td class="CobaltDataTD">{rub_PosOrdinal}&nbsp;</td> 
+          <td class="CobaltDataTD" style="BACKGROUND-COLOR: #b8dcdc" bgcolor="#b8dcdc">{rub_Constantea}{var_DescripA}</td> 
+          <td class="CobaltDataTD" align="middle" style="BACKGROUND-COLOR: #b8dcdc" bgcolor="#b8dcdc" width="20" height="20">&nbsp;{rub_Operacion}&nbsp;&nbsp;</td> 
+          <td class="CobaltDataTD" style="BACKGROUND-COLOR: #b8dcdc">{rub_Constanteb}{Alt_var_DescripB}</td> 
+          <td class="CobaltDataTD">{rub_IndContab}&nbsp;</td> 
+          <td class="CobaltDataTD">{rub_IndDbCr}&nbsp;</td> 
+          <td class="CobaltDataTD">{rub_Fecha}&nbsp;{rub_usuario}</td> 
+          <td class="CobaltDataTD">{rub_Activo}&nbsp;</td> 
+        </tr>
+        <!-- END Row -->
+        <!-- BEGIN AltRow -->
+        <tr style="FONT-SIZE: 9px" title="Click para seleccionar este Rubro" onmouseover="fTxtResalta(this,'#009999');" onmouseout="fTxtNormal(this);">
+          <td class="CobaltAltDataTD"><input type="hidden" name="{Alt_rub_CodRubro_Name}" value="{Alt_rub_CodRubro}" style="WIDTH: 25px; HEIGHT: 22px" size="3">
+            <!-- BEGIN Button btMantt2 --><input class="CobaltLink" title="CLICK- Para Editar / Modificar este Rubro" style="FONT-SIZE: 9px; WIDTH: 34px; HEIGHT: 18px" onclick="JavaScript:window.enMantto=true; fAbrirWin('LiAdRu_mant.php?rub_CodRubro={Alt_rub_CodRubro}' ,'WinRu',' ', 850, 450); return false;" type="button" size="8" value="{Alt_rub_CodRubro}" name="{Button_Name}"><!-- END Button btMantt2 --></td> 
+          <td class="CobaltAltDataTD">{Alt_rub_Abreviatura}&nbsp;</td> 
+          <td class="CobaltAltDataTD">{Alt_rub_TipoProceso}&nbsp;</td> 
+          <td class="CobaltAltDataTD">{Alt_rub_Grupo}&nbsp;</td> 
+          <td class="CobaltAltDataTD">{Alt_rub_DescLarga}&nbsp;</td> 
+          <td class="CobaltAltDataTD">{Alt_run_DescCorta}&nbsp;</td> 
+          <td class="CobaltAltDataTD">{Alt_rub_PosOrdinal}&nbsp;</td> 
+          <td class="CobaltAltDataTD" style="BACKGROUND-COLOR: #b8dcdc" bgcolor="#b8dcdc">{Alt_rub_Constantea}{Alt_var_DescripA}</td> 
+          <td class="CobaltAltDataTD" align="middle" style="BACKGROUND-COLOR: #b8dcdc" bgcolor="#b8dcdc">&nbsp;{Alt_rub_Operacion}&nbsp;
+            &nbsp;</td> 
+          <td class="CobaltAltDataTD" style="BACKGROUND-COLOR: #b8dcdc">{Alt_rub_Constanteb}{var_DescripB}</td> 
+          <td class="CobaltAltDataTD">{Alt_rub_IndContab}&nbsp;</td> 
+          <td class="CobaltAltDataTD">{Alt_rub_IndDbCr}&nbsp;</td> 
+          <td class="CobaltAltDataTD">{Alt_rub_Fecha}&nbsp;{Alt_rub_usuario}</td> 
+          <td class="CobaltAltDataTD">{Alt_rub_Activo}&nbsp;</td> 
+        </tr>
+        <!-- END AltRow -->
+        <!-- BEGIN NoRecords -->
+        <tr title="Click para seleccionar este Rubro" onmouseover="fTxtResalta(this,'#009999');" onmouseout="fTxtNormal(this);">
+          <td class="CobaltAltDataTD" colspan="14">No hay registros&nbsp;</td> 
+        </tr>
+        <!-- END NoRecords -->
+        <tr>
+          <td class="CobaltFooterTD" colspan="14">&nbsp;</td> 
+        </tr>
+ 
+      </table>
+ <!-- END Grid liqrubros_list --></td> 
+  </tr>
+ 
+</table>
+ 
+<p></p>
+ 
+</body>
+ 
+</html>

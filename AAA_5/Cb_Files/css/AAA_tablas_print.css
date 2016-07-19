@@ -1,0 +1,25 @@
+/*
+*	CSS para tablas en impresion
+*/
+div.tableContainer {overflow: visible;	}
+table>tbody	{overflow: visible; }
+td {height: 14pt;} /*adds control for test purposes*/
+thead td	{font-size: 11pt;	}
+tfoot td	{
+	text-align: center;
+	font-size: 9pt;
+	border-bottom: solid 1px slategray;
+	}
+thead	{display: table-header-group;	}
+tfoot	{display: table-footer-group;	}
+thead th, thead td	{position: static; } 
+thead tr	{background-color:grey; position: static; } /*prevent problem if print after scrolling table*/ 
+table tfoot tr {     position: static;    }
+td	{
+	color: #000;
+	padding-right: 2pt;
+	font-size: 9pt;
+	text-align: right;
+	border-bottom:  1pt solid black;
+	border-left:  1pt solid black;
+	}

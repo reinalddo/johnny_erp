@@ -1,0 +1,124 @@
+<html>
+<head>
+<meta name="GENERATOR" content="CodeCharge Studio 2.3.2.24">
+<base target="_self">
+<link rel="stylesheet" type="text/css" href="../Themes/Cobalt/Style.css">
+<link rel="stylesheet" type="text/css" href="../Themes/Menu/Style.css">
+<title></title>
+<script language="JavaScript" src="../LibJava/general.js"></script>
+<script language="JavaScript" src="../LibJava/menu_func.js"></script>
+<script language="JavaScript">
+function fEjecutar(e, pUrl){
+	if (!e) e = window.event;
+	if (e.shiftKey) pUrl+="?pExcel=1&"
+	else pUrl+="?"
+//debugger;
+	if (!pUrl) return;
+	pUrl+="pQry=YEAR(fechaRegistro)="  + document.fiscompras_qry.s_tmp_anio.value + 
+		  " AND MONTH(fechaRegistro)= " + document.fiscompras_qry.s_tmp_mes.value + 
+		  "&s_Anio=" + document.fiscompras_qry.s_tmp_anio.value + "&s_Mes=" + document.fiscompras_qry.s_tmp_mes.value;
+	fAbrirWin(pUrl , 'wcom', '',850,600);
+}
+</script>
+</head>
+ 
+<body bgcolor="#fffff7" link="#000000" alink="#ff0000" vlink="#000000" text="#000000" class="CobaltPageBODY" style="PADDING-RIGHT: 0px; PADDING-LEFT: 0px; PADDING-BOTTOM: 0px; PADDING-TOP: 0px; magin: 0; spacing: 0; align: center" bottommargin="0" nowrap leftmargin="0" topmargin="17" rightmargin="0" marginwidth="0" marginheight="0">
+{Cabecera} 
+<table background="../Themes/Cobalt/Light Streaks.bmp" border="0" width="100%">
+  <tr>
+    <td align="center">&nbsp; 
+      <!-- BEGIN EditableGrid fiscompras_qry -->
+      <form name="{HTMLFormName}" action="{Action}" method="post">
+        <font color="#546785">CONDICION&nbsp; DE BUSQUEDA DE TRANSACCIONES <font class="CobaltFormHeaderFont"></font></font><input type="hidden" name="FormState" value="{FormState}">{FormScript} 
+        <table border="0" cellpadding="3" class="CobaltFormTABLE">
+          <!-- BEGIN Error -->
+          <tr>
+            <td colspan="4" class="CobaltErrorDataTD">{Error}</td> 
+          </tr>
+          <!-- END Error -->
+          <tr>
+            <td class="CobaltColumnTD" nowrap></td> 
+            <td nowrap class="CobaltColumnTD"></td> 
+            <td nowrap class="CobaltColumnTD"></td> 
+            <td nowrap class="CobaltColumnTD"></td> 
+          </tr>
+          <!-- BEGIN Row -->
+          <!-- BEGIN RowError -->
+          <tr>
+            <td colspan="4" class="CobaltErrorDataTD">{Error}</td> 
+          </tr>
+          <!-- END RowError -->
+          <tr>
+            <td class="CobaltDataTD">AÑO:</td> 
+            <td class="CobaltDataTD">
+              <select name="{s_tmp_anio_Name}" class="CobaltSelect" id="s_tmp_anio">
+                <option value="" selected>-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;</option>
+ {s_tmp_anio_Options} 
+              </select>
+ &nbsp;</td> 
+            <td class="CobaltDataTD">MES:&nbsp;</td> 
+            <td class="CobaltDataTD">
+              <select name="{s_tmp_mes_Name}" class="CobaltSelect" id="s_tmp_mes">
+                <option value="" selected>-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;</option>
+ {s_tmp_mes_Options} 
+              </select>
+ &nbsp;</td> 
+          </tr>
+          <!-- END Row -->
+          <!-- BEGIN NoRecords -->
+          <tr>
+            <td colspan="4" class="CobaltDataTD">No hay registros&nbsp;</td> 
+          </tr>
+          <!-- END NoRecords -->
+          <tr>
+            <td align="center" colspan="4" nowrap class="CobaltFooterTD">&nbsp;
+              &nbsp; </td> 
+          </tr>
+ 
+        </table>
+ 
+      </form>
+ <!-- END EditableGrid fiscompras_qry --></td> 
+  </tr>
+ 
+</table>
+<table>
+  <tr>
+    <td nowrap colspan="4">
+      <div class="normalbox" style="PADDING-RIGHT: 4px; PADDING-LEFT: 4px; PADDING-BOTTOM: 4px; MARGIN: 20px; PADDING-TOP: 0px; TEXT-ALIGN: center">
+        <span class="spantitle" style="LEFT: 0px; MARGIN: 0px; POSITION: relative; TOP: -10px">&nbsp;
+        &nbsp; FORMATOS DE REPORTE &nbsp; &nbsp; </span>
+        <div style="align: center">
+          <input name="Button_11" class="CobaltDataLink" value=" LISTA GENERAL" onclick="fEjecutar(event, 'CoRtTr_resumenmovim.grid.php')" title=" RESUMEN GENERAL " style="FONT-SIZE: 9px; WIDTH: 131px; HEIGHT: 25px" type="button">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+	  <input name="Button_12" class="CobaltDataLink" value=" RESUMEN" onclick="fEjecutar(event, 'CoRtTr_resumentipair.grid.php')" title=" RESUMEN POR TIPO DE TRANSACCION  " style="FONT-SIZE: 9px; WIDTH: 131px; HEIGHT: 25px" type="button">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+	  <input name="Button_13" class="CobaltDataLink" value="DET. DE RETENCION" onclick="fEjecutar(event, 'CoRtTr_detallemovim.grid.php')" title="DETALLE DE RETENCIONES, AGRUPADAS POR CODIGO DE RETENCION   " style="FONT-SIZE: 9px; WIDTH: 131px; HEIGHT: 25px" type="button">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+	  <input name="Button_14" class="CobaltDataLink" value="SOLO RETENCIONES " onclick="fEjecutar(event, 'CoRtTr_detalleret.grid.php')" title="DETALLE DE RETENCIONES, AGRUPADAS POR CODIGO DE RETENCION   "  style="FONT-SIZE: 9px; WIDTH: 131px; HEIGHT: 25px" type="button">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+	  <input name="Button_15" class="CobaltDataLink" value="LIBRO COMPRAS 2" onclick="fEjecutar(event, 'RtTrTr_Librocompras2.rpt.php')" title="LIBRO COMPRAS 2º Formato" style="FONT-SIZE: 9px; WIDTH: 131px; HEIGHT: 25px" type="button">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        </div>
+
+        <div style="align: center">
+          &nbsp;<input name="Button_11" class="CobaltDataLink" value="GENERAR ATS XML" onclick="fEjecutar(event, 'CoRtTr_archxml.rpt.php')" title="GENERAR ARCHIVO TRANSACCIONAL XML " style="FONT-SIZE: 9px; WIDTH: 131px; HEIGHT: 25px" type="button">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+	  <input name="Button_12" class="CobaltDataLink" value="LIBRO COMPRAS" onclick="fEjecutar(event, 'RtTrTr_Librocompras.rpt.php')" title="LIBRO DE COMPRAS" style="FONT-SIZE: 9px; WIDTH: 131px; HEIGHT: 25px" type="button">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+	  <input name="Button_13" class="CobaltDataLink" value="MAYOR" onclick="fEjecutar(event, 'CoTrTr_Mayor.rpt.php')" title="MAYOR" style="FONT-SIZE: 9px; WIDTH: 131px; HEIGHT: 25px" type="button">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+	  <input name="Button_14" class="CobaltDataLink" value="LIBRO DIARIO" onclick="fEjecutar(event, 'CoTrTr_Diario.rpt.php')" title="LIBRO DIARIO" style="FONT-SIZE: 9px; WIDTH: 131px; HEIGHT: 25px" type="button">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+	  <input name="Button_15" class="CobaltDataLink" value="REP_INCONSISTENCIAS " onclick="fEjecutar(event, 'CoRtTr_Anexo_Rep.rpt.php')" title="   " style="FONT-SIZE: 9px; WIDTH: 131px; HEIGHT: 25px" type="button">
+	 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+        </div>
+	<div style="align: center">
+          &nbsp;<input name="Button_11" class="CobaltDataLink" value="GENERAR REOC XML" onclick="fEjecutar(event, 'CoRtTr_archxml_REOC.rpt.php')" title="GENERAR REOC ARCHIVO XML " style="FONT-SIZE: 9px; WIDTH: 131px; HEIGHT: 25px" type="button">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+	  <input name="Button_12" class="CobaltDataLink" value="VENTAS" onclick="fEjecutar(event, 'CoRtTr_Ventas_Rep.rpt.php')" title="REPORTE DE VENTAS" style="FONT-SIZE: 9px; WIDTH: 131px; HEIGHT: 25px" type="button">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+	  <input name="Button_13" class="CobaltDataLink" value="" onclick="" title="" style="FONT-SIZE: 9px; WIDTH: 131px; HEIGHT: 25px" type="button">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+	  <input name="Button_14" class="CobaltDataLink" value="" onclick="" title="" style="FONT-SIZE: 9px; WIDTH: 131px; HEIGHT: 25px" type="button">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+	  <input name="Button_15" class="CobaltDataLink" value="" onclick="" title="" style="FONT-SIZE: 9px; WIDTH: 131px; HEIGHT: 25px" type="button">
+	   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+        </div>
+ 
+      </div>
+ </td> 
+  </tr>
+ 
+</table>
+ 
+</body>
+ 
+</html>

@@ -1,0 +1,115 @@
+<html>
+<head>
+<base target="_self">
+<link rel="stylesheet" type="text/css" href="../Themes/StormyWeather/Style.css">
+<link rel="stylesheet" type="text/css" href="../Themes/Menu/Style.css">
+<title></title>
+<script language="JavaScript" src="../LibJava/menu_func.js"></script>
+<link rel="stylesheet" type="text/css" href="../Themes/Cobalt/Style.css">
+</head>
+<body bgcolor="#fffff7" link="#000000" alink="#ff0000" vlink="#000000" text="#000000" class="CobaltPageBODY">
+<p>{Cabecera}
+<table background="../Themes/Cobalt/Light Streaks.bmp" border="0" align="center" cellpadding="0" cellspacing="0">
+  <tr>
+    <td align="middle" valign="top">&nbsp; 
+      <!-- BEGIN Record genpuertosSearch -->
+      <form action="{Action}" method="post" name="{HTMLFormName}" target="_self">
+        <font class="CobaltFormHeaderFont">Buscar Puertos </font> 
+        <table border="0" cellpadding="3" class="CobaltFormTABLE">
+          <!-- BEGIN Error -->
+          <tr>
+            <td class="CobaltErrorDataTD" colspan="4">{Error}</td> 
+          </tr>
+          <!-- END Error -->
+          <tr>
+            <td class="CobaltFieldCaptionTD" nowrap>&nbsp;Descripción&nbsp;</td> 
+            <td class="CobaltDataTD"><input class="CobaltInput" maxlength="25" name="{s_pue_Descripcion_Name}" size="25" value="{s_pue_Descripcion}">&nbsp;</td> 
+            <td class="CobaltFieldCaptionTD" nowrap>&nbsp;Pais&nbsp;</td> 
+            <td class="CobaltDataTD">
+              <select class="CobaltSelect" name="{s_pue_CodPais_Name}">
+                <option selected value="">Seleccionar Valor</option>
+ {s_pue_CodPais_Options} 
+              </select>
+ &nbsp;</td> 
+          </tr>
+ 
+          <tr>
+            <td class="CobaltFooterTD" nowrap><a class="CobaltSorterLink" href="{ClearParameters_Src}">Limpiar</a>&nbsp; </td> 
+            <td align="right" class="CobaltFooterTD" nowrap>
+              <!-- BEGIN Button Button_DoSearch --><input class="CobaltButton" name="{Button_Name}" type="submit" value="Buscar"><!-- END Button Button_DoSearch -->&nbsp; </td> 
+          </tr>
+ 
+        </table>
+ 
+      </form>
+ <!-- END Record genpuertosSearch -->
+      <!-- BEGIN EditableGrid genpuertos -->
+      <form action="{Action}" method="post" name="{HTMLFormName}" target="_self">
+        <font class="CobaltFormHeaderFont">Lista de Puertos </font><input name="FormState" type="hidden" value="{FormState}">{FormScript} 
+        <table border="0" cellpadding="1" class="CobaltFormTABLE" cellspacing="1">
+          <!-- BEGIN Error -->
+          <tr>
+            <td class="CobaltErrorDataTD" colspan="4">{Error}</td> 
+          </tr>
+          <!-- END Error -->
+          <tr>
+            <td class="CobaltColumnTD" nowrap>
+              <!-- BEGIN Sorter Sorter_pue_CodPuerto --><a class="CobaltSorterLink" href="{Sort_URL}">COD.</a><!-- END Sorter Sorter_pue_CodPuerto -->&nbsp;</td> 
+            <td class="CobaltColumnTD" nowrap>
+              <!-- BEGIN Sorter Sorter_pue_Descripcion --><a class="CobaltSorterLink" href="{Sort_URL}">DESCRIPCION</a><!-- END Sorter Sorter_pue_Descripcion -->&nbsp;</td> 
+            <td class="CobaltColumnTD" nowrap>
+              <!-- BEGIN Sorter Sorter_pue_CodPais --><a class="CobaltSorterLink" href="{Sort_URL}">PAIS</a><!-- END Sorter Sorter_pue_CodPais -->&nbsp; </td> 
+            <td class="CobaltColumnTD" nowrap>BORRAR&nbsp;&nbsp;</td> 
+          </tr>
+          <!-- BEGIN Row -->
+          <!-- BEGIN RowError -->
+          <tr>
+            <td class="CobaltErrorDataTD" colspan="4">{Error}</td> 
+          </tr>
+          <!-- END RowError -->
+          <tr valign="top">
+            <td class="CobaltDataTD" align="middle">{pue_CodPuerto}&nbsp;</td> 
+            <td class="CobaltDataTD"><input class="CobaltInput" maxlength="25" name="{pue_Descripcion_Name}" size="25" value="{pue_Descripcion}">&nbsp;</td> 
+            <td class="CobaltDataTD">
+              <select class="CobaltSelect" name="{pue_CodPais_Name}">
+                <option selected value="">-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;- </option>
+ {pue_CodPais_Options} 
+              </select>
+ &nbsp;</td> 
+            <td class="CobaltDataTD">
+              <!-- BEGIN CheckBox CheckBox_Delete --><input class="CobaltInput" name="{CheckBox_Delete_Name}" type="checkbox" value="1" {CheckBox_Delete}><!-- END CheckBox CheckBox_Delete -->&nbsp;</td> 
+          </tr>
+          <!-- END Row -->
+          <!-- BEGIN NoRecords -->
+          <tr>
+            <td class="CobaltDataTD" colspan="4">No hay puertos registrados para
+              esa condicion&nbsp;</td> 
+          </tr>
+          <!-- END NoRecords -->
+          <tr>
+            <td align="right" class="CobaltFooterTD" colspan="4" nowrap>
+              <!-- BEGIN Navigator Navigator -->
+              <!-- BEGIN First_On --><a class="CobaltNavigatorLink" href="{First_URL}"><img src="../Themes/Aqua/FirstOn.gif" border="0"></a> <!-- END First_On -->
+              <!-- BEGIN Prev_On --><a class="CobaltNavigatorLink" href="{Prev_URL}"><img src="../Themes/Aqua/PrevOn.gif" border="0"></a> <!-- END Prev_On -->&nbsp;{Page_Number}&nbsp;de
+              {Total_Pages}&nbsp; 
+              <!-- BEGIN Next_On --><a class="CobaltNavigatorLink" href="{Next_URL}"><img src="../Themes/Aqua/NextOn.gif" border="0"></a> <!-- END Next_On -->
+              <!-- BEGIN Last_On --><a class="CobaltNavigatorLink" href="{Last_URL}"><img src="../Themes/Aqua/LastOn.gif" border="0"></a> <!-- END Last_On --><!-- END Navigator Navigator -->&nbsp; 
+              <!-- BEGIN Button Button_Submit --><input class="CobaltButton" name="{Button_Name}" type="submit" value="Enviar"><!-- END Button Button_Submit -->&nbsp; 
+              <!-- BEGIN Button Cancel --><input class="CobaltButton" name="{Button_Name}" type="submit" value="Cancelar"><!-- END Button Cancel -->&nbsp; </td> 
+          </tr>
+ 
+        </table>
+ 
+      </form>
+ <!-- END EditableGrid genpuertos --></td> 
+    <td>&nbsp;</td> 
+  </tr>
+ 
+  <tr>
+    <td>&nbsp;</td> 
+    <td>&nbsp;</td> 
+  </tr>
+</table>
+ </p>
+</body>
+</html>

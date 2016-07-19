@@ -1,0 +1,776 @@
+<html>
+<!--
+/**
+*	Plantilla HTML del detalle de comprobante de inventario
+*	@return:   	true si existe una seleccion en curso, false si no
+*	@rev	fah 10/02/2010	Traer precio unitario de venta de un item, basado en definicion de precios de la transaccion
+*/
+-->
+<head>
+  <base>
+  <link rel="stylesheet" type="text/css" href="../Themes/StormyWeather/Style.css">
+  <link rel="stylesheet" type="text/css" href="../Themes/Menu/Style.css">
+  <title>DETALLE DE TRANSACCION</title>
+ 
+  <script language="JavaScript" src="../LibJava/cookies.js"></script>
+  <script language="JavaScript" src="../LibJava/general.js"></script>
+    <script language="JavaScript" src="../LibJava/general.js"></script>
+  <script language="JavaScript" src="../LibJava/numberformat.js"></script>
+  <script language="JavaScript" src="../LibJava/pajax-commom.js" type="text/javascript"></script>
+<script language="JavaScript" src="../LibJava/pajax-parser.js" type="text/javascript"></script>
+<script language="JavaScript" src="../LibJava/pajax-core.js" type="text/javascript"></script>
+<script language="JavaScript" src="../LibJava/autosuggestcontroller.js" type="text/javascript"></script>
+<script language="JavaScript" src="../LibJava/dataprovider.js" type="text/javascript"></script>
+<script language="JavaScript" src="../LibJava/browser_detect.js" type="text/javascript"></script>
+<script language="JavaScript" src="../LibJava/clsRpc.js"></script>
+
+ 
+ 
+ 
+  <script language="JavaScript1.3" src="../LibJava/cookies.js"></script>
+  <script language="JavaScript1.3" src="../LibJava/general.js"></script>
+  <script language="JavaScript1.3" id="hdRegNumero">
+	var sgCambio= new String (" ");
+/**
+*	Determina si existe una ventana de seleccion activada
+*	@return:   	true si existe una seleccion en curso, false si no
+*/
+function fSelWinON()
+{
+	if (frames[0].location != "about:blank") {
+		if(frames[0].winres && !frames[0].winres.closed) return true;	// Si la ventana de Selecc esta abierta
+	}
+	return false;
+}
+
+
+/**
+*	Hace focus en la ventana de seleccion si este una abierta, para simular un Modal Dialog
+*	@return:   	void
+*/
+function fActivaDialog()
+{
+	if (fSelWinON()) {
+			frames[0].winres.focus();
+		}
+}
+	
+/*---------------------------------------------------------------------------------------------------------------
+	Validacion de codigo de Item:
+*  	carga en un frame una pagina que trae datos del item, si es uno solo, obtiene la informacion enecesaria,
+*	caso contrario lanza una pagina de busqueda
+  ---------------------------------------------------------------------------------------------------------------
+*/
+
+function fValida_Item(odata, sSufijo) {
+	var ilIndice  = 0;
+	var sDestino   = new Array("det_CodItem", "act_Descripcion", "det_UniMedida", "act_UniMedida", "hdMulti", "hdDivisor", "det_ValUnitario");
+	var sOrigen  = new Array("act_codauxiliar", "act_descrip", "act_UniMedida", "act_UniMedida", "tab_Multiplicador", "tab_Divisor", "tmp_unitario");
+	var sMensaje    = "NO EXISTEN Auxiliares para la condicion de bsqueda, o loss que existen, NO ESTAN Activos";
+	var i, j , k = 0;
+	
+	sgCambio = "I";
+	sScript = new String(odata.name);
+
+	if (sSufijo.length > 0 ){
+		k=sScript.substr(sScript.lastIndexOf("_"))
+	}
+	var woPar=this.parent.document;	
+	var sSql ="SELECT act_codauxiliar as act_codauxiliar, concat(act_descripcion, ' ', act_descripcion1) as act_descrip, " + 
+		  "act_UniMedida, act_UniMedida, '1' as tab_Multiplicador, '1' as tab_Divisor , IFNULL(pre_preunitario,0) AS tmp_unit "  +
+		  " FROM (conactivos  INNER JOIN concategorias on concategorias.cat_codauxiliar = conactivos.act_codauxiliar) " +
+		  "	LEFT JOIN genclasetran ON cla_tipocomp = '" + woPar.forms["InTrTr_comp"].elements["com_TipoComp"].value + "' "+
+		        "LEFT JOIN invprecios ON pre_lisprecios = cla_lisprecios AND pre_coditem = act_codauxiliar " ;
+	var sWhere =" WHERE  " 
+
+	if (!isNaN(odata.value)) {
+			sWhere += " act_codauxiliar LIKE '" + escape(odata.value) + "%' OR " ;
+			}
+	sWhere += " act_descripcion LIKE '" + escape(odata.value) + "%' OR act_descripcion1 LIKE '" + escape(odata.value) + "%' "
+alert
+    var ilFila= parseInt((k.substr(1)));
+	with (document.InTrTr_detalle) {
+		if (ilFila >= 0 ) {
+//			j = det_Secuencia[ilFila].value ;
+
+			if (ilFila > 1)  {
+				j = det_Secuencia[ilFila - 2].value;  //Fila anterior: el inidice inicia en cero
+				i = parseInt(j)  + 1;   
+				det_Secuencia[ilFila-1].value  = i; 
+				}
+			else {
+				det_Secuencia[ilFila-1].value  = 1;  
+				}
+			det_RegNumero[ilFila-1].value = getFromurl("com_RegNumero");			
+		setCookie("coSelect", sSql);
+		setCookie("coWhere",  sWhere);
+		setCookie("coDestino", sDestino);
+		setCookie("coOrigen", sOrigen);
+		setCookie("coCompon", "InTrTr_detalle");
+		setCookie("coSearchPage", "InTrTr_items.php");
+		setCookie("coFocus", "det_CanDespachada");
+		setCookie("coErrMensaje", sMensaje);
+		setCookie("coSufijo", k);
+		SearchFrame.location.replace("Validador.php?SearchField=" + escape(odata.value) + "&pField=" + escape(odata.name) + "&pSufijo=" +k);
+		document.InTrTr_detalle.det_CanDespachada[ilFila -1].focus();
+		}
+	}
+}
+/*---------------------------------------------------------------------------------------------------------------
+	Validacion de codigo de Item:
+*  	carga en un frame una pagina que trae datos del item, si es uno solo, obtiene la informacion enecesaria,
+*	caso contrario lanza una pagina de busqueda
+  ---------------------------------------------------------------------------------------------------------------
+*/
+
+function fBusca_Item(odata, sSufijo) {
+    valtmp = odata.value;
+    odata.value ="";
+    fValida_Item(odata, sSufijo);
+    odata.value = valtmp;
+}
+/*---------------------------------------------------------------------------------------------------------------
+*	Evento disparado al modificar la unidad de medida de la transaccion
+* ---------------------------------------------------------------------------------------------------------------
+*/
+function fAfterUnidad(odata) {
+	if (sgCambio == "U") fCambiaUnidad(odata, "X");
+}
+
+/*---------------------------------------------------------------------------------------------------------------
+*	Evento disparado al modificar la U. de medida en la que se despacha/recibe
+* ---------------------------------------------------------------------------------------------------------------
+*/
+function fCambiaUnidad(odata, sSufijo) {
+	m = fTraefila(odata.name) ;	
+	if  (document.InTrTr_detalle.det_UniMedida[m-1].value > 0) {
+		fTraeConversion(odata, sSufijo)
+		fRecalcular(String("det_UniMedida_" + m));
+		}
+}
+
+/*---------------------------------------------------------------------------------------------------------------
+*   Trae la tasa de conversion entre unidades	
+*  	carga en un frame una pagina que trae datos del taza de conversion
+*	caso contrario lanza una pagina de busqueda
+  ---------------------------------------------------------------------------------------------------------------
+*/
+function fTraeConversion(odata, sSufijo) {
+	var ilIndice  = 0;
+	var sDestino   = new Array("hdMulti", "hdDivisor");
+	var sOrigen  = new Array("tab_multiplicador", "tab_divisor");
+	var i, j , k = 0;
+	
+	i = fTraefila(odata.name) - 1;			// Numero de fila en que se encuentra el cursor dentro del form
+	sScript = new String(odata.name);
+	if (sSufijo.length > 0 ){
+		k=sScript.substr(sScript.lastIndexOf("_"))
+	}
+	with (document.InTrTr_detalle) {
+		if (det_UniMedida[i].value > 0 ) {
+			var sSql 	= 	"SELECT tab_multiplicador, tab_divisor " +
+							" FROM gentabconvers "
+		    var sWhere 	=	" WHERE tab_desde = " + det_UniMedida[i].value +
+							"   AND tab_hasta = " + act_UniMedida[i].value ;
+			if (i >= 0 ) {
+				j = det_Secuencia[i].value ;
+				if (i> 0)  {
+					j = parseInt(det_Secuencia[i - 1].value);  //Fila anterior: el inidice inicia en cero
+					if (isNaN(j)) alert ("NO PUEDE INGRESAR DATOS EN ESTA FILA");
+					det_Secuencia[i].value  = (j *1) + 1; }
+				else {
+					det_Secuencia[i].value  = 1;  
+					}
+				det_RegNumero[i].value = getFromurl("com_RegNumero")
+			}
+
+			setCookie("coSelect", sSql);
+			setCookie("coWhere",  sWhere);
+			setCookie("coDestino", sDestino);
+			setCookie("coOrigen", sOrigen);
+			setCookie("coCompon", "InTrTr_detalle");
+			setCookie("coSearchPage", "--");
+			setCookie("coFocus", "det_CosUnitario");
+			setCookie("coSufijo", k);
+
+		    SearchFrame.location.replace("Validador.php?SearchField=" + escape(odata.value) + "&pField=" + escape(odata.name) + "&pSufijo=" +k);
+			}
+		}
+}
+
+/*---------------------------------------------------------------------------------------------------------------
+*	Evento disparado al modificar la Cantidad despachada/recibida
+* ---------------------------------------------------------------------------------------------------------------
+*/
+function fCambiaCant(odata) {
+	fRecalcular(odata.name);
+}
+
+/*---------------------------------------------------------------------------------------------------------------
+*	Recalculo de Cantidad Afectada, Costo y Valor Total del item de una fila especifica
+* ---------------------------------------------------------------------------------------------------------------
+*/
+function fRecalcular(slCampo) {
+	i = fTraefila(slCampo) - 1;			// Numero de fila en que se encuentra el cursor dentro del form
+	j = slCampo.lastIndexOf("_");
+	k=0;
+	sdato=slCampo.substr(0,j);
+		switch  (sdato) {
+			case "det_UniMedida":
+			case "det_CanDespachada" :
+				window.status="Recalculando Cantidad .................."
+				with (document.InTrTr_detalle) {
+				var flCanDesp = fNum('F', det_CanDespachada[i].value);
+//				if (flCanDesp > 0) {
+					var flMulti 	= fNum("F", hdMulti[i].value);
+					var flDivisor 	= fNum("F",hdDivisor[i].value);
+					if (flMulti > 0  && flDivisor > 0) {
+							det_CantEquivale[i].value	=  (flCanDesp * flMulti) / flDivisor;
+							det_CosTotal[i].value		=  fredondear(fNum("F", det_CantEquivale[i].value)  * fNum("F", det_CosUnitario[i].value),2) ;
+							det_ValTotal[i].value		=  fredondear(fNum("F", det_CantEquivale[i].value)  * fNum("F", det_ValUnitario[i].value),2) ;
+						    }
+						else {
+							fTraeConversion(det_UniMedida[i], "X");
+							flMulti 	= fNum("F", hdMulti[i].value);
+							flDivisor 	= fNum("F",hdDivisor[i].value);
+							if (flMulti > 0  && flDivisor > 0) {
+								det_CantEquivale[i].value	=  (flCanDesp * flMulti) / flDivisor;
+								det_CosUnitario[i].focus();
+								det_CosUnitario[i].select();
+								return;			}
+							else {
+								alert("NO SE PUEDE ESTABLECER CONVERSION DE UNIDADES CORRECTAS!!!!!!!. Probablemente no se ha definido equivalencias entre mltiplos y submltiplos")		}
+							}
+						}
+//					else {
+					    /********************
+								alert("LA CANTIDAD DEBE SER POSITIVA");
+								det_CanDespachada[i].focus();
+								return;
+						********************/
+//						 }
+//					}
+
+			case "det_CosUnitario":
+				with (document.InTrTr_detalle) {
+					/*if (parseFloat(det_CosUnitario[i].value) < 0) {
+							alert("EL COSTO UNITARIO DEBE SER POSITIVO");
+							det_CosUnitario[i].focus();
+							return;
+						}*/
+					det_CosTotal[i].value		=  fredondear(fNum("F",det_CantEquivale[i].value) * fNum("F", det_CosUnitario[i].value),2);
+					}
+				
+				break;
+
+			case "det_CosTotal":
+				with (document.InTrTr_detalle) {
+					/*if (parseFloat(det_CosTotal[i].value) < 0) {
+							alert("EL COSTO  DEBE SER POSITIVO");
+							det_CosTotal[i].focus();
+							return;
+						}*/
+					det_CosUnitario[i].value	=  fredondear(fNum("F",det_CosTotal[i].value) / fNum("F", det_CantEquivale[i].value ),6)
+					}
+				
+				break;
+			
+			case "det_ValTotal":
+				with (document.InTrTr_detalle) {
+					if (parseFloat(det_ValTotal[i].value) < 0) {
+							alert("EL VALOR TOTAL DEBE SER POSITIVO");
+							det_ValTotal[i].focus();
+							return;
+						}
+					det_ValUnitario[i].value  = fredondear(fNum("F",det_ValTotal[i].value)	/  fNum("F", det_CantEquivale[i].value),6)
+					}
+
+				break;
+
+			case "det_ValUnitario":
+				with (document.InTrTr_detalle) {
+					if (parseFloat(det_ValUnitario[i].value) < 0) {
+							alert("EL VALOR DEBE SER POSITIVO");
+							det_ValUnitario[i].focus();
+							return;
+						}
+					det_ValTotal[i].value		=  fredondear(fNum("F",det_CantEquivale[i].value) * fNum("F",det_ValUnitario[i].value),2);
+					}
+
+				break;
+
+			default:
+				break;
+	}
+		window.status=""
+		fRetotaliza();
+}
+
+
+/*---------------------------------------------------------------------------------------------------------------
+*	Recalculo de Totales de Costo y Valor del comprobante : Revisar!!
+* ---------------------------------------------------------------------------------------------------------------
+*/
+function fRetotaliza() {
+	var flValor = 0.00;
+	var flCosto = 0.00;
+	var nume    = 0.00;
+	var j       = 0;
+
+	with (document.InTrTr_detalle) {
+		for (i=0; i<=(det_ValTotal.length -1) ; i++) {
+				nume = fNum("F",det_ValTotal[i].value);
+				if (!isNaN(nume)) {
+					flValor +=   nume
+					flCosto += fNum("F", det_CosTotal[i].value)
+					j=i;
+				}
+			}
+	lbCosTotal.value = fredondear(flCosto,2);
+	lbValTotal.value = fredondear(flValor,2);
+	}
+}
+
+
+</script>
+  <link rel="stylesheet" type="text/css" href="../Themes/Cobalt/Style.css">
+  <link rel="stylesheet" type="text/css" href="../Themes/Cobalt_sin_bordes/Style.css">
+  <script language="JavaScript">
+//Begin CCS script
+//Include JSFunctions @1-5F368366
+  </script>
+  <script language="JavaScript" src="../functions.js"></script>
+  <script language="JavaScript">
+  
+//End Include JSFunctions
+
+//page_InTrTr_detalle_Button_Submit_OnClick @81-88E9CCD0
+function page_InTrTr_detalle_Button_Submit_OnClick()
+{
+    var result;
+//End page_InTrTr_detalle_Button_Submit_OnClick
+
+//Custom Code @524-2A29BDB7
+    // -------------------------
+	msMensaje = "DESEA GRABAR?";
+	msOper 	  = "UPD";
+    // -------------------------
+//End Custom Code
+
+//Close page_InTrTr_detalle_Button_Submit_OnClick @81-BC33A33A
+    return result;
+}
+//End Close page_InTrTr_detalle_Button_Submit_OnClick
+
+//page_InTrTr_detalle_btCancelar_OnClick @509-8D924A49
+function page_InTrTr_detalle_btCancelar_OnClick()
+{
+    var result;
+//End page_InTrTr_detalle_btCancelar_OnClick
+
+//Custom Code @525-2A29BDB7
+    // -------------------------
+	msMensaje = "DESEA CANCELAR LAS MODIFICACIONES REALIZADAS?";
+	msOper 	  = "CAN";
+    // -------------------------
+//End Custom Code
+
+//Close page_InTrTr_detalle_btCancelar_OnClick @509-BC33A33A
+    return result;
+}
+//End Close page_InTrTr_detalle_btCancelar_OnClick
+
+//page_InTrTr_detalle_OnSubmit @2-4F92C8F1
+function page_InTrTr_detalle_OnSubmit()
+{
+    var result;
+//End page_InTrTr_detalle_OnSubmit
+
+/**
+	Generacion de un combo box dinamico de Referencias Operativas
+	@param		oCtrl	objeto	Referencia del Objeto que recibe enfoque
+	@pSalida	string	Lista de elementos que reciben datos del combo
+	@pCons	    string	Condicion adicional
+	@return	void
+**/
+function fSelecRO(oCtrl) {
+	gAutosuggestCont=0;
+	slSql = escape("SELECT if(ord_ID>0, concat("   + /*ifnull(par_Valor2,''), '-', " +*/
+                        "ifnull(ord_NumDocum,ord_ID), '  / ', left(IFNULL(per_Apellidos,''), 12), ' ' , " +
+                        "left(IFNULL(per_Nombres,''),12)),'N.A.') as txt_orden, " +
+                        "ord_ID, concat(left(IFNULL(per_Apellidos,''), 12), ' ' , left(IFNULL(per_Nombres,''),12))  as txt_cliente, " +
+                        "ord_estado " +
+                   "FROM serordenes " +
+	               "LEFT JOIN  conpersonas pe on per_codauxiliar = ord_Cliente " +
+	               "LEFT JOIN  genparametros pa on par_clave = 'VGTIP' AND par_secuencia = ord_tipo "+
+                    "WHERE ord_estado >=0 and ord_estado < 10 and " +
+	                       "concat(ifnull(par_Valor2,''), ifnull(ord_NumDocum,ord_ID))  like ");
+	fListaOrdenes(oCtrl, slSql, "", "det_RefOperativa", 5, 300, "auto");
+	}
+	
+/**
+*       Habilita el proceso de generacion de un combo box en un objeto que recibe enfoque,
+*   reutiliza siempre el mismo objeto, solo la primera vez crea los objetos
+*       @param  oCtrl   objeto  Referencia del Objeto que recibe enfoque
+*       @param  pSql    String  Sentencia SQl que genera datos para el combo
+*       @param  pCond   String  Sentencia SQl adicional para el combo
+*       @param  pSalida String  Lista de los elementos que reciben la salida del combo
+*                                                       (Deben estar en el mismo contenedor que el elemento del combo)
+*       @param  pConten integer Nivel de ascendencia del nodo contenedor del los objetos de salida
+*                                                       (cuantos parentNode hay que aplicar para direccionarlos como childNodes)
+*       @param  pWidth  integer Ancho de la lista
+*       @return void
+*/
+var gAutosuggestCont=0;
+var oProvSubg= new Object();
+var oSubGrupo= new Object();
+function fListaOrdenes(oCtrl, pSql, pCond, pSalida, pConten, pWidth, pExtra) {
+    var     aData = new Array();
+    var     aColumns = new Array();
+    if (!pConten) pConten = 1;
+    if (!pWidth) pWidth=false;
+    gTeclaProcesada=false;
+    oCtrl.style.borderColor = "blue";
+    slUri='../Ge_Files/GeGeGe_sugerir.php?pLim=40&pCon=' + pCond + '&pQry=' + '&pSql=' + pSql;
+    oSubGrupo.data =aData;
+    oSubGrupo.columns =aColumns;
+    oProv = new dataProvider('');
+    oSubGrupo = new AutoSuggestController(oCtrl, oProv, 0, true, true, slUri);
+  	oSubGrupo.autoExpand = false;
+   	oSubGrupo.staticData = false;
+  	oSubGrupo.minLength  = 4;
+   	oSubGrupo.notInList  = true;
+    oSubGrupo.width_ = pWidth;
+    oSubGrupo.init();
+//    oSubGrupo.uri='../Ge_Files/GeGeGe_sugerir.php?pLim=40&pCon=' + pCond + '&pQry=' + '&pSql=' + pSql;
+    AutoSuggestController.prototype.onCtrlB = function (oThis)  {}
+    AutoSuggestController.prototype.onCtrlZ = function (oThis) {}
+    oSubGrupo.contenedor = oSubGrupo.textbox.parentNode // asumir el primer nivel de ascendencia
+/*    for (i=1; i < pConten; i++) {                       // iterar hasta el nivel de ascendencia definido
+        oSubGrupo.contenedor = oSubGrupo.contenedor.parentNode;
+    } */
+    aSalida = pSalida.split(",");
+    for (i=0; i < aSalida.length; i++) {
+        oSubGrupo.output[i+1]=aSalida[i];
+    }
+        oSubGrupo.minLength=0;
+}
+
+
+//End Close page_InTrTr_detalle_OnSubmit
+
+
+//Custom Code @526-2A29BDB7
+    // ------------------------- 						# fah:  Agregar Operacionea antes de Grabar!!!!
+	if (msOper == "UPD") {
+		return confirm (msMensaje);
+		}
+	else {
+		return confirm (msMensaje);
+		}
+    // -------------------------
+//End Custom Code
+
+//Close page_InTrTr_detalle_OnSubmit @2-BC33A33A
+    return result;
+}
+//End Close page_InTrTr_detalle_OnSubmit
+
+//bind_events @1-87A8DC17
+function bind_events() {
+    if (document.forms["InTrTr_detalle"]) check_and_bind('document.forms["InTrTr_detalle"]','onsubmit',page_InTrTr_detalle_OnSubmit);
+    if (document.forms["InTrTr_detalle"]) check_and_bind('document.forms["InTrTr_detalle"].btCancelar','onclick',page_InTrTr_detalle_btCancelar_OnClick);
+    if (document.forms["InTrTr_detalle"]) check_and_bind('document.forms["InTrTr_detalle"].Button_Submit','onclick',page_InTrTr_detalle_Button_Submit_OnClick);
+    forms_onload();
+    if (document.forms.InTrTr_detalle.det_CodItem_1) {
+        document.forms.InTrTr_detalle.det_CodItem_1.focus();
+        document.forms.InTrTr_detalle.det_CodItem_1.select()
+    }
+}
+//End bind_events
+
+window.onload = bind_events; //Assign bind_events @1-19F7B649
+
+//End CCS script
+</script>
+</head>
+<body bgcolor="#fffff7" link="#000000" alink="#ff0000" vlink="#000000" text="#000000"
+class="CobaltPageBODY" STYLE="margin:0">
+  <table border="0" cellspacing="0"
+  cellpadding="0" align="center" valign="top" width="100%" style="border-collapse:collapse; margin:0">
+    <tr cellspacing="0" cellpadding="0">
+      <td cellspacing="0" cellpadding="0" valign="top">
+        <!-- BEGIN EditableGrid InTrTr_detalle -->
+        <form name="{HTMLFormName}" action="{Action}" method="post" target="_self"
+        class="CobaltFormHeaderFont" style="FONT-SIZE: 9px margin:0">
+          <input type="hidden" name="FormState" value="{FormState}">
+          <font>
+            {FormScript}DETALLES:&nbsp;
+            {invdetalle_conactivos_gen_TotalRecords}&nbsp; 
+            <!-- BEGIN Label lbTitulo -->{lbTitulo}<font color="red">{lbEstado}</font>
+            <!-- END Label lbTitulo -->
+            </font>
+            <table border="0" cellpadding="0" class="CobaltFormTABLE" cellspacing="1"
+            width="100%">
+              <!-- BEGIN Error -->
+              <tr>
+                <td colspan="15" class="CobaltErrorDataTD">{Error} </td>
+               </tr>
+               <!-- END Error -->
+              <tr align="middle">
+                <td class="CobaltColumnTD" width="0px" height="0px"></td>
+                 <td nowrap class="CobaltColumnTD" width="0px">
+                  <!-- BEGIN Sorter Sorter_det_Secuencia -->
+                  <a class="CobaltSorterLink" href="{Sort_URL}"># </a>
+                   <!-- END Sorter Sorter_det_Secuencia -->
+                  &nbsp; 
+                </td>
+                 <td nowrap class="CobaltColumnTD">
+                  <!-- BEGIN Sorter Sorter_det_CodItem -->
+                  <a class="CobaltSorterLink" href="{Sort_URL}">ITEM </a>
+                  <!-- END Sorter Sorter_det_CodItem -->
+                  &nbsp; 
+                </td>
+                 <td class="CobaltColumnTD" width=" px">
+                  <!-- BEGIN Sorter Sorter_act_Descripcion -->
+                  <a class="CobaltSorterLink" href="{Sort_URL}">DESCRIPCION </a>
+                   <!-- END Sorter Sorter_act_Descripcion -->
+                </td>
+                <td nowrap class="CobaltColumnTD" colspan="2">CANTIDAD&nbsp;</td>
+                <td nowrap class="CobaltColumnTD">CANT&nbsp;</td>
+                <td nowrap class="CobaltColumnTD" >COSTO /U&nbsp;</td>
+				<td nowrap class="CobaltColumnTD">CTO TOT.&nbsp;</td>
+				<td nowrap class="CobaltColumnTD">VAL UNI.</td>
+				<td nowrap class="CobaltColumnTD">&nbsp;TOTAL&nbsp;</td>
+				<td class="CobaltColumnTD" nowrap>&nbsp;REFER. </td>
+                <td class="CobaltColumnTD" nowrap>&nbsp;EST</td>
+				<td nowrap class="CobaltColumnTD">&nbsp;DEST.&nbsp; </td>
+                <td nowrap class="CobaltColumnTD">Borrar</td>
+				</tr>
+               <!-- BEGIN Row -->
+              <!-- BEGIN RowError -->
+              <tr>
+                <td colspan="15" class="CobaltErrorDataTD">{Error}</td>
+               </tr>
+               <!-- END RowError -->
+              <tr align="right" height="10" valign="top">
+                <td class="CobaltDataTD" valign="top" align="left">
+                    <input type="hidden" name="{det_RegNumero_Name}" value="{det_RegNumero}"
+                    id="det_RegNumero" style="WIDTH: 7px; HEIGHT: 11px" size="2">
+                    <input type="hidden" name="{hdRegNumero_Name}" value="{hdRegNumero}"
+                    style="WIDTH: 9px; HEIGHT: 7px" id="hdRegNumero" size="10">
+                </td>
+ 
+                <td class="CobaltDataTD" width="0px" valign="top">
+                  <!-- BEGIN TextBox det_Secuencia -->
+                  <input name="{det_Secuencia_Name}" value="{det_Secuencia}"
+                  maxlength="4" size="4" class="CobaltInputSB" style="BORDER-LEFT-COLOR: #f2eee0; BORDER-BOTTOM-COLOR: #f2eee0; WIDTH: 10px; BORDER-TOP-COLOR: #f2eee0; HEIGHT: 14px; BACKGROUND-COLOR: #f2eee0; BORDER-RIGHT-COLOR: #f2eee0"
+                  id="det_Secuencia" title="Secuencia, generada por el sistema"
+                  onKeyUp="fKeyUp_Secuencia(event, 'det_Secuencia')"
+                  readonly>
+                    <!-- END TextBox det_Secuencia -->
+                    &nbsp; 
+                </td>
+                <td class="CobaltDataTD" bgcolor="#ffeaea" style="BACKGROUND-COLOR: #fff0f0"
+                  align="left" valign="top">
+                    <input name="{det_CodItem_Name}" value="{det_CodItem}" ondblclick= "fBusca_Item(this, 'X')"
+                    onchange="javascript:fValida_Item(this,' ')"
+                    maxlength="10" size="10" class="CobaltInputSB"
+					style="WIDTH: 45px; HEIGHT: 16px; BACKGROUND-COLOR: #fff0f0"
+					onKeyUp="fKeyUp_Secuencia(event, 'det_CodItem')"
+                    id="det_CodItem" title="C�igo del item, o texto a buscar. Haga DOBLE CLICK para Seleccionar">
+                      &nbsp; 
+                </td>
+  				<td class="CobaltDataTD" style="BACKGROUND-COLOR: #fff0f0"
+                    id="act_descripcion" valign="top" align="left">
+                      &nbsp;&nbsp;&nbsp; 
+                      <input name="{act_Descripcion_Name}" value="{act_Descripcion}"
+                      class="CobaltInputSB" id="act_Descripcion" readonly
+                      tabindex="-1" style="WIDTH: 120px; HEIGHT: 17px; BACKGROUND-COLOR: #fff0f0"
+                      title="Descripcion del item">
+                </td>
+                <td class="CobaltDataTD" valign="top" nowrap align="right">
+                    <input name="{det_CanDespachada_Name}" onchange="javascript:fCambiaCant(this)"
+                    value="{det_CanDespachada}" maxlength="12" size="17"
+                    class="CobaltInputSB" style="WIDTH: 53px;  HEIGHT: 17px; BACKGROUND-COLOR: #f2eee0; TEXT-ALIGN: right"
+                    title="Cantidad y  Unidad de Medida Despachada / Recibida en Bodega. "
+                    id="det_CanDespachada">
+                </td>
+ 
+                <td class="CobaltDataTD" valign="top" nowrap align="right">
+                      <select name="{det_UniMedida_Name}" onchange="javascript:fCambiaUnidad(this, 'X')"
+                      onKeyUp="fKeyUp_Secuencia(event, 'det_CodItem')"
+                      onblur="fCambiaCant(this)" class="CobaltInputSB"
+					  style="FONT-SIZE: 10px; WIDTH: 45px; HEIGHT: 14px; BACKGROUND-COLOR: #f2eee0"
+                      id="det_UniMedida">
+                        <option selected value="">-----------------</option>
+{det_UniMedida_Options} 
+                      </select>
+                </td>
+                <td class="CobaltDataTD" align="middle" valign="top">
+                      <input name="{det_CantEquivale_Name}" value="{det_CantEquivale}"
+                      onKeyUp="fKeyUp_Secuencia(event, 'det_CodItem')"
+                      align="right" maxlength="12" size="15" class="CobaltInputSB"
+                      style="WIDTH: 55px; HEIGHT: 18px; BACKGROUND-COLOR: #f2eee0; TEXT-ALIGN: right"
+                      title="Cantidad Neta Afectada, convertida a la  Unidad de Medida de Stock. (Multiplicaci� de la U.M. de despacho por la tasa de conversion a la U.M. de Stock)."
+                      id="det_CantEquivale" readonly tabindex="-1">
+                      </input>
+                </td>
+                <td class="CobaltDataTD" align="middle" valign="top">
+                      <input name="{det_CosUnitario_Name}" onchange="fRecalcular(this.name)"
+                      onKeyUp="fKeyUp_Secuencia(event, 'det_CodItem')"
+                      value="{det_CosUnitario}" maxlength="12" size="12"
+                      class="CobaltInputSB" align="right" style="WIDTH: 55px; HEIGHT: 17px; BACKGROUND-COLOR: #f2eee0;
+                      TEXT-ALIGN: right"
+                      id="det_CosUnitario" title="Costo Unitario Interno del Item"
+                      dir="rtl">
+                      </input>
+                </td>
+                <td class="CobaltDataTD" align="right" valign="top">
+                      <input name="{det_CosTotal_Name}" onchange="fRecalcular(this.name)"
+                      onKeyUp="fKeyUp_Secuencia(event, 'det_CodItem')"
+                      value="{det_CosTotal}" maxlength="12" size="12" class="CobaltInputSB"
+                      style="WIDTH: 71px; HEIGHT: 18px; BACKGROUND-COLOR: f2eee0; TEXT-ALIGN: right"
+                      title="Costo Total de la transaccion. Resultado de :  Cantidad Afectada  x  costo Unitario. Se lo altera manualmente, se recalcula el Costo Unitario"
+                      id="det_CosTotal">
+                        &nbsp;</input>
+                </td>
+                <td class="CobaltDataTD" align="right" valign="top">
+		              <input name="{det_ValUnitario_Name}" onchange="fRecalcular(this.name)"
+		              onKeyUp="fKeyUp_Secuencia(event, 'det_CodItem')"
+		              value="{det_ValUnitario}" maxlength="12" size="12"
+		              class="CobaltInputSB" style="WIDTH: 54px; HEIGHT: 17px; BACKGROUND-COLOR: #f2eee0; TEXT-ALIGN: right"
+		              id="det_ValUnitario" title="Valor de Venta Unitario">
+		                &nbsp;
+                </td>
+                <td class="CobaltDataTD" valign="top">
+                    <input name="{det_ValTotal_Name}" onchange="fRecalcular(this.name)"
+                    onKeyUp="fKeyUp_Secuencia(event, 'det_CodItem')"
+                    value="{det_ValTotal}" maxlength="12" size="12" align="right"
+                    class="CobaltInputSB" style="WIDTH: 69px; HEIGHT: 16px; BACKGROUND-COLOR: #f2eee0; TEXT-ALIGN: right"
+                    id="det_ValTotal" title="Valor de Venta Total: Cantidad Afectada  x  Valor Unitario.   Si lo cambia directamente, se recalcula el valor Unitario.">
+                      &nbsp; 
+                </td>
+                     <td class="CobaltDataTD" valign="top">&nbsp;
+                      <input name="{det_RefOperativa_Name}" value="{det_RefOperativa}"
+                      onKeyUp="fKeyUp_Secuencia(event, 'det_CodItem')"
+                      maxlength="10" class="CobaltInputSB" size="7" id="det_RefOperativa"
+                      title="Referencia Operativa:
+                      Nmero de Embarque, orden de producci�, etc. Asocia el ovimiento de Inventario con un proceso Operativo espec�ico para permitir relacionar Costos vs Produccion."
+                      style="WIDTH: 33px; HEIGHT: 16px; BACKGROUND-COLOR: #f2eee0; TEXT-ALIGN: right">&nbsp; 
+                </td>           
+    
+                
+                
+                
+                <td class="CobaltDataTD" valign="top" align="middle">
+                    <input name="{det_Estado_Name}" value="{det_Estado}"
+                    onKeyUp="fKeyUp_Secuencia(event, 'det_CodItem')"
+                    maxlength="5" size="5" class="CobaltInputSB"
+                    id="det_Estado" title="Estado de la Transaccion: Manejado por los otros procesos del sistema"
+                    style="WIDTH: 20px; HEIGHT: 16px; BACKGROUND-COLOR: #f2eee0">
+                </td>
+                <td class="CobaltDataTD" align="middle" valign="top">
+                      &nbsp; 
+                      <input name="{det_Destino_Name}" value="{det_Destino}"
+                      onKeyUp="fKeyUp_Secuencia(event, 'det_CodItem')"
+                      maxlength="5" size="3" class="CobaltInputSB"
+                      id="det_Destino" title="Disposici� final del Item: C�igo de utilizaci� del material.;&amp;#13;&amp;#10;Aplicable en empresas de manufactura."
+                      style="WIDTH: 21px; HEIGHT: 15px; BACKGROUND-COLOR: #f2eee0">
+                </td>
+                <td class="CobaltDataTD" valign="top" nowrap>
+                    <input type="checkbox" name="{CheckBox_Delete_Name}"
+		                    onKeyUp="fKeyUp_Secuencia(event, 'det_CodItem')"
+		                    value="1" class="CobaltInput" id="CheckBox_Delete"
+		                    style="WIDTH: 12px; HEIGHT: 12px" {DEL_flag}>
+                    <input type="hidden" name="{hdMulti_Name}"
+		                    value="{hdMulti}" id="hdMulti" style="WIDTH: 2px; HEIGHT: 9px"
+		                    size="2">&nbsp; 
+                    <input type="hidden" name="{act_UniMedida_Name}"
+	                        value="{act_UniMedida}" style="WIDTH: 1px; HEIGHT: 9px"
+	                        id="act_UniMedida">
+                    <input type="hidden" name="{hdDivisor_Name}"
+	                        value="{hdDivisor}" style="WIDTH: 1px; HEIGHT: 8px"
+	                        id="hdDivisor">
+				</td>
+			</tr>
+ 
+            <!-- END Row -->
+            <!-- BEGIN NoRecords -->
+            <tr>
+              <td colspan="15" class="CobaltDataTD">No hay registros&nbsp;</td>
+            </tr>
+            <!-- END NoRecords -->
+            <tr>
+              <td class="CobaltDataTD" align="right" width="0px" height="0px">&nbsp;</td>
+              <td class="CobaltDataTD" colspan="6">T O T A L E S : </td>
+              <td class="CobaltDataTD"></td>
+              <td class="CobaltDataTD" align="right">
+                <input class="CobaltInputSB" name="{lbCosTotal_Name}"
+                style="WIDTH: 71px; HEIGHT: 18px; BACKGROUND-COLOR: #f2eee0; TEXT-ALIGN: right"
+                value="{lbCosTotal}" readonly>
+              </td>
+              <td class="CobaltDataTD"></td>
+              <td class="CobaltDataTD" align="right">
+                  <input name="{lbValTotal_Name}"
+                  value="{lbValTotal}" class="CobaltInputSB"
+                  style="WIDTH: 71px; HEIGHT: 18px; BACKGROUND-COLOR: #f2eee0; TEXT-ALIGN: right"
+                  readonly>
+              </td>
+              <td class="CobaltDataTD" colspan="4"></td>
+            </tr>
+            <tr>
+              <td align="left" colspan="15" nowrap class="CobaltFooterTD" title="Regresar a la Cabecera del Comprobante">
+              <!-- BEGIN Navigator Navigator -->
+                <!-- BEGIN First_On -->
+	                <a class="CobaltNavigatorLink" href="{First_URL}"><img src="../Themes/Aqua/FirstOn.gif"
+	                  border="0"></a>
+                <!-- END First_On -->
+                <!-- BEGIN Prev_On -->
+	                <a class="CobaltNavigatorLink" href="{Prev_URL}"><img src="../Themes/Aqua/PrevOn.gif"
+	                  border="0"></a>
+                <!-- END Prev_On -->
+                &nbsp;{Page_Number}&nbsp;de {Total_Pages}&nbsp;
+                <!-- BEGIN Next_On -->
+	                <a class="CobaltNavigatorLink" href="{Next_URL}"><img src="../Themes/Aqua/NextOn.gif"
+	                  border="0"></a>
+                <!-- END Next_On -->
+                <!-- BEGIN Last_On -->
+	                <a class="CobaltNavigatorLink" href="{Last_URL}"><img src="../Themes/Aqua/LastOn.gif"
+	                  border="0"></a>
+                <!-- END Last_On -->
+              <!-- END Navigator Navigator -->
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+              <!-- BEGIN Button Button_Submit -->
+                <input name="{Button_Name}" type="submit"
+	                value="GRABAR" class="" style="FONT-SIZE: 9px; WIDTH: 70px; HEIGHT: 20px" {UPD_flag}
+	                title="A�de los Registros y/o Graba las Modificaciones y/o  Elimina los Registros marcados">
+              <!-- END Button Button_Submit -->
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+              <!-- BEGIN Button btCancelar -->
+                  <input class="" style="FONT-SIZE: 9px; WIDTH: 70px; HEIGHT: 20px"
+	                  name="{Button_Name}" type="submit"
+	                  value="CANCELAR" title="Deshacer los cambios">
+	         <!-- END Button btCancelar -->
+            </td>
+            </tr>
+            <tr>
+                <td align="left" class="CobaltFooterTD"colspan="15" nowrap>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                </td>
+			</tr>
+	</table>
+	<!-- END EditableGrid InTrTr_detalle -->
+	</form>
+	</td>
+	</tr>
+	<tr>
+		<td>&nbsp;</td>
+    </tr>
+</table>
+<iframe style="WIDTH: 0px; HEIGHT: 0px" marginwidth="0" marginheight="0" frameborder="yes"
+        name="SearchFrame" scroll="yes" src="">
+</iframe>
+</body>
+</html>
+

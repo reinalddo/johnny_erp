@@ -1,0 +1,286 @@
+<html>
+<head>
+<base target="_self">
+<link rel="stylesheet" type="text/css" href="../Themes/Cobalt/Style.css">
+<link rel="stylesheet" type="text/css" href="../Themes/Menu/Style.css">
+<title>POLITICAS DE COBRO</title>
+<script language="JavaScript" src="../LibJava/general.js"></script>
+<script language="JavaScript" src="../LibJava/validaDB.js"></script>
+<script language="JavaScript" src="../LibJava/validations.js"></script>
+<script language="JavaScript" src="../LibJava/menu_func.js"></script>
+<script language="JavaScript">
+var bolRefreshFlag	= false;
+var oValida = new oValidador();
+	oValida.Formul="";
+
+/**
+*		Define parametros necesarios para la validacion de cada campo, y ejecuta el proceso,
+*		solo si el contenido del control ha cambiado
+*		@param		oControl	object:	Elemento en el que ocurre el evento
+*		@param		psTexto		String:	Nombre del elemento que presenta texto asociado al primer obj.
+*		@param		pbValFlag	Bool:	Debe ejecutar una busqueda inicial o solo abre la seleccion
+*		@return		void
+*/
+function fProductor(oControl, psText, pbValFlag)
+{
+	if (bolRefreshFlag) {								// No continuar pues se refresca la pantalla
+		bolRefreshFlag	= false;	
+		return false;
+	}
+	var sRe = /^ta[cr]_/;
+	var slSufijo = '';
+	slCampo='';
+	oValida.Formul="conpoliticas";
+//	slSufijo = '_' + fTraefila(oControl.name);
+	slCampo = oControl.name;
+	pbValFlag=(pbValFlag==undefined)?true:pbValFlag										// Si no se ha definido, asume verdadero
+	var lsText = document.forms[oValida.Formul][psText + slSufijo].value;
+	if (isChanged(oControl) ||
+	    (psText && isBlank(lsText) && !isBlank(oControl.value) ) ) {	// Solo si ha cambiado el contenido
+		oValida.Tipo=3;																//Retornar valores
+		oValida.Skeywd  = oControl.value;
+    	oValida.Desti 	= "pol_auxiliar" + slSufijo + ", Apellidos" + slSufijo;
+    	oValida.Focus	= "pol_Cuenta"+ slSufijo;
+    	oValida.Mensj	= "** SELECCIONE UN PRODUCTOR **";
+    	if (parseInt(oControl.value * 1) > 0 ) {
+    		oValida.Cond 	= "per_Codauxiliar = " 	+ oControl.value;
+    		}
+    	else {
+    		oValida.Cond 	= " per_Apellidos LIKE '" + oControl.value + "%' " +
+    						  " OR per_Nombres LIKE '" 	+ oControl.value + "%'" ;
+    	}
+    	oValida.Tabla 	= "conpersonas JOIN concategorias ON cat_categoria = 52 AND cat_codauxiliar = per_codauxiliar";
+    	oValida.Campos 	= "CodAuxiliar,Descripcion";
+    	oValida.Selec   = "per_CodAuxiliar as CodAuxiliar, concat(per_Apellidos, ' ', per_Nombres) as Descripcion";
+    	oValida.PageR 	= "../Co_Files/CoAdAu_search2.php";
+    	oValida.Aplicar(pbValFlag);
+    	this.oldValue=oControl.value;
+    }
+	return false;
+}
+</script>
+<script language="JavaScript">
+//Begin CCS script
+//Include JSFunctions @1-5F368366
+  </script>
+<script language="JavaScript" src="../functions.js"></script>
+<script language="JavaScript">
+  
+//End Include JSFunctions
+
+//Include Common JSFunctions @1-73ADA5ED
+</script>
+<script language="JavaScript" src="../DatePicker.js"></script>
+<script language="JavaScript">
+//End Include Common JSFunctions
+
+//Date Picker Object Definitions @1-A26D38C9
+
+var conpoliticas_DatePicker_pol_Vigencia = new Object(); 
+conpoliticas_DatePicker_pol_Vigencia.format           = "dd/mmm/yy";
+conpoliticas_DatePicker_pol_Vigencia.style            = "Themes/Cobalt/Style.css";
+conpoliticas_DatePicker_pol_Vigencia.relativePathPart = "../";
+
+//End Date Picker Object Definitions
+
+//page_conpoliticas_Button_Delete_OnClick @75-2FD60DB9
+function page_conpoliticas_Button_Delete_OnClick()
+{
+    var result;
+//End page_conpoliticas_Button_Delete_OnClick
+
+//Confirmation Message @76-BED55CD3
+    return confirm('Borrar registro?');
+//End Confirmation Message
+
+//Close page_conpoliticas_Button_Delete_OnClick @75-BC33A33A
+    return result;
+}
+//End Close page_conpoliticas_Button_Delete_OnClick
+
+//page_conpoliticas_Button_Cancel_OnClick @77-AE789B61
+function page_conpoliticas_Button_Cancel_OnClick()
+{
+    disableValidation = true;
+}
+//End page_conpoliticas_Button_Cancel_OnClick
+
+//bind_events @1-ADA080C4
+function bind_events() {
+    if (document.forms["conpoliticas"]) check_and_bind('document.forms["conpoliticas"].Button_Delete','onclick',page_conpoliticas_Button_Delete_OnClick);
+    if (document.forms["conpoliticas"]) check_and_bind('document.forms["conpoliticas"].Button_Cancel','onclick',page_conpoliticas_Button_Cancel_OnClick);
+    forms_onload();
+}
+//End bind_events
+
+window.onload = bind_events; //Assign bind_events @1-19F7B649
+
+//End CCS script
+</script>
+</head>
+ 
+<body bgcolor="#fffff7" link="#000000" alink="#ff0000" vlink="#000000" text="#000000" class="CobaltPageBODY" style="PADDING-RIGHT: 0px; PADDING-LEFT: 0px; PADDING-BOTTOM: 0px; PADDING-TOP: 0px; magin: 0; spacing: 0" bottommargin="0" nowrap leftmargin="0" topmargin="17" rightmargin="0" marginwidth="0" marginheight="0">
+{Cabecera}
+<table background="../Themes/Cobalt/Light Streaks.bmp" border="0" width="100%">
+  <tr>
+    <td class="" align="middle">
+      <!-- BEGIN Record conpoliticas_concuentas_cSearch -->
+      <form name="{HTMLFormName}" action="{Action}" method="post">
+        <font class="CobaltFormHeaderFont">Buscar </font> 
+        <table class="CobaltFormTABLE" cellpadding="3" border="0">
+          <!-- BEGIN Error -->
+          <tr>
+            <td class="CobaltErrorDataTD" colspan="6">{Error}</td> 
+          </tr>
+ <!-- END Error -->
+          <tr>
+            <td class="CobaltFieldCaptionTD" nowrap>&nbsp;PRODUCT/ CLIENTE&nbsp;</td> 
+            <td class="CobaltDataTD"><input class="CobaltInput" style="WIDTH: 25px; HEIGHT: 17px" maxlength="10" size="3" value="{s_pol_auxiliar}" name="{s_pol_auxiliar_Name}">&nbsp; <input class="CobaltInput" maxlength="25" size="12" value="{s_per_Apellidos}" name="{s_per_Apellidos_Name}" style="WIDTH: 74px; HEIGHT: 17px">&nbsp;</td> 
+            <td class="CobaltFieldCaptionTD" nowrap>&nbsp;Semana&nbsp;</td> 
+            <td class="CobaltDataTD">&nbsp; <input class="CobaltInput" maxlength="5" size="5" value="{s_pol_semana}" name="{s_pol_semana_Name}"></td> 
+            <td class="CobaltFieldCaptionTD" nowrap>&nbsp;Cuenta&nbsp;</td> 
+            <td class="CobaltDataTD"><input class="CobaltInput" maxlength="15" size="3" value="{s_pol_Cuenta}" name="{s_pol_Cuenta_Name}" style="WIDTH: 25px; HEIGHT: 17px">&nbsp; <input class="CobaltInput" style="WIDTH: 78px; HEIGHT: 17px" maxlength="40" size="14" value="{s_cue_Descripcion}" name="{s_cue_Descripcion_Name}"></td> 
+          </tr>
+ 
+          <tr>
+            <td class="CobaltFooterTD" nowrap align="middle" colspan="6">
+              <!-- BEGIN Button Button_DoSearch --><input class="" type="submit" value="Buscar" name="{Button_Name}"><!-- END Button Button_DoSearch -->&nbsp; </td> 
+          </tr>
+ 
+        </table>
+ 
+      </form>
+ <!-- END Record conpoliticas_concuentas_cSearch -->
+      <!-- BEGIN Grid conpoliticas_concuentas_c --><font class="CobaltFormHeaderFont">Lista
+      de Politicas </font> 
+      <table class="CobaltFormTABLE" cellpadding="3" border="0">
+        <tr align="middle">
+          <td class="CobaltColumnTD" nowrap>
+            <!-- BEGIN Sorter Sorter_pol_auxiliar --><a class="CobaltSorterLink" href="{Sort_URL}">ID</a> 
+            <!-- BEGIN Asc_On --><img src="../Themes/Cobalt/AscOn.gif" border="0"><!-- END Asc_On -->
+            <!-- BEGIN Desc_On --><img src="../Themes/Cobalt/DescOn.gif" border="0"><!-- END Desc_On --><!-- END Sorter Sorter_pol_auxiliar -->&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+            <!-- BEGIN Sorter Sorter_per_Apellidos --><a class="CobaltSorterLink" href="{Sort_URL}">PRODUCTOR</a> 
+            <!-- BEGIN Asc_On --><img src="../Themes/Cobalt/AscOn.gif" border="0"><!-- END Asc_On -->
+            <!-- BEGIN Desc_On --><img src="../Themes/Cobalt/DescOn.gif" border="0"><!-- END Desc_On --><!-- END Sorter Sorter_per_Apellidos -->&nbsp;</td> 
+          <td class="CobaltColumnTD" nowrap>
+            <!-- BEGIN Sorter Sorter_pol_Cuenta --><a class="CobaltSorterLink" href="{Sort_URL}">CUENTA</a> 
+            <!-- BEGIN Asc_On --><img src="../Themes/Cobalt/AscOn.gif" border="0"><!-- END Asc_On -->
+            <!-- BEGIN Desc_On --><img src="../Themes/Cobalt/DescOn.gif" border="0"><!-- END Desc_On --><!-- END Sorter Sorter_pol_Cuenta -->&nbsp;</td> 
+          <td class="CobaltColumnTD" nowrap>
+            <!-- BEGIN Sorter Sorter_pol_semana --><a class="CobaltSorterLink" href="{Sort_URL}">SEM</a> 
+            <!-- BEGIN Asc_On --><img src="../Themes/Cobalt/AscOn.gif" border="0"><!-- END Asc_On -->
+            <!-- BEGIN Desc_On --><img src="../Themes/Cobalt/DescOn.gif" border="0"><!-- END Desc_On --><!-- END Sorter Sorter_pol_semana -->&nbsp;</td> 
+          <td class="CobaltColumnTD" nowrap>
+            <!-- BEGIN Sorter Sorter_pol_Valor --><a class="CobaltSorterLink" href="{Sort_URL}">VALOR</a> 
+            <!-- BEGIN Asc_On --><img src="../Themes/Cobalt/AscOn.gif" border="0"><!-- END Asc_On -->
+            <!-- BEGIN Desc_On --><img src="../Themes/Cobalt/DescOn.gif" border="0"><!-- END Desc_On --><!-- END Sorter Sorter_pol_Valor -->&nbsp;</td> 
+          <td class="CobaltColumnTD" nowrap>
+            <!-- BEGIN Sorter Sorter_pol_Vigencia --><a class="CobaltSorterLink" href="{Sort_URL}">VIGEN</a> 
+            <!-- BEGIN Asc_On --><img src="../Themes/Cobalt/AscOn.gif" border="0"><!-- END Asc_On -->
+            <!-- BEGIN Desc_On --><img src="../Themes/Cobalt/DescOn.gif" border="0"><!-- END Desc_On --><!-- END Sorter Sorter_pol_Vigencia -->&nbsp;</td> 
+        </tr>
+ 
+        <!-- BEGIN Row -->
+        <tr>
+          <td class="CobaltDataTD"><a class="CobaltDataLink" href="{pol_auxiliar_Src}">{pol_auxiliar}</a>&nbsp;&nbsp;{per_Apellidos}&nbsp;</td> 
+          <td class="CobaltDataTD" title="Cuenta Contable correspondiente a la deuda">{pol_Cuenta}&nbsp;&nbsp;
+            &nbsp;{cue_Descripcion}</td> 
+          <td class="CobaltDataTD" align="right">{pol_semana}&nbsp;</td> 
+          <td class="CobaltDataTD" align="right" title="Valor a cobrar en cada liquidacion">{pol_Valor}&nbsp;</td> 
+          <td class="CobaltDataTD" title="Fecha hasta la que está vigente la politica de cobro">{pol_Vigencia}&nbsp;</td> 
+        </tr>
+ <!-- END Row -->
+        <!-- BEGIN NoRecords -->
+        <tr>
+          <td class="CobaltDataTD" colspan="5">No hay registros&nbsp;</td> 
+        </tr>
+ <!-- END NoRecords -->
+        <tr>
+          <td class="CobaltFooterTD" nowrap colspan="5"><a class="CobaltNavigatorLink" href="{conpoliticas_concuentas_c_Insert_Src}">Agregar
+            Nuevo</a>&nbsp; 
+            <!-- BEGIN Navigator Navigator -->
+            <!-- BEGIN First_On --><a class="CobaltNavigatorLink" href="{First_URL}"><img src="../Themes/Aqua/FirstOn.gif" border="0"></a> <!-- END First_On -->
+            <!-- BEGIN First_Off --><img src="../Themes/Aqua/FirstOff.gif" border="0"><!-- END First_Off -->
+            <!-- BEGIN Prev_On --><a class="CobaltNavigatorLink" href="{Prev_URL}"><img src="../Themes/Aqua/PrevOn.gif" border="0"></a> <!-- END Prev_On -->
+            <!-- BEGIN Prev_Off --><img src="../Themes/Aqua/PrevOff.gif" border="0"><!-- END Prev_Off -->&nbsp; 
+            <!-- BEGIN Pages -->
+            <!-- BEGIN Page_On --><a class="CobaltNavigatorLink" href="{Page_URL}">{Page_Number}</a>&nbsp;<!-- END Page_On -->
+            <!-- BEGIN Page_Off -->{Page_Number}&nbsp;<!-- END Page_Off --><!-- END Pages -->de
+            {Total_Pages}&nbsp; 
+            <!-- BEGIN Next_On --><a class="CobaltNavigatorLink" href="{Next_URL}"><img src="../Themes/Aqua/NextOn.gif" border="0"></a> <!-- END Next_On -->
+            <!-- BEGIN Next_Off --><img src="../Themes/Aqua/NextOff.gif" border="0"><!-- END Next_Off -->
+            <!-- BEGIN Last_On --><a class="CobaltNavigatorLink" href="{Last_URL}"><img src="../Themes/Aqua/LastOn.gif" border="0"></a> <!-- END Last_On -->
+            <!-- BEGIN Last_Off --><img src="../Themes/Aqua/LastOff.gif" border="0"><!-- END Last_Off --><!-- END Navigator Navigator -->&nbsp; </td> 
+        </tr>
+ 
+      </table>
+ <!-- END Grid conpoliticas_concuentas_c --></td> 
+    <td align="middle" valign="top">&nbsp; 
+      <!-- BEGIN Record conpoliticas -->
+      <form name="{HTMLFormName}" action="{Action}" method="post">
+        <font class="CobaltFormHeaderFont">Agregar/Editar Politicas&nbsp; de
+        Cobro </font> 
+        <table class="CobaltFormTABLE" cellpadding="3" border="0">
+          <!-- BEGIN Error -->
+          <tr>
+            <td class="CobaltErrorDataTD" colspan="4">{Error}</td> 
+          </tr>
+ <!-- END Error -->
+          <tr>
+            <td class="CobaltFieldCaptionTD" nowrap>&nbsp;PRODUCTOR</td> 
+            <td class="CobaltDataTD"><input class="CobaltInput" maxlength="10" onchange="fProductor(this, 'Apellidos', true)" size="7" value="{pol_auxiliar}" name="{pol_auxiliar_Name}" style="WIDTH: 35px; HEIGHT: 17px">&nbsp;
+                                     <input class="CobaltInput" maxlength="10" readonly size="18" value="" name="Apellidos" style="WIDTH: 90px; HEIGHT: 17px">&nbsp;</td>
+            <td class="CobaltFieldCaptionTD" nowrap>&nbsp;Cuenta&nbsp;</td> 
+            <td class="CobaltDataTD"><input class="CobaltInput" maxlength="15" size="11" value="{pol_Cuenta}" name="{pol_Cuenta_Name}" style="WIDTH: 72px; HEIGHT: 17px">&nbsp;</td> 
+          </tr>
+ 
+          <tr>
+            <td class="CobaltFieldCaptionTD" nowrap>&nbsp;Semana&nbsp;</td> 
+            <td class="CobaltDataTD"><input class="CobaltInput" maxlength="5" size="5" value="{pol_semana}" name="{pol_semana_Name}"></td> 
+            <td class="CobaltFieldCaptionTD" nowrap>Vigencia</td> 
+            <td class="CobaltDataTD"><input class="CobaltInput" maxlength="10" size="8" value="{pol_Vigencia}" name="{pol_Vigencia_Name}">
+              <!-- BEGIN DatePicker DatePicker_pol_Vigencia --><a class="CobaltDataLink" href="javascript:showDatePicker('{Name}','{FormName}','{DateControl}');"><img src="../Themes/DatePicker/DatePicker1.gif" border="0"></a><!-- END DatePicker DatePicker_pol_Vigencia --></td> 
+          </tr>
+ 
+          <tr>
+            <td class="CobaltFieldCaptionTD" nowrap>
+              <p>&nbsp;POLIT DE COBRO </p>
+ </td> 
+            <td class="CobaltDataTD"><input class="CobaltInput" maxlength="3" size="3" value="{pol_Politica}" name="{pol_Politica_Name}">&nbsp;</td> 
+            <td class="CobaltFieldCaptionTD" nowrap>&nbsp;Valor&nbsp;</td> 
+            <td class="CobaltDataTD"><input class="CobaltInput" maxlength="12" size="8" value="{pol_Valor}" name="{pol_Valor_Name}" style="WIDTH: 58px; HEIGHT: 17px">&nbsp;</td> 
+          </tr>
+ 
+          <tr>
+            <td class="CobaltFieldCaptionTD" nowrap>&nbsp;Reg Fecha&nbsp;</td> 
+            <td class="CobaltDataTD"><input class="CobaltInput" maxlength="10" size="8" value="{pol_RegFecha}" name="{pol_RegFecha_Name}">&nbsp;</td>
+            <td class="CobaltFieldCaptionTD" nowrap>&nbsp;Ususraio&nbsp;</td> 
+            <td class="CobaltDataTD"><input class="CobaltInput" colspan="3" maxlength="15" size="9" value="{pol_Ususraio}" name="{pol_Ususraio_Name}" style="WIDTH: 63px; HEIGHT: 17px">&nbsp;</td> 
+          </tr>
+ 
+          <tr>
+            <td class="CobaltFooterTD" nowrap align="middle" colspan="4">
+              <!-- BEGIN Button Button_Insert --><input class="" type="submit" value="Agregar" name="{Button_Name}" ><!-- END Button Button_Insert -->
+              <!-- BEGIN Button Button_Update --><input class="" type="submit" value="Enviar" name="{Button_Name}"><!-- END Button Button_Update -->
+              <!-- BEGIN Button Button_Delete --><input class="" type="submit" value="Borrar" name="{Button_Name}"><!-- END Button Button_Delete -->
+              <!-- BEGIN Button Button_Cancel --><input class="" type="submit" value="Cancelar" name="{Button_Name}" ><!-- END Button Button_Cancel -->&nbsp; </td> 
+          </tr>
+ 
+        </table>
+ 
+      </form>
+ <!-- END Record conpoliticas --></td> 
+    <td>&nbsp;</td> 
+  </tr>
+ 
+  <tr>
+    <td class=""></td> 
+    <td>&nbsp;</td> 
+    <td>&nbsp;</td> 
+  </tr>
+ 
+</table>
+ <iframe style="WIDTH: 0px; HEIGHT: 0px" name="frValida"></iframe>
+</body>
+ 
+</html>

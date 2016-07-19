@@ -1,0 +1,76 @@
+<html>
+<head>
+<base target="_self">
+<link rel="stylesheet" type="text/css" href="../Themes/Cobalt/Style.css">
+<link rel="stylesheet" type="text/css" href="../Themes/Menu/Style.css">
+<title>INVENTARIO: EJECUCION DE PROCESOS</title>
+ 
+<script language="JavaScript" src="../LibJava/menu_func.js"></script>
+<script language="JavaScript" src="../LibJava/general.js"></script>
+<script language="JavaScript" src="../LibJava/validations.js"></script>
+<script language="JavaScript" src="../LibJava/construct.js"></script>
+<script language="JavaScript">
+gaCampos = new Array();
+//Begin CCS script
+//Include Common JSFunctions @1-73ADA5ED
+//  fah 20/12/09  Modificacion para aplicar contabapli.pro, basado en plantilla con patrones de cuentas.
+</script>
+<script language="JavaScript" src="../DatePicker.js"></script>
+<script language="JavaScript">
+//End Include Common JSFunctions
+
+//Date Picker Object Definitions @1-5F1674CB
+/**
+var concomprobantesSearch_DatePicker_s_com_FecTrans = new Object(); 
+concomprobantesSearch_DatePicker_s_com_FecTrans.format           = "dd/mm/yy";
+concomprobantesSearch_DatePicker_s_com_FecTrans.style            = "Themes/Cobalt/Style.css";
+concomprobantesSearch_DatePicker_s_com_FecTrans.relativePathPart = "../";
+
+var concomprobantesSearch_DatePicker_s_com_FecContab = new Object(); 
+concomprobantesSearch_DatePicker_s_com_FecContab.format           = "dd/mm/yy";
+concomprobantesSearch_DatePicker_s_com_FecContab.style            = "Themes/Cobalt/Style.css";
+concomprobantesSearch_DatePicker_s_com_FecContab.relativePathPart = "../";
+
+var concomprobantesSearch_DatePicker_s_com_FecVencim = new Object(); 
+concomprobantesSearch_DatePicker_s_com_FecVencim.format           = "dd/mm/yy";
+concomprobantesSearch_DatePicker_s_com_FecVencim.style            = "Themes/Cobalt/Style.css";
+concomprobantesSearch_DatePicker_s_com_FecVencim.relativePathPart = "../";
+**/
+//End Date Picker Object Definitions
+
+//End CCS script
+</script>
+</head>
+ 
+<body bgcolor="#fffff7" link="#000000" alink="#ff0000" vlink="#000000" text="#000000" class="CobaltPageBODY" style="PADDING-RIGHT: 0px; PADDING-LEFT: 0px; PADDING-BOTTOM: 0px; PADDING-TOP: 0px; magin: 0; spacing: 0" bottommargin="0" nowrap leftmargin="0" topmargin="17" rightmargin="0" marginwidth="0" marginheight="0">
+
+<!--{Cabecera} -->
+
+<table background="../Themes/Cobalt/Light Streaks.bmp" border="0" width="100%">
+  <tr>&nbsp;</tr>
+  <tr>
+    <td align="middle">
+            <td  nowrap colspan="4">
+			 	  <div class="normalbox" style="PADDING-RIGHT: 4px; PADDING-LEFT: 4px; PADDING-BOTTOM: 4px; MARGIN: 20px; PADDING-TOP: 0px; TEXT-ALIGN: center">
+			        <span class="spantitle" style="LEFT: 0px; MARGIN: 0px; POSITION: relative; TOP: -10px">&nbsp;
+			        &nbsp; PROCESOS  &nbsp; &nbsp; </span>
+			        <div style="align:center">
+						<input class="CobaltDataLink" title="COSTEO DE UN PERIODO" style="FONT-SIZE: 9px; WIDTH: 131px; HEIGHT: 25px" onclick="fPidePerio('../In_Files/InAdPr_costeaperi.pro.php&pApli=IN', 'QUE PERIODOS DESEA COSTEAR?', 'PP', 'PERIODO INICIAL', 'PERIODO FINAL', 'pPerI', 'pPerF', '', 'IN', '1')" type="button" size="16" value="COSTEAR" name="Button_21">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+						<input class="CobaltDataLink" title="CONTABILIZA LAS TRANSACCIONES DE INVENTARIO,. APLICANDO PLANTILLAS PREDEFINIDAS PARA CADA TRANSACCION" style="FONT-SIZE: 9px; WIDTH: 131px; HEIGHT: 25px" onclick="fPidePerio('../In_Files/InAdPr_contabapli.pro.php&pApli=CO&pGen=3', 'QUE PERIODOS DESEA CONTABILIZAR?', 'PP', 'PERIODO INICIAL', 'PERIODO FINAL', 'pPerI', 'pPerF', '', 'CO', '1')" type="button" value="CONTABILIZAR" name="Button_22">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+						<input class="CobaltDataLink" value="CONTABILIZA EMBARQUES" title="CONTABILIZACIN DE EMBARQUES" onclick="fPidePerio('../In_Files/InAdPr_contabemb3.pro.php&pApli=LI', 'QUE SEMANAS DESEA COSTEAR?', 'PP', 'SEMANA INICIAL', 'SEMANA FINAL', 'pSemI', 'pSemF', '', 'IN', '1')"  style="FONT-SIZE: 9px; WIDTH: 131px; HEIGHT: 25px" type="button" value="CONTAB. EMBARQUES" name="Button_23">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+						<input class="CobaltDataLink" style="FONT-SIZE: 9px; WIDTH: 131px; HEIGHT: 25px" onclick="" type="button" value="" name="Button_23">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+					</div>
+			         <div style="align:center">
+			            <input name="Button_25" type="button" value="" class="CobaltDataLink" onclick="" style="FONT-SIZE: 9px; WIDTH: 131px; HEIGHT: 25px" size="16" title="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+						<input name="Button_26" type="button" value="  " title="" class="CobaltDataLink" onclick="" style="FONT-SIZE: 9px; WIDTH: 131px; HEIGHT: 25px" ]>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+						<input name="Button_27" type="button" class="CobaltDataLink" onclick="" style="FONT-SIZE: 9px; WIDTH: 131px; HEIGHT: 25px">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+						<input name="Button_28" type="button" value="  " title="" class="CobaltDataLink" onclick="" style="FONT-SIZE: 9px; WIDTH: 131px; HEIGHT: 25px" ]>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+			         </div>
+			     </div>
+			 </td>
+		 </tr>
+	</td>
+  </tr>
+</table>
+</body>
+</html>

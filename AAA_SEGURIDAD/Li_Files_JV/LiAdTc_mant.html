@@ -1,0 +1,179 @@
+<html>
+<head>
+<base>
+<link rel="stylesheet" type="text/css" href="../Themes/StormyWeather/Style.css">
+<link rel="stylesheet" type="text/css" href="../Themes/Menu/Style.css">
+<title>EMPAQUES </title>
+<script language="JavaScript" src="../LibJava/menu_func.js"></script>
+<link rel="stylesheet" type="text/css" href="../Themes/Cobalt/Style.css">
+<script language="JavaScript">
+//Begin CCS script
+//Include JSFunctions @1-5F368366
+  </script>
+  <script language="JavaScript" src="../functions.js"></script>
+  <script language="JavaScript">
+  
+//End Include JSFunctions
+
+//page_cjas_mant_Button_Delete_OnClick @83-EC2C912F
+function page_cjas_mant_Button_Delete_OnClick()
+{
+    var result;
+//End page_cjas_mant_Button_Delete_OnClick
+
+//Confirmation Message @84-BED55CD3
+    return confirm('Borrar registro?');
+//End Confirmation Message
+
+//Close page_cjas_mant_Button_Delete_OnClick @83-BC33A33A
+    return result;
+}
+//End Close page_cjas_mant_Button_Delete_OnClick
+
+//bind_events @1-0FF35507
+function bind_events() {
+    if (document.forms["cjas_mant"]) check_and_bind('document.forms["cjas_mant"].Button_Delete','onclick',page_cjas_mant_Button_Delete_OnClick);
+    forms_onload();
+}
+//End bind_events
+
+window.onload = bind_events; //Assign bind_events @1-19F7B649
+
+//End CCS script
+</script>
+</head>
+<body bgcolor="#fffff7" link="#000000" alink="#ff0000" vlink="#000000" text="#000000" class="CobaltPageBODY">
+<p>{Cabecera}&nbsp;
+<table background="../Themes/Cobalt/Light Streaks.bmp" border="0" align="center" cellspacing="0" cellpadding="0">
+  <tr>
+    <td valign="top"></td> 
+    <td valign="top" align="middle">
+      <p>
+      <!-- BEGIN Record cjas_mant --></p>
+ 
+      <p>&nbsp;</p>
+ 
+      <form action="{Action}" method="post" name="{HTMLFormName}" target="_self">
+        <font class="CobaltFormHeaderFont">{lbTitulo} <br>
+        <br>
+        </font> 
+        <table border="0" cellpadding="1" class="CobaltFormTABLE" cellspacing="1">
+          <!-- BEGIN Error -->
+          <tr>
+            <td class="CobaltErrorDataTD" colspan="4">{Error}</td> 
+          </tr>
+ <!-- END Error -->
+          <tr>
+            <td class="CobaltDataTD" nowrap colspan="4">&nbsp; DESCRIPCIÓN:</td> 
+           </tr>
+ 
+          <tr>
+            <td class="CobaltFieldCaptionTD" nowrap>&nbsp; MARCA</td> 
+            <td class="CobaltDataTD">
+              <select class="CobaltSelect" name="{caj_CodMarca_Name}">
+                <option selected value="">-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;&nbsp; </option>
+ {caj_CodMarca_Options} 
+              </select>
+ </td> 
+            <td class="CobaltFieldCaptionTD">&nbsp;ABREVIATURA</td> 
+            <td class="CobaltDataTD"><input class="CobaltInput" maxlength="5" name="{caj_Abreviatura_Name}" size="5" title="Abreviatura deL tipo de caja, para referencia rapida" value="{caj_Abreviatura}"></td> 
+          </tr>
+ 
+          <tr>
+            <td class="CobaltFieldCaptionTD" nowrap>&nbsp; DESCRIPCIÓN</td> 
+            <td class="CobaltDataTD"><input class="CobaltInput" maxlength="25" name="{caj_Descripcion_Name}" size="25" value="{caj_Descripcion}"></td> 
+            <td class="CobaltFieldCaptionTD">&nbsp;TIPO DE CAJA</td> 
+            <td class="CobaltDataTD"><input class="CobaltInput" maxlength="15" name="{caj_TipoCaja_Name}" size="15" title="Tipo de Caja segun normas oficiales" value="{caj_TipoCaja}"></td> 
+          </tr>
+ 
+          <tr>
+            <td class="CobaltDataTD" nowrap colspan="4">&nbsp;&nbsp; COMPOSICION
+              GENERAL:</td> 
+          </tr>
+ 
+          <tr>
+            <td class="CobaltFieldCaptionTD" nowrap>&nbsp;&nbsp;CARTÓN</td> 
+            <td class="CobaltDataTD" title="Componente Cartón">
+              <select class="CobaltSelect" name="{caj_Componente1_Name}" style="WIDTH: 222px; HEIGHT: 22px">
+                <option selected value="">- - - - - - - - - - - - - -</option>
+ {caj_Componente1_Options} 
+              </select>
+ </td> 
+            <td class="CobaltFieldCaptionTD">&nbsp;PLÁSTICO</td> 
+            <td class="CobaltDataTD" title="Código del Componente Plástico: Funda utilizada">
+              <select class="CobaltSelect" name="{caj_Componente2_Name}" style="WIDTH: 184px; HEIGHT: 22px">
+                <option selected value="">- - - - - - - - - - - - - -</option>
+ {caj_Componente2_Options} 
+              </select>
+ </td> 
+          </tr>
+ 
+          <tr>
+            <td class="CobaltFieldCaptionTD" nowrap>&nbsp; MAT. EMPAQUE</td> 
+            <td class="CobaltDataTD" title="Código del Componente Empaque: Materiales pequeños">
+              <select class="CobaltSelect" name="{caj_Componente3_Name}" style="WIDTH: 221px; HEIGHT: 22px">
+                <option selected value="">- - - - - - - - - - - - - -</option>
+ {caj_Componente3_Options} 
+              </select>
+ </td> 
+            <td class="CobaltFieldCaptionTD">&nbsp;ETIQUETA</td> 
+            <td class="CobaltDataTD" title="Código del Componente Etiquetas">
+              <select class="CobaltSelect" name="{caj_Componente4_Name}" style="WIDTH: 182px; HEIGHT: 22px">
+                <option selected value="">-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp; </option>
+ {caj_Componente4_Options} 
+              </select>
+ </td> 
+          </tr>
+ 
+          <tr>
+            <td class="CobaltDataTD" nowrap colspan="4">&nbsp;&nbsp; DIMENSIONES
+              FISICAS:</td> 
+          </tr>
+ 
+          <tr>
+            <td class="CobaltFieldCaptionTD" nowrap>&nbsp; LARGO&nbsp;</td> 
+            <td class="CobaltDataTD"><input class="CobaltInput" maxlength="12" name="{caj_Largo_Name}" size="12" title="Tamaño de Caja, longitud" value="{caj_Largo}"></td> 
+            <td class="CobaltFieldCaptionTD">&nbsp;ANCHO</td> 
+            <td class="CobaltDataTD"><input class="CobaltInput" maxlength="12" name="{caj_Ancho_Name}" size="12" title="Tamaño de Caja, Ancho" value="{caj_Ancho}"></td> 
+          </tr>
+ 
+          <tr>
+            <td class="CobaltFieldCaptionTD" nowrap>&nbsp; FONDO</td> 
+            <td class="CobaltDataTD"><input class="CobaltInput" maxlength="12" name="{caj_Fondo_Name}" size="12" title="Tamaño de Caja, Fondo" value="{caj_Fondo}">
+              <select class="CobaltSelect" name="{caj_PulCentim_Name}" style="WIDTH: 57px; HEIGHT: 22px">
+                <option selected value="">- - - - - - - - - - - - - -</option>
+ {caj_PulCentim_Options} 
+              </select>
+ </td> 
+            <td class="CobaltFieldCaptionTD">&nbsp;CAPACIDAD</td> 
+            <td class="CobaltDataTD"><input class="CobaltInput" maxlength="12" name="{caj_Capacidad_Name}" size="12" title="Capacidad de carga de Producto en cada caja, valor real" value="{caj_Capacidad}">&nbsp; 
+              <select class="CobaltSelect" name="{caj_KilLibras_Name}" style="WIDTH: 53px; HEIGHT: 22px">
+                <option selected value="">- - - - - - - - - - - - - -</option>
+ {caj_KilLibras_Options} 
+              </select>
+ </td> 
+          </tr>
+ 
+          <tr>
+            <td align="left" class="CobaltFooterTD" colspan="4" nowrap title="Cancela Cambios y Regresa a Búsqueda">
+              <!-- BEGIN Button Button_Insert --><input class="CobaltButton" name="{Button_Name}" type="submit" value="AGREGAR" title="Añadir el Registro nuevo"><!-- END Button Button_Insert -->
+              <!-- BEGIN Button Button_Update --><input class="CobaltButton" name="{Button_Name}" type="submit" value="GRABAR" title="Grabar los Cambios"><!-- END Button Button_Update -->
+              <!-- BEGIN Button Button_Delete --><input class="CobaltButton" name="{Button_Name}" type="submit" value="BORRAR" title="Eliminar este registro"><!-- END Button Button_Delete -->
+              <!-- BEGIN Button Button_Cancel --><input class="CobaltButton" name="{Button_Name}" type="submit" value="CANCELAR" title="Deshacer los cambios"><!-- END Button Button_Cancel -->&nbsp;&nbsp; 
+              <!-- BEGIN Button btRegresar --><input class="CobaltButton" name="{Button_Name}" type="submit" value="REGRESAR .. "><!-- END Button btRegresar --></td> 
+          </tr>
+ 
+        </table>
+ 
+      </form>
+ <!-- END Record cjas_mant -->&nbsp;</td> 
+  </tr>
+ 
+  <tr>
+    <td>&nbsp;</td> 
+    <td>&nbsp;</td> 
+  </tr>
+</table>
+ </p>
+</body>
+</html>

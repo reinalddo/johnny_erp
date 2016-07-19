@@ -1,0 +1,330 @@
+<html>
+<head>
+<base target="_self">
+<link rel="stylesheet" type="text/css" href="../Themes/Cobalt/Style.css">
+<link rel="stylesheet" type="text/css" href="../Themes/Menu/Style.css">
+<title>TARJAS: SELECCION</title>
+ 
+<script language="JavaScript" src="../LibJava/menu_func.js"></script>
+<script language="JavaScript" src="../LibJava/general.js"></script>
+<script language="JavaScript" src="../LibJava/cookies.js"></script>
+<script language="JavaScript" src="../LibJava/validaDB_ret.js"></script>
+<script language="JavaScript">
+//Begin CCS script
+//Include Common JSFunctions @1-73ADA5ED
+</script>
+<script language="JavaScript" src="../DatePicker.js"></script>
+<script language="JavaScript">
+//End Include Common JSFunctions
+
+//Date Picker Object Definitions @1-D353107D
+
+var tarjas_qry_DatePicker_s_tac_Fecha = new Object(); 
+tarjas_qry_DatePicker_s_tac_Fecha.format           = "dd/mm/yy";
+tarjas_qry_DatePicker_s_tac_Fecha.style            = "Themes/Cobalt/Style.css";
+tarjas_qry_DatePicker_s_tac_Fecha.relativePathPart = "../";
+
+//End Date Picker Object Definitions
+
+//End CCS script
+</script>
+</head>
+ 
+<body bgcolor="#fffff7" link="#000000" alink="#ff0000" vlink="#000000" text="#000000" class="CobaltPageBODY" style="PADDING-RIGHT: 0px; PADDING-LEFT: 0px; FONT-SIZE: 9px; PADDING-BOTTOM: 0px; PADDING-TOP: 0px; magin: 0; spacing: 0" bottommargin="0" nowrap leftmargin="0" topmargin="17" rightmargin="0" marginwidth="0" marginheight="0">
+{Cabecera} 
+<table background="../Themes/Cobalt/Light Streaks.bmp" border="0" width="100%" class="CobaltPageBODY">
+  <tr>
+    <td style="FONT-SIZE: 9px" align="middle" width="50%">
+      <!-- BEGIN Record tarjas_qry -->&nbsp;<br>
+      <form style="MARGIN: 0px" name="{HTMLFormName}" action="{Action}" method="post">
+        <font class="CobaltFormHeaderFont"></font> 
+        <table class="CobaltFormTABLE" cellspacing="0" cellpadding="2" border="0">
+          <!-- BEGIN Error -->
+          <tr>
+            <td class="CobaltErrorDataTD" colspan="28">{Error}</td> 
+          </tr>
+          <!-- END Error -->
+          <tr>
+            <td class="CobaltFieldCaptionTD" nowrap>Tarja&nbsp;</td> 
+            <td class="CobaltDataTD"><input class="CobaltInputSB2" maxlength="10" size="10" value="{s_tar_NumTarja}" name="{s_tar_NumTarja_Name}">&nbsp;</td> 
+            <td class="CobaltFieldCaptionTD" nowrap>Año&nbsp;</td> 
+            <td class="CobaltDataTD"><input class="CobaltInputSB2" maxlength="10" size="10" value="{s_emb_AnoOperacion}" name="{s_emb_AnoOperacion_Name}">&nbsp;</td> 
+            <td class="CobaltFieldCaptionTD" nowrap>Semana&nbsp;</td> 
+            <td class="CobaltDataTD"><input class="CobaltInputSB2" maxlength="5" size="5" value="{s_tac_Semana}" name="{s_tac_Semana_Name}">&nbsp;</td> 
+            <td class="CobaltFieldCaptionTD" nowrap>Fecha&nbsp;</td> 
+            <td class="CobaltDataTD"><input class="CobaltInputSB2" maxlength="8" size="8" value="{s_tac_Fecha}" name="{s_tac_Fecha_Name}" title="FECHA DE LA TARJA">
+              <!-- BEGIN DatePicker DatePicker_s_tac_Fecha --><a class="CobaltDataLink" href="javascript:showDatePicker('{Name}','{FormName}','{DateControl}');"><img height="15" src="../Themes/DatePicker/DatePicker1.gif" width="17" border="0"></a> <!-- END DatePicker DatePicker_s_tac_Fecha -->&nbsp;</td> 
+            <tr>
+            </tr>
+ 
+            <tr>
+              <td class="CobaltFieldCaptionTD" nowrap>Zona&nbsp;</td> 
+              <td class="CobaltDataTD">
+                <select class="CobaltInputSB" name="{s_tac_Zona_Name}">
+                  <option value="" selected>-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;</option>
+ {s_tac_Zona_Options} 
+                </select>
+ &nbsp;</td> 
+              <td class="CobaltFieldCaptionTD" nowrap>Cod Origen&nbsp;</td> 
+              <td class="CobaltDataTD"><input class="CobaltInputSB2" style="WIDTH: 70px; HEIGHT: 17px" maxlength="30" size="12" value="{s_tac_CodOrigen}" name="{s_tac_CodOrigen_Name}" title="CODIGO DE ORIGEN (ADHESIVO)">&nbsp;</td> 
+              <td class="CobaltFieldCaptionTD" nowrap>Grup Liquidacion&nbsp;</td> 
+              <td class="CobaltDataTD"><input class="CobaltInputSB2" maxlength="10" size="10" value="{s_tac_GrupLiquidacion}" name="{s_tac_GrupLiquidacion_Name}">&nbsp;</td> 
+              <td class="CobaltFieldCaptionTD" nowrap>&nbsp;Estado&nbsp;</td> 
+              <td class="CobaltDataTD"><input class="CobaltInputSB2" style="WIDTH: 40px; HEIGHT: 17px" maxlength="250" size="6" value="{s_tac_Estado}" name="{s_tac_Estado_Name}" title="ESTADO">&nbsp;</td> 
+              <tr>
+              </tr>
+ 
+              <tr>
+                <td class="CobaltFieldCaptionTD" nowrap>Emb Num Viaje&nbsp;</td> 
+                <td class="CobaltDataTD"><input class="CobaltInputSB2" maxlength="10" size="10" value="{s_emb_NumViaje}" name="{s_emb_NumViaje_Name}" title="NUMERO DE VIAJE">&nbsp;</td> 
+                <td class="CobaltFieldCaptionTD" nowrap>Estado&nbsp;Embarque</td> 
+                <td class="CobaltDataTD"><input class="CobaltInputSB2" maxlength="5" size="5" value="{s_emb_Estado}" name="{s_emb_Estado_Name}" title="ESTADO DEL EMBARQUE">&nbsp;</td> 
+                <td class="CobaltFieldCaptionTD" nowrap>BUQUE / CONTENEDOR</td> 
+                <td class="CobaltDataTD"><input class="CobaltInputSB2" style="WIDTH: 39px; HEIGHT: 17px" maxlength="40" size="5" value="{s_buq_Abreviatura}" name="{s_buq_Abreviatura_Name}" title="CODIGO DEL BUQUE">&nbsp; <input class="CobaltInputSB2" style="WIDTH: 77px; HEIGHT: 17px" maxlength="40" size="12" value="{s_buq_Descripcion}" name="{s_buq_Descripcion_Name}" title="NUM. DE SERIE DE CONTENEDOR"></td> 
+                <td class="CobaltFieldCaptionTD" nowrap>Producto</td> 
+                <td class="CobaltDataTD"><input class="CobaltInputSB2" style="WIDTH: 42px; HEIGHT: 17px" maxlength="25" size="6" value="{s_act_Descripcion}" name="{s_act_Descripcion_Name}" title="CÓDIGO DEL PRODUCTO">&nbsp; <input class="CobaltInputSB2" style="WIDTH: 79px; HEIGHT: 17px" maxlength="25" size="12" value="{s_act_Descripcion1}" name="{s_act_Descripcion1_Name}" title="DESCRIPCIÖN DEL PRODUCTO"></td> 
+                <tr>
+                </tr>
+ 
+                <tr>
+                  <td class="CobaltFieldCaptionTD" nowrap>Productor</td> 
+                  <td class="CobaltDataTD"><input class="CobaltInputSB2" style="WIDTH: 84px; HEIGHT: 17px" maxlength="25" size="14" value="{s_per_Apellidos}" name="{s_per_Apellidos_Name}" title="APELLIDOS DEL PRODUCTOR">&nbsp; <input class="CobaltInputSB2" style="WIDTH: 87px; HEIGHT: 17px" maxlength="25" size="15" value="{s_per_Nombres}" name="{s_per_Nombres_Name}" title="NOMBRES DEL PRODUCTOR"></td> 
+                  <td class="CobaltFieldCaptionTD" nowrap>EMPAQUE</td> 
+                  <td class="CobaltDataTD"><input class="CobaltInputSB2" style="WIDTH: 81px; HEIGHT: 17px" maxlength="25" size="13" value="{s_caj_Descripcion}" name="{s_caj_Descripcion_Name}">&nbsp;</td> 
+                </tr>
+ 
+                <tr align="middle">
+                  <td class="CobaltFooterTD" nowrap align="middle" colspan="8">
+                    <!-- BEGIN Button Button_DoSearch --><input class="CobaltDataLink" style="FONT-SIZE: 9px; WIDTH: 48px; HEIGHT: 18px" type="submit" value="BUSCAR" name="{Button_Name}"><!-- END Button Button_DoSearch -->&nbsp; </td> 
+                </tr>
+ 
+              </table>
+ 
+            </form>
+ <!-- END Record tarjas_qry --></td> 
+        </tr>
+ 
+        <tr valign="top" align="middle">
+          <td style="FONT-SIZE: 9px" colspan="2">&nbsp; 
+            <!-- BEGIN Grid tarjas_list --><font class="CobaltFormHeaderFont">DETALLES
+            DE TARJA </font> 
+            <table class="CobaltFormTABLE" cellpadding="0" border="0" cellspacing="0" style="FONT-SIZE: 9px">
+              <tr align="left">
+                <td class="CobaltFooterTD" nowrap colspan="11" align="middle">
+                  <!-- BEGIN Navigator Navigator -->
+                  <!-- BEGIN First_On --><a class="CobaltNavigatorLink" href="{First_URL}"><img height="14" src="../Themes/Aqua/FirstOn.gif" width="24" border="0"></a> <!-- END First_On -->
+                  <!-- BEGIN Prev_On --><a class="CobaltNavigatorLink" href="{Prev_URL}"><img height="14" src="../Themes/Aqua/PrevOn.gif" width="24" border="0"></a> <!-- END Prev_On -->&nbsp; 
+                  <!-- BEGIN Pages -->
+                  <!-- BEGIN Page_On --><a class="CobaltNavigatorLink" href="{Page_URL}">{Page_Number}</a>&nbsp; <!-- END Page_On -->
+                  <!-- BEGIN Page_Off -->{Page_Number}&nbsp; <!-- END Page_Off --><!-- END Pages -->de
+                  {Total_Pages}&nbsp; 
+                  <!-- BEGIN Next_On --><a class="CobaltNavigatorLink" href="{Next_URL}"><img height="14" src="../Themes/Aqua/NextOn.gif" width="24" border="0"></a> <!-- END Next_On -->
+                  <!-- BEGIN Last_On --><a class="CobaltNavigatorLink" href="{Last_URL}"><img height="14" src="../Themes/Aqua/LastOn.gif" width="24" border="0"></a> <!-- END Last_On -->
+				  <!-- END Navigator Navigator -->&nbsp; </td>
+                <td class="CobaltFooterTD" nowrap align="left" colspan="10">
+                  <!-- BEGIN Button btNuevo --><input class="CobaltLink" title="Abre un apantalla para Añadir una Tarja" style="FONT-SIZE: 9px; WIDTH: 48px; HEIGHT: 18px" onclick="JavaScript:window.enMantto=true; fAbrirWin('LiEmTj_mant.php' ,'WinTj',' ', 1000, 600); return false;" type="button" size="11" value="NUEVO" name="{Button_Name}"><!-- END Button btNuevo -->
+                  <!-- BEGIN Button btCerrar --><input class="CobaltLink" title="Cierra esta pantalla de selección, sin retornar valor" style="FONT-SIZE: 9px; WIDTH: 48px; HEIGHT: 18px" onclick="fCerrar();" type="button" size="11" value="CERRAR" name="{Button_Name}"><!-- END Button btCerrar --></td> 
+              </tr>
+ 
+              <tr style="PADDING-BOTTOM: 2px; PADDING-TOP: 2px">
+                <td class="CobaltFooterTD" nowrap align="middle" colspan="11">TARJA</td> 
+                <td class="CobaltFooterTD" nowrap align="middle" colspan="5">DETALLE
+                  DE TARJA (CANTIDADES y VALORES)</td> 
+                <td class="CobaltFooterTD" nowrap align="middle" colspan="5">EMBARQUE</td> 
+              </tr>
+ 
+              <tr style="PADDING-LEFT: 2px; FONT-SIZE: 10px; PADDING-BOTTOM: 2px; PADDING-TOP: 2px" align="middle">
+                <td class="CobaltColumnTD" nowrap>
+                  <!-- BEGIN Sorter Sorter_tar_NumTarja --><a class="CobaltSorterLink" style="FONT-SIZE: 10px" href="{Sort_URL}">NUM</a> 
+                  <!-- BEGIN Asc_On --><img height="9" src="../Themes/Cobalt/AscOn.gif" width="13" border="0"><!-- END Asc_On -->
+                  <!-- BEGIN Desc_On --><img height="9" src="../Themes/Cobalt/DescOn.gif" width="13" border="0"><!-- END Desc_On --><!-- END Sorter Sorter_tar_NumTarja -->&nbsp;</td> 
+                <td class="CobaltColumnTD" nowrap style="FONT-SIZE: 10px">
+                  <!-- BEGIN Sorter Sorter_tac_Semana --><a class="CobaltSorterLink" style="FONT-SIZE: 10px" href="{Sort_URL}">SEM</a> 
+                  <!-- BEGIN Asc_On --><img height="9" src="../Themes/Cobalt/AscOn.gif" width="13" border="0"><!-- END Asc_On -->
+                  <!-- BEGIN Desc_On --><img height="9" src="../Themes/Cobalt/DescOn.gif" width="13" border="0"><!-- END Desc_On --><!-- END Sorter Sorter_tac_Semana -->&nbsp;</td> 
+                <td class="CobaltColumnTD" nowrap style="FONT-SIZE: 10px">
+                  <!-- BEGIN Sorter Sorter_per_Apellidos --><a class="CobaltSorterLink" style="FONT-SIZE: 10px" href="{Sort_URL}">PRODUCTOR</a> 
+                  <!-- BEGIN Asc_On --><img height="9" src="../Themes/Cobalt/AscOn.gif" width="13" border="0"><!-- END Asc_On -->
+                  <!-- BEGIN Desc_On --><img height="9" src="../Themes/Cobalt/DescOn.gif" width="13" border="0"><!-- END Desc_On --><!-- END Sorter Sorter_per_Apellidos -->&nbsp;</td> 
+                <td class="CobaltColumnTD" nowrap style="FONT-SIZE: 10px">
+                  <!-- BEGIN Sorter Sorter_act_Descripcion --><a class="CobaltSorterLink" style="FONT-SIZE: 10px" href="{Sort_URL}">PRODUCTO</a> 
+                  <!-- BEGIN Asc_On --><img height="9" src="../Themes/Cobalt/AscOn.gif" width="13" border="0"><!-- END Asc_On -->
+                  <!-- BEGIN Desc_On --><img height="9" src="../Themes/Cobalt/DescOn.gif" width="13" border="0"><!-- END Desc_On --><!-- END Sorter Sorter_act_Descripcion -->&nbsp;</td> 
+                <td class="CobaltColumnTD" nowrap>
+                  <!-- BEGIN Sorter Sorter_caj_Descripcion --><a class="CobaltSorterLink" style="FONT-SIZE: 10px" href="{Sort_URL}">EMPAQUE</a> 
+                  <!-- BEGIN Asc_On --><img height="9" src="../Themes/Cobalt/AscOn.gif" width="13" border="0"><!-- END Asc_On -->
+                  <!-- BEGIN Desc_On --><img height="9" src="../Themes/Cobalt/DescOn.gif" width="13" border="0"><!-- END Desc_On --><!-- END Sorter Sorter_caj_Descripcion -->&nbsp;</td> 
+                <td class="CobaltColumnTD" nowrap>
+                  <!-- BEGIN Sorter Sorter_tac_Fecha --><a class="CobaltSorterLink" style="FONT-SIZE: 10px" href="{Sort_URL}">FECHA</a> 
+                  <!-- BEGIN Asc_On --><img height="9" src="../Themes/Cobalt/AscOn.gif" width="13" border="0"><!-- END Asc_On -->
+                  <!-- BEGIN Desc_On --><img height="9" src="../Themes/Cobalt/DescOn.gif" width="13" border="0"><!-- END Desc_On --><!-- END Sorter Sorter_tac_Fecha -->&nbsp;</td> 
+                <td class="CobaltColumnTD" nowrap>
+                  <!-- BEGIN Sorter Sorter_tac_Zona --><a class="CobaltSorterLink" style="FONT-SIZE: 10px" href="{Sort_URL}">ZONA</a> 
+                  <!-- BEGIN Asc_On --><img height="9" src="../Themes/Cobalt/AscOn.gif" width="13" border="0"><!-- END Asc_On -->
+                  <!-- BEGIN Desc_On --><img height="9" src="../Themes/Cobalt/DescOn.gif" width="13" border="0"><!-- END Desc_On --><!-- END Sorter Sorter_tac_Zona -->&nbsp;</td> 
+                <td class="CobaltColumnTD" nowrap>
+                  <!-- BEGIN Sorter Sorter_tac_CodOrigen --><a class="CobaltSorterLink" style="FONT-SIZE: 10px" href="{Sort_URL}">CODIGO</a> 
+                  <!-- BEGIN Asc_On --><img height="9" src="../Themes/Cobalt/AscOn.gif" width="13" border="0"><!-- END Asc_On -->
+                  <!-- BEGIN Desc_On --><img height="9" src="../Themes/Cobalt/DescOn.gif" width="13" border="0"><!-- END Desc_On --><!-- END Sorter Sorter_tac_CodOrigen -->&nbsp;</td> 
+                <td class="CobaltColumnTD" nowrap>
+                  <p>
+                  <!-- BEGIN Sorter Sorter_tac_GrupLiquidacion --><a class="CobaltSorterLink" style="FONT-SIZE: 10px" href="{Sort_URL}">GRUPO</a> 
+                  <!-- BEGIN Asc_On --><img height="9" src="../Themes/Cobalt/AscOn.gif" width="13" border="0"><!-- END Asc_On -->
+                  <!-- BEGIN Desc_On --><img height="9" src="../Themes/Cobalt/DescOn.gif" width="13" border="0"><!-- END Desc_On --><!-- END Sorter Sorter_tac_GrupLiquidacion --></p>
+ </td> 
+                <td class="CobaltColumnTD" nowrap style="FONT-SIZE: 10px">ESTADO</td> 
+                <td class="CobaltColumnTD" nowrap>
+                  <!-- BEGIN Sorter Sorter_tac_NumLiquid --><a class="CobaltSorterLink" style="FONT-SIZE: 10px" href="{Sort_URL}">LIQ.
+                  #</a> 
+                  <!-- BEGIN Asc_On --><img height="9" src="../Themes/Cobalt/AscOn.gif" width="13" border="0"><!-- END Asc_On -->
+                  <!-- BEGIN Desc_On --><img height="9" src="../Themes/Cobalt/DescOn.gif" width="13" border="0"><!-- END Desc_On --><!-- END Sorter Sorter_tac_NumLiquid -->&nbsp;</td> 
+                <td class="CobaltColumnTD" nowrap>
+                  <!-- BEGIN Sorter Sorter_tad_CantRecibida --><a class="CobaltSorterLink" style="FONT-SIZE: 10px" href="{Sort_URL}">REC.</a> 
+                  <!-- BEGIN Asc_On --><img height="9" src="../Themes/Cobalt/AscOn.gif" width="13" border="0"><!-- END Asc_On -->
+                  <!-- BEGIN Desc_On --><img height="9" src="../Themes/Cobalt/DescOn.gif" width="13" border="0"><!-- END Desc_On --><!-- END Sorter Sorter_tad_CantRecibida -->&nbsp;</td> 
+                <td class="CobaltColumnTD" nowrap>
+                  <!-- BEGIN Sorter Sorter_tad_CantRechazada --><a class="CobaltSorterLink" style="FONT-SIZE: 10px" href="{Sort_URL}">RECH</a> 
+                  <!-- BEGIN Asc_On --><img height="9" src="../Themes/Cobalt/AscOn.gif" width="13" border="0"><!-- END Asc_On -->
+                  <!-- BEGIN Desc_On --><img height="9" src="../Themes/Cobalt/DescOn.gif" width="13" border="0"><!-- END Desc_On --><!-- END Sorter Sorter_tad_CantRechazada -->&nbsp;</td> 
+                <td class="CobaltColumnTD" nowrap>
+                  <!-- BEGIN Sorter Sorter_tad_CantDespachada --><a class="CobaltSorterLink" href="{Sort_URL}">C.EMB.</a> 
+                  <!-- BEGIN Asc_On --><img height="9" src="../Themes/Cobalt/AscOn.gif" width="13" border="0"><!-- END Asc_On -->
+                  <!-- BEGIN Desc_On --><img height="9" src="../Themes/Cobalt/DescOn.gif" width="13" border="0"><!-- END Desc_On --><!-- END Sorter Sorter_tad_CantDespachada -->&nbsp;</td> 
+                <td class="CobaltColumnTD" nowrap>
+                  <!-- BEGIN Sorter Sorter_tad_ValUnitario --><a class="CobaltSorterLink" style="FONT-SIZE: 10px" href="{Sort_URL}">V.UNIT</a> 
+                  <!-- BEGIN Asc_On --><img height="9" src="../Themes/Cobalt/AscOn.gif" width="13" border="0"><!-- END Asc_On -->
+                  <!-- BEGIN Desc_On --><img height="9" src="../Themes/Cobalt/DescOn.gif" width="13" border="0"><!-- END Desc_On --><!-- END Sorter Sorter_tad_ValUnitario -->&nbsp;</td> 
+                <td class="CobaltColumnTD" nowrap>
+                  <!-- BEGIN Sorter Sorter_tad_DifUnitario --><a class="CobaltSorterLink" style="FONT-SIZE: 10px" href="{Sort_URL}">D.UNIT</a> 
+                  <!-- BEGIN Asc_On --><img height="9" src="../Themes/Cobalt/AscOn.gif" width="13" border="0"><!-- END Asc_On -->
+                  <!-- BEGIN Desc_On --><img height="9" src="../Themes/Cobalt/DescOn.gif" width="13" border="0"><!-- END Desc_On --><!-- END Sorter Sorter_tad_DifUnitario -->&nbsp;</td> 
+                <td class="CobaltColumnTD" nowrap>
+                  <!-- BEGIN Sorter Sorter_emb_AnoOperacion --><a class="CobaltSorterLink" style="FONT-SIZE: 10px" href="{Sort_URL}">AÑO</a> 
+                  <!-- BEGIN Asc_On --><img height="9" src="../Themes/Cobalt/AscOn.gif" width="13" border="0"><!-- END Asc_On -->
+                  <!-- BEGIN Desc_On --><img height="9" src="../Themes/Cobalt/DescOn.gif" width="13" border="0"><!-- END Desc_On --><!-- END Sorter Sorter_emb_AnoOperacion -->&nbsp;</td> 
+                <td class="CobaltColumnTD" nowrap>
+                  <!-- BEGIN Sorter Sorter_per_Semana --><a class="CobaltSorterLink" style="FONT-SIZE: 10px" href="{Sort_URL}">SEM</a> 
+                  <!-- BEGIN Asc_On --><img height="9" src="../Themes/Cobalt/AscOn.gif" width="13" border="0"><!-- END Asc_On -->
+                  <!-- BEGIN Desc_On --><img height="9" src="../Themes/Cobalt/DescOn.gif" width="13" border="0"><!-- END Desc_On --><!-- END Sorter Sorter_per_Semana -->&nbsp;</td> 
+                <td class="CobaltColumnTD" nowrap>
+                  <!-- BEGIN Sorter Sorter_buq_Abreviatura --><a class="CobaltSorterLink" style="FONT-SIZE: 10px" href="{Sort_URL}">VAPOR</a> 
+                  <!-- BEGIN Asc_On --><img height="9" src="../Themes/Cobalt/AscOn.gif" width="13" border="0"><!-- END Asc_On -->
+                  <!-- BEGIN Desc_On --><img height="9" src="../Themes/Cobalt/DescOn.gif" width="13" border="0"><!-- END Desc_On --><!-- END Sorter Sorter_buq_Abreviatura -->&nbsp;</td> 
+                <td class="CobaltColumnTD" nowrap>
+                  <!-- BEGIN Sorter Sorter_emb_NumViaje --><a class="CobaltSorterLink" style="FONT-SIZE: 10px" href="{Sort_URL}">VIAJE</a> 
+                  <!-- BEGIN Asc_On --><img height="9" src="../Themes/Cobalt/AscOn.gif" width="13" border="0"><!-- END Asc_On -->
+                  <!-- BEGIN Desc_On --><img height="9" src="../Themes/Cobalt/DescOn.gif" width="13" border="0"><!-- END Desc_On --><!-- END Sorter Sorter_emb_NumViaje -->&nbsp;</td> 
+                <td class="CobaltColumnTD" nowrap>
+                  <!-- BEGIN Sorter Sorter_emb_Estado --><a class="CobaltSorterLink" style="FONT-SIZE: 10px" href="{Sort_URL}">EST</a> 
+                  <!-- BEGIN Asc_On --><img height="9" src="../Themes/Cobalt/AscOn.gif" width="13" border="0"><!-- END Asc_On -->
+                  <!-- BEGIN Desc_On --><img height="9" src="../Themes/Cobalt/DescOn.gif" width="13" border="0"><!-- END Desc_On --><!-- END Sorter Sorter_emb_Estado -->&nbsp;</td> 
+              </tr>
+              <!-- BEGIN Row -->
+              <tr style="FONT-SIZE: 9px" title="Click para seleccionar esta Tarja" onmouseover="fTxtResalta(this,'#009999');" onmouseout="fTxtNormal(this);">
+                <td class="CobaltDataTD" align="right" style="FONT-SIZE: 9px" nowrap><input type="hidden" name="{tar_NumTarja_Name}" value="{tar_NumTarja}" style="WIDTH: 15px; HEIGHT: 10px" size="1">
+                  <!-- BEGIN Button btMantto1 --><input class="CobaltLink" title="Abre un apantalla para Añadir una Tarja" style="FONT-SIZE: 9px; WIDTH: 40px; HEIGHT: 18px" onclick="JavaScript:window.enMantto= true; fAbrirWin('LiEmTj_mant.php?tar_NumTarja={tar_NumTarja}' ,'WinTj',' ', 1000, 600); return false;" type="button" size="8" value="{tar_NumTarja}" name="{Button_Name}"><!-- END Button btMantto1 --></td> 
+                <td class="CobaltDataTD" style="FONT-SIZE: 9px" align="middle">{tac_Semana}&nbsp;</td> 
+                <td class="CobaltDataTD" nowrap style="FONT-SIZE: 9px; TEXT-TRANSFORM: uppercase">&nbsp;&nbsp;&nbsp;{per_Apellidos}&nbsp;</td> 
+                <td class="CobaltDataTD" nowrap style="FONT-SIZE: 9px; TEXT-TRANSFORM: uppercase">{act_Descripcion}&nbsp;{act_Descripcion1}</td> 
+                <td class="CobaltDataTD" nowrap style="FONT-SIZE: 9px; TEXT-TRANSFORM: uppercase">&nbsp;&nbsp;&nbsp;{caj_Descripcion}&nbsp;&nbsp;</td> 
+                <td class="CobaltDataTD" style="FONT-SIZE: 9px">{tac_Fecha}&nbsp;</td> 
+                <td class="CobaltDataTD">{tac_Zona}&nbsp;</td> 
+                <td class="CobaltDataTD" style="FONT-SIZE: 9px">{tac_CodOrigen}&nbsp;</td> 
+                <td class="CobaltDataTD" align="middle">{tac_GrupLiquidacion}&nbsp;</td> 
+                <td class="CobaltDataTD" align="middle">{tac_Estado}&nbsp;</td> 
+                <td class="CobaltDataTD" align="right">{tac_NumLiquid}&nbsp;</td> 
+                <td class="CobaltDataTD" align="right">{tad_CantRecibida}&nbsp;</td> 
+                <td class="CobaltDataTD" align="right">{tad_CantRechazada}&nbsp;</td> 
+                <td class="CobaltDataTD" align="right" style="COLOR: #666699">{tad_Embarcado}&nbsp;</td> 
+                <td class="CobaltDataTD" align="right">{tad_ValUnitario}&nbsp;</td> 
+                <td class="CobaltDataTD" align="right">{tad_DifUnitario}&nbsp;</td> 
+                <td class="CobaltDataTD" align="middle">{emb_AnoOperacion}&nbsp;</td> 
+                <td class="CobaltDataTD" align="middle">{per_Semana}&nbsp;</td> 
+                <td class="CobaltDataTD" nowrap style="FONT-SIZE: 9px; TEXT-TRANSFORM: uppercase">{buq_Abreviatura}&nbsp; <input type="hidden" name="{buq_Descripcion_Name}" value="{buq_Descripcion}" style="WIDTH: 43px; HEIGHT: 12px" size="5"></td> 
+                <td class="CobaltDataTD" align="right">{emb_NumViaje}&nbsp;</td> 
+                <td class="CobaltDataTD" align="middle">{emb_Estado}&nbsp;</td> 
+              </tr>
+              <!-- END Row -->
+              <!-- BEGIN AltRow -->
+              <tr style="FONT-SIZE: 9px" title="Click para seleccionar esta variable" onmouseover="fTxtResalta(this,'#009999');" onmouseout="fTxtNormal(this);">
+                <td class="CobaltAltDataTD" align="right" style="FONT-SIZE: 9px" nowrap><input type="hidden" name="{Alt_tar_NumTarja_Name}" value="{Alt_tar_NumTarja}" style="WIDTH: 9px; HEIGHT: 10px" size="2">
+                  <!-- BEGIN Button btMantto2 --><input class="CobaltLink" title="Abre un apantalla para Añadir una Tarja" style="FONT-SIZE: 9px; WIDTH: 40px; HEIGHT: 18px" onclick="JavaScript:window.enMantto= true; fAbrirWin('LiEmTj_mant.php?tar_NumTarja={Alt_tar_NumTarja}' ,'WinTj',' ', 1000, 600); return false;" type="button" size="11" value="{Alt_tar_NumTarja}" name="{Button_Name}"><!-- END Button btMantto2 --></td> 
+                <td class="CobaltAltDataTD" style="FONT-SIZE: 9px" align="middle">{Alt_tac_Semana}&nbsp;</td> 
+                <td class="CobaltAltDataTD" nowrap style="FONT-SIZE: 9px; TEXT-TRANSFORM: uppercase">&nbsp;&nbsp;&nbsp;{Alt_per_Apellidos}&nbsp;
+                  &nbsp;</td> 
+                <td class="CobaltAltDataTD" nowrap style="FONT-SIZE: 9px; TEXT-TRANSFORM: uppercase">{Alt_act_Descripcion}&nbsp;{Alt_act_Descripcion1}</td> 
+                <td class="CobaltAltDataTD" style="FONT-SIZE: 9px; TEXT-TRANSFORM: uppercase">&nbsp;&nbsp;&nbsp;{Alt_caj_Descripcion}&nbsp;&nbsp;</td> 
+                <td class="CobaltAltDataTD" style="FONT-SIZE: 9px">{Alt_tac_Fecha}&nbsp;</td> 
+                <td class="CobaltAltDataTD">{Alt_tac_Zona}&nbsp;</td> 
+                <td class="CobaltAltDataTD" style="FONT-SIZE: 9px">{Alt_tac_CodOrigen}&nbsp;</td> 
+                <td class="CobaltAltDataTD" align="middle">{Alt_tac_GrupLiquidacion}&nbsp;</td> 
+                <td class="CobaltAltDataTD" align="middle">{Alt_tac_Estado}&nbsp;</td> 
+                <td class="CobaltAltDataTD" align="right">{Alt_tac_NumLiquid}&nbsp;</td> 
+                <td class="CobaltAltDataTD" align="right">{Alt_tad_CantRecibida}&nbsp;</td> 
+                <td class="CobaltAltDataTD" align="right">{Alt_tad_CantRechazada}&nbsp;</td> 
+                <td class="CobaltAltDataTD" align="right" style="COLOR: #666699">{Alt_tad_Embarcado}&nbsp;</td> 
+                <td class="CobaltAltDataTD" align="right">{Alt_tad_ValUnitario}&nbsp;</td> 
+                <td class="CobaltAltDataTD" align="right">{Alt_tad_DifUnitario}&nbsp;</td> 
+                <td class="CobaltAltDataTD" align="middle">{Alt_emb_AnoOperacion}&nbsp;</td> 
+                <td class="CobaltAltDataTD" align="middle">{Alt_per_Semana}&nbsp;</td> 
+                <td class="CobaltAltDataTD" nowrap style="FONT-SIZE: 9px; TEXT-TRANSFORM: uppercase">{Alt_buq_Abreviatura}&nbsp; <input type="hidden" name="{Alt_buq_Descripcion_Name}" value="{Alt_buq_Descripcion}" style="WIDTH: 43px; HEIGHT: 13px" size="5"></td> 
+                <td class="CobaltAltDataTD" align="right">{Alt_emb_NumViaje}&nbsp;</td> 
+                <td class="CobaltAltDataTD" align="middle">{Alt_emb_Estado}&nbsp;</td> 
+              </tr>
+              <!-- END AltRow -->
+              <tr style="FONT-SIZE: 14px; FONT-STYLE: italic" height="20">
+                <td class="CobaltDataTD" style="FONT-SIZE: 9px" nowrap align="right"></td> 
+                <td class="CobaltDataTD" style="FONT-SIZE: 9px" align="middle"></td> 
+                <td class="CobaltDataTD" colspan="8" style="FONT-WEIGHT: bold; TEXT-TRANSFORM: uppercase; FONT-STYLE: italic" nowrap align="right">
+                  <p title="VALORES RESULTANTES DE ACUMULAR TODOS LAS TARJAS QUE COMPLEN LA CONDICION ">T
+                  O T A L&nbsp;&nbsp;&nbsp; D E&nbsp;&nbsp;&nbsp; C O N S U L T
+                  A: </p>
+ </td> 
+                <td class="CobaltDataTD" align="right"></td> 
+                <td class="CobaltDataTD" align="right" style="FONT-WEIGHT: bold; TEXT-TRANSFORM: uppercase" title="VALORES RESULTANTES DE ACUMULAR TODOS LAS TARJAS QUE COMPLEN LA CONDICION ">&nbsp;{txt_CantRecibida}</td> 
+                <td class="CobaltDataTD" align="right" style="FONT-WEIGHT: bold; TEXT-TRANSFORM: uppercase" title="VALORES RESULTANTES DE ACUMULAR TODOS LAS TARJAS QUE COMPLEN LA CONDICION ">&nbsp;{txt_CantRechazada}</td> 
+                <td class="CobaltDataTD" style="FONT-WEIGHT: bold; TEXT-TRANSFORM: uppercase; COLOR: #666699; FONT-STYLE: italic" align="right">&nbsp;{txt_CantEmbarcada}</td> 
+                <td class="CobaltDataTD" align="right" style="FONT-SIZE: 8px; FONT-STYLE: normal" onmouseover="this.style.fontSize=14" onmouseout="this.style.fontSize=8">&nbsp;{txt_ValUnitario}</td> 
+                <td class="CobaltDataTD" align="right" style="FONT-SIZE: 8px; FONT-STYLE: normal" title="VALORES RESULTANTES DE ACUMULAR TODOS LAS TARJAS QUE COMPLEN LA CONDICION " onmouseover="this.style.fontSize=14" onmouseout="this.style.fontSize=8">&nbsp;{txt_DifUnitario}</td> 
+                <td class="CobaltDataTD" align="middle"></td> 
+                <td class="CobaltDataTD" style="FONT-WEIGHT: bold; FONT-SIZE: 9px; TEXT-TRANSFORM: uppercase; FONT-STYLE: italic" nowrap height="17"></td> 
+                <td class="CobaltDataTD" align="right"></td> 
+                <td class="CobaltDataTD" align="middle"></td> 
+                <td class="CobaltDataTD" align="middle"></td> 
+              </tr>
+ 
+              <tr style="FONT-SIZE: 14px; FONT-STYLE: italic">
+                <td class="CobaltDataTD" style="FONT-SIZE: 9px" nowrap align="right"></td> 
+                <td class="CobaltDataTD" style="FONT-SIZE: 9px" align="middle"></td> 
+                <td class="CobaltDataTD" style="FONT-WEIGHT: bold; TEXT-TRANSFORM: uppercase; FONT-STYLE: italic" nowrap align="right" colspan="8">N
+                  E T O: </td> 
+                <td class="CobaltDataTD" align="right"></td> 
+                <td class="CobaltDataTD" style="FONT-WEIGHT: bold; TEXT-TRANSFORM: uppercase" align="right"></td> 
+                <td class="CobaltDataTD" style="FONT-WEIGHT: bold; TEXT-TRANSFORM: uppercase" align="right"></td> 
+                <td class="CobaltDataTD" style="FONT-WEIGHT: bold; TEXT-TRANSFORM: uppercase; COLOR: #666699; FONT-STYLE: italic" align="right"></td> 
+                <td class="CobaltDataTD" style="FONT-WEIGHT: bold; FONT-SIZE: 12px; FONT-STYLE: italic" colspan="2" align="middle" title="VALORES RESULTANTES DE ACUMULAR TODOS LAS TARJAS QUE COMPLEN LA CONDICION ">{txt_ValTotal}</td> 
+                <td class="CobaltDataTD" style="FONT-SIZE: 9px; FONT-STYLE: normal" align="right"></td> 
+                <td class="CobaltDataTD" align="middle"></td> 
+                <td class="CobaltDataTD" style="FONT-WEIGHT: bold; FONT-SIZE: 9px; TEXT-TRANSFORM: uppercase; FONT-STYLE: italic" nowrap height="17"></td> 
+                <td class="CobaltDataTD" align="right"></td> 
+                <td class="CobaltDataTD" align="middle"></td> 
+                <td class="CobaltDataTD" align="middle"></td> 
+              </tr>
+              <!-- BEGIN NoRecords -->
+              <tr>
+                <td class="CobaltAltDataTD" colspan="21">No hay registros&nbsp;</td> 
+              </tr>
+              <!-- END NoRecords -->
+              <tr>
+                <td class="CobaltFooterTD" colspan="22">&nbsp;</td> 
+              </tr>
+ 
+            </table>
+ <!-- END Grid tarjas_list --></td> 
+        </tr>
+ 
+      </table>
+ 
+      </body>
+ 
+      </html>

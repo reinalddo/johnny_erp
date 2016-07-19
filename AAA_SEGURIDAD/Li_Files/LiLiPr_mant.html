@@ -1,0 +1,481 @@
+<html>
+<head>
+<base target="_self">
+<link rel="stylesheet" type="text/css" href="../Themes/Cobalt/Style.css">
+<title>MANTENIMIENTO DE PROCESOS</title>
+<script language="JavaScript" src="../LibJava/browser_detect.js"></script>
+<script language="JavaScript" src="../LibJava/fechas.js"></script>
+<script language="JavaScript" src="../LibJava/general.js"></script>
+<script language="JavaScript" src="../LibJava/validations.js"></script>
+<script language="JavaScript">
+
+/**
+*   Elabora un URL-query_string para cargar un script PHP que realiza el proceso en la DB
+* 	@access public
+* 	@param  object   oElem    	Elemento disparado
+* 	@return void
+* 	@rev	fah May/13/09		Incluir Provision a Costafru
+*/
+function fProcesaLiq(oElem)
+{
+//	var i = fTraefila(oElem.name) -1;
+	i=oElem.parentNode.parentNode.rowIndex - Row0.rowIndex -1 ;
+	if (!isNumeric(i)) {
+		alert("NO SE PUEDE DETERMINAR LA POSICION DE LA FILA");
+		return;
+	}
+	var slQryStr = '?';
+	with(document.liqprecaja_qry){
+		if(isNumeric(pro_Ano.value) 	&& pro_Ano.value != 0) 			slQryStr +=  'pAno=' + pro_Ano.value;
+			else return;
+		if(isNumeric(pro_Semana.value) 	&& pro_Semana.value != 0) 		slQryStr +=  '&pSemana=' + pro_Semana.value;
+	}
+	with(document.liqprecaja_list){
+		if 	(!isNumeric(pre_Estado[i].value) || pre_Estado[i].value == 0 ) {
+			alert("SOLO PUEDE APLICAR LAS LISTAS QUE HAYAN SIDO GRABADAS " );
+			return;
+		}
+		if (isNumeric(pre_ID[i].value)) slQryStr +=  '&pPro=' + pre_ID[i].value ;
+		slCond="pQry= AND par_Clave = 'IMARCA' " ;
+		if(isNumeric(pre_RefOperativa[i].value) 	&& pre_RefOperativa[i].value != 0) 				slCond = (slCond.length >0 ? slCond + ' AND ' : '') + 'emb_RefOperativa|' 		+ pre_RefOperativa[i].value;
+		if(isNumeric(pre_GruLiquidacion[i].value) 	&& pre_GruLiquidacion[i].value != 0) 			slCond = (slCond.length >0 ? slCond + ' AND ' : '') + 'tac_GrupLiquidacion|' 	+ pre_GruLiquidacion[i].value;
+		if(isNumeric(pre_Zona[i].value) 			&& pre_Zona[i].value != 0) 						slCond = (slCond.length >0 ? slCond + ' AND ' : '') + 'tac_Zona|'				+ pre_Zona[i].value;
+		if(isNumeric(pre_Productor[i].value)    	&& pre_Productor[i].value != 0) 				slCond = (slCond.length >0 ? slCond + ' AND ' : '') + 'tac_CodEmbarcador|' 		+ pre_Productor[i].value;
+		if(isNumeric(pre_CodProducto[i].value) 		&& pre_CodProducto[i].value != 0)  				slCond = (slCond.length >0 ? slCond + ' AND ' : '') + 'tad_CodProducto|' 		+ pre_CodProducto[i].value;
+		if(isNumeric(pre_CodMarca[i].value) 		&& pre_CodMarca[i].value != 0) 					slCond = (slCond.length >0 ? slCond + ' AND ' : '') + 'tad_CodMarca|'     		+ pre_CodMarca[i].value;
+		if(isNumeric(pre_CodEmpaque[i].value)   	&& pre_CodEmpaque[i].value != 0) 				slCond = (slCond.length >0 ? slCond + ' AND ' : '') + 'tad_CodEmpaque|' 		+ pre_CodEmpaque[i].value;
+		slQryStr += '&' + slCond;
+
+		if(fValidarFecha('liqprecaja_list', pro_FechaCierre[i].name)) {
+			slCond = (slCond.length >0 ? slCond + ' AND ' : '') + '&pFCie=' + pro_FechaCierre[i].value;
+			slQryStr += '&pFCie=' + pro_FechaCierre[i].value;
+			if(fValidarFecha('liqprecaja_list', pro_FechaLiquid[i].name)) 		{
+				slCond = (slCond.length >0 ? slCond + ' AND ' : '') + '&pFLiq=' + pro_FechaLiquid[i].value;
+				slQryStr += '&pFLiq=' + pro_FechaCierre[i].value;
+					fAbrirWin('LiLiPr_aplicac.pro.php' + slQryStr, 'WLiq', '', 700, 350)			
+				}
+			else {
+				pro_FechaLiquid[i].focus(); 
+				pro_FechaLiquid[i].select();
+				return;
+			}
+		}
+		else {
+			pro_FechaCierre[i].focus(); 
+			pro_FechaCierre[i].select();
+			return;
+		}
+	}
+}
+/**
+*   Ejecuta el proceso solicitado
+*   @param      opc     int     Numero de Opcion solicitada
+**/
+var slUrl = "";
+function fEjecuta(opc) {
+    ilPro = getFromurl("pro_ID");
+    if (!ilPro) {
+        alert("EL PROCESO NO SE HA DEFINIDO");
+        return false;
+    }
+    with (document.forms[0]) {
+        if (opc < 6  && opc > 0){
+            slUrl ="../Li_Files/LiLiPr_aplicac.pro.php?pPro= " + ilPro +"&pOpc=" + opc;
+            if (parseInt(pro_Prod.value)>0) slUrl += "&pPrd=" + pro_Prod.value;
+            }
+        else {
+            slUrl ="../Li_Files/LiLiPr_aplic06.pro.php?pPro= " + ilPro +"&pOpc=" + opc;
+            if (parseInt(pro_Prod.value)>0) slUrl += "&pPrd=" + pro_Prod.value;
+            if (parseInt(pro_NComp.value)>0) slUrl += "&pCom=" + pro_NComp.value;
+            switch (opc) {
+            case 26://                                  Emitir un cheque Unico
+            case 6: // Procesa el seis
+                if (!validacomp()) return false;
+                if (!validacheq()) return false;
+                break;
+            case 7: // procesa el 7
+                if (!validacomp()) return false;
+                break;
+            case 8:// procesa el 8
+                if (!validacomp()) return false;
+                if (!validacheq()) return false;
+                break;
+            case 9: // procesa el 9
+                if (!validacomp()) return false;
+                break;
+            case "10": // procesa el 10
+                if (!validacomp()) return false;
+                break;
+            case 11:
+            case "11": // procesa el 11
+                pro_TComp.value = "DC"
+                if (!validacomp()) return false;
+                break;
+            default:
+                alert(" CODIGO DE OPERACION " + opc + " NO ASIGNADO A NINGUN PROCESO");
+                return false;
+                break;
+            }
+        if (!confirm("POR FAVOR CONFIRME EL PROCESO DE COMPROBANTE TIPO '" + pro_TComp.value +
+                "'       " + " NUM.CHEQUE INICIAL: " + pro_NCheq.value + "     NUM COMPROBANTE INICIAL : "
+                 + pro_NComp.value)) return false ;
+        }
+    fAbrirWin(slUrl, 'wPr', ' ', 900, 600)
+    }
+}
+function fEjecutaProv(pTip, pCla) {
+	if (!pCla) pCla = "";
+    switch  (pTip){
+	case "t":
+		slUrl ="../Li_Files/LiLiPr_aplic06_prov" + pCla +".pro.php?pPro="
+		break;
+	case "p":
+		slUrl ="../Li_Files/LiLiPr_aplic06_prov_pofi" + pCla +".pro.php?pPro="
+		break;
+	case "b":
+		slUrl ="../Li_Files/LiLiPr_aplic06_prov_bono" + pCla +".pro.php?pPro="
+		break;
+	default:
+		return;
+    }
+    ilPro = getFromurl("pro_ID");
+    if (!ilPro) {
+        alert("EL PROCESO NO SE HA DEFINIDO");
+        return false;
+    }
+    with (document.forms[0]) {
+            slUrl += ilPro +"&pOpc=" + 26+ "&pDB2= ";
+            if (parseInt(pro_Prod.value)>0) slUrl += "&pPrd=" + pro_Prod.value;
+            if (parseInt(pro_NComp.value)>0) slUrl += "&pCom=" + pro_NComp.value;
+                if (!validacomp()) return false;
+//                if (!validacheq()) return false;
+        if (!confirm("POR FAVOR CONFIRME EL PROCESO DE COMPROBANTE TIPO '" + pro_TComp.value + "     NUM COMPROBANTE INICIAL : " + pro_NComp.value)) return false ;
+	}
+    fAbrirWin(slUrl, 'wPr', ' ', 900, 600)
+}
+
+function fEjecutaDist(pCia) { //@TODO: Aplicar parametro de Ciadestino de la provision
+	if (!pCia) pCia = "";
+	ilPro = getFromurl("pro_ID");
+	slUrl ="../Li_Files/LiLiPr_distrib.pro.php?pPro=" + ilPro;
+    if (!ilPro) {
+        alert("EL PROCESO NO SE HA DEFINIDO");
+        return false;
+    }
+	with (document.forms[0]) {
+            slUrl += "&pSem=" + pro_Semana.value;
+	}
+    fAbrirWin(slUrl, 'wPr', ' ', 900, 600)
+}
+
+function validacomp() {
+    if (String(document.forms[0].pro_TComp.value).length>1) slUrl += "&pTip=" + document.forms[0].pro_TComp.value;
+    else  {
+            alert ("DEBE DEFINIR EL TIPO DE DOCUMENTO A GENERAR");
+            return false;
+    }
+    return true
+}
+
+function validacheq() {
+    if (parseInt(document.forms[0].pro_NCheq.value)>0) slUrl += "&pChq=" + document.forms[0].pro_NCheq.value;
+    else  {
+            alert ("DEBE DEFINIR EL NUMERO DE CHEQUE INICIAL A GENERAR");
+            return false;
+        }
+    return true
+}
+//Begin CCS script
+//Include Common JSFunctions @1-73ADA5ED
+</script>
+<script language="JavaScript" src="../DatePicker.js"></script>
+<script language="JavaScript">
+//End Include Common JSFunctions
+
+//Date Picker Object Definitions @1-91D805F3
+
+var liqprocesos_DatePicker_pre_FecInicio = new Object(); 
+liqprocesos_DatePicker_pre_FecInicio.format           = "dd/mm/yy";
+liqprocesos_DatePicker_pre_FecInicio.style            = "Themes/Cobalt/Style.css";
+liqprocesos_DatePicker_pre_FecInicio.relativePathPart = "../";
+
+var liqprocesos_DatePicker_pro_FechaLiquid = new Object(); 
+liqprocesos_DatePicker_pro_FechaLiquid.format           = "dd/mm/yy";
+liqprocesos_DatePicker_pro_FechaLiquid.style            = "Themes/Cobalt/Style.css";
+liqprocesos_DatePicker_pro_FechaLiquid.relativePathPart = "../";
+
+//End Date Picker Object Definitions
+
+//End CCS script
+</script>
+</head>
+ 
+<body align="center" bgcolor="#fffff7" link="#000000" alink="#ff0000" vlink="#000000" text="#000000" class="CobaltPageBODY" style="BORDER-TOP-WIDTH: 0px; BORDER-LEFT-WIDTH: 0px; FONT-SIZE: 9px; BORDER-BOTTOM-WIDTH: 0px; MARGIN: 0px; WIDTH: 42px; HEIGHT: 19px; BORDER-RIGHT-WIDTH: 0px" bottommargin="0" nowrap leftmargin="0" topmargin="17" rightmargin="0" marginwidth="0" marginheight="0">
+<table background="../Themes/Cobalt/Light Streaks.bmp" border="0" width="766" class="CobaltPageBODY" style="ALIGN:center MARGIN: 0px; WIDTH: 766px; BORDER-COLLAPSE: collapse; HEIGHT: 336px">
+  <tr>
+    <td align="middle">&nbsp; 
+      <!-- BEGIN Record liqprocesos -->
+      <form align="center" name="{HTMLFormName}" action="{Action}" method="post" style="MARGIN: 0px">
+        <font class="CobaltFormHeaderFont">PROCESOS DE LIQUIDACION </font> 
+        <table class="CobaltFormTABLE" cellpadding="1" border="0" style="MARGIN: 0px; BORDER-COLLAPSE: collapse ">
+          <!-- BEGIN Error -->
+          <tbody>
+            <tr>
+              <td class="CobaltErrorDataTD" colspan="4">{Error}</td> 
+            </tr>
+ <!-- END Error -->
+            <tr>
+              <td class="CobaltFieldCaptionTD" nowrap>Año / Semana&nbsp;</td> 
+              <td class="CobaltDataTD" colspan="3">
+                <input class="CobaltInput" maxlength="5" size="2" value="{pro_AnoProceso}" name="{pro_AnoProceso_Name}" style="WIDTH: 22px; HEIGHT: 20px">&nbsp; 
+                <input class="CobaltInput" maxlength="5" size="2" value="{pro_Semana}" name="{pro_Semana_Name}" style="WIDTH: 31px; HEIGHT: 20px"></td> 
+            </tr>
+ 
+            <tr>
+              <td class="CobaltFieldCaptionTD" nowrap>Embarque&nbsp;</td> 
+              <td class="CobaltDataTD">
+                <select class="CobaltInputSB2" id="pre_RefOperativa" style="FONT-SIZE: 9px; WIDTH: 237px" name="{pre_RefOperativa_Name}">
+                  <option value="">-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-</option>
+ 
+                  <option value="0" selected>T&nbsp;O&nbsp;D&nbsp;O&nbsp;S</option>
+ {pre_RefOperativa_Options} 
+                </select>
+ </td> 
+              <td class="CobaltFieldCaptionTD" nowrap>Producto&nbsp;</td> 
+              <td class="CobaltDataTD">
+                <select class="CobaltInputSB2" id="pre_CodProducto" style="FONT-SIZE: 9px; WIDTH: 237px" name="{pre_CodProducto_Name}">
+                  <option value="" selected>-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;--&nbsp;-&nbsp;--&nbsp;-&nbsp;-&nbsp;&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;</option>
+ 
+                  <option value="9999">T&nbsp;O&nbsp;D&nbsp;O&nbsp;S</option>
+ {pre_CodProducto_Options} 
+                </select>
+ </td> 
+            </tr>
+ 
+            <tr>
+              <td class="CobaltFieldCaptionTD" nowrap>Marca&nbsp;</td> 
+              <td class="CobaltDataTD">
+                <select class="CobaltInputSB2" id="pre_CodMarca" style="WIDTH: 108px" name="{pre_CodMarca_Name}">
+                  <option value="" selected>-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;</option>
+ 
+                  <option value="0">T&nbsp;O&nbsp;D&nbsp;A&nbsp;S&nbsp;</option>
+ {pre_CodMarca_Options} 
+                </select>
+ &nbsp; </td> 
+              <td class="CobaltFieldCaptionTD" nowrap>Empaque&nbsp;</td> 
+              <td class="CobaltDataTD">
+                <select class="CobaltInputSB2" id="pre_CodEmpaque" style="WIDTH: 108px" name="{pre_CodEmpaque_Name}">
+                  <option value="" selected>-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;</option>
+ 
+                  <option value="9999">T&nbsp;O&nbsp;D&nbsp;O&nbsp;S&nbsp;</option>
+ {pre_CodEmpaque_Options} 
+                </select>
+ </td> 
+            </tr>
+ 
+            <tr>
+              <td class="CobaltFieldCaptionTD" nowrap>Grupo Liquidacion&nbsp;</td> 
+              <td class="CobaltDataTD">
+                <select class="CobaltInputSB2" id="pre_GruLiquidacion" style="WIDTH: 146px" name="{pre_GruLiquidacion_Name}">
+                  <option value="" selected>-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;</option>
+ 
+                  <option value="9999">T&nbsp;O&nbsp;D&nbsp;O&nbsp;S</option>
+ {pre_GruLiquidacion_Options} 
+                </select>
+ </td> 
+              <td class="CobaltFieldCaptionTD" nowrap>Zona&nbsp;</td> 
+              <td class="CobaltDataTD">
+                <select class="CobaltInputSB2" id="pre_Zona" style="WIDTH: 146px" name="{pre_Zona_Name}">
+                  <option value="" selected>-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;</option>
+ 
+                  <option value="">T&nbsp;O&nbsp;D&nbsp;O&nbsp;S</option>
+ {pre_Zona_Options} 
+                </select>
+ </td> 
+            </tr>
+ 
+            <tr>
+              <td class="CobaltFieldCaptionTD" nowrap>Productor&nbsp;</td> 
+              <td class="CobaltDataTD">
+                <input class="CobaltInputSB2" maxlength="10" size="4" value="{pre_Productor}" name="{pre_Productor_Name}" style="WIDTH: 53px; HEIGHT: 18px" id="pre_Productor">
+                <input class="CobaltInputSB2" maxlength="25" size="18" value="{per_Apellidos}" name="{per_Apellidos_Name}" style="FONT-SIZE: 9px; TEXT-TRANSFORM: uppercase; WIDTH: 116px" id="per_Apellidos"></td> 
+              <td class="CobaltFieldCaptionTD" nowrap>Fecha de Cierre&nbsp;</td> 
+              <td class="CobaltDataTD">
+                <input class="CobaltInputSB2" maxlength="8" size="9" value="{pro_FechaCierre}" name="{pro_FechaCierre_Name}" style="FONT-SIZE: 9px; WIDTH: 69px; HEIGHT: 16px" title="Fecha Límite para considerar transacciones de Inventario y Cuentas por Cobrar" id="pro_FechaCierre">&nbsp;&nbsp; 
+                <!-- BEGIN DatePicker DatePicker_pre_FecInicio --><a class="CobaltDataLink" href="javascript:showDatePicker('{Name}','{FormName}','{DateControl}');"><img tabindex="-1" height="15" src="../Themes/DatePicker/DatePicker1.gif" width="17" border="0"></a> <!-- END DatePicker DatePicker_pre_FecInicio -->&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;</td> 
+            </tr>
+ 
+            <tr>
+              <td class="CobaltFieldCaptionTD" nowrap>Fecha de Liquidacion&nbsp;</td> 
+              <td class="CobaltDataTD">
+                <input class="CobaltInputSB2" title="Fecha de Liquidación" style="FONT-SIZE: 9px; WIDTH: 69px; HEIGHT: 16px" maxlength="8" size="9" value="{pro_FechaLiquid}" name="{pro_FechaLiquid_Name}" id="pro_FechaLiquid">
+                <!-- BEGIN DatePicker DatePicker_pro_FechaLiquid --><a class="CobaltDataLink" href="javascript:showDatePicker('{Name}','{FormName}','{DateControl}');"><img src="../Themes/DatePicker/DatePicker1.gif" border="0"></a><!-- END DatePicker DatePicker_pro_FechaLiquid -->&nbsp;</td> 
+              <td class="CobaltFieldCaptionTD" nowrap>Tipo de Comprobante&nbsp;</td> 
+              <td class="CobaltDataTD">
+                <input class="CobaltInput" maxlength="3" size="3" value="{pro_TipoComprob}" name="{pro_TipoComprob_Name}">&nbsp;</td> 
+            </tr>
+ 
+            <tr>
+              <td class="CobaltFieldCaptionTD" nowrap>Cuenta Contable&nbsp;</td> 
+              <td class="CobaltDataTD" title="Seleccione la cuenta sobre la que se cierra la liquidacion">
+                <select name="{pro_CuentaContable_Name}" class="CobaltInputSB2" style="WIDTH: 233px">
+                  <option value="" selected>-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;&nbsp;</option>
+ {pro_CuentaContable_Options} 
+                </select>
+ &nbsp;</td> 
+              <td class="CobaltFieldCaptionTD" nowrap>Auxiliar&nbsp;</td> 
+              <td class="CobaltDataTD" valign="top" title="Seleccione el auxiliar correspondiente al Cierre de la contabilizacion">
+                <select class="CobaltInputSB2" style="WIDTH: 225px" name="{ListBox1_Name}">
+                  <option value="0" selected>-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;</option>
+ {ListBox1_Options} 
+                </select>
+ &nbsp;</td> 
+            </tr>
+ 
+            <tr>
+              <td class="CobaltFieldCaptionTD" nowrap>Cuenta Contable 2&nbsp;</td> &nbsp;</td> 
+            <td class="CobaltDataTD" valign="top" title="Seleccione el auxiliar correspondiente al Cierre de la contabilizacion">
+              <select class="CobaltInputSB2" style="WIDTH: 233px" name="{pro_CodCuenta2_Name}">
+                <option value="" selected>-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;&nbsp;</option>
+ {pro_CodCuenta2_Options} 
+              </select>
+ </td> 
+            <td class="CobaltFieldCaptionTD" nowrap>Auxiliar 2&nbsp;</td> 
+            <td class="CobaltDataTD" valign="top" title="Seleccione el auxiliar correspondiente al Cierre de la contabilizacion">
+              <select class="CobaltInputSB2" style="WIDTH: 225px" name="{pro_Auxiliar2_Name}">
+                <option value="0" selected>-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;</option>
+ 
+                <option value="-1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;DE&nbsp;CADA&nbsp;PRODUCTOR</option>
+ 
+                <option value="0">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;N&nbsp;I&nbsp;N&nbsp;G&nbsp;U&nbsp;NO</option>
+ {pro_Auxiliar2_Options} 
+              </select>
+ </td> 
+          </tr>
+ 
+          <tr>
+            <td class="CobaltFieldCaptionTD" nowrap>Cuenta Contable 3&nbsp;</td>&nbsp;</td> 
+          <td class="CobaltDataTD" valign="top" title="Seleccione el auxiliar correspondiente al Cierre de la contabilizacion">
+            <select class="CobaltInputSB2" style="WIDTH: 233px" name="{pro_CodCuenta3_Name}">
+              <option value="" selected>-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;&nbsp;</option>
+ {pro_CodCuenta3_Options} 
+            </select>
+ </td> 
+          <td class="CobaltFieldCaptionTD" nowrap>Auxiliar 3&nbsp;</td> 
+          <td class="CobaltDataTD" valign="top" title="Seleccione el auxiliar correspondiente al Cierre de la contabilizacion">
+            <select class="CobaltInputSB2" style="WIDTH: 225px" name="{pro_Auxiliar3_Name}">
+              <option value="0" selected>-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;</option>
+
+              <option value="-1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;DE&nbsp;CADA&nbsp;PRODUCTOR</option>
+
+              <option value="0">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;N&nbsp;I&nbsp;N&nbsp;G&nbsp;U&nbsp;NO</option>
+ {pro_Auxiliar3_Options} 
+            </select>
+ </td> 
+        </tr>
+ 
+        <tr>
+          <td class="CobaltFieldCaptionTD" nowrap>Ultima Operacion:&nbsp;</td>
+          <td class="CobaltDataTD">&nbsp; 
+            <input class="CobaltInputSB2" style="WIDTH: 27px; HEIGHT: 17px" size="3" value="{TextBox1}" name="{TextBox1_Name}"></td> 
+          <td class="CobaltFieldCaptionTD" nowrap>Modificado&nbsp;</td> 
+          <td class="CobaltDataTD">
+            <input class="CobaltInputSB" style="FONT-SIZE: 9px; TEXT-TRANSFORM: uppercase; WIDTH: 65px; HEIGHT: 17px" disabled maxlength="15" size="9" value="{pre_Usuario}" name="{pre_Usuario_Name}">&nbsp; 
+            <input class="CobaltInputSB" style="FONT-SIZE: 9px; TEXT-TRANSFORM: uppercase; WIDTH: 72px; HEIGHT: 17px" disabled size="8" value="{pro_FecRegistro}" name="{pro_FecRegistro_Name}"></td>
+          <td class="CobaltDataTD">&nbsp;</td> 
+        </tr>
+ 
+        <tr>
+          <td class="CobaltFooterTD" nowrap align="middle" colspan="4">
+            <!-- BEGIN Button Button_Insert -->
+            <input class="" type="submit" {ADD_flag} value="Agregar" name="{Button_Name}" style="FONT-SIZE: 9px; WIDTH: 80px; HEIGHT: 23px"><!-- END Button Button_Insert -->
+            <!-- BEGIN Button Button_Update -->&nbsp;&nbsp;&nbsp; 
+            <input class="" type="submit" {ADD_flag} value="  CONTINUA ....." name="{Button_Name}" style="FONT-SIZE: 9px; WIDTH: 80px; HEIGHT: 23px" title="Graba los datos Ingresados o modificaciones realizadas" size="26"><!-- END Button Button_Update -->
+            <!-- BEGIN Button Button_Delete -->&nbsp;&nbsp;&nbsp; 
+            <input class="" type="submit" {DEL_flag} onClick="return confirm('**ATENCION:  REALMENTE DESEA ELIMINAR ESTE PROCESO?')"  value="BORRAR" name="{Button_Name}" style="FONT-SIZE: 9px; WIDTH: 80px; HEIGHT: 23px" title="Elimina este registro"><!-- END Button Button_Delete -->
+            <!-- BEGIN Button Button_Cancel -->&nbsp;&nbsp;&nbsp; 
+            <input class="" type="submit" value="CANCEL" name="{Button_Name}" style="FONT-SIZE: 9px; WIDTH: 80px; HEIGHT: 23px" size="34" title="Cancela todas las modificaciones realizadas, pendientes de grabar"><!-- END Button Button_Cancel -->&nbsp; </td> 
+        </tr>
+ 
+      </table>
+
+        <div class="normalbox" style="PADDING-RIGHT: 4px; PADDING-LEFT: 4px; PADDING-BOTTOM: 4px; MARGIN: 20px; PADDING-TOP: 0px; TEXT-ALIGN: left">
+          <span class="spantitle" style="LEFT: 0px; MARGIN: 0px; POSITION: relative; TOP: -10px">&nbsp;
+          &nbsp; COMANDOS A EJECUTAR &nbsp; &nbsp; </span>
+          <table align="center" border="0" cellpadding="1" margin="'0&quot;class=&quot;CobaltFormTABLE'" cellspacing="1">
+            <tr>
+              <td colspan="6" align="right" nowrap>
+                  
+                  <input name="Button_1" type="button" {EXE_flag} value="INICIO" class="CobaltDataLink" onclick="fEjecuta(1)" style="FONT-SIZE: 9px; WIDTH: 131px; HEIGHT: 25px">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                  <input name="Button_2" type="button" {EXE_flag} value="SELEC. DE TARJAS" class="CobaltDataLink" onclick="fEjecuta(2)" style="FONT-SIZE: 9px; WIDTH: 131px; HEIGHT: 25px">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                  <input name="Button_3" type="button" {EXE_flag} value="PROCESO DE TARJAS" class="CobaltDataLink" onclick="fEjecuta(3)" style="FONT-SIZE: 9px; WIDTH: 131px; HEIGHT: 25px">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                  <input name="Button_4" type="button" {EXE_flag} value="LIQUID. INVENTARIO" class="CobaltDataLink" onclick="fEjecuta(4)" style="FONT-SIZE: 9px; WIDTH: 131px; HEIGHT: 25px">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                  <input name="Button_5" type="button" {EXE_flag} value="LIQUID. CXC " class="CobaltDataLink" onclick="fEjecuta(5)" style="FONT-SIZE: 9px; WIDTH: 131px; HEIGHT: 25px" size="16">
+                  </td>
+            </tr>
+            </table>
+        </div>
+        <div class="normalbox" style="PADDING-RIGHT: 4px; PADDING-LEFT: 4px; PADDING-BOTTOM: 4px; MARGIN: 20px; PADDING-TOP: 0px; TEXT-ALIGN: left">
+          <span class="spantitle" style="LEFT: 0px; MARGIN: 0px; POSITION: relative; TOP: -10px">&nbsp;
+          &nbsp; DOCUMENTOS A GENERAR &nbsp; &nbsp; </span>
+          <table align="center" border="0" cellpadding="1" margin="'0&quot;class=&quot;CobaltFormTABLE'" cellspacing="1">
+            <tr>
+              <td>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TIPO / COMPROBANTE: <input name="pro_TComp" type="text" value=" " class="CobaltInputSB2"  title="Tipo de  Comprobante que se generá. Procure que tenga relación con la Transacción " style="FONT-SIZE: 9px; WIDTH: 25px; HEIGHT: 17px">
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CHEQUE INICIAL Nro:<input name="pro_NCheq" type="text" value=" " class="CobaltInputSB2"  title="Número de Cheque que se generá. Procure que NO COINCIDA con otros Cheques " style="FONT-SIZE: 9px; WIDTH: 55px; HEIGHT: 17px">
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;COMPR. INICIAL Nro: <input name="pro_NComp" type="text" value=" " class="CobaltInputSB2"  title="Número  de  Comprobante que se generá. Procure que NO COINCIDA con otros Comprobantes, size lo deja en blanco, se aplica la secuencia automática.  " style="FONT-SIZE: 9px; WIDTH: 55px; HEIGHT: 17px">
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;COD. DE PRODUCTOR: <input name="pro_Prod" type="text" value=" " class="CobaltInputSB2"  title="Código del productor para quien desea generar los documentos. Si lo deja en blanco se aplica a todos los que intervienen en este proceso" style="FONT-SIZE: 9px; WIDTH: 55px; HEIGHT: 17px">
+                                                      
+              </td>
+              </tr>
+              <tr>
+              <td>
+                  <input name="Button_21" type="button" {EXE_flag} value="CHEQUE 1 " class="CobaltDataLink" onclick="fEjecuta(6)" title="CONTABILIZA UN EGRESO POR LIQUIDACION" style="FONT-SIZE: 9px; WIDTH: 131px; HEIGHT: 25px">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                  <input name="Button_22" type="button" {EXE_flag} value="INGRESO   " class="CobaltDataLink" onclick="fEjecuta(7)" title="CONTABILIZA UN INGRESO CAJA POR LIQUIDACION, RECIBIENDO EL VALOR DEL CHEQUE 1" style="FONT-SIZE: 9px; WIDTH: 131px; HEIGHT: 25px">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                  <input name="Button_23" type="button" {EXE_flag} value="CHEQUE2   " class="CobaltDataLink" onclick="fEjecuta(8)" title="CONTABILIZA UN EGRESO POR PRE-LIQUIDACION" style="FONT-SIZE: 9px; WIDTH: 131px; HEIGHT: 25px">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                  <input name="Button_24" type="button" {EXE_flag} value="DB TRANSPORTE  " class="CobaltDataLink" onclick="fEjecuta(9)" title="CONTABILIZA UN DEBITO POR TRANSPORTE" style="FONT-SIZE: 9px; WIDTH: 131px; HEIGHT: 25px">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                  <input name="Button_25" type="button" {EXE_flag} value="DB ADELANTO " class="CobaltDataLink" onclick="fEjecuta('10')" title="CONTABILIZA UN EGRESO POR ADELANTOS" style="FONT-SIZE: 9px; WIDTH: 131px; HEIGHT: 25px">
+              </td>
+            </tr>
+              <tr>
+              <td>
+                  <input name="Button_21" type="button" {EXE_flag} value="LIQ. NEGATIVAS" class="CobaltDataLink" onclick="fEjecuta(11)" title="GEBERA UN DEBITO PARA LAS LIQUIDACIONES EN NEGATIVO" style="FONT-SIZE: 9px; WIDTH: 131px; HEIGHT: 25px">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                  <input name="Button_22" type="button" {EXE_flag} value="   " class="CobaltDataLink" onclick="" style="FONT-SIZE: 9px; WIDTH: 131px; HEIGHT: 25px">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                  <input name="Button_23" type="button" {EXE_flag} value=" CHEQUE UNICO " class="CobaltDataLink" onclick="fEjecuta(26)"  style="FONT-SIZE: 9px; WIDTH: 131px; HEIGHT: 25px">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                  <input name="Button_24" type="button" {EXE_flag} value=" " class="CobaltDataLink" onclick=""  title="" style="FONT-SIZE: 9px; WIDTH: 131px; HEIGHT: 25px">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                  <input name="Button_25" type="button" {EXE_flag} value="   " class="CobaltDataLink" onclick="" style="FONT-SIZE: 9px; WIDTH: 131px; HEIGHT: 25px">
+              </td>
+            </tr>
+              <tr>
+              <td>
+                  <input name="Button_24" type="button" {EXE_flag} value=" PROVISION TOTAL" class="CobaltDataLink" onclick="fEjecutaProv('t')"  title="PROVISION CONTABLE DE LA LIQUIDACION COMPLETA" style="FONT-SIZE: 9px; WIDTH: 131px; HEIGHT: 25px">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                  <input name="Button_21" type="button" {EXE_flag} value="" class="CobaltDataLink" title="" style="FONT-SIZE: 9px; WIDTH: 131px; HEIGHT: 25px">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                  <input name="Button_22" type="button" {EXE_flag} value="   " class="CobaltDataLink" onclick="" style="FONT-SIZE: 9px; WIDTH: 131px; HEIGHT: 25px">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                  <input name="Button_23" type="button" {EXE_flag} value=" PROVISION P.O. " class="CobaltDataLink" onclick="fEjecutaProv('p')"  title="PROVISION CONTABLE DEL PO DE LA FRUTA INCLUYENDO DESCUENTOS" style="FONT-SIZE: 9px; WIDTH: 131px; HEIGHT: 25px">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                  <input name="Button_25" type="button" {EXE_flag} value=" PROVISION BONO  " class="CobaltDataLink" onclick="fEjecutaProv('b')" title="PROVISION CONTABLE DEL BONO DE PRECIO" style="FONT-SIZE: 9px; WIDTH: 131px; HEIGHT: 25px">
+              </td>
+            </tr>
+           </tr>
+              <tr>
+              <td>
+                  <input name="Button_40" type="button" {EXE_flag} value="DISTRIBUCION / CIA" class="CobaltDataLink" onclick="fEjecutaDist('t', 'dist')"   title="Aplica liquidaciones por Cia, segun detalle de tarjas" style="FONT-SIZE: 9px; WIDTH: 131px; HEIGHT: 25px">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                  <input name="Button_41" type="button" {EXE_flag} value=" PROV. TOT. /CIA" class="CobaltDataLink" onclick="fEjecutaProv('t', 'dist')"  title="PROVISION CONTABLE DE LA LIQUIDACION COMPLETA POR COMPANIA" style="FONT-SIZE: 9px; WIDTH: 131px; HEIGHT: 25px">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                  <input name="Button_42" type="button" {EXE_flag} value="   " class="CobaltDataLink" onclick="" style="FONT-SIZE: 9px; WIDTH: 131px; HEIGHT: 25px">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                  <input name="Button_43" type="button" {EXE_flag} value=" PROVISION P.O. /CIA" class="CobaltDataLink" onclick="fEjecutaProv('p', 'dist')"  title="PROVISION CONTABLE DEL PO DE LA FRUTA INCLUYENDO DESCUENTOS POR COMPANIA" style="FONT-SIZE: 9px; WIDTH: 131px; HEIGHT: 25px">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                  <input name="Button_45" type="button" {EXE_flag} value=" PROVISION BONO /CIA " class="CobaltDataLink" onclick="fEjecutaProv('b', 'dist')" title="PROVISION CONTABLE DEL BONO DE PRECIO POR COMPANIA" style="FONT-SIZE: 9px; WIDTH: 131px; HEIGHT: 25px">
+              </td>
+            </tr>			  
+          </table>
+        </div>
+
+
+    </form>
+ <!-- END Record liqprocesos --></td>
+</tr>
+</tbody>
+</table>
+ 
+</body>
+ 
+</html>

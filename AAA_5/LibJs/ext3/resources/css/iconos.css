@@ -1,0 +1,22 @@
+        .iconImprimir{
+            background-image:url(../../../../Images/printer.png) !important;
+        }
+        .iconBuscar{
+            background-image:url(../../../../Images/find.png) !important;
+        }
+        .iconNuevo{
+            background-image:url(../../../../Images/page_white.png) !important;
+        }
+        .iconGrabar{
+            background-image:url(../../../../Images/disk.png) !important;
+        }
+        .iconBorrar{
+            background-image:url(../../../../Images/delete.png) !important;
+        }
+        .iconEliminar{
+            background-image:url(../../../../Images/cancel.png) !important;
+        }
+	.iconAplicar{
+            background-image:url(../../../../Images/accept.png) !important;
+        }
+

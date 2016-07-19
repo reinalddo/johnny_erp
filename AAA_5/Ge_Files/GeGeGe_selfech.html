@@ -1,0 +1,152 @@
+<html>
+<head>
+<meta name="GENERATOR" content="CodeCharge Studio 2.3.2.24">
+<base target="_self">
+<link rel="stylesheet" type="text/css" href="../Themes/Cobalt/Style.css">
+<link rel="stylesheet" type="text/css" href="../Themes/Menu/Style.css">
+<title>{pTitul} </title>
+<script language="JavaScript" type="text/javascript" src="../LibJava/fechas.js"></script>
+<script language="JavaScript" type="text/javascript" src="../LibJava/general.js"></script>
+<script language="JavaScript" type="text/javascript" src="../DatePicker.js"></script>
+<script language="JavaScript" type="text/javascript" src="../LibJava/browser_detect.js"></script>
+<script language="JavaScript" type="text/javascript">
+//Begin CCS script
+//Include Common JSFunctions @1-A1D84A39
+</script>
+<script language="JavaScript" type="text/javascript" src="../DatePicker.js"></script>
+<script language="JavaScript" type="text/javascript">
+//End Include Common JSFunctions
+
+//Date Picker Object Definitions @1-04EABE0E
+
+var Form_1_DatePicker1 = new Object(); 
+Form_1_DatePicker1.format           = "dd/MMM/yy";
+Form_1_DatePicker1.style            = "Themes/Default/Style.css";
+Form_1_DatePicker1.relativePathPart = "../";
+
+var Form_1_DatePicker2 = new Object(); 
+Form_1_DatePicker2.format           = "dd/MMM/yy";
+Form_1_DatePicker2.style            = "Themes/Default/Style.css";
+Form_1_DatePicker2.relativePathPart = "../";
+
+//End Date Picker Object Definitions
+//End CCS script
+/**
+*	Ejecucion del Script solicitado, aplicando los parametros requeridos
+*
+**/
+function fEjecutar() {
+	pUrl =getFromurl("pUrl", false); // Pagina que debe ejcutarse
+	pNom1=getFromurl("pNom1", 'p1'); // Nombre de parametro 1
+	pNom2=getFromurl("pNom2", 'p2'); // Nombre de parametro 2
+	pExtr=getFromurl("pExtr", '');   // Parametros extra para el Script Destino
+	pTipo=getFromurl("pTipo", false); // Tipo de Parametros
+	pWin =getFromurl("pWin", false); // Ventana a abrir
+	pAnch =getFromurl("pAnch", 1000); // Ancho de Ventana a abrir
+	pLarg =getFromurl("pLarg", 600); // Longotud de Ventana a abrir
+	i = window.location.search.indexOf('pRepParam=');
+	alert(pUrl);
+    pRepParam='';
+    if (i>1)  pRepParam =window.location.search.substring(i+10,window.location.search.length); //  Parametros extra que requiere el Script destino
+	slParam='';
+	with (document.Form_1) {
+		switch  (pTipo) {
+			case "F":
+				slParam += pNom1 + "=" + fConvFecha(txt_Desde.value, Form_1_DatePicker1.format);
+				break;
+			case "FF":
+				slParam += pNom1 + "=" + fConvFecha(txt_Desde.value, Form_1_DatePicker1.format);
+				slParam += "&" + pNom2 + "=" + fConvFecha(txt_Hasta.value, Form_1_DatePicker2.format);
+				break;
+			case "P":
+				slParam = pNom1 + "=" + sel_Desde.value;
+				break;
+			case "PP":
+				slParam= pNom1 + "=" + sel_Desde.value;
+				slParam += "&" + pNom2 + "=" + sel_Hasta.value;
+				break;
+			}
+		}
+	if (pUrl) {
+	    if (pUrl.indexOf('?') > 0) pUrl += "&";
+		else pUrl += "?";
+		pUrl +=  pRepParam + "&" + slParam  ;
+		fAbrirWin(pUrl, pWin, '', pAnch, pLarg)
+//		widow.open(pUrl);
+	}
+	else alert ( "NO SE HA DEFINIDO EL PROCESO A EJECUTAR");
+//	alert (pTipo + "  /  " + pUrl + " / / " + pNom1);
+}
+</script>
+</head>
+ 
+<body bgcolor="#fffff7" link="#000099" alink="#ff0000" vlink="#9999cc" text="#000000" class="CobaltPageBODY" style="PADDING-RIGHT: 0px; PADDING-LEFT: 0px; PADDING-BOTTOM: 0px; PADDING-TOP: 0px; magin: 0; spacing: 0" bottommargin="0" nowrap leftmargin="0" topmargin="0" rightmargin="0" marginwidth="0" marginheight="0">
+&nbsp; 
+<table background="../Themes/Cobalt/Light Streaks.bmp" border="0" width="100%">
+  <tr>
+    <td align="middle">&nbsp; 
+      <!-- BEGIN Record Form_1 -->
+      <form name="{HTMLFormName}" action="{Action}" method="post">
+        {pTitul2} 
+        <table>
+          <!-- BEGIN Error -->
+          <tr>
+            <td colspan="6">{Error}</td> 
+          </tr>
+          <!-- END Error -->
+          <tr>
+            <td valign="middle">{pTxtI}&nbsp;</td> 
+            <td class="">
+              <!-- BEGIN TextBox txt_Desde --><input name="{txt_Desde_Name}" value="{txt_Desde}" style="WIDTH: 80px; HEIGHT: 22px" size="10" title="Ingrese una Fecha. en format D'ia / Mes / A� (dd/mm/aa)"><!-- END TextBox txt_Desde -->
+              <!-- BEGIN ListBox sel_Desde -->
+              <select name="{sel_Desde_Name}" style="WIDTH: 130px">
+                <option value="" selected>-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;</option>
+ {sel_Desde_Options} 
+              </select>
+ <!-- END ListBox sel_Desde --></td> 
+            <td class="" valign="middle" nowrap>
+              <!-- BEGIN DatePicker DatePicker1 --><a href="javascript:showDatePicker('{Name}','{FormName}','{DateControl}');"><img src="../Themes/DatePicker/DatePicker1.gif" border="0"></a><!-- END DatePicker DatePicker1 --></td> 
+            <td class="" nowrap valign="middle" style="PADDING-LEFT: 20px">{pTxtF}</td> 
+            <td>
+              <!-- BEGIN TextBox txt_Hasta --><input name="{txt_Hasta_Name}" value="{txt_Hasta}" style="WIDTH: 80px; HEIGHT: 22px" size="11" title="Ingrese una Fecha. en formato Dia / Mes / A� (dd/mm/aa)"><!-- END TextBox txt_Hasta -->
+              <!-- BEGIN DatePicker DatePicker2 --><a href="javascript:showDatePicker('{Name}','{FormName}','{DateControl}');"><img src="../Themes/DatePicker/DatePicker1.gif" border="0"></a><!-- END DatePicker DatePicker2 -->
+              <!-- BEGIN ListBox sel_Hasta -->
+              <select name="{sel_Hasta_Name}" style="WIDTH: 130px">
+                <option value="" selected>-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;</option>
+ {sel_Hasta_Options} 
+              </select>
+ <!-- END ListBox sel_Hasta --></td> 
+            <td class=""></td> 
+          </tr>
+ 
+          <tr>
+            <td colspan="6">&nbsp;</td> 
+            <tr>
+              <td align="center" colspan="6">
+                <!-- BEGIN Button Button_Insert --><input type="button" value="EJECUTAR" onclick="fEjecutar()" name="{Button_Name}" title="EJECUTA EL PROCESO SOLICITADO, INCLUYENDO LOS PARAMETROS DEFINIDOS EN ESTA PAGINA"><!-- END Button Button_Insert -->
+                <!-- BEGIN Button Button_Update --><input type="submit" value="Enviar" name="{Button_Name}"><!-- END Button Button_Update -->
+                <!-- BEGIN Button Button_Delete --><input type="submit" value="Borrar" name="{Button_Name}"><!-- END Button Button_Delete -->&nbsp; </td> 
+            </tr>
+ 
+            <tr>
+            </tr>
+ 
+          </table>
+ 
+        </form>
+ <!-- END Record Form_1 --></td> 
+      <td>&nbsp;</td> 
+    </tr>
+ 
+    <tr>
+      <td>&nbsp;</td> 
+      <td>&nbsp;</td> 
+    </tr>
+ 
+  </table>
+ 
+  <p></p>
+ 
+  </body>
+ 
+  </html>

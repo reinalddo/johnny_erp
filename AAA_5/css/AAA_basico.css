@@ -1,0 +1,166 @@
+/*
+ *		Estilo Básico AAA ver 3.2
+ **/
+body {
+	/*margin: 1em 6%;*/
+	margin: 10px;
+	font-size: 99%;
+	color: #444;
+	background: white url(../Images/bluefade.gif) top left repeat-x;
+	line-height: 1.2;
+	vertical-align: top;
+	}
+	
+#container {
+	border: double 1px #bcc;
+	background-color: transparent;
+	/*padding: 1em 5%;*/
+	height: 645px;
+	overflow: auto;
+	padding: 1px
+	}
+
+h2,h3 {
+	color: #699; 
+	text-align: center;
+	margin-bottom: .2em;
+}
+
+h3,h4 {
+	margin-bottom: 0;
+	margin-top: 0;
+}
+
+a, a.back {color: #39c}
+a:hover {color: Coral}
+
+pre {font-size: 85%}
+small {font-size: 70%;}
+code {color: #330099}
+
+/* Global Print Styles*/
+@media print {
+	.noprint {display: none;}
+	body {
+		font-family:Arial, Georgia, Garamond, serif;
+		background-image: none;
+		}
+	#container {
+		border: 1pt solid #d8d8d8;
+		padding: 0;
+		margin: 0;
+		}
+	table {border: 1pt solid #d8d8d8;}
+	div.tableContainer {
+		/*width: 200%;		*//* table width will be 99% of this*/
+		height: 500pt; 	/* must be greater than tbody*/
+		overflow: auto;
+		margin: 0 auto;
+		}
+	thead td, thead th, .grouphead {
+		text-align: center;
+		font-size: 14pt; 
+		/*background-color: oldlace;*/
+		color: transparent;
+		font-weight: bold;
+	}
+	td	{
+	color: #000;
+	padding-right: 1pt;
+	padding-left: 1pt;
+	border: 1pt solid ;
+	vertical-align: top;
+	border-bottom: solid 1pt ;
+	border-left: solid 1pt ;
+	}
+}
+
+td	{
+	color: #000;
+	padding-right: 2pt;
+	padding-left: 2pt;
+	border: 1pt solid #d8d8d8;
+	font-size: 10pt;
+	vertical-align: top;
+	border-bottom: solid 1pt #d8d8d8;
+	border-left: solid 1pt #d8d8d8;
+	}
+/*
+ *	Tablas HTML 
+ **/
+
+div.tableContainer {
+	/*width: 200%;		*//* table width will be 99% of this*/
+	height: 99%; 	/* must be greater than tbody*/
+	overflow: auto;
+	margin: 0 auto;
+	}
+
+table {
+	/*width: 99%;		*//*100% of container produces horiz. scroll in Mozilla*/
+	/*border: 1 solid grey;*/
+	background-color: #f7f7f7;
+	}
+	
+table>tbody	{  /* child selector syntax which IE6 and older do not support*/
+	overflow: auto; 
+	height: 95%px;
+	overflow-x: hidden;
+	}
+	
+thead tr	{
+	position:relative; 
+	top: expression(offsetParent.scrollTop); /*IE5+ only*/
+	}
+	
+thead td, thead th, .grouphead {
+	text-align: center;
+	font-size: 12px; 
+	/*background-color: oldlace;*/
+	color: steelblue;
+	font-weight: bold;
+	border-right: solid 1px #d8d8d8;
+	border-top: solid 1px #d8d8d8;
+	}	
+	
+td	{
+	color: #000;
+	padding-right: 2px;
+	padding-left: 2px;
+	border: 1px solid #d8d8d8;
+	font-size: 11px;
+	border-bottom: solid 1px #d8d8d8;
+	/*border-left: solid 1px #d8d8d8;*/
+	}
+	
+table tfoot tr { /*idea of Renato Cherullo to help IE*/
+      position: relative; 
+      overflow-x: hidden;
+      top: expression(parentNode.parentNode.offsetHeight >= 
+	  offsetParent.offsetHeight ? 0 - parentNode.parentNode.offsetHeight + offsetParent.offsetHeight + offsetParent.scrollTop : 0);
+      }
+
+
+tfoot td	{
+	text-align: center;
+	font-size: 11px;
+	font-weight: bold;
+	background-color: papayawhip;
+	color: steelblue;
+	border-top: solid 1px slategray;
+	}
+
+td:last-child {padding-right: 20px;padding-bottom: 5px;} /*prevent Mozilla scrollbar from hiding cell content*/
+/*
+ *		
+																											   */
+
+tfoot td:hover{
+	background-color: red;
+	color: white;
+}
+
+tbody tr:hover{
+	background-color: #FFCCCC;
+}
+

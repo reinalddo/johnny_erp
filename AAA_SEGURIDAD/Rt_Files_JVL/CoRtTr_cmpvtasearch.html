@@ -1,0 +1,260 @@
+<html>
+<head>
+<meta name="generator" content="Bluefish 2.0.3" >
+<base target="_self">
+<link rel="stylesheet" type="text/css" href="../Themes/Cobalt/Style.css">
+<link rel="stylesheet" type="text/css" href="../Themes/Menu/Style.css">
+<title>BUSQUEDA DE TRANSACCIONES SRI</title>
+ 
+<script language="JavaScript" src="../LibJava/menu_func.js"></script>
+<script language="JavaScript1.2" src="../LibJava/general.js" type="text/javascript"></script>
+</head>
+ 
+<body bgcolor="#fffff7" link="#000000" alink="#ff0000" vlink="#000000" text="#000000" class="CobaltPageBODY" style="PADDING-RIGHT: 0px; PADDING-LEFT: 0px; PADDING-BOTTOM: 0px; PADDING-TOP: 0px; magin: 0; spacing: 0" bottommargin="0" nowrap leftmargin="0" topmargin="17" rightmargin="0" marginwidth="0" marginheight="0">
+{Cabecera} &nbsp; 
+<table background="../Themes/Cobalt/Light Streaks.bmp" border="0" width="100%">
+  <tr>
+    <td align="left">
+      <!-- BEGIN Record fiscomprasSearch -->
+      <form name="{HTMLFormName}" action="{Action}" method="post">
+        B<font color="#546785">USCAR&nbsp; TRANSACCIONES <font class="CobaltFormHeaderFont"></font></font> 
+        <table class="CobaltFormTABLE" cellpadding="3" border="0">
+          <!-- BEGIN Error -->
+          <tr>
+            <td class="CobaltErrorDataTD" colspan="12">{Error}</td> 
+          </tr>
+          <!-- END Error -->
+          <tr>
+            <td class="CobaltFieldCaptionTD" nowrap>T. TransacC.&nbsp;</td> 
+            <td class="CobaltDataTD"><input class="CobaltInputSB2" style="WIDTH: 33px; HEIGHT: 17px" maxlength="2" size="2" value="{s_tipoTransac}" name="{s_tipoTransac_Name}">&nbsp;</td> 
+            <td class="CobaltFieldCaptionTD" nowrap>Cod Sustento&nbsp;</td> 
+            <td class="CobaltDataTD"><input class="CobaltInputSB2" style="WIDTH: 33px; HEIGHT: 17px" maxlength="2" size="1" value="{s_codSustento}" name="{s_codSustento_Name}"></td> 
+            <td class="CobaltFieldCaptionTD" nowrap>Id Prov</td> 
+            <td class="CobaltDataTD"><input class="CobaltInputSB2" maxlength="2" size="1" value="{s_tpIdProv}" name="{s_tpIdProv_Name}" style="WIDTH: 20px; HEIGHT: 17px"><input class="CobaltInputSB2" style="WIDTH: 51px; HEIGHT: 17px" maxlength="13" size="7" value="{s_idProv}" name="{s_idProv_Name}"></td> 
+            <td class="CobaltFieldCaptionTD" nowrap>T. Comprobante&nbsp;</td> 
+            <td class="CobaltDataTD"><input class="CobaltInputSB2" maxlength="2" size="2" value="{s_tipoComprobante}" name="{s_tipoComprobante_Name}">&nbsp;</td> 
+            <td class="CobaltFieldCaptionTD" nowrap>Comprobante</td> 
+            <td class="CobaltDataTD"><input class="CobaltInputSB2" title="Establecimiento que emite" style="WIDTH: 20px; HEIGHT: 17px" maxlength="3" size="3" value="{s_establecimiento}" name="{s_establecimiento_Name}"><input class="CobaltInputSB2" title="Punto de Emision del Comprobante" style="WIDTH: 24px; HEIGHT: 17px" maxlength="3" size="3" value="{s_puntoEmision}" name="{s_puntoEmision_Name}"><input class="CobaltInputSB2" title="Secuencia del Comprobante" style="WIDTH: 40px; HEIGHT: 17px" maxlength="9" size="5" value="{s_secuencial}" name="{s_secuencial_Name}"></td> 
+            <td class="CobaltFieldCaptionTD" nowrap>Fecha Registro</td> 
+            <td class="CobaltDataTD"><input class="CobaltInputSB2" style="WIDTH: 112px; HEIGHT: 17px" maxlength="25" size="23" value="{s_fechaRegistro}" name="{s_fechaRegistro_Name}"></td> 
+          </tr>
+ 
+          <tr>
+            <td class="CobaltFieldCaptionTD" nowrap>NRO Autoriz.&nbsp;</td> 
+            <td class="CobaltDataTD"><input class="CobaltInputSB2" style="WIDTH: 45px; HEIGHT: 17px" maxlength="20" size="5" value="{s_autorizacion}" name="{s_autorizacion_Name}">&nbsp;</td> 
+            <td class="CobaltFieldCaptionTD" nowrap></td> 
+            <td class="CobaltDataTD"></td> 
+            <td class="CobaltFieldCaptionTD" nowrap></td> 
+            <td class="CobaltDataTD"></td> 
+            <td class="CobaltFieldCaptionTD" nowrap>CODIGO&nbsp;&nbsp;Iva&nbsp;</td> 
+            <td class="CobaltDataTD"><input class="CobaltInputSB2" style="WIDTH: 21px; HEIGHT: 17px" maxlength="10" size="2" value="{s_porcentajeIva}" name="{s_porcentajeIva_Name}">&nbsp;</td> 
+            <td class="CobaltFieldCaptionTD" nowrap>CODIGO&nbsp;Ice</td> 
+            <td class="CobaltDataTD"><input class="CobaltInputSB2" maxlength="10" size="4" value="{s_porcentajeIce}" name="{s_porcentajeIce_Name}" style="WIDTH: 33px; HEIGHT: 18px"></td> 
+            <td class="CobaltFieldCaptionTD" nowrap>COD&nbsp;Ret Bienes&nbsp;</td> 
+            <td class="CobaltDataTD"><input class="CobaltInputSB2" maxlength="10" size="4" value="{s_porRetBienes}" name="{s_porRetBienes_Name}" style="WIDTH: 34px; HEIGHT: 18px"></td> 
+          </tr>
+ 
+          <tr>
+            <td class="CobaltFieldCaptionTD" nowrap>COD Ret Serv</td> 
+            <td class="CobaltDataTD"><input class="CobaltInputSB2" style="WIDTH: 38px; HEIGHT: 17px" maxlength="10" size="5" value="{s_porRetServicios}" name="{s_porRetServicios_Name}"></td> 
+            <td class="CobaltFieldCaptionTD" nowrap>Cod Ret Air&nbsp;</td> 
+            <td class="CobaltDataTD"><input class="CobaltInputSB2" style="WIDTH: 31px; HEIGHT: 17px" maxlength="10" size="4" value="{s_codRetAir}" name="{s_codRetAir_Name}"></td> 
+            <td class="CobaltFieldCaptionTD" nowrap>COD.&nbsp;Air</td> 
+            <td class="CobaltDataTD"><input class="CobaltInputSB2" maxlength="10" size="3" value="{s_porcentajeAir}" name="{s_porcentajeAir_Name}" style="WIDTH: 30px; HEIGHT: 18px"></td> 
+            <td class="CobaltFieldCaptionTD" nowrap>NUM. RetenCION&nbsp;</td> 
+            <td class="CobaltDataTD"><input class="CobaltInputSB2" style="WIDTH: 21px; HEIGHT: 17px" maxlength="10" size="2" value="{s_estabRetencion1}" name="{s_estabRetencion1_Name}"><input class="CobaltInputSB2" style="WIDTH: 23px; HEIGHT: 17px" maxlength="10" size="2" value="{s_puntoEmiRetencion1}" name="{s_puntoEmiRetencion1_Name}"><input class="CobaltInputSB2" style="WIDTH: 41px; HEIGHT: 17px" maxlength="20" size="6" value="{s_secRetencion1}" name="{s_secRetencion1_Name}"></td> 
+            <td class="CobaltFieldCaptionTD" nowrap>Estab Modific.</td> 
+            <td class="CobaltDataTD"><input class="CobaltInputSB2" style="WIDTH: 22px; HEIGHT: 17px" maxlength="10" size="2" value="{s_estabModificado}" name="{s_estabModificado_Name}"><input class="CobaltInputSB2" style="WIDTH: 23px; HEIGHT: 17px" maxlength="10" size="2" value="{s_ptoEmiModificado}" name="{s_ptoEmiModificado_Name}"><input class="CobaltInputSB2" style="WIDTH: 38px; HEIGHT: 17px" maxlength="20" size="6" value="{s_secModificado}" name="{s_secModificado_Name}"></td> 
+            <td class="CobaltFieldCaptionTD" nowrap></td> 
+            <td class="CobaltDataTD"></td> 
+          </tr>
+ 
+          <tr>
+            <td class="CobaltFieldCaptionTD" nowrap>Aut Modific&nbsp;</td> 
+            <td class="CobaltDataTD"><input class="CobaltInputSB2" style="WIDTH: 43px; HEIGHT: 17px" maxlength="20" size="6" value="{s_autModificado}" name="{s_autModificado_Name}">&nbsp;</td> 
+            <td class="CobaltFieldCaptionTD" nowrap>Iva Presunt.</td> 
+            <td class="CobaltDataTD"><input class="CobaltInputSB2" maxlength="1" size="1" value="{s_ivaPresuntivo}" name="{s_ivaPresuntivo_Name}" style="WIDTH: 19px; HEIGHT: 18px"></td> 
+            <td class="CobaltFieldCaptionTD" nowrap></td> 
+            <td class="CobaltDataTD"></td> 
+            <td class="CobaltFieldCaptionTD" nowrap>&nbsp;</td> 
+            <td class="CobaltDataTD">&nbsp;</td> 
+            <td class="CobaltFieldCaptionTD" nowrap></td> 
+            <td class="CobaltDataTD"></td> 
+            <td class="CobaltFieldCaptionTD" nowrap>PRESENTAR:</td>
+            <td class="CobaltDataTD"><input class="CobaltInputSB2" maxlength="6" size="6" title="Número de registros que se presentan en cada pagina de la lista de resultados" value="{fiscomprasPageSize}" name="fiscomprasPageSize" style="WIDTH: 50px; HEIGHT: 18px"> Reg. por Pag.</td>
+          </tr>
+ 
+          <tr>
+            <td class="CobaltAltDataTD" nowrap align="center" colspan="12"></td> 
+          </tr>
+ 
+          <tr>
+            <td class="CobaltFooterTD" nowrap align="center" colspan="12">
+              <!-- BEGIN Button Button_DoSearch --><input class="CobaltButton" type="submit" value="Buscar" name="{Button_Name}"><!-- END Button Button_DoSearch -->&nbsp; </td> 
+          </tr>
+ 
+        </table>
+ 
+      </form>
+ <!-- END Record fiscomprasSearch --></td> 
+    <td></td> 
+  </tr>
+ 
+  <tr>
+    <td align="center">&nbsp; 
+      <!-- BEGIN Grid fiscompras --><font class="CobaltFormHeaderFont">LISTA DE
+      TRANSACCIONES </font> 
+      <table class="CobaltFormTABLE" cellpadding="2" border="0" cellspacing="1">
+        <tr>
+          <td class="CobaltFooterTD" nowrap align="center" colspan="21">
+            <!-- BEGIN Navigator Navigator1 -->
+            <!-- BEGIN First_On --><a class="CobaltNavigatorLink" href="{First_URL}"><img src="../Themes/Aqua/FirstOn.gif" border="0"></a> <!-- END First_On -->
+            <!-- BEGIN Prev_On --><a class="CobaltNavigatorLink" href="{Prev_URL}"><img src="../Themes/Aqua/PrevOn.gif" border="0"></a> <!-- END Prev_On -->&nbsp; 
+            <!-- BEGIN Pages -->
+            <!-- BEGIN Page_On --><a class="CobaltNavigatorLink" href="{Page_URL}">{Page_Number}</a>&nbsp;<!-- END Page_On -->
+            <!-- BEGIN Page_Off -->{Page_Number}&nbsp;<!-- END Page_Off --><!-- END Pages -->de
+            {Total_Pages}&nbsp; 
+            <!-- BEGIN Next_On --><a class="CobaltNavigatorLink" href="{Next_URL}"><img src="../Themes/Aqua/NextOn.gif" border="0"></a> <!-- END Next_On -->
+            <!-- BEGIN Last_On --><a class="CobaltNavigatorLink" href="{Last_URL}"><img src="../Themes/Aqua/LastOn.gif" border="0"></a> <!-- END Last_On --><!-- END Navigator Navigator1 --></td> 
+        </tr>
+ 
+        <tr style="PADDING-RIGHT: 2px; PADDING-LEFT: 2px" align="center">
+          <td class="CobaltColumnTD" nowrap>
+            <!-- BEGIN Sorter Sorter_ID --><a class="CobaltSorterLink" href="{Sort_URL}">ID</a> 
+            <!-- BEGIN Asc_On --><img src="../Themes/Cobalt/AscOn.gif" border="0"><!-- END Asc_On -->
+            <!-- BEGIN Desc_On --><img src="../Themes/Cobalt/DescOn.gif" border="0"><!-- END Desc_On --><!-- END Sorter Sorter_ID -->&nbsp;</td> 
+          <td class="CobaltColumnTD" nowrap>
+            <!-- BEGIN Sorter Sorter_tipoTransac --><a class="CobaltSorterLink" href="{Sort_URL}">TR</a> 
+            <!-- BEGIN Asc_On --><img src="../Themes/Cobalt/AscOn.gif" border="0"><!-- END Asc_On -->
+            <!-- BEGIN Desc_On --><img src="../Themes/Cobalt/DescOn.gif" border="0"><!-- END Desc_On --><!-- END Sorter Sorter_tipoTransac -->&nbsp;</td> 
+          <td class="CobaltColumnTD" nowrap>
+            <!-- BEGIN Sorter Sorter_codSustento --><a class="CobaltSorterLink" href="{Sort_URL}">&nbsp;SUS</a> 
+            <!-- BEGIN Asc_On --><img src="../Themes/Cobalt/AscOn.gif" border="0"><!-- END Asc_On -->
+            <!-- BEGIN Desc_On --><img src="../Themes/Cobalt/DescOn.gif" border="0"><!-- END Desc_On --><!-- END Sorter Sorter_codSustento -->&nbsp;</td> 
+          <td class="CobaltColumnTD" nowrap>
+            <!-- BEGIN Sorter Sorter_devIva --><a class="CobaltSorterLink" href="{Sort_URL}">DEVOL.<br>
+            IVA</a> 
+            <!-- BEGIN Asc_On --><img src="../Themes/Cobalt/AscOn.gif" border="0"><!-- END Asc_On -->
+            <!-- BEGIN Desc_On --><img src="../Themes/Cobalt/DescOn.gif" border="0"><!-- END Desc_On --><!-- END Sorter Sorter_devIva -->&nbsp;</td> 
+          <td class="CobaltColumnTD" nowrap>
+            <!-- BEGIN Sorter Sorter_idProv --><a class="CobaltSorterLink" href="{Sort_URL}">IDENT.<br>
+            PROVEEDOR</a> 
+            <!-- BEGIN Asc_On --><img src="../Themes/Cobalt/AscOn.gif" border="0"><!-- END Asc_On -->
+            <!-- BEGIN Desc_On --><img src="../Themes/Cobalt/DescOn.gif" border="0"><!-- END Desc_On --><!-- END Sorter Sorter_idProv -->&nbsp;</td> 
+          <td class="CobaltColumnTD" nowrap>
+            <!-- BEGIN Sorter Sorter_tipoComprobante --><a class="CobaltSorterLink" href="{Sort_URL}">&nbsp;COMPROB.</a> 
+            <!-- BEGIN Asc_On --><img src="../Themes/Cobalt/AscOn.gif" border="0"><!-- END Asc_On -->
+            <!-- BEGIN Desc_On --><img src="../Themes/Cobalt/DescOn.gif" border="0"><!-- END Desc_On --><!-- END Sorter Sorter_tipoComprobante -->&nbsp;</td> 
+          <td class="CobaltColumnTD" nowrap>
+            <!-- BEGIN Sorter Sorter_fechaRegistro --><a class="CobaltSorterLink" href="{Sort_URL}">FECHA<br>
+            REGISTRO</a> 
+            <!-- BEGIN Asc_On --><img src="../Themes/Cobalt/AscOn.gif" border="0"><!-- END Asc_On -->
+            <!-- BEGIN Desc_On --><img src="../Themes/Cobalt/DescOn.gif" border="0"><!-- END Desc_On --><!-- END Sorter Sorter_fechaRegistro --></td> 
+          <td class="CobaltColumnTD" nowrap>BASE <br>
+            IMPONIBLE &nbsp;</td> 
+          <td class="CobaltColumnTD" nowrap>BASE <br>
+            GRAVABLE &nbsp;</td> 
+          <td class="CobaltColumnTD" nowrap>
+            <!-- BEGIN Sorter Sorter_porcentajeIva --><a class="CobaltSorterLink" href="{Sort_URL}">COD.<br>
+            IVA</a> 
+            <!-- BEGIN Asc_On --><img src="../Themes/Cobalt/AscOn.gif" border="0"><!-- END Asc_On -->
+            <!-- BEGIN Desc_On --><img src="../Themes/Cobalt/DescOn.gif" border="0"><!-- END Desc_On --><!-- END Sorter Sorter_porcentajeIva -->&nbsp;</td> 
+          <td class="CobaltColumnTD" nowrap>MONTO<br>
+            IVA</td> 
+          <td class="CobaltColumnTD" nowrap>IVA BIENES &nbsp;</td> 
+          <td class="CobaltColumnTD" nowrap>
+            <!-- BEGIN Sorter Sorter_porRetBienes --><a class="CobaltSorterLink" href="{Sort_URL}">COD.
+            RET<br>
+            BIENES</a> 
+            <!-- BEGIN Asc_On --><img src="../Themes/Cobalt/AscOn.gif" border="0"><!-- END Asc_On -->
+            <!-- BEGIN Desc_On --><img src="../Themes/Cobalt/DescOn.gif" border="0"><!-- END Desc_On --><!-- END Sorter Sorter_porRetBienes -->&nbsp;</td> 
+          <td class="CobaltColumnTD" nowrap>VAL. RETEN<br>
+            BIENES&nbsp;&nbsp;</td> 
+          <td class="CobaltColumnTD" nowrap>MONTO IVA<br>
+            SERVICIOS&nbsp;&nbsp;</td> 
+          <td class="CobaltColumnTD" nowrap>
+            <!-- BEGIN Sorter Sorter_porRetServicios --><a class="CobaltSorterLink" href="{Sort_URL}">COD.
+            RET.<br>
+            SERV.</a> 
+            <!-- BEGIN Asc_On --><img src="../Themes/Cobalt/AscOn.gif" border="0"><!-- END Asc_On -->
+            <!-- BEGIN Desc_On --><img src="../Themes/Cobalt/DescOn.gif" border="0"><!-- END Desc_On --><!-- END Sorter Sorter_porRetServicios -->&nbsp;</td> 
+          <td class="CobaltColumnTD" nowrap>VAL. RET.<br>
+            SERV.</td> 
+          <td class="CobaltColumnTD" nowrap>
+            <!-- BEGIN Sorter Sorter_codRetAir --><a class="CobaltSorterLink" href="{Sort_URL}">COD.RET.<br>
+            AIR</a>&nbsp; 
+            <!-- BEGIN Asc_On --><img src="../Themes/Cobalt/AscOn.gif" border="0"><!-- END Asc_On -->
+            <!-- BEGIN Desc_On --><img src="../Themes/Cobalt/DescOn.gif" border="0"><!-- END Desc_On --><!-- END Sorter Sorter_codRetAir -->&nbsp;</td> 
+          <td class="CobaltColumnTD" nowrap>TOTAL&nbsp;B.IMP.<br>
+            AIR</td> 
+          <td class="CobaltColumnTD" nowrap>
+            <p>
+            <!-- BEGIN Sorter Sorter_porcentajeAir --><a class="CobaltSorterLink" href="{Sort_URL}">PORCEN.</a><br>
+            AIR 
+            <!-- BEGIN Asc_On --><img src="../Themes/Cobalt/AscOn.gif" border="0"><!-- END Asc_On -->
+            <!-- BEGIN Desc_On --><img src="../Themes/Cobalt/DescOn.gif" border="0"><!-- END Desc_On --><!-- END Sorter Sorter_porcentajeAir -->&nbsp;</p>
+ </td> 
+          <td class="CobaltColumnTD" nowrap>TOT. RETEN.<br>
+            AIR&nbsp;&nbsp;</td> 
+        </tr>
+        <!-- BEGIN Row -->
+        <tr align="right">
+          <td class="CobaltDataTD" onclick="fAbrirWin('../Rt_Files/CoRtTr_cmpvtamant.php?ID={ID}','','',950, 600)">{ID}&nbsp;</td> 
+          <td class="CobaltDataTD">{tipoTransac}</td> 
+          <td class="CobaltDataTD">{codSustento}</td> 
+          <td class="CobaltDataTD">{devIva}</td> 
+          <td class="CobaltDataTD" align="left" nowrap>&nbsp;{idProvFact}&nbsp;&nbsp;&nbsp;&nbsp;{txt_CliProv}</td> 
+          <td class="CobaltDataTD" nowrap>{tipoComprobante}-{establecimiento}-{puntoEmision}-{secuencial}</td> 
+          <td class="CobaltDataTD">{fechaRegistro}</td> 
+          <td class="CobaltDataTD" align="right" bgcolor="#99cccc" style="BACKGROUND-COLOR: #b7dbdb">{baseImponible}</td> 
+          <td class="CobaltDataTD" title="text-align:right" bgcolor="#99cccc" style="BACKGROUND-COLOR: #b7dbdb">{baseImpGrav}</td> 
+          <td class="CobaltDataTD" style="BACKGROUND-COLOR: #b3b3d9">{porcentajeIva}</td> 
+          <td class="CobaltDataTD" style="BACKGROUND-COLOR: #b3b3d9">{montoIva}</td> 
+          <td class="CobaltDataTD" style="BACKGROUND-COLOR: #d6d6eb">{montoIvaBienes}</td> 
+          <td class="CobaltDataTD" style="BACKGROUND-COLOR: #d6d6eb">{porRetBienes}</td> 
+          <td class="CobaltDataTD" style="BACKGROUND-COLOR: #d6d6eb">{valorRetBienes}</td> 
+          <td class="CobaltDataTD" style="BACKGROUND-COLOR: #efeff8">{montoIvaServicios}</td> 
+          <td class="CobaltDataTD" style="BACKGROUND-COLOR: #efeff8">{porRetServicios}</td> 
+          <td class="CobaltDataTD" style="BACKGROUND-COLOR: #efeff8">{valorRetServicios}</td> 
+          <td class="CobaltDataTD" style="BACKGROUND-COLOR: #b7dbdb">{codRetAir}</td> 
+          <td class="CobaltDataTD" style="BACKGROUND-COLOR: #b7dbdb">{tot_baseImpAir}</td> 
+          <td class="CobaltDataTD" style="BACKGROUND-COLOR: #b7dbdb">{porcentajeAir}</td> 
+          <td class="CobaltDataTD" style="BACKGROUND-COLOR: #dceded">{tot_valRetAir}</td> 
+        </tr>
+        <!-- END Row -->
+        <!-- BEGIN NoRecords -->
+        <tr>
+          <td class="CobaltDataTD" colspan="21">No hay registros&nbsp;</td> 
+        </tr>
+        <!-- END NoRecords -->
+        <tr>
+          <td class="CobaltFooterTD" nowrap colspan="21" align="center">
+            <!-- BEGIN Navigator Navigator -->
+            <!-- BEGIN First_On --><a class="CobaltNavigatorLink" href="{First_URL}"><img src="../Themes/Aqua/FirstOn.gif" border="0"></a> <!-- END First_On -->
+            <!-- BEGIN Prev_On --><a class="CobaltNavigatorLink" href="{Prev_URL}"><img src="../Themes/Aqua/PrevOn.gif" border="0"></a> <!-- END Prev_On -->&nbsp; 
+            <!-- BEGIN Pages -->
+            <!-- BEGIN Page_On --><a class="CobaltNavigatorLink" href="{Page_URL}">{Page_Number}</a>&nbsp;<!-- END Page_On -->
+            <!-- BEGIN Page_Off -->{Page_Number}&nbsp;<!-- END Page_Off --><!-- END Pages -->de
+            {Total_Pages}&nbsp; 
+            <!-- BEGIN Next_On --><a class="CobaltNavigatorLink" href="{Next_URL}"><img src="../Themes/Aqua/NextOn.gif" border="0"></a> <!-- END Next_On -->
+            <!-- BEGIN Last_On --><a class="CobaltNavigatorLink" href="{Last_URL}"><img src="../Themes/Aqua/LastOn.gif" border="0"></a> <!-- END Last_On --><!-- END Navigator Navigator -->&nbsp; 
+            <!-- BEGIN Button New_Button --><input class="CobaltButton" type="submit" value="NUEVO" name="{Button_Name}" onclick="fAbrirWin('../Rt_Files/CoRtTr_cmpvtamant.php?ID={ID}','wn','',1050, 600)"><!-- END Button New_Button --></td> 
+        </tr>
+ 
+      </table>
+ <!-- END Grid fiscompras --></td> 
+    <td>&nbsp;</td> 
+  </tr>
+ 
+  <tr>
+    <td>&nbsp;</td> 
+    <td>&nbsp;</td> 
+  </tr>
+ 
+</table>
+ 
+<p></p>
+ 
+</body>
+ 
+</html>

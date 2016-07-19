@@ -1,0 +1,291 @@
+<html>
+<head>
+  <title>Módulo de Caja</title>
+	<link rel="stylesheet" type="text/css" href="extjs2.1.1/resources/css/ext-all.css" />
+  
+    <!-- GC -->
+ 	<!-- LIBS -->
+ 	<script type="text/javascript" src="extjs2.1.1/adapter/ext/ext-base.js"></script>
+ 	<!-- ENDLIBS -->
+
+    <script type="text/javascript" src="extjs2.1.1/ext-all.js"></script>
+  
+   
+	<style type="text/css">
+	html, body {
+        font:normal 12px verdana;
+        margin:0;
+        padding:0;
+        border:0 none;
+        overflow:hidden;
+        height:100%;
+    }
+	p {
+	    margin:5px;
+	}
+    .settings {
+        background-image:url(extjs2.1.1/shared/icons/fam/folder_wrench.png);
+    }
+    .nav {
+        background-image:url(extjs2.1.1/shared/icons/fam/folder_go.png); 
+    }
+   
+    #north_left {
+        float:left;
+		width:50%;
+		height:70px;
+		padding:0;
+	 	margin:0;
+		background-color:#ffffff;
+		background-image:url(logo_app.png);
+		background-repeat:no-repeat;
+		text-align:left;
+    }
+    #north_right{
+      	float:right;
+		width:50%;
+		height:70px; 
+	  	padding:0;
+	 	margin:0;
+		background-color:#ffffff;
+		background-image:url(header_app_caja.jpg);
+		background-repeat:no-repeat;
+		text-align:right;
+    }
+    </style>
+	<script type="text/javascript">
+    Ext.onReady(function(){
+
+        // NOTE: This is an example showing simple state management. During development,
+        // it is generally best to disable state management as dynamically-generated ids
+        // can change across page loads, leading to unpredictable results.  The developer
+        // should ensure that stable state ids are set for stateful components in real apps.
+        Ext.state.Manager.setProvider(new Ext.state.CookieProvider());
+        
+       var viewport = new Ext.Viewport({
+            layout:'border',
+            items:[
+                new Ext.BoxComponent({ // raw
+                    region:'north',
+                    el: 'north',
+                    height:70
+                }),{
+                    region:'south',
+                    contentEl: 'south',
+                    split:true,
+                    height: 100,
+                    minSize: 100,
+                    maxSize: 200,
+                    collapsible: true,
+                    title:'Barra de Estado',
+                    margins:'0 0 0 0'
+                }, {
+                   region:'east',
+                    id:'east-panel',
+                    title:'Propiedades',
+                    split:true,
+                    width: 200,
+                    minSize: 175,
+                    maxSize: 400,
+                    collapsible: true,
+                    margins:'0 0 0 5',
+                    layout:'accordion',
+                    layoutConfig:{
+                        animate:true
+                    },
+                    items: [{
+                        contentEl: 'detalles',
+                        title:'Detalles de la cuenta',
+                        html:'<div id=panel_detalles></div>',
+                        border:false,
+                        iconCls:'nav'
+                    },{ 
+						contentEl: 'pago',
+                        title:'Forma de Pago',
+                        html:'<div id=panel_pagos></div>',
+                        border:false,
+                        iconCls:'settings'
+                    }]
+                 },{
+                    region:'west',
+                    id:'west-panel',
+                    title:'Panel de Control',
+                    split:true,
+                    width: 200,
+                    minSize: 175,
+                    maxSize: 400,
+                    collapsible: true,
+                    margins:'0 0 0 5',
+                    layout:'accordion',
+                    layoutConfig:{
+                        animate:true
+                    },
+                    items: [{
+                        contentEl: 'west',
+                        title:'Funciones',
+                        html:'<div id=panel_funciones></div>',
+                        border:false,
+                        iconCls:'nav'
+                    },{
+                        title:'Consultas',
+                        html:'<div id=panel_consultas></div>',
+                        border:false,
+                        iconCls:'settings'
+                    },{
+                        title:'Reportes',
+                        html:'<div id=panel_reportes></div>',
+                        border:false,
+                        iconCls:'settings'
+                    }]
+                },
+                tabss= new Ext.TabPanel({
+                    region:'center',
+                    deferredRender:false,
+                    activeTab:0,
+                    items:[{
+                        contentEl:'center',
+                        title: 'Inicio',
+                        closable:false,
+                        autoScroll:true
+                    },{
+                        contentEl:'center0',
+                        title: 'Cuentas x Pagar',
+                        closable:false,
+                        autoScroll:true
+                    },{
+                        contentEl:'center1',
+                        title: 'Cuentas x Cobrar',
+                        closable:false,
+                        autoScroll:true
+                    }]
+                })
+             ]
+        });
+      
+        
+        function addTab(){
+           tabss.add({
+            title: 'New Tab ',
+            iconCls: 'tabs',
+            html: 'Tab Body <br/><br/>',
+            closable:true
+        }).show();
+		}
+
+		
+		//var myarray = new Array();
+		//myarray[0] = 'Cuentas x Pagar'; 
+		//myarray[1] = 'Cuentas x Cobrar'; 
+		
+		//for (i = 0; i < 2; i++) 
+		//{                        
+		//	new Ext.Button({
+		//	text: 'función '+ i,
+		//	handler:  function(){
+		//					tabss.add({
+		//						title: myarray[0],
+		//						iconCls: 'tabs',
+		//						contentEl:'center'+i,
+		//						closable:false,
+		//						autoScroll:true
+		//					}).show();
+							
+		//				},
+			//iconCls:'new-tab'
+		//	}).render(document.body, 'panel_funciones');             
+		//}	
+
+			
+		new Ext.Button({
+        text: 'Consulta 1',
+        handler: addTab,
+        //iconCls:'new-tab'
+		}).render(document.body, 'panel_consultas');
+		
+		new Ext.Button({
+        text: 'Consulta 2',
+        handler: addTab,
+        //iconCls:'new-tab'
+		}).render(document.body, 'panel_consultas');
+		
+		new Ext.Button({
+        text: 'Consulta 3',
+        handler: addTab,
+        //iconCls:'new-tab'
+		}).render(document.body, 'panel_consultas');
+		
+		new Ext.Button({
+        text: 'Reporte 1',
+        handler: addTab,
+        //iconCls:'new-tab'
+		}).render(document.body, 'panel_reportes');
+		
+		new Ext.Button({
+        text: 'Reporte 2',
+        handler: addTab,
+        //iconCls:'new-tab'
+		}).render(document.body, 'panel_reportes');
+		
+		//calendario fecha de corte
+		var dr = new Ext.FormPanel({
+		  labelWidth: 90,
+		  frame: false,
+		  title: '',
+		  bodyStyle:'padding:5px 5px 0',
+		  border: false,
+		  width: 250,
+		  defaults: {width: 100},
+		  defaultType: 'datefield',
+		  items: [{
+			fieldLabel: 'Fecha de Corte',
+			name: 'startdt',
+			id: 'startdt',
+			endDateField: 'enddt' // id of the end date field
+		  }]
+		});
+	
+		dr.render(document.body, 'panel_funciones');
+		
+				
+  
+});
+	</script>
+</head>
+<body>
+<script type="text/javascript" src="extjs2.1.1/shared/examples.js"></script><!-- EXAMPLES -->
+  <div id="west">
+   
+  </div>
+  <div id="north">
+     <div id="north_left"></div><div id="north_right"></div>
+  </div>
+  <div id="center">
+        <p>Panel de Inicio</p>
+        <hr>
+       
+  </div>
+   <div id="center0">
+        <p>Cuentas por Cobrar</p>
+        <hr>
+       
+  </div>
+  <div id="center1">
+        <p>Cuentas por Pagar</p>
+        <hr>
+  </div>
+  <div id="detalles">
+        <p>Detalles de la cuenta</p>
+        <hr>
+  </div>
+   <div id="pago">
+        <p>Pagos</p>
+        <hr>
+  </div>
+  <div id="props-panel" style="width:200px;height:200px;overflow:hidden;">
+  </div>
+  <div id="south">
+    
+  </div>
+
+ </body>
+</html>

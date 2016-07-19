@@ -1,0 +1,20 @@
+@charset "utf-8";
+/* CSS Document */
+body {
+	margin-top: 1cm;
+	margin-right: 0.5cm;
+	margin-bottom: 1cm;
+	margin-left: 0.5cm;
+	padding: 0px;
+	font-family:Courier;
+	font-size:6px; 
+}
+.printer_controls {
+	display: none;
+}
+.x-toolbar { display: none;}
+.x-toolbar .x-small-editor{ display: none;}
+.printer .values{
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 6px;	
+}

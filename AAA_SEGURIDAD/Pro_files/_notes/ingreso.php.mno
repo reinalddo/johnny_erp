@@ -1,0 +1,4 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<info>
+	<infoitem key="UD_c2" value="name:pro_periodo;datatype:real,name:pro_cuenta;datatype:real,name:pro_auxiliar;datatype:real,name:pro_nivel;datatype:real,name:pro_cantidad;datatype:real,name:pro_valor;datatype:real" />
+</info>

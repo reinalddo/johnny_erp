@@ -1,0 +1,153 @@
+<html>
+<head>
+<title>COMPONENTES DE EMPAQUE</title>
+<base target="_self">
+<link rel="stylesheet" type="text/css" href="../Themes/Cobalt/Style.css">
+<link rel="stylesheet" type="text/css" href="../Themes/Menu/Style.css">
+<script language="JavaScript" src="../LibJava/cookies.js"></script>
+<script language="JavaScript" src="../LibJava/general.js"></script>
+<script language="JavaScript" src="../LibJava/browser_detect.js"></script>
+<script language="JavaScript" src="../LibJava/validaDB_ret.js"></script>
+<script language="JavaScript1.3">
+window.onfocus="fEnfocaFila('Button1', 'tablaDatos', 2)"
+</script>
+</head>
+<body bgcolor="#fffff7" link="#000000" alink="#ff0000" vlink="#000000" text="#000000" class="CobaltPageBODY" bottommargin="0" leftmargin="0" topmargin="0" rightmargin="0">
+<p><span class="CobaltPageBODY" style="PADDING-RIGHT: 0px; PADDING-LEFT: 0px; PADDING-BOTTOM: 0px; PADDING-TOP: 0px; magin: 0; spacing: 0">
+  <script language="JavaScript" src="../LibJava/menu_func.js"></script>
+</span></p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<table background="../Themes/Cobalt/Light Streaks.bmp" border="0" class="CobaltPageBODY" cellspacing="0" cellpadding="0" align="center" style="BORDER-COLLAPSE: collapse">
+  <tr>
+    <td valign="top" align="centre" colspan="0" rowspan="0">
+      <!-- BEGIN Record component_qry -->
+      <form name="{HTMLFormName}" action="{Action}" method="post" onunload="fCerrar()" style="MARGIN: 0px">
+        <table class="CobaltFormTABLE"  align="center" cellspacing="1" cellpadding="0" border="0" tabindex="0">
+          <tr>
+            <td colspan="4" valign="top" align="middle">
+                <font class="CobaltFormHeaderFont" tabindex="9999">{pMensj}</font> </td>
+          </tr>
+            <!-- BEGIN Error -->
+            <tr>
+              <td class="CobaltErrorDataTD" colspan="4">{Error}</td> 
+            </tr>
+            <!-- END Error -->
+            <tr align="middle">
+              <td class="CobaltFieldCaptionTD" nowrap>&nbsp;&nbsp; <font style="text-decoration=underline"> B</font>uscar:&nbsp;
+                &nbsp;</td> 
+              <td class="CobaltDataTD"><input class="CobaltInput" accesskey="b" maxlength="10" size="22" value="{s_keyword}" name="{s_keyword_Name}" style="WIDTH: 159px; HEIGHT: 17px">&nbsp;&nbsp;&nbsp;
+                <!-- BEGIN RadioButton s_TipoComponente --><input type="radio" name="{s_TipoComponente_Name}" value="{Value}" class="CobaltInput" {Check}>{Description} <!-- END RadioButton s_TipoComponente -->&nbsp; </td>
+</tr><tr>
+              <td colspan = 2 class="CobaltFooterTD" nowrap align="center">
+              <a class="" style="FONT-SIZE: 9px; WIDTH: 47px; HEIGHT: 17px" href="{ClearParameters_Src}">Limpiar</a>&nbsp;
+                        <!-- BEGIN Button Button_DoSearch --><input class="" type="submit" value="Buscar" name="{Button_Name}"  style="FONT-SIZE: 9px; WIDTH: 47px; HEIGHT: 17px" onBlur="fEnfocaFila('Button1', 'tablaDatos', 2)"><!-- END Button Button_DoSearch -->&nbsp; </td>
+            </tr>
+        </table>
+      </form>
+     <!-- END Record component_qry -->
+    </td>
+</tr>
+ <tr>
+ <td>
+        <form name="componentlist" onunload="fCerrar()" method="post" style="MARGIN: 0px" ">
+          <!-- BEGIN Grid component_list --><font align="center" class="CobaltFormHeaderFont">LISTA
+          DE COMPONENTES: </font> 
+          <table id="tablaDatos" border="0" align="center" cellpadding="0" class="CobaltFormTABLE" cellspacing="1"  style="BORDER-COLLAPSE: collapse; empty-cells: hide" >
+            <tr>
+              <td colspan="2" nowrap class="CobaltFooterTD" valign="center" align="left" height="20">&nbsp; </td> 
+              <td class="CobaltFooterTD" valign="center" nowrap align="right" height="20">
+                <!-- BEGIN Button btNuevo --><input class="" title="-CLICK- para AGREGAR un nuevo Componente" style="FONT-SIZE: 9px; WIDTH: 47px; HEIGHT: 17px" onClick="JavaScript:window.enMantto = true; fAbrirWin('LiAdCo_mant.php' ,'Win',' ', 700, 400); return false;" type="button" size="12" value="Nuevo" name="{Button_Name}"><!-- END Button btNuevo --></td> 
+              <td class="CobaltFooterTD" valign="rigth" align="right">
+                <!-- BEGIN Button btCerrar --><input class="" title="Cierra esta pantalla de selección, sin retornar valor" style="FONT-SIZE: 9px; WIDTH: 48px; HEIGHT: 18px" onClick="fCerrar();" type="button" size="11" value="CERRAR" name="{Button_Name}"><!-- END Button btCerrar --></td> 
+            </tr>
+ 
+            <tr>
+              <td nowrap class="CobaltColumnTD">
+                <!-- BEGIN Sorter Sorter_cte_Codigo --><a class="CobaltSorterLink" href="{Sort_URL}" onFocus="fEnfocaFila('Button1', 'tablaDatos', 2)" >COD</a>
+                <!-- BEGIN Asc_On --><img height="9" src="../Themes/Cobalt/AscOn.gif" width="13" border="0"><!-- END Asc_On -->
+                <!-- BEGIN Desc_On --><img height="9" src="../Themes/Cobalt/DescOn.gif" width="13" border="0"><!-- END Desc_On --><!-- END Sorter Sorter_cte_Codigo -->&nbsp;</td> 
+              <td nowrap class="CobaltColumnTD">
+                <!-- BEGIN Sorter Sorter_cte_Referencia -->&nbsp; <a class="CobaltSorterLink" href="{Sort_URL}">ABREVIATURA</a> 
+                <!-- BEGIN Asc_On --><img height="9" src="../Themes/Cobalt/AscOn.gif" width="13" border="0"><!-- END Asc_On -->
+                <!-- BEGIN Desc_On --><img height="9" src="../Themes/Cobalt/DescOn.gif" width="13" border="0"><!-- END Desc_On --><!-- END Sorter Sorter_cte_Referencia -->&nbsp;</td> 
+              <td nowrap class="CobaltColumnTD" valign="center" align="middle" height="20" colspan="2">
+                <!-- BEGIN Sorter Sorter_cte_Descripcion -->&nbsp; <a class="CobaltSorterLink" href="{Sort_URL}">DESCRIPCION</a> 
+                <!-- BEGIN Asc_On --><img height="9" src="../Themes/Cobalt/AscOn.gif" width="13" border="0"><!-- END Asc_On -->
+                <!-- BEGIN Desc_On --><img height="9" src="../Themes/Cobalt/DescOn.gif" width="13" border="0"><!-- END Desc_On --><!-- END Sorter Sorter_cte_Descripcion -->&nbsp;</td> 
+            </tr>
+            <!-- BEGIN Row -->
+            <tr bgcolor="#faecd8" onClick="fRetornarDatos(this, 'componentlist');" >
+              <td class="CobaltDataTD">
+                <input  type="hidden" tabindex = "9999" name="{cte_Clase_Name}" value="{cte_Clase}"
+                        style="WIDTH: 25px; HEIGHT: 12px" size="2" id="cte_Clase">
+                <input type="hidden" name="{cte_Codigo_Name}" value="{cte_Codigo}"
+                       id="cte_Codigo" style="WIDTH: 19px; HEIGHT: 9px" size="2">
+                <!-- BEGIN Button Button1 -->
+                    <input class="" style="FONT-SIZE: xx-small; WIDTH: 33px; HEIGHT: 17px"
+                            type="button" size="8" value="{cte_Codigo}" name="{Button_Name}"
+                            title="-CLICK- para Seleccionar este Componente"
+                            tabindex="1"
+                            onfocus="fCambiarFondo(this.parentNode.parentNode, '#CCCCCC')"
+                            onblur="fCambiarFondo(this.parentNode.parentNode, '')">
+             <!-- END Button Button1 -->
+
+              </td>
+              <td class="CobaltDataTD">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <input name="{cte_Referencia_Name}" value="{cte_Referencia}" tabindex = "9999"  title="CLICK  para SELECCIONAR este componente" onmouseover="fTxtResalta(this,'#009999');" onmouseout="fTxtNormal(this);" maxlength="15" size="11" class="CobaltInputSB" id="cte_Referencia" style="WIDTH: 85px; HEIGHT: 17px" readonly tabindex = "9999" >
+                &nbsp;
+              </td>
+              <td class="CobaltDataTD">
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <input name="{cte_Descripcion_Name}" value="{cte_Descripcion}" tabindex = "9999"
+                        title="CLICK para SELECCIONAR este componente"
+                        onmouseover="fTxtResalta(this,'#009999');"
+                        onmouseout="fTxtNormal(this);" maxlength="80" size="25" class="CobaltInputSB"
+                        id="cte_Descripcion" readonly style="WIDTH: 144px; HEIGHT: 15px">
+                &nbsp;&nbsp;&nbsp; </td>
+              <td class="CobaltDataTD">
+                <!-- BEGIN Button Button2 -->
+                <input tabindex = "9998"
+                        title="Ver Detalle de la dosis de este componente"
+                        style="FONT-SIZE: 9px; WIDTH: 47px; HEIGHT: 17px"
+                        type="button" value="Dosis.." name="{Button_Name}"
+                        onclick="fAbrirWin('LiAdRe_mant.php?dos_CodComponente={cte_Codigo}','','', 500,500)">
+                <!-- END Button Button2 -->
+            </td>
+            <td>
+              <input class="CobaltDataLink" style="FONT-SIZE: 9px; WIDTH: 32px; HEIGHT: 17px"
+                     type="button" value="Modif.." name="Button4"
+                     tabindex="9999"
+                     onclick="JavaScript:window.enMantto = true; fAbrirWin('LiAdCo_mant.php?cte_Codigo={cte_Codigo}' ,'Win',' ', 700, 400); return false;"
+                     title="-CLICK- Para Editar / Modificar este Componente">
+            </td>
+            </tr>
+            <!-- END Row -->
+            <!-- BEGIN NoRecords -->
+            <tr>
+              <td colspan="4" class="CobaltDataTD">No hay registros&nbsp;</td> 
+            </tr>
+            <!-- END NoRecords -->
+            <tr height="5">
+              <td class="CobaltColumnTD" colspan="4" align="middle">
+              <input class="CobaltInputSB2" size="1" accesskey="c" tabindex = "2" style="WIDTH: 0px; HEIGHT: 0px" name="temp" onFocus="fEnfocaFila('Button1', 'tablaDatos', 2)">
+                <!-- BEGIN Navigator Navigator -->
+                <!-- BEGIN First_On --><a class="CobaltNavigatorLink" href="{First_URL}"><img height="14" src="../Themes/RockIt/FirstOn.gif" width="40" border="0"></a> <!-- END First_On -->
+                <!-- BEGIN Prev_On --><a class="CobaltNavigatorLink" href="{Prev_URL}"><img height="14" src="../Themes/RockIt/PrevOn.gif" width="40" border="0"></a> <!-- END Prev_On -->&nbsp; 
+                <!-- BEGIN Pages -->
+                <!-- BEGIN Page_On --><a class="CobaltNavigatorLink" href="{Page_URL}">{Page_Number}</a>&nbsp; <!-- END Page_On -->
+                <!-- BEGIN Page_Off -->{Page_Number}&nbsp; <!-- END Page_Off --><!-- END Pages -->de
+                {Total_Pages}&nbsp; 
+                <!-- BEGIN Next_On --><a class="CobaltNavigatorLink" href="{Next_URL}"><img height="14" src="../Themes/RockIt/NextOn.gif" width="40" border="0"></a> <!-- END Next_On -->
+                <!-- BEGIN Last_On --><a class="CobaltNavigatorLink" href="{Last_URL}"><img height="14" src="../Themes/RockIt/LastOn.gif" width="40" border="0"></a> <!-- END Last_On --><!-- END Navigator Navigator --></td> 
+            </tr>
+ 
+          </table>
+        <!-- END Grid component_list --></td>
+      </form>
+     </td>
+  </tr>
+</table>
+</body>
+</html>

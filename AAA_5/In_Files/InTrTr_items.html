@@ -1,0 +1,264 @@
+<html>
+<head>
+  <base target="_self">
+  <title>BUSQUEDA DE AUXILIARES </title>
+ 
+  <link rel="stylesheet" type="text/css" href="../Themes/Cobalt/Style.css">
+  <script language="JavaScript1.3" src="/LibJava/cookies.js"></script>
+ <script language="JavaScript1.3" src="../LibJava/browser_detect.js"></script>
+  <script language="JavaScript1.3" src="../LibJava/general.js"></script>
+  <script language="JavaScript1.3" id="hdMulti">
+var smControl	= "";
+function fPasaDatos(slContr, oCtrl) {
+	i = fTraefila(slContr)-1;
+	if (window.opener.fRecibeDatosAux){
+	       window.opener.oDatos = oCtrl;
+	       dest= getFromurl("pDesti","");
+	       orig= getFromurl("pOrig","");
+	       alDest= dest.split(",");
+	       alOrig= orig.split("|");
+           var alVal=new Array();
+	       for (var mm=0; mm < alDest.length; mm++){
+                slNombre=alOrig[mm] + "_" + (i+1);
+                alVal[mm] = document.Item_lista[slNombre].value;
+	       }
+	       window.opener.parent.fRecibeDatosAux(alDest,alVal);
+	       window.close();
+	       return
+	}
+	{tvElegir}
+}
+</script>
+</head>
+<body bgcolor="#fffff7" link="#000099" alink="#ff0000" vlink="#9999cc" text="#000000" style="PADDING-RIGHT: 0px; PADDING-LEFT: 0px; PADDING-BOTTOM: 0px; PADDING-TOP: 0px; magin: 0; spacing: 0" bottommargin="0" nowrap leftmargin="0" topmargin="0" rightmargin="0" marginwidth="0" marginheight="0">
+      <table border="0" align="center" cellspacing="0" cellpadding="0">
+        <tr>
+          <td align="middle" valign="top">
+            <!-- BEGIN Record Item_qry -->
+            <form action="{Action}" method="post" name="{HTMLFormName}" target="_self" margin="0"
+                  style="margin:0; padding:0; border-collapse:collapse; font-size:x-small">
+              <font class="CobaltFormHeaderFont">CONSULTA </font>
+                <table  border="1" margin="0" cellpadding="0" cellspacing="1"
+                        style="margin:0; margin_bottom:0; border-bottom:0; padding:0; border-collapse:collapse; font-size:x-small">
+                <!-- BEGIN Error -->
+                <tr>
+                  <td class="CobaltErrorDataTD" colspan="4">
+                    {Error} 
+                  </td>
+                </tr>
+                <!-- END Error -->
+                <tr>
+                  <td class="CobaltFieldCaptionTD" nowrap>
+                    Palabra clave&nbsp; 
+                  </td>
+                  <td class="CobaltDataTD">
+                    <input class="CobaltInput" tabindex = "2" accesskey="b" maxlength="25" name="{s_keyword_Name}"
+                    size="25" value="{s_keyword}" title="Texto que se buscara entre los items. D�elo en blanco si desea ver todos">
+                      &nbsp; 
+                    </td>
+                    <td align="right" class="CobaltDataTD" colspan="2" nowrap>
+                      <!-- BEGIN Button Button_DoSearch -->
+                      <input class="CobaltButton" tabindex = "2" acceskey="s" name="{Button_Name}" title="Ejecutar la consulta segun el criterio"
+                      type="submit" value="Buscar">
+                        <!-- END Button Button_DoSearch -->
+                          &nbsp;
+                        </td>
+                      </tr>
+                    </table>
+                  </form>
+                  <!-- END Record Item_qry -->
+                </td>
+ 
+              </tr>
+ 
+              <tr>
+                <td class="" align="middle" valign="top">
+                  <!-- BEGIN EditableGrid Item_lista -->
+                  <form name="{HTMLFormName}" tabindex = "1" onfocus="fEnfoca('Button1_1', 'Item_lista')" action="{Action}" method="post" margin="0">
+                    <font class="CobaltFormHeaderFont">RESULTADOS </font>
+                    <input type="hidden" value="{FormState}" name="FormState">
+                    <input type="hidden" value="{num_Recs}" name="{num_Recs_Name}">
+                      {FormScript} 
+                    <table  border="0" cellpadding="0" cellspacing="1" margin="0"
+                            style="padding:0; border-collapse:collapse; font-size:x-small">
+                        <tr >
+                          <td class="CobaltFooterTD" nowrap align="right" colspan="4" tabindex="2" onfocus="fEnfoca('Button1_1', 'Item_lista')">
+                            <!-- BEGIN Navigator Navigator1 -->
+                            <!-- BEGIN First_On -->
+                            <a class="CobaltNavigatorLink" href="{First_URL}"><img
+                              src="../Themes/Aqua/FirstOn.gif" border="0"></a>
+                            <!-- END First_On -->
+                            <!-- BEGIN Prev_On -->
+                            <a class="CobaltNavigatorLink" href="{Prev_URL}"><img
+                              src="../Themes/Aqua/PrevOn.gif" border="0"></a>
+
+                            <!-- END Prev_On -->
+                            &nbsp; 
+                            <!-- BEGIN Pages -->
+                            <!-- BEGIN Page_On -->
+                            <a class="CobaltNavigatorLink" href="{Page_URL}">{Page_Number} 
+                              </a>
+ &nbsp; 
+                            <!-- END Page_On -->
+                            <!-- BEGIN Page_Off -->{Page_Number}&nbsp; 
+                            <!-- END Page_Off -->
+                            <!-- END Pages -->
+                            de {Total_Pages}&nbsp; 
+                            <!-- BEGIN Next_On -->
+                            <a class="CobaltNavigatorLink" href="{Next_URL}"><img
+                              src="../Themes/Aqua/NextOn.gif" border="0"></a>
+ 
+                            <!-- END Next_On -->
+                            <!-- BEGIN Last_On -->
+                            <a class="CobaltNavigatorLink" href="{Last_URL}"><img
+                              src="../Themes/Aqua/LastOn.gif" border="0"></a>
+ 
+                            <!-- END Last_On -->
+                            <!-- END Navigator Navigator1 -->
+                          </td>
+ 
+                        </tr>
+                        <!-- BEGIN Error -->
+                        <tr>
+                          <td class="CobaltErrorDataTD" colspan="4">
+                            {Error} 
+                          </td>
+ 
+                        </tr>
+                        <!-- END Error -->
+                        <tr>
+                          <td class="CobaltColumnTD" nowrap style="text-align:center" >
+                            <!-- BEGIN Sorter Sorter_act_CodAuxiliar -->CODIGO 
+                            <!-- BEGIN Asc_On --><img src="../Themes/Cobalt/AscOn.gif"
+                            border="0">
+                            <!-- END Asc_On -->
+                            <!-- BEGIN Desc_On --><img src="../Themes/Cobalt/DescOn.gif"
+                            border="0">
+                            <!-- END Desc_On -->
+                            <!-- END Sorter Sorter_act_CodAuxiliar -->
+                            &nbsp; 
+                          </td>
+ 
+                          <td class="CobaltColumnTD" style="text-align:center" nowrap>
+                            <!-- BEGIN Sorter Sorter_act_Descripcion -->DESCRIPCION 
+                            <!-- BEGIN Asc_On --><img src="../Themes/Cobalt/AscOn.gif"
+                            border="0">
+                            <!-- END Asc_On -->
+                            <!-- BEGIN Desc_On --><img src="../Themes/Cobalt/DescOn.gif"
+                            border="0">
+                            <!-- END Desc_On -->
+                            <!-- END Sorter Sorter_act_Descripcion -->
+                            &nbsp; 
+                          </td>
+ 
+                          <td class="CobaltColumnTD" nowrap>
+                            &nbsp; 
+                          </td>
+ 
+                          <td class="CobaltColumnTD" nowrap tabindex="1" onfocus="fEnfoca('Button1_1', 'Item_lista')">
+                          </td>
+ 
+                        </tr>
+                        <!-- BEGIN Row -->
+                        <!-- BEGIN RowError -->
+                        <tr>
+                          <td class="CobaltErrorDataTD" colspan="4">
+                            {Error} 
+                          </td>
+ 
+                        </tr>
+                        <!-- END RowError -->
+                        <tr valign="middle">
+                        <td class="CobaltDataTD" nowrap>
+                            <!-- BEGIN Button Button1 -->
+                                <input class="CobaltErrorDataTD" onclick="fPasaDatos(this.name, this)"
+                                style="BORDER-TOP-WIDTH: 0px; BACKGROUND-POSITION: left top; BORDER-LEFT-WIDTH: 0px; BORDER-BOTTOM-WIDTH: 0px; MARGIN: 0px; WIDTH: 8px; CURSOR: hand; HEIGHT: 14px; TEXT-ALIGN: left; BORDER-RIGHT-WIDTH: 0px"
+                                type="button" value=">" name="{Button_Name}" tabindex="1"
+                                onfocus="fCambiarFondo(this.parentNode.parentNode, '#CCCCCC')"
+                                onblur="fCambiarFondo(this.parentNode.parentNode, '')">
+                            <!-- END Button Button1 -->
+                            &nbsp
+                            <input  name="{act_codauxiliar_Name}" value="{act_codauxiliar}"  tabindex="99"
+                            maxlength="10" size="10" class="CobaltInputsb" id="act_codauxiliar"
+                            readonly style="WIDTH: 68px; HEIGHT: 13px">
+                        </td>
+                              <td class="CobaltDataTD">
+                                &nbsp;&nbsp;&nbsp;&nbsp;
+                                <input name="{act_descrip_Name}" value="{act_descrip}" tabindex="99"
+                                maxlength="200" size="200" class="CobaltInputSB" id="act_descrip"
+                                readonly style="WIDTH: 350px; HEIGHT: 13px">
+                                  &nbsp; 
+                                </td>
+ 
+                                <td class="CobaltDataTD">
+                                  &nbsp;&nbsp;&nbsp;&nbsp;
+                                  <input name="{uni_Abreviatura_Name}" value="{uni_Abreviatura}" tabindex="99"
+                                  maxlength="3" size="3" class="CobaltInputSB" id="uni_Abreviatura"
+                                  readonly title="Unidad de Medida">&nbsp;&nbsp;&nbsp;
+                                  </td>
+ 
+                                  <td class="CobaltDataTD">
+                                    <input type="hidden" name="{act_UniMedida_Name}" tabindex="99"
+                                    value="{act_UniMedida}" id="act_UniMedida" style="WIDTH: 41px; HEIGHT: 10px"
+                                    size="4">
+                                      <input type="hidden" name="{tab_Multiplicador_Name}" tabindex="99"
+                                      value="{tab_Multiplicador}" id="tab_Multiplicador"
+                                      style="WIDTH: 30px; HEIGHT: 9px" size="3">
+                                        <input type="hidden" name="{tab_Divisor_Name}"
+                                        value="{tab_Divisor}" id="tab_Divisor" style="WIDTH: 19px; HEIGHT: 10px"
+                                        size="2">
+                                        <input class="CobaltDataLink" style="FONT-SIZE: 9px; WIDTH: 40px; HEIGHT: 17px"
+                                             type="button" value="Modif.." name="Button4" tabindex="9999" accesskey="m"
+                                             onclick="JavaScript:window.enMantto = true; fAbrirWin('{destino}' ,'Win',' ', 900, 550);fEnfoca('Button1_1'); Win.focus(); return false; "
+                                             title="-CLICK- Para Editar / Modificar este Auxiliar">
+                                                </td>
+ 
+                                      </tr>
+                                      <!-- END Row -->
+                                      <tr>
+                                        <td class="CobaltFooterTD" nowrap align="right" colspan="4" height="5">
+                                            <input readonly type="text" style="WIDTH: 0px; HEIGHT: 0px" class="CobaltFooterTD"  width="0" height="0" tabindex="1" onfocus="fEnfoca('Button1_1')" />
+                                        </td>
+                                      </tr>
+                                      <!-- BEGIN NoRecords -->
+                                      <tr>
+                                        <td class="CobaltDataTD" colspan="4">
+                                          No hay registros&nbsp; 
+                                        </td>
+ 
+                                      </tr>
+                                      <!-- END NoRecords -->
+                                    </table>
+ 
+                                  </form>
+ 
+                                  <!-- END EditableGrid Item_lista -->
+                                  </p>
+ 
+                                </td>
+ 
+                              </tr>
+ 
+                            </table>
+ &nbsp;&nbsp; 
+                          </td>
+ 
+                          <td>
+                                    &nbsp;
+                          </td>
+ 
+                        </tr>
+ 
+                        <tr>
+                          <td>
+                            &nbsp; 
+                          </td>
+ 
+                          <td>
+                            &nbsp; 
+                          </td>
+                        </tr>
+                      </table>
+                    </body>
+ 
+                    </html>

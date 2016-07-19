@@ -1,0 +1,138 @@
+
+<base target="_self">
+<link href="../Themes/Cobalt/Style.css" type="text/css" rel="stylesheet">
+<link href="../Themes/Menu/Style.css" type="text/css" rel="stylesheet">
+<script>
+//Begin CCS script
+//Include JSFunctions @1-FB634A57
+  </script>
+<script language="JavaScript" type="text/javascript" src="../functions.js"></script>
+<script language="JavaScript" type="text/javascript">
+  
+//End Include JSFunctions
+
+//page_variables_list_OnLoad @3-45B642CB
+function page_variables_list_OnLoad()
+{
+    var result;
+//End page_variables_list_OnLoad
+
+//Custom Code @92-2A29BDB7
+    // -------------------------
+  var forms = document.forms;
+  var i, j, elm, form;
+  for(i = 0; i < forms.length; i++)
+  {
+    form = forms[i];
+    for (j = 0; j < form.elements.length; j++)
+    {
+      var elm = form.elements[j];
+      if (elm.id  == "vcf_tipoDato") 
+	  	 	{
+		  	var oNum=elm.previousSibling;
+		  	var oTex=oNum.previousSibling;
+			switch(elm.value){
+				case "T":
+				case "F":
+					oTex.style.visibility=""
+					oNum.style.visibility="hidden"
+					oNum.style.width="0"
+					break;
+				case "E":
+				case "D":
+					oTex.style.visibility="hidden"
+					oTex.style.width="0"
+					oNum.style.visibility=""
+					break;
+				}
+	    	}
+      }
+	}
+//End Custom Code
+
+//Close page_variables_list_OnLoad @3-BC33A33A
+    return result;
+}
+//End Close page_variables_list_OnLoad
+
+//page_variables_list_Cancel_OnClick @49-6BE93DF5
+function page_variables_list_Cancel_OnClick()
+{
+    disableValidation = true;
+}
+//End page_variables_list_Cancel_OnClick
+
+//bind_events @1-7BC7DE50
+function CoAdAu_varimant_bind_events() {
+    if (document.forms["variables_list"]) check_and_bind('document.forms["variables_list"]','onLoad',page_variables_list_OnLoad);
+    if (document.forms["variables_list"]) check_and_bind('document.forms["variables_list"].Cancel','onclick',page_variables_list_Cancel_OnClick);
+}
+//End bind_events
+
+//End CCS script</script>
+      <!-- BEGIN EditableGrid variables_list -->
+      <form name="{HTMLFormName}" action="{Action}" method="post" style="margin:0; border-collapse:collapse; border:0 ">
+        <font class="CobaltFormHeaderFont">
+        <input type="hidden" value="{FormState}" name="FormState">{FormScript}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        &nbsp;&nbsp;( {genvariables_genvarconfig_TotalRecords} &nbsp;)
+         <table class="CobaltFormTABLE" cellpadding="1" border="0" cellspacing="1" style="margin:0; border-collapse:collapse; border:0 ">
+          <!-- BEGIN Error -->
+          <tr>
+            <td class="CobaltErrorDataTD" colspan="4">{Error}</td> 
+          </tr>
+ <!-- END Error -->
+          <tr align="center">
+            <td class="CobaltColumnTD" nowrap colspan="2">
+              <!-- BEGIN Sorter Sorter_vcf_nombre --><a class="CobaltSorterLink" href="{Sort_URL}">VARIABLE</a> 
+              <!-- BEGIN Asc_On --><img src="../Themes/Cobalt/AscOn.gif" border="0"><!-- END Asc_On -->
+              <!-- BEGIN Desc_On --><img src="../Themes/Cobalt/DescOn.gif" border="0"><!-- END Desc_On --><!-- END Sorter Sorter_vcf_nombre -->&nbsp;</td> 
+            <td class="CobaltColumnTD" nowrap>
+              <!-- BEGIN Sorter Sorter_iab_Bandera --><a class="CobaltSorterLink" href="{Sort_URL}">BANDERA</a> 
+              <!-- BEGIN Asc_On --><img src="../Themes/Cobalt/AscOn.gif" border="0"><!-- END Asc_On -->
+              <!-- BEGIN Desc_On --><img src="../Themes/Cobalt/DescOn.gif" border="0"><!-- END Desc_On --><!-- END Sorter Sorter_iab_Bandera -->&nbsp;</td> 
+            <td class="CobaltColumnTD">
+              <!-- BEGIN Sorter Sorter_iab_ValorTex --><a class="CobaltSorterLink" href="{Sort_URL}">VALOR</a> 
+              <!-- BEGIN Asc_On --><img src="../Themes/Cobalt/AscOn.gif" border="0"><!-- END Asc_On -->
+              <!-- BEGIN Desc_On --><img src="../Themes/Cobalt/DescOn.gif" border="0"><!-- END Desc_On --><!-- END Sorter Sorter_iab_ValorTex -->&nbsp;</td> 
+          </tr>
+ 
+          <!-- BEGIN Row -->
+          <!-- BEGIN RowError -->
+          <tr>
+            <td class="CobaltErrorDataTD" colspan="4">{Error}</td> 
+          </tr>
+ <!-- END RowError -->
+          <tr>
+            <td class="CobaltDataTD">&nbsp;{Label1}<input class="CobaltInputSB2" type="hidden" maxlength="10" size="10" value="{iab_Tipo}" name="{iab_Tipo_Name}"><input class="CobaltInputSB2" type="hidden" maxlength="10" size="10" value="{iab_ObjetoID}" name="{iab_ObjetoID_Name}"><input class="CobaltInputSB2" type="hidden" maxlength="5" size="5" value="{iab_VariableID}" name="{iab_VariableID_Name}">&nbsp;&nbsp;&nbsp;</td> 
+            <td class="CobaltDataTD">&nbsp; {Label2}</td> 
+            <td class="CobaltDataTD"><input class="CobaltInputSB2" maxlength="4" size="4" value="{iab_Bandera}" name="{iab_Bandera_Name}" style="visibility:hidden;" >&nbsp;</td> 
+            <td class="CobaltDataTD" align="right">
+		    <input class="CobaltInputSB2" style=" WIDTH: 153px; POSITION: relative; HEIGHT: 18px" maxlength="40" size="24" value="{iab_ValorTex}" name="{iab_ValorTex_Name}">
+		    <input class="CobaltInputSB2" style="visibility:hidden;  WIDTH: 62px; POSITION: relative; HEIGHT: 18px; TEXT-ALIGN: right" maxlength="14" size="9" value="{iab_valorNum}" name="{iab_valorNum_Name}">
+		    <input class="CobaltInputSB2" maxlength="4" size="4" value="{vcf_tipoDato}" name="{vcf_tipoDato_Name}" id="vcf_tipoDato" type="hidden"></td> 
+          </tr>
+ <!-- END Row -->
+          <!-- BEGIN NoRecords -->
+          <tr>
+            <td class="CobaltDataTD" colspan="4">No hay registros&nbsp;</td> 
+          </tr>
+ <!-- END NoRecords -->
+          <tr>
+            <td class="CobaltFooterTD" nowrap align="center" colspan="4">
+              <!-- BEGIN Navigator Navigator -->
+              <!-- BEGIN First_On --><a class="CobaltNavigatorLink" href="{First_URL}"><img src="../Themes/Cobalt/FirstOn.gif" border="0"></a> <!-- END First_On -->
+              <!-- BEGIN Prev_On --><a class="CobaltNavigatorLink" href="{Prev_URL}"><img src="../Themes/Cobalt/PrevOn.gif" border="0"></a> <!-- END Prev_On -->&nbsp; 
+              <!-- BEGIN Pages -->
+              <!-- BEGIN Page_On --><a class="CobaltNavigatorLink" href="{Page_URL}">{Page_Number}</a>&nbsp;<!-- END Page_On -->
+              <!-- BEGIN Page_Off -->{Page_Number}&nbsp;<!-- END Page_Off --><!-- END Pages -->de
+              {Total_Pages}&nbsp; 
+              <!-- BEGIN Next_On --><a class="CobaltNavigatorLink" href="{Next_URL}"><img src="../Themes/Cobalt/NextOn.gif" border="0"></a> <!-- END Next_On -->
+              <!-- BEGIN Last_On --><a class="CobaltNavigatorLink" href="{Last_URL}"><img src="../Themes/Cobalt/LastOn.gif" border="0"></a> <!-- END Last_On --><!-- END Navigator Navigator -->&nbsp; 
+              <!-- BEGIN Button Button_Submit --><input class="CobaltButton" type="submit" value="GRABAR" name="{Button_Name}"><!-- END Button Button_Submit -->&nbsp; 
+              <!-- BEGIN Button Cancel --><input class="CobaltButton" type="submit" value="Cancelar" name="{Button_Name}"><!-- END Button Cancel -->&nbsp; </td> 
+          </tr>
+ 
+        </table>
+ 
+      </form>
+ <!-- END EditableGrid variables_list -->&nbsp;</td> 

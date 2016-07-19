@@ -1,0 +1,187 @@
+<html>
+<head>
+<meta name="GENERATOR" content="CodeCharge Studio 2.3.2.24">
+<base target="_self">
+<link rel="stylesheet" type="text/css" href="../Themes/Cobalt/Style.css">
+<link rel="stylesheet" type="text/css" href="../Themes/Menu/Style.css">
+<title></title>
+ 
+<script language="JavaScript" src="../LibJava/menu_func.js"></script>
+<script language="JavaScript" src="../LibJava/general.js"></script>
+<script language="JavaScript" type="text/javascript">
+//Begin CCS script
+//Include Common JSFunctions @1-A1D84A39
+</script>
+<script language="JavaScript" type="text/javascript" src="../DatePicker.js"></script>
+<script language="JavaScript" type="text/javascript">
+//End Include Common JSFunctions
+
+//Date Picker Object Definitions @1-9BB534D8
+
+var transacc_qry_DatePicker_s_com_FecTrans = new Object(); 
+transacc_qry_DatePicker_s_com_FecTrans.format           = "yyyy/mm/dd";
+transacc_qry_DatePicker_s_com_FecTrans.style            = "Themes/Cobalt/Style.css";
+transacc_qry_DatePicker_s_com_FecTrans.relativePathPart = "../";
+
+//End Date Picker Object Definitions
+//End CCS script
+</script>
+</head>
+ 
+<body bgcolor="#fffff7" link="#000000" alink="#ff0000" vlink="#000000" text="#000000" class="CobaltPageBODY" style="PADDING-RIGHT: 0px; PADDING-LEFT: 0px; PADDING-BOTTOM: 0px; PADDING-TOP: 0px; magin: 0; spacing: 0" bottommargin="0" nowrap leftmargin="0" topmargin="17" rightmargin="0" marginwidth="0" marginheight="0" background="../images/Fondos/FondoAzul.jpg">
+{Cabecera} 
+<table background="../Themes/Cobalt/Light Streaks.bmp" border="0" width="100%" cellspacing="0" cellpadding="0" style="BORDER-RIGHT: 0px; BORDER-TOP: 0px; MARGIN: 0px; BORDER-LEFT: 0px; BORDER-BOTTOM: 0px; BORDER-COLLAPSE: collapse">
+  <tr>
+    <td align="center">&nbsp; 
+      <!-- BEGIN Record transacc_qry -->
+      <form name="{HTMLFormName}" action="{Action}" method="post" style="BORDER-RIGHT: 0px; BORDER-TOP: 0px; MARGIN: 0px; BORDER-LEFT: 0px; BORDER-BOTTOM: 0px; BORDER-COLLAPSE: collapse">
+        <font class="CobaltFormHeaderFont">BUSCAR </font> 
+        <table class="CobaltFormTABLE" cellpadding="1" border="0" cellspacing="1" style="BORDER-RIGHT: 0px; BORDER-TOP: 0px; MARGIN: 0px; BORDER-LEFT: 0px; BORDER-BOTTOM: 0px; BORDER-COLLAPSE: collapse">
+          <!-- BEGIN Error -->
+          <tr>
+            <td class="CobaltErrorDataTD" colspan="12">{Error}</td> 
+          </tr>
+          <!-- END Error -->
+          <tr>
+            <td class="CobaltFieldCaptionTD" nowrap>COMPROBTE&nbsp;</td> 
+            <td class="CobaltDataTD"><input class="CobaltInput" maxlength="3" size="3" value="{s_com_TipoComp}" name="{s_com_TipoComp_Name}">&nbsp;<input class="CobaltInput" maxlength="10" size="10" value="{s_com_NumComp}" name="{s_com_NumComp_Name}"></td> 
+            <td class="CobaltFieldCaptionTD" nowrap>FECHA&nbsp;</td> 
+            <td class="CobaltDataTD"><input class="CobaltInput" maxlength="22" size="22" value="{s_com_FecTrans}" name="{s_com_FecTrans_Name}">
+              <!-- BEGIN DatePicker DatePicker_s_com_FecTrans --><a class="CobaltDataLink" href="javascript:showDatePicker('{Name}','{FormName}','{DateControl}');"><img src="../Themes/DatePicker/DatePicker1.gif" border="0"></a><!-- END DatePicker DatePicker_s_com_FecTrans -->&nbsp;</td> 
+            <td class="CobaltFieldCaptionTD" nowrap>EMISOR&nbsp;</td> 
+            <td class="CobaltDataTD"><input class="CobaltInput" maxlength="10" size="10" value="{s_com_Emisor}" name="{s_com_Emisor_Name}">&nbsp;</td> 
+          </tr>
+ 
+          <tr>
+            <td class="CobaltFieldCaptionTD" nowrap>RECEPTOR&nbsp;</td> 
+            <td class="CobaltDataTD"><input class="CobaltInput" maxlength="40" size="40" value="{s_com_Receptor}" name="{s_com_Receptor_Name}">&nbsp;</td> 
+            <td class="CobaltFieldCaptionTD" nowrap>TIPO RETENC.</td> 
+            <td class="CobaltDataTD">
+              <select class="CobaltSelect" name="{s_par_Valor1_Name}">
+                <option value="" selected>-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;</option>
+ {s_par_Valor1_Options} 
+              </select>
+ </td> 
+            <td class="CobaltFieldCaptionTD" nowrap>CONCEPTO&nbsp;</td> 
+            <td class="CobaltDataTD"><input class="CobaltInput" maxlength="250" size="31" value="{s_com_Concepto}" name="{s_com_Concepto_Name}" style="WIDTH: 205px; HEIGHT: 20px">&nbsp;</td> 
+          </tr>
+ 
+          <tr>
+            <td class="CobaltFooterTD" nowrap align="center" colspan="12">
+              <!-- BEGIN Button Button_DoSearch --><input class="CobaltButton" type="submit" value="Buscar" name="{Button_Name}"><!-- END Button Button_DoSearch -->&nbsp; </td> 
+          </tr>
+ 
+        </table>
+ 
+      </form>
+ <!-- END Record transacc_qry -->
+      <!-- BEGIN Grid transacc_list --><font class="CobaltFormHeaderFont">LISTA
+      DE
+      MOVIMIENTOS&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </font> Total
+      de Registros:&nbsp; {concomprobantes_TotalRecords}
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+      <table class="CobaltFormTABLE" cellpadding="1" border="0" cellspacing="1" style="BORDER-COLLAPSE: collapse">
+        <tr>
+          <td class="CobaltFooterTD" nowrap colspan="8" align="center">
+            <!-- BEGIN Navigator Navigator1 -->
+            <!-- BEGIN First_On --><a class="CobaltNavigatorLink" href="{First_URL}"><img src="../Themes/Aqua/FirstOn.gif" border="0"></a> <!-- END First_On -->
+            <!-- BEGIN Prev_On --><a class="CobaltNavigatorLink" href="{Prev_URL}"><img src="../Themes/Aqua/PrevOn.gif" border="0"></a> <!-- END Prev_On -->&nbsp; 
+            <!-- BEGIN Pages -->
+            <!-- BEGIN Page_On --><a class="CobaltNavigatorLink" href="{Page_URL}">{Page_Number}</a>&nbsp;<!-- END Page_On -->
+            <!-- BEGIN Page_Off -->{Page_Number}&nbsp;<!-- END Page_Off --><!-- END Pages -->de
+            {Total_Pages}&nbsp; 
+            <!-- BEGIN Next_On --><a class="CobaltNavigatorLink" href="{Next_URL}"><img src="../Themes/Aqua/NextOn.gif" border="0"></a> <!-- END Next_On -->
+            <!-- BEGIN Last_On --><a class="CobaltNavigatorLink" href="{Last_URL}"><img src="../Themes/Aqua/LastOn.gif" border="0"></a> <!-- END Last_On --><!-- END Navigator Navigator1 --></td> 
+        </tr>
+ 
+        <tr align="center">
+          <td class="CobaltColumnTD" nowrap>
+            <!-- BEGIN Sorter Sorter_com_TipoComp --><a class="CobaltSorterLink" href="{Sort_URL}">COMPROBTE</a> 
+            <!-- BEGIN Asc_On --><img src="../Themes/Cobalt/AscOn.gif" border="0"><!-- END Asc_On -->
+            <!-- BEGIN Desc_On --><img src="../Themes/Cobalt/DescOn.gif" border="0"><!-- END Desc_On --><!-- END Sorter Sorter_com_TipoComp -->&nbsp;</td> 
+          <td class="CobaltColumnTD" nowrap>
+            <!-- BEGIN Sorter Sorter_com_FecContab --><a class="CobaltSorterLink" href="{Sort_URL}">FECHA</a> 
+            <!-- BEGIN Asc_On --><img src="../Themes/Cobalt/AscOn.gif" border="0"><!-- END Asc_On -->
+            <!-- BEGIN Desc_On --><img src="../Themes/Cobalt/DescOn.gif" border="0"><!-- END Desc_On --><!-- END Sorter Sorter_com_FecContab -->&nbsp;</td> 
+          <td class="CobaltColumnTD" nowrap>
+            <!-- BEGIN Sorter Sorter_com_CodReceptor --><a class="CobaltSorterLink" href="{Sort_URL}">BENEFICIARIO</a> 
+            <!-- BEGIN Asc_On --><img src="../Themes/Cobalt/AscOn.gif" border="0"><!-- END Asc_On -->
+            <!-- BEGIN Desc_On --><img src="../Themes/Cobalt/DescOn.gif" border="0"><!-- END Desc_On --><!-- END Sorter Sorter_com_CodReceptor -->&nbsp;</td> 
+          <td class="CobaltColumnTD" nowrap>
+            <!-- BEGIN Sorter Sorter_com_Receptor --><a class="CobaltSorterLink" href="{Sort_URL}">RUC
+            BENEF.</a> 
+            <!-- BEGIN Asc_On --><img src="../Themes/Cobalt/AscOn.gif" border="0"><!-- END Asc_On -->
+            <!-- BEGIN Desc_On --><img src="../Themes/Cobalt/DescOn.gif" border="0"><!-- END Desc_On --><!-- END Sorter Sorter_com_Receptor -->&nbsp;</td> 
+          <td class="CobaltColumnTD" nowrap>
+            <!-- BEGIN Sorter TIPO --><a class="CobaltSorterLink" href="{Sort_URL}">TIPO</a><!-- END Sorter TIPO --></td> 
+          <td class="CobaltColumnTD" nowrap>BASE.<br>
+            &nbsp;IMPON</td> 
+          <td class="CobaltColumnTD" nowrap align="center">
+            <!-- BEGIN Sorter VALOR_RETENIDO --><a class="CobaltSorterLink" href="{Sort_URL}">VALOR.<br>
+            RETENIDO</a><!-- END Sorter VALOR_RETENIDO --></td> 
+          <td class="CobaltColumnTD" nowrap>Concepto &nbsp;</td> 
+        </tr>
+        <!-- BEGIN Row -->
+        <tr>
+          <td class="CobaltDataTD" onclick="fAbrirWin('../In_Files/InTrTr_Cabe.php?com_RegNumero={com_RegNumero}&amp;amp;amp;amp;amp;pTipoComp={com_TipoComp}', 'wcom', '',1000,700)" title="Haga Click aqui para revisar el comprobante"><input class="CobaltInputSB" readonly name="{tmp_ID_Name}" value="{tmp_ID}" style="FONT-SIZE: 6px; WIDTH: 37px; HEIGHT: 22px" size="4"><input style="WIDTH:  30px;  HEIGHT:  14px" type="hidden" size="3" value="{com_RegNumero}" name="{com_RegNumero_Name}">{com_TipoComp}&nbsp;{com_NumComp}</td> 
+          <td class="CobaltDataTD">{com_FecContab}&nbsp;</td> 
+          <td class="CobaltDataTD" onclick="fAbrirWin('../Co_Files/CoAdAu_mant.php?per_CodAuxiliar=' + {com_CodReceptor}, 'waux', '', 900,550)">{com_CodReceptor}&nbsp;{com_Receptor}</td> 
+          <td class="CobaltDataTD" title="Haga Click aqui para Consultar / Modificar datos del Contribuyente">&nbsp;{tmp_Identif}</td> 
+          <td class="CobaltDataTD" align="right" title="Haga Click aqui para Consultar / Modificar datos de la Transaccion" onclick="fAbrirWin('../Rt_Files/CoRtTr_mant.php?tmp_ID={tmp_ID}', 'wret', '',480,330)">{tmp_CodRetenc}</td> 
+          <td class="CobaltDataTD" align="right">{tmp_BaseImp}</td> 
+          <td class="CobaltDataTD" align="right"><label></label><label><label></label>{tmp_ValReten}</label></td> 
+          <td class="CobaltDataTD" nowrap>&nbsp; <textarea class="CobaltInputSB" style="WIDTH: 400px; HEIGHT: 15px" name="{com_Concepto_Name}" rows="1" readonly cols="40">{com_Concepto}</textarea></td> 
+        </tr>
+        <!-- END Row -->
+        <!-- BEGIN AltRow -->
+        <tr>
+          <td class="CobaltAltDataTD" onclick="fAbrirWin('../In_Files/InTrTr_Cabe.php?com_RegNumero={Alt_com_RegNumero}&amp;amp;amp;amp;amp;amp;amp;pTipoComp={Alt_com_TipoComp}', 'wcom', '',1000,600)" title="Haga Click aqui para revisar el comprobante"><input class="CobaltInputSB" readonly name="{Alt_tmp_ID_Name}" value="{Alt_tmp_ID}" style="WIDTH: 36px; HEIGHT: 22px" size="4"><input style="FONT-SIZE:  6px;  WIDTH:  29px;  HEIGHT:  17px" type="hidden" size="3" value="{Alt_com_RegNumero}" name="{Alt_com_RegNumero_Name}">{Alt_com_TipoComp}&nbsp;{Alt_com_NumComp}</td> 
+          <td class="CobaltAltDataTD">{Alt_com_FecContab}&nbsp;</td> 
+          <td class="CobaltAltDataTD" onclick="fAbrirWin('../Co_Files/CoAdAu_mant.php?per_CodAuxiliar=' + {Alt_com_CodReceptor}, 'waux', '', 900,550)">{Alt_com_CodReceptor}&nbsp;{Alt_com_Receptor}</td> 
+          <td class="CobaltAltDataTD" title="Haga Click aqui para Consultar / Modificar datos del Contribuyente">&nbsp;{Alt_tmp_Identif}</td> 
+          <td class="CobaltAltDataTD" align="right" title="Haga Click aqui para Consultar / Modificar datos de la Transaccion" onclick="fAbrirWin('../Rt_Files/CoRtTr_mant.php?tmp_ID={tmp_ID}', 'wret', '',480,330)">{Alt_tmp_CodRetenc}</td> 
+          <td class="CobaltAltDataTD" align="right">{Alt_tmp_BaseImp}</td> 
+          <td class="CobaltAltDataTD" align="right">{Alt_tmp_ValReten}</td> 
+          <td class="CobaltAltDataTD" nowrap>&nbsp; <textarea class="AltCobaltInputSB" style="WIDTH: 400px; HEIGHT: 15px" name="{Alt_com_Concepto_Name}" rows="1" readonly cols="40">{Alt_com_Concepto}</textarea></td> 
+        </tr>
+        <!-- END AltRow -->
+        <!-- BEGIN NoRecords -->
+        <tr>
+          <td class="CobaltAltDataTD" colspan="8">No hay registros&nbsp;</td> 
+        </tr>
+        <!-- END NoRecords -->
+        <tr>
+          <td class="CobaltAltDataTD"></td> 
+          <td class="CobaltAltDataTD"></td> 
+          <td class="CobaltAltDataTD"><strong>T O T A
+            L&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; G E N E R A L</strong></td> 
+          <td class="CobaltAltDataTD"></td> 
+          <td class="CobaltAltDataTD"></td> 
+          <td class="CobaltAltDataTD" align="right">{lbl_Imponible}</td> 
+          <td class="CobaltAltDataTD" align="right">{lbl_Retenido}</td> 
+          <td class="CobaltAltDataTD" width="250"></td> 
+        </tr>
+ 
+        <tr>
+          <td class="CobaltFooterTD" nowrap colspan="8" align="center">
+            <!-- BEGIN Navigator Navigator -->
+            <!-- BEGIN First_On --><a class="CobaltNavigatorLink" href="{First_URL}"><img src="../Themes/Aqua/FirstOn.gif" border="0"></a> <!-- END First_On -->
+            <!-- BEGIN Prev_On --><a class="CobaltNavigatorLink" href="{Prev_URL}"><img src="../Themes/Aqua/PrevOn.gif" border="0"></a> <!-- END Prev_On -->&nbsp; 
+            <!-- BEGIN Pages -->
+            <!-- BEGIN Page_On --><a class="CobaltNavigatorLink" href="{Page_URL}">{Page_Number}</a>&nbsp;<!-- END Page_On -->
+            <!-- BEGIN Page_Off -->{Page_Number}&nbsp;<!-- END Page_Off --><!-- END Pages -->de
+            {Total_Pages}&nbsp; 
+            <!-- BEGIN Next_On --><a class="CobaltNavigatorLink" href="{Next_URL}"><img src="../Themes/Aqua/NextOn.gif" border="0"></a> <!-- END Next_On -->
+            <!-- BEGIN Last_On --><a class="CobaltNavigatorLink" href="{Last_URL}"><img src="../Themes/Aqua/LastOn.gif" border="0"></a> <!-- END Last_On --><!-- END Navigator Navigator -->&nbsp; 
+            <!-- BEGIN Button Button1 --><input class="CobaltButton" type="submit" value="NUEVO" name="{Button_Name}"><!-- END Button Button1 --></td> 
+        </tr>
+ 
+      </table>
+ <!-- END Grid transacc_list --></td> 
+    <td>&nbsp;</td> 
+  </tr>
+ 
+</table>
+</body>
+ 
+</html>

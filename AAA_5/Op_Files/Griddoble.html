@@ -1,0 +1,208 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset={tplCharset}">
+    <title>PRUEBA</title>
+    
+    <!-- Ext Files -->
+    <link rel="stylesheet" type="text/css" href="../LibJava/ext-2.0/resources/css/ext-all.css" />
+    <script type="text/javascript" src="../LibJava/ext-2.0/adapter/ext/ext-base.js"></script>
+    <script type="text/javascript" src="../LibJava/ext-2.0/ext-all.js"></script>
+        <script type="text/javascript" src="../LibJava/extExtensions.js"></script>
+	<script type="text/javascript" src="../LibJava/general.js"></script>
+	<script type="text/javascript" src="../LibJava/ext-2.0/ux/menu/EditableItem.js"></script>
+	<script type="text/javascript" src="../LibJava/ext-2.0/ux/menu/RangeMenu.js"></script>
+
+	<script type="text/javascript" src="../LibJava/ext-2.0/ux/grid/RowExpander.js"></script>
+	<script type="text/javascript" src="../LibJava/ext-2.0/ux/grid/GridFilters.js"></script>
+	<script type="text/javascript" src="../LibJava/ext-2.0/ux/grid/filter/Filter.js"></script>
+	<script type="text/javascript" src="../LibJava/ext-2.0/ux/grid/filter/StringFilter.js"></script>
+	<script type="text/javascript" src="../LibJava/ext-2.0/ux/grid/filter/DateFilter.js"></script>
+	<script type="text/javascript" src="../LibJava/ext-2.0/ux/grid/filter/ListFilter.js"></script>
+	<script type="text/javascript" src="../LibJava/ext-2.0/ux/grid/filter/NumericFilter.js"></script>
+	<script type="text/javascript" src="../LibJava/ext-2.0/ux/grid/filter/BooleanFilter.js"></script>
+	<script type='text/javascript' src='../LibJava/ext-2.0/ux/grid/GridSummary.js'></script>
+	<script type='text/javascript' src='../LibJava/ext-2.0/ux/grid/GroupSummary.js'></script>
+    <script type="text/javascript" ">
+    
+    /*-------------------------*/
+    
+Ext.onReady(function(){
+
+    Ext.QuickTips.init();
+    
+    var xg = Ext.grid;
+
+    // shared reader
+    var reader = new Ext.data.ArrayReader({}, [
+       {name: 'Id'},
+       {name: 'company'},
+       {name: 'price', type: 'float'},
+       {name: 'change', type: 'float'},
+       {name: 'pctChange', type: 'float'},
+       {name: 'lastChange', type: 'date', dateFormat: 'n/j h:ia'},
+       {name: 'industry'},
+       {name: 'desc'}
+    ]);
+    
+  
+    // row expander
+    var expander = new xg.RowExpander({
+        tpl : new Ext.Template('<div id="myrow-{Id}" ></div>')
+    });
+
+
+    expander.on('expand', expandedRow);
+
+    function expandedRow(obj, record, body, rowIndex){
+        id = "myrow-" + record.json[0]
+        id2 = "mygrid-" + record.json[0]  
+                
+       var gridX = new xg.GridPanel({
+            store: theStore2(),
+            cm: cm2(),
+            viewConfig: {
+                forceFit:true
+            },            
+            width: 300,
+            height: 150,
+            id: id2,
+            frame: true                   
+        });        
+        
+        gridX.render(id);
+        gridX.getEl().swallowEvent([ 'mouseover', 'mousedown', 'click', 'dblclick' ]);
+    }
+    
+    function dummyData2()
+    {
+    return [
+        [24001, 'Value A','12'],
+        [41001, 'Value A','2'],    
+        [15025, 'Value D','46']
+            ];
+    }
+    function reader2(){
+        return new Ext.data.ArrayReader({}, [
+                {name: 'Id2'},
+                {name: 'marque'},
+                {name: 'price'}
+            ]);  
+    }
+    
+    function theStore2()
+    {
+        return new Ext.data.Store({
+            reader: reader2(),
+            data: dummyData2()
+        });     
+    }
+        
+    function cm2()
+    {
+    return new Ext.grid.ColumnModel([            
+    {id:'idXX',header: "Col 0", sortable: true,dataIndex: 'Id2'},
+    {header: "Col A", sortable: true, dataIndex: 'marque'},
+    {header: "Col B", sortable: true, dataIndex: 'price'}
+    ]);  
+    }
+    
+    
+    
+    // main grid
+    var theStore = new Ext.data.Store({
+            reader: reader,
+            data: xg.dummyData
+        });
+        
+       
+    
+    var cm = new xg.ColumnModel([
+            expander,
+            {id:'Id',header: "Id", width: 10, sortable: true, dataIndex: 'Id'},
+            {header: "Company", width: 40, sortable: true, dataIndex: 'company'},
+            {header: "Price", width: 20, sortable: true, renderer: Ext.util.Format.usMoney, dataIndex: 'price'},
+            {header: "Change", width: 20, sortable: true, dataIndex: 'change'},
+            {header: "% Change", width: 20, sortable: true, dataIndex: 'pctChange'},
+            {header: "Last Updated", width: 20, sortable: true, renderer: Ext.util.Format.dateRenderer('m/d/Y'), dataIndex: 'lastChange'}
+        ]);
+    
+  
+    
+    var gridParent = new Ext.grid.GridPanel({
+        store: theStore,
+        cm: cm,
+        viewConfig: {
+            forceFit:true
+        },
+        width: 600,
+        height: 600,
+        plugins: expander,
+        title: 'Expander Rows, Collapse and Force Fit',        
+        renderTo: document.body,
+        id: 'mygridid'
+    });
+    
+    gridParent.getView().on('refresh', function(){
+        Ext.each(gridParent.view.getRows(),function(row)
+        {
+            record = gridParent.store.getAt(row.rowIndex);
+            if (expander.state[record.id])
+                {
+                    expander.expandRow(row);
+                }
+        });//each
+     });
+    
+    
+    
+});
+
+
+// Array data for the grids
+Ext.grid.dummyData = [
+    [1, '3m Co',71.72,0.02,0.03,'9/1 12:00am', 'Manufacturing'],
+    [2, 'Alcoa Inc',29.01,0.42,1.47,'9/1 12:00am', 'Manufacturing'],
+    [3, 'Altria Group Inc',83.81,0.28,0.34,'9/1 12:00am', 'Manufacturing']
+];  
+    /*------------------------------*/
+    
+    
+    
+ 
+    </script>
+    <style type="text/css">
+        /* Group gridview */
+        .x-grid-group {
+            font-family:arial,tahoma,helvetica,sans-serif;
+            font-size:11px;
+            font-size-adjust:none;
+            font-style:normal;
+            font-variant:normal;
+            font-weight:bold;
+            line-height:13px;
+            white-space:nowrap;
+        }
+
+        .x-grid-emptyrow {
+            font-family:arial,tahoma,helvetica,sans-serif;
+            font-size:11px;
+            font-size-adjust:none;
+            font-style:italic;
+            font-variant:normal;
+            font-weight:bold;
+            line-height:13px;
+            white-space:nowrap;
+        }
+    
+        /* Example Styles */
+        .cell-align-right .x-grid-cell-text  {
+            text-align: right;
+        }
+    </style>
+
+</head>
+<body>
+
+</body>
+</html>

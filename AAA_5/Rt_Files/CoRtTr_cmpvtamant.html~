@@ -1,0 +1,478 @@
+<html>
+<head>
+<meta name="GENERATOR" content="CodeCharge Studio 2.3.2.24">
+<base target="_self">
+<link rel="stylesheet" type="text/css" href="../Themes/Cobalt/Style.css">
+<link rel="stylesheet" type="text/css" href="../Themes/Menu/Style.css">
+<link rel="stylesheet" type="text/css" href="../css/suggestions.css">
+<link rel="stylesheet" type="text/css" href="../css/tab-view.css" media="screen">
+<title>TRANSACCIONES SRI</title>
+<script language="JavaScript" src="../LibJava/general.js" type="text/javascript"></script>
+<script language="JavaScript" src="../LibJava/cookies.js" type="text/javascript"></script>
+<script language="JavaScript" src="../LibJava/pajax-commom.js" type="text/javascript"></script>
+<script language="JavaScript" src="../LibJava/pajax-parser.js" type="text/javascript"></script>
+<script language="JavaScript" src="../LibJava/pajax-core.js" type="text/javascript"></script>
+<script language="JavaScript" src="../LibJava/autosuggestcontroller.js" type="text/javascript"></script>
+<script language="JavaScript" src="../LibJava/dataprovider.js" type="text/javascript"></script>
+<script language="JavaScript" src="../LibJava/browser_detect.js" type="text/javascript"></script>
+<script language="JavaScript" src="../LibJava/validaDB.js" type="text/javascript"></script>
+<script language="JavaScript" src="../LibJava/validations.js" type="text/javascript"></script>
+<script language="JavaScript" src="../LibJava/numberformat.js" type="text/javascript"></script>
+<script language="JavaScript" src="../LibJava/clsRpc.js"></script>
+<script language="JavaScript" src="../LibJava/selboxtablas.js" type="text/javascript"></script>
+<script language="JavaScript" src="../LibJava/menu_func.js"></script>
+<script language="JavaScript" src="../LibJava/tab-view.js"></script>
+<script language="JavaScript" src="../LibJava/fechas.js"></script>
+<script language="JavaScript" type="text/javascript">
+function fInicializa(){
+	with(document.fiscompras){
+				if(getFromurl("ID",0)>0){
+					slUrl="../In_Files/InTrTr_Cabe.php?pCabecera=false&com_RegNumero=" + hdRegNumero.value + 
+					"&CoTrTr_detallePageSize=8&pTipoComp=" + hdTipoComp.value +  "&pNumComp=" + hdNumComp.value + 
+					"#bkInicio";
+		 		window.frames["frDetal"].location.replace(slUrl);
+			}
+	    }
+	initTabs(Array('<strong>D</strong>ATOS IVA / ICE','<strong>R</strong>ETENCIONES', 
+					'DATOS <strong>G</strong>ENERALES', 
+					'<strong>I</strong>MPORT /EXPORT', 
+					'<strong>C</strong>ONTABILIDAD' ),
+					getCookie("coTabActive", -1),900,250, false,
+					Array('D','R','F','G', 'I', 'C'));
+fValidaRet()
+}
+//Begin CCS script
+//Include JSFunctions @1-FB634A57
+  </script>
+<script language="JavaScript" type="text/javascript" src="../functions.js"></script>
+<script language="JavaScript" type="text/javascript">
+  
+//End Include JSFunctions
+
+//Include Common JSFunctions @1-A1D84A39
+</script>
+<script language="JavaScript" type="text/javascript" src="../DatePicker.js"></script>
+<script language="JavaScript" type="text/javascript">
+//End Include Common JSFunctions
+
+//Date Picker Object Definitions @1-A27D0DF5
+
+var fiscompras_DatePicker_fechaRegistro = new Object(); 
+fiscompras_DatePicker_fechaRegistro.format           = "dd/mmm/yy";
+fiscompras_DatePicker_fechaRegistro.style            = "Themes/Cobalt/Style.css";
+fiscompras_DatePicker_fechaRegistro.relativePathPart = "../";
+
+var fiscompras_DatePicker_fechaEmiModificado = new Object(); 
+fiscompras_DatePicker_fechaEmiModificado.format           = "dd/mmm/yy";
+fiscompras_DatePicker_fechaEmiModificado.style            = "Themes/Cobalt/Style.css";
+fiscompras_DatePicker_fechaEmiModificado.relativePathPart = "../";
+
+//End Date Picker Object Definitions
+
+//page_fiscompras_Button_Delete_OnClick @369-429033E9
+function page_fiscompras_Button_Delete_OnClick()
+{
+    var result;
+//End page_fiscompras_Button_Delete_OnClick
+
+//Confirmation Message @370-BED55CD3
+    return confirm('Borrar registro?');
+//End Confirmation Message
+
+//Close page_fiscompras_Button_Delete_OnClick @369-BC33A33A
+    return result;
+}
+//End Close page_fiscompras_Button_Delete_OnClick
+
+//page_fiscompras_OnLoad @2-FE59E962
+function page_fiscompras_OnLoad(form)
+{
+    var result;
+//End page_fiscompras_OnLoad
+
+//Custom Code @455-2A29BDB7
+    // -------------------------
+    fInicializa();
+	// -------------------------
+//End Custom Code
+
+//Close page_fiscompras_OnLoad @2-BC33A33A
+    return result;
+}
+//End Close page_fiscompras_OnLoad
+
+//page_fiscompras_Button2_OnClick @373-79E57682
+function page_fiscompras_Button2_OnClick()
+{
+    disableValidation = true;
+}
+//End page_fiscompras_Button2_OnClick
+
+//page_fiscompras_Button_Cancel_OnClick @371-30F2784C
+function page_fiscompras_Button_Cancel_OnClick()
+{
+    disableValidation = true;
+}
+//End page_fiscompras_Button_Cancel_OnClick
+
+//bind_events @1-B81214A6
+function bind_events() {
+    if (document.forms["fiscompras"]) check_and_bind('document.forms["fiscompras"]','onLoad',page_fiscompras_OnLoad);
+    if (document.forms["fiscompras"]) check_and_bind('document.forms["fiscompras"].Button_Delete','onclick',page_fiscompras_Button_Delete_OnClick);
+    if (document.forms["fiscompras"]) check_and_bind('document.forms["fiscompras"].Button2','onclick',page_fiscompras_Button2_OnClick);
+    if (document.forms["fiscompras"]) check_and_bind('document.forms["fiscompras"].Button_Cancel','onclick',page_fiscompras_Button_Cancel_OnClick);
+    forms_onload();
+}
+//End bind_events
+
+window.onload = bind_events; //Assign bind_events @1-19F7B649
+//End CCS script
+</script>
+</head>
+ 
+<body bgcolor="#fffff7" link="#000000" alink="#ff0000" vlink="#000000" text="#000000" class="CobaltPageBODY" style="WIDTH: 68px; HEIGHT: 17px" bottommargin="0" nowrap leftmargin="0" topmargin="17" rightmargin="0" marginwidth="0" marginheight="0" id="civ_porcent">
+{Cabecera} 
+<!-- BEGIN Record fiscompras -->
+<form name="{HTMLFormName}" action="{Action}" method="post" style="BORDER-RIGHT: 0px; BORDER-TOP: 0px; MARGIN: 0px; BORDER-LEFT: 0px; BORDER-BOTTOM: 0px; POSITION: fixed; TEXT-ALIGN: center; align: center">
+  <font class="CobaltFormHeaderFont">{Label2} &nbsp;DE TRANSACCION DIMM (
+  {Label1} ) </font> 
+  <table class="CobaltFormTABLE" cellpadding="0" border="0" cellspacing="0" style="POSITION: fixed; align:center">
+    <!-- BEGIN Error -->
+    <tbody>
+      <tr>
+        <td class="CobaltErrorDataTD" colspan="12">{Error}</td> 
+      </tr>
+      <!-- END Error -->
+      <tr>
+        <td class="CobaltFieldCaptionTD" nowrap>Tipo Transac&nbsp;</td> 
+        <td class="CobaltDataTD" colspan="2"><input class="CobaltInputSB2" onfocus="fSelectTipoTran(this)" value="{tra_Descripcion}" name="{tra_Descripcion_Name}" style="WIDTH: 356px; HEIGHT: 18px" size="120" title="Tipo deTransaccion (Tabla a)" maxlength="120"><input class="CobaltInputSB" maxlength="2" size="2" value="{tipoTransac}" name="{tipoTransac_Name}" id="tipoTransac" readonly tabindex="9999" style="COLOR: #a0a0a0">&nbsp;<input type="hidden" class="CobaltInputSB" id="tra_CodCompr" style="WIDTH: 40px; HEIGHT: 17px" size="250" value="{tra_CodCompr}" name="{tra_CodCompr_Name}" maxlength="250" tabindex="9999"><input type="hidden" class="CobaltInputSB" id="tra_Secuencial" style="WIDTH: 35px; HEIGHT: 17px" size="250" value="{tra_Secuencial}" name="{tra_Secuencial_Name}" readonly maxlength="250" tabindex="9999"><input class="CobaltInputSB" id="tra_IndProceso" style="WIDTH: 35px; HEIGHT: 17px" tabindex="9999" readonly type="hidden" maxlength="250" size="250" value="{tra_IndProceso}" name="{tra_IndProceso_Name}"></td> 
+        <td class="CobaltFieldCaptionTD" nowrap>APLICA Dev Iva?</td> 
+        <td class="CobaltDataTD" colspan="4">
+          <!-- BEGIN RadioButton devIva --><input class="CobaltInput" type="radio" value="{Value}" name="{devIva_Name}" {Check}>{Description}<!-- END RadioButton devIva --></td> 
+      </tr>
+ 
+      <tr>
+        <td class="CobaltFieldCaptionTD" nowrap>Cod Sustento</td> 
+        <td class="CobaltDataTD" colspan="3"><input class="CobaltInputSB2" title="CODIGO DE SUSTENTO (Tabla 3)" style="FONT-SIZE: 9px; WIDTH: 573px; HEIGHT: 17px" onfocus="fSelectTipoSust(this)" maxlength="120" size="82" value="{sus_Descripcion}" name="{sus_Descripcion_Name}"><input class="CobaltInputSB" id="codSustento" maxlength="2" size="1" value="{codSustento}" name="{codSustento_Name}" tabindex="9999" style="WIDTH: 22px; COLOR: #a0a0a0; HEIGHT: 15px"></td> 
+        <td class="CobaltDataTD" nowrap style="FONT-FAMILY: Arial"></td> 
+        <td class="CobaltDataTD" colspan="4"></td> 
+      </tr>
+ 
+      <tr height="5">
+        <td class="CobaltDataTD" colspan="11"></td> 
+      </tr>
+ 
+      <tr>
+        <td class="CobaltFieldCaptionTD" nowrap>ID. PROVEEDOR</td> 
+        <td class="CobaltDataTD" colspan="2" style="FONT-SIZE: 9px" nowrap><input class="CobaltInputSB2" value="{txt_ProvDescripcion}" name="{txt_ProvDescripcion_Name}" style="WIDTH: 292px; HEIGHT: 17px" size="80" id="txt_ProvDescripcion" onfocus="fSelectProveedor(this, 'codProv,txt_rucProv,tpIdProv,txt_ProvDescripcionFact,idProvFact,txt_rucProvFact,tpIdProvFact')" title="Nombre del Proveedor CONTABLE" maxlength="120"><input class="CobaltInputSB" id="tpIdProv" title="Tipo de Identidad del Proveedor CONTABLE" tabindex="9999" maxlength="2" size="2" value="{tpIdProv}" name="{tpIdProv_Name}"><input type="hidden" class="CobaltInputSB" style="VISIBILITY: hidden; WIDTH: 51px; HEIGHT: 15px" maxlength="13" size="7" value="{codProv}" name="{codProv_Name}" title="Codigo del Proveedor CONTABLE" id="codProv" tabindex="9999"><input class="CobaltInputSB" id="txt_rucProv" style="WIDTH: 69px; HEIGHT: 15px" title="Codigo del Proveedor CONTABLE" maxlength="20" value="{txt_rucProv}" name="{txt_rucProv_Name}" tabindex="9999" type="hidden" size="10">
+          <!-- BEGIN Button btn_ProvCont --><input class="CobaltButton" onclick="fEditarProv('P')" type="button" value="Editar.." name="{Button_Name}"><!-- END Button btn_ProvCont --></td> 
+        <td class="CobaltDataTD" nowrap></td> 
+        <td class="CobaltDataTD" colspan="4"></td> 
+      </tr>
+ 
+      <tr>
+        <td class="CobaltFieldCaptionTD" nowrap>ID. PROVEEDOR FACT.</td> 
+        <td class="CobaltDataTD" colspan="2"><input class="CobaltInputSB2" id="txt_ProvDescripcionFact" title="Nombre del Proveedor que FACTURA" style="WIDTH: 292px; HEIGHT: 17px" onfocus="fSelectProveedor(this,'idProvFact,txt_rucProvFact')" maxlength="120" size="97" value="{txt_ProvDescripcionFact}" name="{txt_ProvDescripcionFact_Name}"><input class="CobaltInputSB" id="tpIdProvFact" title="Tipo de Identidad del Proveedor que FACTURA" tabindex="9999" maxlength="2" size="2" value="{tpIdProvFact}" name="{tpIdProvFact_Name}"><input type="hidden" class="CobaltInputSB" title="Codigo del Proveedor que FACTURA" style="VISIBILITY: hidden; WIDTH: 53px; HEIGHT: 15px" maxlength="13" size="8" value="{idProvFact}" name="{idProvFact_Name}" id="idProvFact" tabindex="9999"><input class="CobaltInputSB" id="txt_rucProvFact" title="Codigo del Proveedor FISCAL" style="WIDTH: 67px; HEIGHT: 15px" tabindex="9999" maxlength="13" size="10" value="{txt_rucProvFact}" name="{txt_rucProvFact_Name}" type="hidden">
+          <!-- BEGIN Button btn_ProvFisc --><input class="CobaltButton" type="button" value="Editar.." name="{Button_Name}" onclick="fEditarProv('F')"><!-- END Button btn_ProvFisc --></td> 
+        <td class="CobaltDataTD" nowrap></td> 
+        <td class="CobaltDataTD" colspan="4"></td> 
+      </tr>
+ 
+      <tr>
+        <td class="CobaltFieldCaptionTD" nowrap>Tipo Comprobante</td> 
+        <td class="CobaltDataTD"><input class="CobaltInputSB2" style="WIDTH: 202px; HEIGHT: 17px" size="120" value="{tco_Descripcion}" name="{tco_Descripcion_Name}" title="Tipo de Comprobante (Tabla 2)" maxlength="120" id="tco_Descripcion" onfocus="fSelectTipoComp(this)"><input class="CobaltInputSB" style="WIDTH: 35px; COLOR: #a0a0a0; HEIGHT: 17px" maxlength="2" size="8" value="{tipoComprobante}" name="{tipoComprobante_Name}" id="tipoComprobante" readonly></td> 
+        <td class="CobaltFieldCaptionTD" nowrap>NRO. COMPROBANTE</td> 
+        <td class="CobaltDataTD" colspan="2"><input class="CobaltInputSB2" style="WIDTH: 25px; HEIGHT: 17px" maxlength="10" size="3" value="{establecimiento}" name="{establecimiento_Name}" id="establecimiento"><input class="CobaltInputSB2" style="WIDTH: 25px; HEIGHT: 17px" maxlength="10" size="3" value="{puntoEmision}" name="{puntoEmision_Name}" id="puntoEmision"><input class="CobaltInputSB2" style="WIDTH: 49px; HEIGHT: 17px" maxlength="10" size="6" value="{secuencial}" name="{secuencial_Name}" id="secuencial"></td> 
+        <td class="CobaltFieldCaptionTD" nowrap style="FONT-FAMILY: Arial">Fcha
+          RegisTro</td> 
+        <td class="CobaltDataTD"><input class="CobaltInputSB2" maxlength="9" size="9" value="{fechaRegistro}" name="{fechaRegistro_Name}" title="FECHA DE REGISTRO CONTABLE" onchange="fValidarFecObj(this);fCambioFecReg()" id="fechaRegistro">
+          <!-- BEGIN DatePicker DatePicker_fechaRegistro --><a class="CobaltDataLink" href="javascript:showDatePicker('{Name}','{FormName}','{DateControl}');"><img src="../Themes/DatePicker/DatePicker1.gif" border="0"></a><!-- END DatePicker DatePicker_fechaRegistro --></td> 
+      </tr>
+ 
+      <tr>
+        <td class="CobaltFieldCaptionTD" nowrap>Autorizacion</td> 
+        <td class="CobaltDataTD"><input class="CobaltInputSB2" style="WIDTH: 74px; HEIGHT: 17px" maxlength="20" size="12" value="{autorizacion}" name="{autorizacion_Name}" id="autorizacion" onfocus="fSelectAutorizComp(this)"><input class="CobaltButton" id="Button1" type="button" value="Datos..." name="Button1" onclick="fVerAutorizacion('D');">&nbsp;<input class="CobaltInputSB" id="tmp_FecEmision" title="Fecha de Vigencia dela Autorizacion (Inicio)" style="WIDTH: 51px; COLOR: #a0a0a0; HEIGHT: 17px" readonly maxlength="10" size="5" value="{tmp_FecEmision}" name="{tmp_FecEmision_Name}">--<input class="CobaltInputSB" id="tmp_FecCaduc" style="WIDTH: 59px; COLOR: #a0a0a0; HEIGHT: 17px" maxlength="10" size="6" value="{tmp_FecCaduc}" name="{tmp_FecCaduc_Name}" readonly title="Fecha de Vigencia dela Autorizacion (Final)"><input type="hidden" name="{aut_NroInicial_Name}" value="{aut_NroInicial}" class="CobaltInputSB2" style="WIDTH: 45px; COLOR: #a0a0a0; HEIGHT: 15px" size="5" id="aut_NroInicial"><input class="CobaltInputSB2" id="aut_NroFinal" style="WIDTH: 45px; COLOR: #a0a0a0; HEIGHT: 15px" type="hidden" size="5" value="{aut_NroFinal}" name="{aut_NroFinal_Name}"><input class="CobaltInputSB" id="tmp_IndicTransComp" title="Fecha de Vigencia dela Autorizacion (Inicio)" style="WIDTH: 51px; COLOR: #a0a0a0; HEIGHT: 17px" readonly maxlength="10" size="5" value="{tmp_IndicTransComp}" name="{tmp_IndicTransComp_Name}"></td> 
+        <td class="CobaltFieldCaptionTD" nowrap>FECHA EMISION</td> 
+        <td class="CobaltDataTD" colspan="2"><input class="CobaltInputSB2" id="fechaEmision" style="WIDTH: 56px; HEIGHT: 17px" maxlength="10" size="6" value="{fechaEmision}" name="{fechaEmision_Name}" title="FECHA DE EMISI� DEL DOCUMENTO (NO ES FECHA DE IMPRENTA)" onchange="fValidarFecObj(this)"></td> 
+        <td class="CobaltFieldCaptionTD" nowrap style="FONT-SIZE: 9px; FONT-FAMILY: Arial"></td> 
+        <td class="CobaltDataTD"></td> 
+      </tr>
+ 
+      <tr>
+        <td class="CobaltFieldCaptionTD" nowrap>CONCEPTO</td> 
+        <td class="CobaltDataTD"><input class="CobaltInputSB2" id="tco_Descripcion" title="Tipo de Comprobante (Tabla 2)" style="WIDTH: 395px; HEIGHT: 17px" maxlength="120" size="233" value="{tmp_Descripcion}" name="{tmp_Descripcion_Name}"></td> 
+        <td class="CobaltFieldCaptionTD" nowrap></td> 
+        <td class="CobaltDataTD" colspan="2"></td> 
+        <td class="CobaltFieldCaptionTD" style="FONT-SIZE: 9px; FONT-FAMILY: Arial" nowrap></td> 
+        <td class="CobaltDataTD"></td> 
+      </tr>
+ 
+      <tr height="5">
+        <td class="CobaltDataTD" colspan="11" nowrap><input type="hidden" class="CobaltInput" id="tco_Secuencial" style="WIDTH: 60px; HEIGHT: 17px" size="10" value="{tco_Secuencial}" name="{tco_Secuencial_Name}"><input type="hidden" class="CobaltInput" value="{tco_Sustento}" name="{tco_Sustento_Name}" id="tco_Sustento" style="WIDTH: 60px; HEIGHT: 17px" size="10"><input type="hidden" class="CobaltInput" style="WIDTH: 71px; HEIGHT: 17px" size="11" value="{civ_FecInic}" name="{civ_FecInic_Name}" id="civ_FecInic"><input type="hidden" class="CobaltInput" style="WIDTH: 57px; HEIGHT: 17px" size="9" value="{civ_FecFin}" name="{civ_FecFin_Name}" id="civ_FecFin"><input type="hidden" class="CobaltInput" style="WIDTH: 59px; HEIGHT: 17px" size="9" value="{sus_CodCompr}" name="{sus_CodCompr_Name}" id=" sus_CodCompr"><input type="hidden" class="CobaltInput" style="WIDTH: 57px; HEIGHT: 17px" size="9" value="{cra_Porcent}" name="{cra_Porcent_Name}" id="cra_Porcent"><input type="hidden" class="CobaltInput" style="WIDTH: 56px; HEIGHT: 17px" size="9" value="{cra_FecIni}" name="{cra_FecIni_Name}" id="cra_FecIni"><input type="hidden" class="CobaltInput" style="WIDTH: 59px; HEIGHT: 17px" size="9" value="{cra_FecFin}" name="{cra_FecFin_Name}" id="cra_FecFin"><input type="hidden" class="CobaltInput" style="WIDTH: 49px; HEIGHT: 17px" size="8" value="{cra_Proceso}" name="{cra_Proceso_Name}" id="cra_Proceso"><input style="WIDTH:  43px;  HEIGHT:  16px" type="hidden" size="5" value="{ID}" name="{ID_Name}" id="ID"><input id="Button2" type="button" name="Button2" onclick="showTab(0)" accesskey="D" readonly class="CobaltInputSB" tabindex="999"><input id="Button3" type="button" name="Button3" onclick="showTab(1)" accesskey="R" readonly class="CobaltInputSB" tabindex="999"><input id="Button4" type="button" name="Button4" onclick="showTab(2)" accesskey="F" readonly class="CobaltInputSB" tabindex="999"><input id="Button5" type="button" name="Button5" onclick="showTab(3)" accesskey="G" readonly class="CobaltInputSB" tabindex="999"><input id="Button6"
+ type="button" name="Button6" onclick="showTab(4)" accesskey="I" readonly class="CobaltInputSB" tabindex="999"><input style="WIDTH:  42px;  HEIGHT:  22px" type="hidden" size="5" value="{hdRegNumero}" name="{hdRegNumero_Name}"><input style="WIDTH:  27px;  HEIGHT:  22px" type="hidden" size="3" value="{hdTipoComp}" name="{hdTipoComp_Name}"><input style="WIDTH:  25px;  HEIGHT:  22px" type="hidden" size="2" value="{hdNumComp}" name="{hdNumComp_Name}"></td> 
+      </tr>
+ 
+      <tr>
+        <td class="CobaltDataTD" colspan="11" height="5"></td> 
+      </tr>
+ 
+      <tr>
+        <td colspan="11" align="center">
+          <div id="dhtmlgoodies_tabView" style="">
+            <div class="dhtmlgoodies_aTab" style="display:none; align:center;  Z-INDEX: -1">
+              <table class="CobaltFormTABLE" cellpadding="0" border="0" cellspacing="0" style="POSITION: fixed">
+                <tr style="BORDER-RIGHT-WIDTH: thin; BORDER-RIGHT-COLOR: #ffffff" align="center">
+                  <td class="CobaltFieldCaptionTD" nowrap style="BORDER-TOP-WIDTH: thin; BORDER-LEFT-WIDTH: thin; BORDER-BOTTOM-WIDTH: thin; BORDER-RIGHT-WIDTH: thin"></td> 
+                  <td class="CobaltFieldCaptionTD">Base Imp. </td> 
+                  <td class="CobaltFieldCaptionTD">COD.&nbsp; IMPUESTO</td> 
+                  <td class="CobaltFieldCaptionTD">MONTO</td> 
+                </tr>
+ 
+                <tr>
+                  <td class="CobaltFieldCaptionTD" nowrap>IVA TARIFA 0%</td> 
+                  <td class="CobaltDataTD"><input class="CobaltInputSB2" style="FONT-SIZE: 9px; WIDTH: 72px; HEIGHT: 17px; TEXT-ALIGN: right" maxlength="12" size="9" value="{baseImponible}" name="{baseImponible_Name}" id="baseImponible" onchange="fReFormatear(this);fRecalcIva()"></td> 
+                  <td class="CobaltDataTD"></td> 
+                  <td class="CobaltDataTD"></td> 
+                </tr>
+ 
+                <tr>
+                  <td class="CobaltFieldCaptionTD" nowrap>IVA GRAVABLE</td> 
+                  <td class="CobaltDataTD"><input class="CobaltInputSB2" style="FONT-SIZE: 9px; WIDTH: 72px; HEIGHT: 17px; TEXT-ALIGN: right" maxlength="12" size="12" value="{baseImpGrav}" name="{baseImpGrav_Name}" id="baseImpGrav" onchange="fReFormatear(this);fRecalcIva()"></td> 
+                  <td class="CobaltDataTD"><input class="CobaltInputSB2" style="FONT-SIZE: 9px; TEXT-TRANSFORM: uppercase; WIDTH: 374px; HEIGHT: 17px" size="81" value="{civ_Descripcion}" name="{civ_Descripcion_Name}" id="civ_Descripcion" onfocus="fSelectImpuesto(this)"><input type="hidden" class="CobaltInputSB" style="FONT-SIZE: 9px; WIDTH: 33px; HEIGHT: 17px" maxlength="10" size="1" value="{porcentajeIva}" name="{porcentajeIva_Name}" id="porcentajeIva"><input class="CobaltInputSB" style="WIDTH: 33px; COLOR: #a0a0a0; HEIGHT: 17px; TEXT-ALIGN: right" maxlength="10" size="1" value="{civ_Porcent}" name="{civ_Porcent_Name}" id="civ_Porcent" readonly></td> 
+                  <td class="CobaltDataTD"><input class="CobaltInputSB2" id="montoIva" style="FONT-SIZE: 9px; WIDTH: 65px; HEIGHT: 17px; TEXT-ALIGN: right" maxlength="12" size="6" value="{montoIva}" name="{montoIva_Name}"></td> 
+                </tr>
+ 
+                <tr>
+                  <td class="CobaltFieldCaptionTD" nowrap>ICE</td> 
+                  <td class="CobaltDataTD"><input class="CobaltInputSB2" style="FONT-SIZE: 9px; WIDTH: 72px; HEIGHT: 17px; TEXT-ALIGN: right" maxlength="12" size="12" value="{baseImpIce}" name="{baseImpIce_Name}" id="baseImpIce" onchange="fReFormatear(this);fRecalcIce()"></td> 
+                  <td class="CobaltDataTD"><input class="CobaltInputSB2" value="{pic_Descripcion}" name="{pic_Descripcion_Name}" style="FONT-SIZE: 9px; TEXT-TRANSFORM: uppercase; WIDTH: 374px; HEIGHT: 17px" size="54" id="pic_Descripcion" onfocus="fSelectImpuesto(this)"><input type="hidden" class="CobaltInputSB" maxlength="10" size="4" value="{porcentajeIce}" name="{porcentajeIce_Name}" style="FONT-SIZE: 9px; WIDTH: 33px; HEIGHT: 17px" id="porcentajeIce"><input class="CobaltInputSB" style="WIDTH: 33px; COLOR: #a0a0a0; HEIGHT: 17px; TEXT-ALIGN: right" maxlength="10" size="1" value="{pic_porcent}" name="{pic_porcent_Name}" id="pic_porcent" readonly></td> 
+                  <td class="CobaltDataTD"><input class="CobaltInputSB2" id="montoIce" style="FONT-SIZE: 9px; WIDTH: 65px; HEIGHT: 17px; TEXT-ALIGN: right" maxlength="12" size="6" value="{montoIce}" name="{montoIce_Name}"></td> 
+                </tr>
+ 
+                <tr height="5">
+                  <td class="CobaltDataTD" colspan="5" height="5"></td> 
+                </tr>
+ 
+              </table>
+ 
+            </div>
+ 
+            <div class="dhtmlgoodies_aTab" width="80%" style="display:none">
+              <table>
+                <tr style="BORDER-RIGHT-WIDTH: thin; BORDER-RIGHT-COLOR: #ffffff" align="right">
+                  <td class="CobaltDataTD">RETENCION&nbsp;&nbsp; IVA</td> 
+                  <td class="CobaltFieldCaptionTD">Base ImpON.</td> 
+                  <td class="CobaltFieldCaptionTD" nowrap>COD. RETENCION</td> 
+                  <td class="CobaltFieldCaptionTD" nowrap>%</td> 
+                  <td class="CobaltFieldCaptionTD" nowrap>MONTO</td> 
+                </tr>
+ 
+                <tr align="right">
+                  <td class="CobaltFieldCaptionTD" nowrap align="left">RETENCION
+                    Iva Bienes&nbsp;</td> 
+                  <td class="CobaltDataTD"><input class="CobaltInputSB2" maxlength="12" size="13" value="{montoIvaBienes}" name="{montoIvaBienes_Name}" style="WIDTH: 68px; HEIGHT: 17px" id="montoIvaBienes" onchange="fReFormatear(this);fRecalcIbi()"></td> 
+                  <td class="CobaltDataTD" nowrap><input class="CobaltInputSB2" style="WIDTH: 68px; HEIGHT: 17px" size="9" value="{prb_Descripcion}" name="{prb_Descripcion_Name}" id="prb_Descripcion" onfocus="fSelectImpuesto(this)" onchange="fRecalcIbi()"><input type="hidden" class="CobaltInputSB" maxlength="10" size="5" value="{porRetBienes}" name="{porRetBienes_Name}" style="VISIBILITY: hidden; WIDTH: 36px; HEIGHT: 17px" id="porRetBienes"></td> 
+                  <td class="CobaltDataTD" align="right"><input class="CobaltInputSB" id="prb_Porcent" style="WIDTH: 33px; COLOR: #a0a0a0; HEIGHT: 17px" readonly maxlength="10" size="1" value="{prb_Porcent}" name="{prb_Porcent_Name}">&nbsp;</td> 
+                  <td class="CobaltDataTD"><input class="CobaltInputSB2" id="valorRetBienes" style="WIDTH: 60px; HEIGHT: 17px; TEXT-ALIGN: right" maxlength="12" size="50" value="{valorRetBienes}" name="{valorRetBienes_Name}"></td> 
+                </tr>
+ 
+                <tr align="right">
+                  <td class="CobaltFieldCaptionTD" align="left">RETENCION IVA
+                    SERVICIOS</td> 
+                  <td class="CobaltDataTD" align="right"><input class="CobaltInputSB2" maxlength="12" size="50" value="{montoIvaServicios}" name="{montoIvaServicios_Name}" style="WIDTH: 68px; HEIGHT: 17px" id="montoIvaServicios" onchange="fReFormatear(this);fRecalcIse()"></td> 
+                  <td class="CobaltDataTD" nowrap><input class="CobaltInputSB2" style="WIDTH: 68px; HEIGHT: 17px" size="8" value="{prs_Descripcion}" name="{prs_Descripcion_Name}" id="prs_Descripcion" onfocus="fSelectImpuesto(this)" onchange="fRecalcIse()"><input type="hidden" class="CobaltInputSB" maxlength="10" size="5" value="{porRetServicios}" name="{porRetServicios_Name}" style="WIDTH: 37px; HEIGHT: 17px" id="porRetServicios"></td> 
+                  <td class="CobaltDataTD" align="right"><input class="CobaltInputSB" id="prs_Porcent" style="WIDTH: 33px; COLOR: #a0a0a0; HEIGHT: 17px" readonly maxlength="10" size="1" value="{prs_Porcent}" name="{prs_Porcent_Name}">&nbsp;</td> 
+                  <td class="CobaltDataTD"><input class="CobaltInputSB2" id="valorRetServicios" style="WIDTH: 60px; HEIGHT: 17px; TEXT-ALIGN: right" maxlength="12" size="50" value="{valorRetServicios}" name="{valorRetServicios_Name}"></td> 
+                </tr>
+ 
+                <tr height="5">
+                  <td class="CobaltDataTD" colspan="5" height="5"></td> 
+                </tr>
+ 
+                <tr>
+                  <td class="CobaltFieldCaptionTD">COMPROBANTE
+                    DE&nbsp;Retencion&nbsp;</td> 
+                  <td class="CobaltDataTD"><input class="CobaltInputSB2" maxlength="10" size="4" value="{estabRetencion1}" name="{estabRetencion1_Name}" style="WIDTH: 30px; HEIGHT: 17px" id="estabRetencion1"><input class="CobaltInputSB2" maxlength="10" size="4" value="{puntoEmiRetencion1}" name="{puntoEmiRetencion1_Name}" style="WIDTH: 28px; HEIGHT: 17px" id="puntoEmiRetencion1"></td> 
+                  <td class="CobaltDataTD"><input class="CobaltInputSB2" maxlength="20" value="{secRetencion1}" name="{secRetencion1_Name}" style="WIDTH: 56px; HEIGHT: 17px" size="8" id="secRetencion1" onchange='fCambioRetencion()'></td> 
+                  <td class="CobaltFieldCaptionTD" nowrap>autORIZACION</td> 
+                  <td class="CobaltDataTD" nowrap><input class="CobaltInputSB2" id="autRetencion1" style="FONT-SIZE: 9px; WIDTH: 65px; HEIGHT: 17px; TEXT-ALIGN: right" maxlength="10" size="6" value="{autRetencion1}" name="{autRetencion1_Name}"><input class="CobaltButton" id="Button1" onclick="fVerAutorizacion('R');" type="button" value="Datos..." name="Button1"></td> 
+                </tr>
+ 
+                <tr>
+                  <td class="CobaltFieldCaptionTD">FECHA EMISION DE RETENCION</td> 
+                  <td class="CobaltDataTD"><input class="CobaltInputSB2" id="fechaEmiRet1" style="WIDTH: 56px; HEIGHT: 17px" maxlength="20" onchange="fCambioRetencion()" size="8" value="{fechaEmiRet1}" name="{fechaEmiRet1_Name}"></td> 
+                  <td class="CobaltDataTD"></td> 
+                  <td class="CobaltFieldCaptionTD" nowrap></td> 
+                  <td class="CobaltDataTD" nowrap></td> 
+                </tr>
+ 
+              </table>
+ 
+              <table width="82%">
+                <tr>
+                  <td class="CobaltDataTD" colspan="5" nowrap style="HEIGHT: 15px">&nbsp;<br>
+                  </td> 
+                </tr>
+ 
+                <tr>
+                  <td class="CobaltFieldCaptionTD" nowrap></td> 
+                  <td class="CobaltFieldCaptionTD" align="center">CODIGO DE
+                    RETENCION EN LA FUENTE</td> 
+                  <td class="CobaltFieldCaptionTD">BASE IMPONIBLE</td> 
+                  <td class="CobaltFieldCaptionTD">%</td> 
+                  <td class="CobaltFieldCaptionTD">MONTO</td> 
+                </tr>
+ 
+                <tr>
+                  <td class="CobaltFieldCaptionTD" nowrap align="right">1</td> 
+                  <td class="CobaltDataTD"><input class="CobaltInputSB2" style="FONT-SIZE: 9px; TEXT-TRANSFORM: uppercase; WIDTH: 302px; HEIGHT: 17px" size="16" value="{cra_Descripcion}" name="{cra_Descripcion_Name}" id="cra_Descripcion" onfocus="fSelectImpuesto(this)"><input type="hidden" class="CobaltInputSB" style="FONT-SIZE: 9px; WIDTH: 33px; HEIGHT: 17px" maxlength="10" size="4" value="{codRetAir}" name="{codRetAir_Name}" id="codRetAir"></td> 
+                  <td class="CobaltDataTD"><input class="CobaltInputSB2" style="FONT-SIZE: 9px; WIDTH: 95px; HEIGHT: 17px; TEXT-ALIGN: right" maxlength="12" size="50" value="{baseImpAir}" name="{baseImpAir_Name}" id="baseImpAir" onchange="fRecalcAir();fReFormatear(this)"></td> 
+                  <td class="CobaltDataTD"><input class="CobaltInputSB" style="WIDTH: 33px; COLOR: #a0a0a0; HEIGHT: 17px; TEXT-ALIGN: right" maxlength="10" size="3" value="{porcentajeAir}" name="{porcentajeAir_Name}" id="porcentajeAir" readonly></td> 
+                  <td class="CobaltDataTD"><input class="CobaltInputSB2" style="FONT-SIZE: 9px; WIDTH: 65px; HEIGHT: 17px; TEXT-ALIGN: right" maxlength="12" size="6" value="{valRetAir}" name="{valRetAir_Name}" id="valRetAir" onchange="fValidaRet();fReFormatear(this)"></td> 
+                </tr>
+ 
+                <tr>
+                  <td class="CobaltFieldCaptionTD" nowrap align="right">2</td> 
+                  <td class="CobaltDataTD"><input class="CobaltInputSB2" id="cra_Descripcion2" style="FONT-SIZE: 9px; TEXT-TRANSFORM: uppercase; WIDTH: 303px; HEIGHT: 17px" onfocus="fSelectImpuesto(this)" size="16" value="{cra_Descripcion2}" name="{cra_Descripcion2_Name}"><input class="CobaltInputSB" id="codRetAir2" style="FONT-SIZE: 9px; WIDTH: 33px; HEIGHT: 17px" type="hidden" maxlength="10" size="4" value="{codRetAir2}" name="{codRetAir2_Name}"></td> 
+                  <td class="CobaltDataTD"><input class="CobaltInputSB2" id="baseImpAir2" style="FONT-SIZE: 9px; WIDTH: 95px; HEIGHT: 17px; TEXT-ALIGN: right" maxlength="12" onchange="fRecalcAir();fReFormatear(this)" size="50" value="{baseImpAir2}" name="{baseImpAir2_Name}"></td> 
+                  <td class="CobaltDataTD"><input class="CobaltInputSB" id="porcentajeAir2" style="WIDTH: 33px; COLOR: #a0a0a0; HEIGHT: 17px; TEXT-ALIGN: right" readonly maxlength="10" size="3" value="{porcentajeAir2}" name="{porcentajeAir2_Name}"></td> 
+                  <td class="CobaltDataTD"><input class="CobaltInputSB2" id="valRetAir2" style="FONT-SIZE: 9px; WIDTH: 65px; HEIGHT: 17px; TEXT-ALIGN: right" maxlength="12" size="6" value="{valRetAir2}" name="{valRetAir2_Name}" onchange="fValidaRet();fReFormatear(this)"></td> 
+                </tr>
+ 
+                <tr>
+                  <td class="CobaltFieldCaptionTD" nowrap align="right">3</td> 
+                  <td class="CobaltDataTD"><input class="CobaltInputSB2" id="cra_Descripcion3" style="FONT-SIZE: 9px; TEXT-TRANSFORM: uppercase; WIDTH: 302px; HEIGHT: 17px" onfocus="fSelectImpuesto(this)" size="16" value="{cra_Descripcion3}" name="{cra_Descripcion3_Name}"><input class="CobaltInputSB" id="codRetAir3" style="FONT-SIZE: 9px; WIDTH: 33px; HEIGHT: 17px" type="hidden" maxlength="10" size="4" value="{codRetAir3}" name="{codRetAir3_Name}"></td> 
+                  <td class="CobaltDataTD"><input class="CobaltInputSB2" id="baseImpAir3" style="FONT-SIZE: 9px; WIDTH: 95px; HEIGHT: 17px; TEXT-ALIGN: right" maxlength="12" onchange="fRecalcAir();fReFormatear(this)" size="50" value="{baseImpAir3}" name="{baseImpAir3_Name}"></td> 
+                  <td class="CobaltDataTD"><input class="CobaltInputSB" id="porcentajeAir3" style="WIDTH: 33px; COLOR: #a0a0a0; HEIGHT: 17px; TEXT-ALIGN: right" readonly maxlength="10" size="3" value="{porcentajeAir3}" name="{porcentajeAir3_Name}"></td> 
+                  <td class="CobaltDataTD"><input class="CobaltInputSB2" id="valRetAir3" style="FONT-SIZE: 9px; WIDTH: 65px; HEIGHT: 17px; TEXT-ALIGN: right" maxlength="12" size="6" value="{valRetAir3}" name="{valRetAir3_Name}" onchange="fValidaRet();fReFormatear(this)"></td> 
+                </tr>
+ 
+                <tr>
+                  <td class="CobaltFieldCaptionTD" nowrap>TOTAL</td> 
+                  <td class="CobaltDataTD"></td> 
+                  <td class="CobaltDataTD"><input class="CobaltInputSB" id="baseImpAirTot" style="FONT-WEIGHT: bold; FONT-SIZE: 9px; WIDTH: 95px; HEIGHT: 17px; TEXT-ALIGN: right" maxlength="12" size="50" value="{baseImpAirTot}" name="{baseImpAirTot_Name}" readonly></td> 
+                  <td class="CobaltDataTD"></td> 
+                  <td class="CobaltDataTD"><input class="CobaltInputSB" id="valRetAirTot" style="FONT-WEIGHT: bold; FONT-SIZE: 9px; WIDTH: 65px; HEIGHT: 17px; TEXT-ALIGN: right" maxlength="12" size="6" value="{valRetAirTot}" name="{valRetAirTot_Name}" readonly></td> 
+                </tr>
+ 
+              </table>
+ 
+            </div>
+ 
+            <div class="dhtmlgoodies_aTab" style="display:none">
+              <table>
+                <tr>
+                  <td class="CobaltFieldCaptionTD" nowrap>COD. DocUM.
+                    &nbsp;Modif</td> 
+                  <td class="CobaltDataTD"><input class="CobaltInputSB2" value="{ccm_Descripcion}" name="{ccm_Descripcion_Name}" id="ccm_Descripcion" style="WIDTH: 116px; HEIGHT: 18px" size="16"><input class="CobaltInputSB" maxlength="2" size="1" value="{docModificado}" name="{docModificado_Name}" id="docModificado" style="WIDTH: 20px; COLOR: #a0a0a0; HEIGHT: 15px" title="">&nbsp;</td> 
+                  <td class="CobaltFieldCaptionTD" nowrap>Fecha Emi
+                    Modific&nbsp;</td> 
+                  <td class="CobaltDataTD" colspan="3"><input class="CobaltInputSB2" maxlength="9" size="9" value="{fechaEmiModificado}" name="{fechaEmiModificado_Name}" id="fechaEmiModificado" style="FONT-SIZE: 9px; WIDTH: 65px; HEIGHT: 17px; TEXT-ALIGN: right">
+                    <!-- BEGIN DatePicker DatePicker_fechaEmiModificado --><a class="CobaltDataLink" href="javascript:showDatePicker('{Name}','{FormName}','{DateControl}');"><img src="../Themes/DatePicker/DatePicker1.gif" border="0"></a><!-- END DatePicker DatePicker_fechaEmiModificado --></td> 
+                  <td class="CobaltDataTD" nowrap></td> 
+                  <td class="CobaltDataTD" colspan="4"></td> 
+                </tr>
+ 
+                <tr>
+                  <td class="CobaltFieldCaptionTD" nowrap>nro. compr.&nbsp;Modif</td> 
+                  <td class="CobaltDataTD"><input class="CobaltInputSB2" maxlength="10" size="4" value="{estabModificado}" name="{estabModificado_Name}" style="WIDTH: 32px; HEIGHT: 17px" id="estabModificado">&nbsp;<input class="CobaltInputSB2" maxlength="10" size="3" value="{ptoEmiModificado}" name="{ptoEmiModificado_Name}" style="WIDTH: 27px; HEIGHT: 17px" id="ptoEmiModificado"><input class="CobaltInputSB2" maxlength="20" value="{secModificado}" name="{secModificado_Name}" style="WIDTH: 54px; HEIGHT: 17px" size="8" id="secModificado"></td> 
+                  <td class="CobaltFieldCaptionTD" nowrap>autoriz&nbsp;Modif.&nbsp;</td> 
+                  <td class="CobaltDataTD" colspan="2"><input class="CobaltInputSB2" maxlength="20" value="{autModificado}" name="{autModificado_Name}" style="FONT-SIZE: 9px; WIDTH: 65px; HEIGHT: 17px; TEXT-ALIGN: right" size="8" id="autModificado"></td> 
+                  <td class="CobaltDataTD" nowrap></td> 
+                  <td class="CobaltDataTD" colspan="4"></td> 
+                </tr>
+ 
+                <tr>
+                  <td class="CobaltFieldCaptionTD" nowrap>Contr. Part Polit</td> 
+                  <td class="CobaltDataTD"><input class="CobaltInputSB2" maxlength="20" value="{contratoPartidoPolitico}" name="{contratoPartidoPolitico_Name}" style="WIDTH: 66px; HEIGHT: 17px" size="11" id="contratoPartidoPolitico">&nbsp;</td> 
+                  <td class="CobaltFieldCaptionTD" nowrap style="FONT-SIZE: 8px">Monto
+                    TitULO Oneroso</td> 
+                  <td class="CobaltDataTD" colspan="2"><input class="CobaltInputSB2" maxlength="12" size="14" value="{montoTituloOneroso}" name="{montoTituloOneroso_Name}" style="FONT-SIZE: 9px; WIDTH: 80px; HEIGHT: 17px; TEXT-ALIGN: right" id="montoTituloOneroso"></td> 
+                  <td class="CobaltFieldCaptionTD" nowrap style="FONT-SIZE: 8px">Mto
+                    TitULO GrA</td> 
+                  <td class="CobaltDataTD" colspan="4"><input class="CobaltInputSB2" maxlength="12" size="8" value="{montoTituloGratuito}" name="{montoTituloGratuito_Name}" style="FONT-SIZE: 9px; WIDTH: 66px; HEIGHT: 17px; TEXT-ALIGN: right" id="montoTituloGratuito"></td> 
+                </tr>
+ 
+                <tr>
+                  <td class="CobaltFieldCaptionTD" nowrap>Num Comprobantes&nbsp;</td> 
+                  <td class="CobaltDataTD"><input class="CobaltInputSB2" maxlength="20" value="{numeroComprobantes}" name="{numeroComprobantes_Name}" style="WIDTH: 69px; HEIGHT: 17px" size="11" id="numeroComprobantes">&nbsp;</td> 
+                  <td class="CobaltFieldCaptionTD" nowrap>Iva Presuntivo&nbsp;</td> 
+                  <td class="CobaltDataTD" colspan="2" id="ivaPresuntivo">
+                    <!-- BEGIN RadioButton ivaPresuntivo --><input type="radio" name="{ivaPresuntivo_Name}" value="{Value}" class="CobaltInput" {Check}>{Description}<!-- END RadioButton ivaPresuntivo --></td> 
+                  <td class="CobaltFieldCaptionTD" nowrap style="FONT-SIZE: 8px">Ret
+                    Presuntiva&nbsp;</td> 
+                  <td class="CobaltDataTD" colspan="4">
+                    <!-- BEGIN RadioButton retPresuntiva --><input type="radio" name="{retPresuntiva_Name}" value="{Value}" class="CobaltInput" {Check}>{Description}<!-- END RadioButton retPresuntiva --></td> 
+                </tr>
+ 
+              </table>
+ 
+            </div>
+ 
+            <div class="dhtmlgoodies_aTab" style="display:none">
+              <table>
+                <tr>
+                  <td class="CobaltFieldCaptionTD" nowrap>REFRENDO&nbsp;ADUANERO</td> 
+                  <td class="CobaltDataTD"><input class="CobaltInputSB2" value="{distAduanero}" name="{distAduanero_Name}" style="WIDTH: 32px; HEIGHT: 17px" maxlength="4" size="4" id="distAduanero" onfocus="fSelectDistrito(this)">-<input class="CobaltInputSB2" style="WIDTH: 28px; HEIGHT: 17px" size="4" value="{anio}" name="{anio_Name}" maxlength="4">-<input class="CobaltInputSB2" id="regimen" style="WIDTH: 19px; HEIGHT: 17px" maxlength="6" size="4" value="{regimen}" name="{regimen_Name}" onfocus="fSelectRegimen(this)">-<input class="CobaltInputSB2" style="WIDTH: 41px; HEIGHT: 17px" size="7" value="{correlativo}" name="{correlativo_Name}" maxlength="6">-<input class="CobaltInputSB2" style="WIDTH: 14px; HEIGHT: 17px" size="1" value="{verificador}" name="{verificador_Name}" maxlength="1"></td> 
+                  <td class="CobaltFieldCaptionTD" nowrap>TIPO DE COMPR.</td> 
+                  <td class="CobaltDataTD" colspan="3"><input class="CobaltInputSB2" id="tce_Descripcion" title="Tipo de Comprobante (Tabla 2)" style="WIDTH: 105px; HEIGHT: 17px" onfocus="fSelectTipoComp(this)" maxlength="120" size="61" value="{tce_Descripcion}" name="{tce_Descripcion_Name}"><input class="CobaltInputSB" id="facturaExportacion" style="WIDTH: 35px; COLOR: #a0a0a0; HEIGHT: 17px" readonly maxlength="2" size="8" value="{facturaExportacion}" name="{facturaExportacion_Name}"></td> 
+                </tr>
+ 
+                <tr>
+                  <td class="CobaltFieldCaptionTD" nowrap>TIPO</td> 
+                  <td class="CobaltDataTD">
+                    <!-- BEGIN RadioButton tipImpExp --><input class="CobaltInput" type="radio" value="{Value}" name="{tipImpExp_Name}" id="tipImpExp" {Check}>{Description}<!-- END RadioButton tipImpExp --></td> 
+                  <td class="CobaltFieldCaptionTD" nowrap>VALOR FOB / CIF</td> 
+                  <td class="CobaltDataTD"><input class="CobaltInputSB2" value="{valorCifFob}" name="{valorCifFob_Name}" style="WIDTH: 96px; HEIGHT: 17px" size="16"></td> 
+                  <td class="CobaltFieldCaptionTD" nowrap>VALOR DE COMPROB</td> 
+                  <td class="CobaltDataTD"><input class="CobaltInputSB2" value="{valorFobComprobante}" name="{valorFobComprobante_Name}" style="WIDTH: 80px; HEIGHT: 17px" size="13"></td> 
+                </tr>
+ 
+                <tr>
+                  <td class="CobaltFieldCaptionTD" nowrap>FECHA DE
+                    EMBARQUE&nbsp;</td> 
+                  <td class="CobaltDataTD"><input class="CobaltInput" id="fechaEmbarque" style="WIDTH: 96px; HEIGHT: 17px" size="16" value="{fechaEmbarque}" name="{fechaEmbarque_Name}" onchange="fValidarFecObj(this)"></td> 
+                  <td class="CobaltFieldCaptionTD" nowrap>DOCUM.EMBARQUE</td> 
+                  <td class="CobaltDataTD"><input class="CobaltInputSB2" id="documEmbarque" style="WIDTH: 96px; HEIGHT: 17px" size="16" value="{documEmbarque}" name="{documEmbarque_Name}"></td> 
+                  <td class="CobaltFieldCaptionTD" nowrap></td> 
+                  <td class="CobaltDataTD"></td> 
+                </tr>
+ 
+              </table>
+ 
+            </div>
+ 
+            <div class="dhtmlgoodies_aTab" style="display:none">
+              <iframe name="frDetal" frameborder="0" style="overflow:hidden; MARGIN: 0px; WIDTH: 100%; frame-border:0; HEIGHT: 240px" source=""></iframe> 
+            </div>
+ 
+          </div>
+ 
+          <div style="POSITION: relative; TOP: 1cm">
+            <table width="70%">
+              <tr align="center">
+                <td class="CobaltFooterTD" nowrap align="center" colspan="6">
+                  <!-- BEGIN Button Button_Insert --><input class="CobaltButton" type="submit" value="GRABAR" name="{Button_Name}" title="GRABAR EL LA TRANSACCION DIMM"><!-- END Button Button_Insert -->
+                  <!-- BEGIN Button Button_Update --><input class="CobaltButton" type="submit" value="GRABAR" name="{Button_Name}" title="GRABAR EL LA TRANSACCION DIMM MODIFICADA"><!-- END Button Button_Update -->&nbsp;&nbsp; 
+                  <!-- BEGIN Button Button1 --><input class="CobaltButton" type="button" value="IMPRIMIR" name="{Button_Name}" title="Genera el Comprobante de Retencion" onclick="fAbrirWin('../Rt_Files/CoRtTr_comprob.rpt.php?ID={ID}','pw','',950,550)"><!-- END Button Button1 -->&nbsp; 
+                  <!-- BEGIN Button Button2 --><input class="CobaltButton" type="submit" value="NUEVO" name="{Button_Name}" title="AGREGAR UN REGISTRO NUEVO"><!-- END Button Button2 --></td> 
+                <td class="CobaltFooterTD" nowrap align="center" colspan="5">
+                  <!-- BEGIN Button Button_Delete --><input class="CobaltButton" type="submit" value="Borrar" name="{Button_Name}"><!-- END Button Button_Delete -->&nbsp; 
+                  <!-- BEGIN Button Button_Cancel --><input class="CobaltButton" type="submit" value="Cancelar" name="{Button_Name}"><!-- END Button Button_Cancel --></td> 
+              </tr>
+ 
+            </table>
+ 
+          </div>
+ </td> 
+        <tr>
+        </form>
+ <!-- END Record fiscompras -->
+        <div>
+        </div>
+      </tr>
+    </tbody>
+  </table>
+  </body>
+ 
+  </html>

@@ -1,0 +1,250 @@
+<html>
+<head>
+<meta name="GENERATOR" content="CodeCharge Studio 2.3.2.24">
+<title>TRANSACCIONES: Mantenimiento</title>
+<link rel="stylesheet" type="text/css" href="../Themes/Cobalt/Style.css">
+<link href="../css/suggestions.css" type="text/css" rel="stylesheet">
+<script language="JavaScript1.2" src="../LibJava/general.js" type="text/javascript"></script>
+<script language="JavaScript1.2" src="../LibJava/pajax-commom.js" type="text/javascript"></script>
+<script language="JavaScript1.2" src="../LibJava/pajax-parser.js" type="text/javascript"></script>
+<script language="JavaScript1.2" src="../LibJava/pajax-core.js" type="text/javascript"></script>
+<script language="JavaScript1.2" src="../LibJava/autosuggestcontroller.js" type="text/javascript"></script>
+<script language="JavaScript1.2" src="../LibJava/dataprovider.js" type="text/javascript"></script>
+<script language="JavaScript1.2" src="../LibJava/browser_detect.js" type="text/javascript"></script>
+<script language="JavaScript" type="text/javascript">
+//Begin CCS script
+//Include JSFunctions @1-FB634A57
+  </script>
+<script language="JavaScript" type="text/javascript" src="../functions.js"></script>
+<script language="JavaScript" type="text/javascript">
+  
+//End Include JSFunctions
+
+//Include Common JSFunctions @1-A1D84A39
+</script>
+<script language="JavaScript" type="text/javascript" src="../DatePicker.js"></script>
+<script language="JavaScript" type="text/javascript">
+//End Include Common JSFunctions
+
+//Date Picker Object Definitions @1-18D94546
+
+var fistransac_DatePicker_com_FecContab = new Object(); 
+fistransac_DatePicker_com_FecContab.format           = "dd/mmm/yy";
+fistransac_DatePicker_com_FecContab.style            = "Themes/Cobalt/Style.css";
+fistransac_DatePicker_com_FecContab.relativePathPart = "../";
+
+//End Date Picker Object Definitions
+
+//page_fistransac_Button_Delete_OnClick @52-99DB2888
+function page_fistransac_Button_Delete_OnClick()
+{
+    var result;
+//End page_fistransac_Button_Delete_OnClick
+
+//Confirmation Message @53-BED55CD3
+    return confirm('Borrar registro?');
+//End Confirmation Message
+
+//Close page_fistransac_Button_Delete_OnClick @52-BC33A33A
+    return result;
+}
+//End Close page_fistransac_Button_Delete_OnClick
+
+//page_fistransac_Button_Cancel_OnClick @7-1F61736B
+function page_fistransac_Button_Cancel_OnClick()
+{
+    disableValidation = true;
+}
+//End page_fistransac_Button_Cancel_OnClick
+
+//bind_events @1-BD17B7C6
+function bind_events() {
+    if (document.forms["fistransac"]) check_and_bind('document.forms["fistransac"].Button_Delete','onclick',page_fistransac_Button_Delete_OnClick);
+    if (document.forms["fistransac"]) check_and_bind('document.forms["fistransac"].Button_Cancel','onclick',page_fistransac_Button_Cancel_OnClick);
+    forms_onload();
+}
+//End bind_events
+function fRecalcular(){
+	with (document.fistransac) {
+		tmp_ValReten.value = (parseFloat(tmp_BaseImp.value) * parseFloat(tmp_Porcentaje.value)) / 100;
+	}
+}
+
+/**
+*        Genera un Combo-Box semi dinamico para los Proveedores
+*        @param          oCtrl   objeto  Referencia del Objeto que recibe enfoque
+*        @pSalida        string  Lista de elementos que reciben datos del combo
+*        @return void
+*/
+function fSelectProvee_old(oCtrl) {
+        slSql = escape("SELECT  concat(per_Apellidos, ' ', ifnull(per_Nombres,'')), " +
+								"per_Codauxiliar, per_tipoID, per_ruc " +
+								"FROM conpersonas  WHERE concat(per_Apellidos, ' ', ifnull(per_Nombres,'')) LIKE " );
+        slCond = escape(""); 
+//					oCtrl, pSql, pCond, pSalida, pConten, pWidth, pExtra
+        fSelectBox(oCtrl, slSql, slCond, "txt_Proveedor, tmp_CodAuxiliar, tmp_TipoID, txt_Ruc",1,250,"auto");
+}
+
+var gAutosuggestCont=0;
+var gTeclaProcesada=false;
+var oProvSubg= new Object();
+var oSelItem = new Object();
+/**
+*        Genera un Combo-Box dinamico para los Proveedores
+*        @param          oCtrl   objeto  Referencia del Objeto que recibe enfoque
+*        @return void
+*/
+function fSelectProvee(oCtrl){
+    oCtrl.style.borderColor = "blue";
+	var pSql = escape("SELECT  concat(per_Apellidos, ' ', ifnull(per_Nombres,'')), " +
+								"per_Codauxiliar, per_tipoID, per_ruc " +
+								"FROM conpersonas  WHERE concat(per_Apellidos, ' ', ifnull(per_Nombres,'')) LIKE " );
+	var i = fTraefila(oCtrl.name);			// Sufijo de Camos
+    var pSalida = "tmp_CodAuxiliar,tmp_TipoID,txt_Ruc" ;
+    var pCond = " ";
+    fSelectBoxProvee(oCtrl, pSql, pCond, pSalida, 3,200)
+}
+/**
+*        Propiedades del combo-box para los Proveedores
+*        @param          oCtrl   objeto  Referencia del Objeto que recibe enfoque
+*        @param          pSql    Instruccion Sql
+*        @param          pCond	 Condicion adicional
+*        @param          pSalida Lista de objetos a los que se carga datos
+*        @param          pConten Numero de niveles para el objetos Contenedor de los objetos de salida
+*        @param          pWidth  Ancho de la lista
+*        @return void
+*/
+function fSelectBoxProvee(oCtrl, pSql, pCond, pSalida, pConten, pWidth, pOpc) {
+    var     aData = new Array();
+    var     aColumns = new Array();
+    if (!pConten) pConten = 1;
+    if (!pWidth)  pWidth=false;
+	if (!pOpc)    pOpc="";
+    gTeclaProcesada=false;
+    oCtrl.style.border = "1px solid blue";
+//    oCtrl.style.backgroundColor = "#f3f";
+   //if (gAutosuggestCont==0) {// Laprimera vez
+        gAutosuggestCont+=1;
+        slUri = '../Ge_Files/GeGeGe_sugerir.php?pLim=20&pSql=' + pSql +'&pCon=' + pCond + '&pQry=';
+        oProv = new dataProvider(oCtrl.value)
+        oSelItem = new AutoSuggestController(oCtrl, oProv, pWidth, false, false, slUri);
+        oSelItem.minLength = 6;
+        oSelItem.autoExpand = (pOpc.indexOf("auto") >=0) ? true : false;
+        oSelItem.staticData = (pOpc.indexOf("static") >=0) ? true : false;
+        oSelItem.textbox =  oCtrl;
+        oSelItem.typedText = oCtrl.value;
+        oSelItem.selectedIndex = -1;
+        oSelItem.uri='../Ge_Files/GeGeGe_sugerir.php?pLim=50&pSql=' + pSql +'&pCon=' + pCond + '&pQry=';
+        oSelItem.patternSearch = true;
+        oSelItem.taStyle=false;
+        AutoSuggestController.prototype.onCtrlB = function (oThis)  {}
+        AutoSuggestController.prototype.onCtrlZ = function (oThis) {}
+        oSelItem.contenedor = oSelItem.textbox.parentNode // asumir el primer nivel de ascendencia
+    //}
+    if (oSelItem.textbox.name  != oCtrl.name || oSelItem.textbox.id  != oCtrl.id) {
+       oSelItem.textbox =  oCtrl;
+       oSelItem.typedText = oCtrl.value;
+       oSelItem.typedCount = oCtrl.value.length;
+       oSelItem.selectedIndex = -1;
+       oSelItem.textbox.value = oCtrl.value;
+
+    }
+        if (oSelItem.typedText.length < 1 && oSelItem.textbox.value.length > 0) oSelItem.typedText = oSelItem.textbox.value;
+        if (!oSelItem.staticData || (oSelItem.staticData && !oSelItem.data.length)) {   //
+             if (oSelItem.uri && (oSelItem.typedCount > 0 || oSelItem.autoExpand))  oSelItem.provider.requestSuggestions(oSelItem, true);  //
+        }
+    if (oSelItem.autoExpand ) {   // Despliegue automatico  // bug 001
+    oSelItem.autoSuggest(oSelItem.data, false);
+    }
+    for (i=1; i < pConten; i++) {                       // iterar hasta el nivel de ascendencia definido
+        oSelItem.contenedor = oSelItem.contenedor.parentNode;
+    }
+    aSalida = pSalida.split(",");
+    for (i=0; i < aSalida.length; i++) {
+        oSelItem.output[i+1]=aSalida[i];
+    }
+}
+/**
+*        Genera un Combo-Box dinamico para retenciones
+*        @param          oCtrl   objeto  Referencia del Objeto que recibe enfoque
+*        @return void
+*/
+function fSelectRetenc(oCtrl){
+    oCtrl.style.borderColor = "blue";
+	var pSql = escape("SELECT concat(par_valor1, '   -  ', par_valor2, '%'), par_secuencia, par_valor2 " +
+							"FROM genparametros " +
+							"WHERE par_clave = 'CRTFTE' AND concat(par_valor1, ' ', par_valor2, '%') LIKE " );
+	var i = fTraefila(oCtrl.name);			// Sufijo de Camos
+    var pSalida = "tmp_CodRetenc,tmp_Porcentaje" ;
+    var pCond = " ";
+    fSelectBoxProvee(oCtrl, pSql, pCond, pSalida, 3,200, "auto")
+}
+window.onload = bind_events; //Assign bind_events @1-19F7B649
+//End CCS script</script>
+</head>
+<body topmargin="17" link="#000000" vlink="#000000" alink="#ff0000" bgcolor="#fffff7" text="#000000" class="CobaltPageBODY">
+<!-- BEGIN Record fistransac -->
+<form name="{HTMLFormName}" action="{Action}" method="post">
+  <font face="Tahoma"><font color="#546785">TRANSACCION FISCAL <font class="CobaltFormHeaderFont"></font></font></font> 
+  <table class="CobaltFormTABLE" cellpadding="3" border="0" style="BORDER-RIGHT: 1px inset; BORDER-TOP: 1px inset; BORDER-LEFT: 1px inset; BORDER-BOTTOM: 1px inset">
+    <!-- BEGIN Error -->
+    <tr>
+      <td class="CobaltErrorDataTD" colspan="2">{Error}</td> 
+    </tr>
+ <!-- END Error -->
+    <tr>
+      <td class="CobaltFieldCaptionTD" nowrap>&nbsp;PROVEEDOR&nbsp;</td> 
+      <td class="CobaltDataTD"><input class="CobaltInputSB2" id="txt_Proveedor" style="WIDTH: 189px; HEIGHT: 18px" onfocus="fSelectProvee(this)" size="29" value="{txt_Proveedor}" name="{txt_Proveedor_Name}">&nbsp;<input class="CobaltInputSB2" style="WIDTH: 46px; HEIGHT: 17px" maxlength="10" size="6" value="{tmp_CodAuxiliar}" name="{tmp_CodAuxiliar_Name}" id="tmp_CodAuxiliar" readonly></td> 
+    </tr>
+ 
+    <tr>
+      <td class="CobaltFieldCaptionTD" nowrap>&nbsp;Tipo, NUm
+        IDENTIFICACION&nbsp;</td> 
+      <td class="CobaltDataTD"><input name="{tmp_TipoID_Name}" value="{tmp_TipoID}" maxlength="5" size="2" class="CobaltInputSB" id="tmp_TipoID" style="WIDTH: 18px; HEIGHT: 15px" readonly>&nbsp;&nbsp; <input class="CobaltInputSB" maxlength="13" size="13" value="{txt_Ruc}" name="{txt_Ruc_Name}" style="WIDTH: 136px; HEIGHT: 18px" id="txt_Ruc" readonly></td> 
+    </tr>
+ 
+    <tr>
+      <td class="CobaltFieldCaptionTD" nowrap>&nbsp;Base ImpONIBLE</td> 
+      <td class="CobaltDataTD"><input class="CobaltInputSB2" maxlength="20" value="{tmp_BaseImp}" name="{tmp_BaseImp_Name}" style="WIDTH: 68px; HEIGHT: 17px; TEXT-ALIGN: right" size="11" onchange="fRecalcular()">&nbsp;</td> 
+    </tr>
+ 
+    <tr>
+      <td class="CobaltFieldCaptionTD" nowrap>&nbsp;CodIGO DE&nbsp;RetencION</td> 
+      <td class="CobaltDataTD"><input class="CobaltInputSB2" style="WIDTH: 97px; HEIGHT: 17px" maxlength="40" value="{txt_DescRetenc}" name="{txt_DescRetenc_Name}" id="txt_DescRetenc" onfocus="fSelectRetenc(this)" size="16">&nbsp;&nbsp;&nbsp;<input name="{tmp_CodRetenc_Name}" value="{tmp_CodRetenc}" maxlength="40" size="6" class="CobaltInputSB" style="WIDTH: 39px; HEIGHT: 17px" id="tmp_CodRetenc" readonly>&nbsp;&nbsp;&nbsp;<input class="CobaltInputSB" maxlength="40" size="7" value="{tmp_Porcentaje}" name="{tmp_Porcentaje_Name}" style="WIDTH: 42px; HEIGHT: 17px; TEXT-ALIGN: right" id="tmp_Porcentaje" readonly>&nbsp;%</td> 
+    </tr>
+ 
+    <tr>
+      <td class="CobaltFieldCaptionTD" nowrap>&nbsp;ValOR RetenIDO</td> 
+      <td class="CobaltDataTD"><input name="{tmp_ValReten_Name}" value="{tmp_ValReten}" maxlength="14" class="CobaltInputSB2" style="WIDTH: 68px; HEIGHT: 17px; TEXT-ALIGN: right" size="12">&nbsp;</td> 
+    </tr>
+ 
+    <tr>
+      <td class="CobaltFieldCaptionTD" nowrap>&nbsp;FecHA ContabLE</td> 
+      <td class="CobaltDataTD"><input class="CobaltInputSB2" maxlength="9" size="9" value="{com_FecContab}" name="{com_FecContab_Name}">
+        <!-- BEGIN DatePicker DatePicker_com_FecContab --><a class="CobaltDataLink" href="javascript:showDatePicker('{Name}','{FormName}','{DateControl}');"><img src="../Themes/DatePicker/DatePicker1.gif" border="0"></a><!-- END DatePicker DatePicker_com_FecContab -->&nbsp;</td> 
+    </tr>
+ 
+    <tr>
+      <td class="CobaltFieldCaptionTD" nowrap>&nbsp;Reg Numero&nbsp;</td> 
+      <td class="CobaltDataTD"><input class="CobaltInputSB" maxlength="10" size="10" value="{com_RegNumero}" name="{com_RegNumero_Name}" style="TEXT-ALIGN: right" readonly>&nbsp;</td> 
+    </tr>
+ 
+    <tr>
+      <td class="CobaltFieldCaptionTD" nowrap>&nbsp;COMPROBNTE CONTABLE</td> 
+      <td class="CobaltDataTD"><input class="CobaltInputSB" maxlength="3" size="3" value="{com_TipoComp}" name="{com_TipoComp_Name}" readonly>&nbsp;<input class="CobaltInputSB" maxlength="10" size="10" value="{com_NumComp}" name="{com_NumComp_Name}" readonly></td> 
+    </tr>
+ 
+    <tr>
+      <td class="CobaltFooterTD" nowrap align="right">
+        <!-- BEGIN Button Button_Insert --><input class="CobaltButton" type="submit" value="GRABAR" name="{Button_Name}"><!-- END Button Button_Insert -->
+        <!-- BEGIN Button Button_Update --><input class="CobaltButton" type="submit" value="GRABAR" name="{Button_Name}"><!-- END Button Button_Update -->
+        <!-- BEGIN Button Button_Cancel --><input class="CobaltButton" type="submit" value="CANCELAR" name="{Button_Name}"><!-- END Button Button_Cancel -->&nbsp; </td> 
+      <td class="CobaltFooterTD" nowrap align="right">
+        <!-- BEGIN Button Button_Delete --><input class="CobaltButton" type="submit" value="BORRAR" name="{Button_Name}"><!-- END Button Button_Delete --></td> 
+    </tr>
+ 
+  </table>
+</form>
+<!-- END Record fistransac -->
+</body>
+</html>

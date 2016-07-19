@@ -1,0 +1,1010 @@
+<html>
+<head>
+  <base target="_self">
+  <link rel="stylesheet" type="text/css" href="../Themes/StormyWeather/Style.css">
+  <link rel="stylesheet" type="text/css" href="../Themes/Menu/Style.css">
+  <title>DETALLE DE COMPROBANTE</title>
+  <link rel="stylesheet" type="text/css" href="../Themes/Cobalt/Style.css">
+  <link rel="stylesheet" type="text/css" href="../css/suggestions.css">
+  <script language="JavaScript" src="../LibJava/cookies.js"></script>
+  <script language="JavaScript" src="../LibJava/general.js"></script>
+    <script language="JavaScript" src="../LibJava/general.js"></script>
+  <script language="JavaScript" src="../LibJava/numberformat.js"></script>
+  <script language="JavaScript" src="../LibJava/pajax-commom.js" type="text/javascript"></script>
+<script language="JavaScript" src="../LibJava/pajax-parser.js" type="text/javascript"></script>
+<script language="JavaScript" src="../LibJava/pajax-core.js" type="text/javascript"></script>
+<script language="JavaScript" src="../LibJava/autosuggestcontroller.js" type="text/javascript"></script>
+<script language="JavaScript" src="../LibJava/dataprovider.js" type="text/javascript"></script>
+<script language="JavaScript" src="../LibJava/browser_detect.js" type="text/javascript"></script>
+<script language="JavaScript" src="../LibJava/clsRpc.js"></script>
+  <script language="JavaScript">
+var msMensaje = " ";								// Mensaje de Confirmacion
+var msOper = "";									// Operacion que sometera
+//var window.parent.top.mReturnObj = new object();
+if (window.parent.top.mAuxConsulFlag) {
+    window.parent.top.mAuxConsulFlag = false;
+    window.parent.top.mReturnflag = false;
+    window.parent.top.mReturnOrigen = "";
+    window.parent.top.mReturnDestin = "";
+}
+/**
+*	Hace focus en la ventana de seleccion si este una abierta, para simular un Modal Dialog
+*	@return:   	void
+*/
+function fActivaDialog()
+{
+//    window.status ="flag=" + window.parent.top.mAuxConsulFlag ;              // dbg
+    var slhref = window.frames[0].location.href
+    if (slhref == "about:blank" || slhref == "" ) return;
+	if (window.parent.top.mAuxConsulFlag == true ) {
+		document.frames[0].winres.focus();
+	}
+  
+}
+
+/**
+*	Valida el texto ingresado en la cuenta, para ello carga en un iframe una pagina que
+*   ejecuta la consulta, si existe una coincidencia válida desde ésta, se actualiza los campos;
+* 	caso contrario, se lanza una pagina de seleccion en estilo "modal dialog"
+*	@param:		odata: 		Objeto en el que se ejecuta el cambio
+*				sSufijo: 	Sufijo del nombre del campo, para determinar la linea de posicion
+*	@return:   	void
+*/
+function fValida_Cuenta(odata, sSufijo) {
+	var ilIndice  	= 0;
+	var sDestino   	= new Array("det_CodCuenta", "cue_Descripcion", "cue_TipAuxiliar", "cue_ReqRefOperat", "aux_Clase");
+	var sOrigen    	= new Array("cue_CodCuenta", "cue_Descripcion", "cue_TipAuxiliar", "cue_ReqRefOperat", "aux_Clase");
+	var sMensaje    = "NO EXISTEN cuentas para la condicion de búsqueda, o las que existen, NO ACEPTAN movimientos";
+	var i, j , k = 0;
+
+	sScript = new String(odata.name);
+	if (sSufijo.length > 0 ){
+		k=sScript.substr(sScript.lastIndexOf("_"))
+	}
+	var sSql 	= 	"SELECT cue_CodCuenta, cue_Descripcion, cue_TipAuxiliar, cue_ReqRefOperat, par_valor1 as aux_Clase " +
+					" FROM concuentas JOIN genparametros on par_secuencia = cue_TipAuxiliar" ;
+    var sWhere 	=	" WHERE (cue_codcuenta LIKE '" + escape(odata.value) +
+                    "%' OR cue_descripcion  LIKE '%" + escape(odata.value) + "%' " +
+					" AND cue_TipMovim = 1) AND par_clave = 'CAUTI'" ;
+
+   	var ilFila= parseInt((k.substr(1)));
+
+	fValoresIniciales(ilFila-1);
+
+    window.parent.top.mReturnOrigen = sDestino;
+    window.parent.top.mReturnDestin = sOrigen;
+
+	setCookie("coSelect", sSql);
+	setCookie("coWhere",  sWhere);
+	setCookie("coDestino", sDestino);
+	setCookie("coOrigen", sOrigen);
+	setCookie("coCompon", "CoTrTr_detalle");
+	setCookie("coSearchPage", "CoAdCu_search.php");
+	setCookie("coFocus", "det_IDAuxiliar");
+	setCookie("coErrMensaje", sMensaje);
+	setCookie("coSufijo", k);
+	setCookie("coMensj", "SELECCIONE UNA CUENTA VALIDA");
+	SearchFrame.location.replace("Validador.php?pOpcode='v'&SearchField=" + escape(odata.value) + "&pField=" + escape(odata.name));
+	fExitCuenta(window.event);
+}
+
+/**
+*	Lanza una pantalla de seleccion, sin creiterio asociado
+*	@param:		odata: 		Objeto en el que se ejecuta el cambio
+*				sSufijo: 	Sufijo del nombre del campo, para determinar la linea de posicion
+*	@return:   	void
+*/
+function fBusca_Cuenta(odata, sSufijo) {
+    var tmpval = odata.value;
+    odata.value="";
+    fValida_Cuenta(odata, sSufijo);
+    odata.value=tmpval;
+}
+/**
+*	ReValida el texto ingresado en la cuenta al salir del campo, si es correcto cambia focus,
+*	sino, mantiene focus en campo cuenta.
+*	@param:		sCampo: 	string, nombre del Objeto en el que se ejecuta el cambio
+*	@return:   	void
+*/
+function fExitCuenta(e) {
+
+    if (!e) var e = window.event; // e gives access to the event in all browsers
+    if (!e) var e = window.Event; //
+	var olObj = (e.target) ? e.target : e.srcElement;
+//	alert(olObj);
+    if (!olObj) return;
+    sCampo = olObj.name;
+	i =fTraefila(sCampo)-1;
+	with (document.CoTrTr_detalle) {
+		if (cue_TipAuxiliar[i].value == 9999) {
+			det_IDAuxiliar[i].value  = 0;
+			det_DescAuxiliar[i].value  = "-";
+			det_ValDebito[i].focus();
+			}
+//		else det_IDAuxiliar[i].focus();
+		}
+}
+/**
+*	ReValida el texto ingresado auxiliar, si es correcto cambia focus,
+*	sino, mantiene focus en campo auxiliar.
+*	@param:		sCampo: 	string, nombre del Objeto en el que se ejecuta el cambio
+*	@return:   	void
+*/
+function fExitAuxiliar(sCampo)
+{
+	OK=0;
+	i = fTraefila(sCampo)-1;
+	with (document.CoTrTr_detalle) {
+        if (window.parent.top.mAuxConsulFlag) {
+			if (parseInt(det_Secuencia[i].value)  > 0 || parseInt(det_CodCuenta[i].value > 0 ) )   {
+				if (!fDatosValidos(i)){
+						det_IDAuxiliar[i].focus();		
+						}
+				}
+			}
+    }
+}
+
+/**
+*	Asigna valores iniciales a los campos obligatorios
+*	@param:		ilFila:		int, Número de fila en la que se aplica
+*	@return:   	void
+*/
+function fValoresIniciales(ilFila) {
+	with (document.CoTrTr_detalle) {
+		if (ilFila >= 0 ) {
+			j = det_Secuencia[ilFila].value ;
+			if (ilFila > 0)  {
+				j = det_Secuencia[ilFila - 1].value;  //Fila anterior: el inidice inicia en cero
+				i = parseInt(j)  + 1;   
+				det_Secuencia[ilFila].value  = i; 
+				det_Glosa[ilFila].value = det_Glosa[ilFila-1].value;
+				}
+			else {
+				det_Secuencia[ilFila].value  = 1;  
+				}
+			var dlFec = new Date(2020,01,01);
+			var slFech = addZero(String(dlFec.getDate()),2, "i") + "/" + addZero((dlFec.getMonth()),2, "i") + "/" + String(dlFec.getFullYear()).substr(2)
+			cue_TipAuxiliar[ilFila].value = 9999;
+			det_RegNumero[ilFila].value = getFromurl("com_RegNumero")
+//			det_TipoComp[ilFila].value = window.parent.document.forms[1].com_TipoComp.value;   // datos de Cabecera
+//			det_NumComp[ilFila].value  = window.parent.document.forms.InTrTr_comp.hd_NumComp.value;
+			det_TipoComp[ilFila].value = getFromurl("pTipoComp","xx");
+			det_NumComp[ilFila].value  = getFromurl("pNumComp","xx");
+			if (!det_RefOperativa[ilFila].value) 	det_RefOperativa[ilFila].value = 0;
+			if (!det_NumCheque[ilFila].value) 		det_NumCheque[ilFila].value = 0;
+			if (!det_FecCheque[ilFila].value) 		det_FecCheque[ilFila].value = slFech;
+			if (!det_EstEjecucion[ilFila].value) 	det_EstEjecucion[ilFila].value = 0;
+			if (!det_FecEjecucion[ilFila].value) 	det_FecEjecucion[ilFila].value = slFech;
+			if (!det_EstLibros[ilFila].value) 		det_EstLibros[ilFila].value = 0;
+			if (!det_FecLibros[ilFila].value) 		det_FecLibros[ilFila].value = slFech;
+			if (!det_ClasRegistro[ilFila].value) 	det_ClasRegistro[ilFila].value = 0;
+			det_ValDebito[ilFila].value  = 0;
+			det_ValCredito[ilFila].value  = 0;
+		}
+	}
+
+}
+
+
+/**
+*	Valida el texto ingresado en auxiliar, para ello carga en un iframe una pagina que
+*   ejecuta la consulta, si se obtiene una coincidencia válida, desde ésta se actualiza los campos;
+* 	caso contrario, se lanza una pagina de seleccion en estilo "modal dialog"
+*	@param:		odata: 		Objeto en el que se ejecuta el cambio
+*				sSufijo: 	Sufijo del nombre del campo, para determinar la linea de posicion
+*	@return:   	void
+*/
+function fValida_Auxiliar(odata, sSufijo) {
+	var ilIndice  	= 0;
+	var sDestino   	= new Array("det_IDAuxiliar", "det_DescAuxiliar" );
+	var sOrigen    	= new Array("per_CodAuxiliar", "per_Apellidos" );
+	var sMensaje    = "NO EXISTEN Auxiliares para la condicion de búsqueda, o los que existen, NO ESTAN Activos";
+	var i, j , k = 0;
+//   	window.status = "Validando auxiliar......";
+	sScript = new String(odata.name);
+	if (sSufijo.length > 0 ){
+		k=sScript.substr(sScript.lastIndexOf("_"))
+	}	
+	var ilFila= parseInt((k.substr(1)));
+	with (document.CoTrTr_detalle) {
+		if (!parseFloat(det_CodCuenta[ilFila-1].value) > 0 ) {
+			alert ("NO HA INGRESADO UNA CUENTA");
+			return;
+			}
+		if (cue_TipAuxiliar[ilFila-1].value == 9999 && det_IDAuxiliar[ilFila-1].value != 0) {
+			alert ("ESTA CUENTA NO MANEJA AUXILIARES. NO DEBE REGISTRARSE NINGUN AUXILIAR");
+			det_IDAuxiliar[ilFila-1].value  = 0;
+			det_DescAuxiliar[ilFila-1].value  = "-";
+			return;
+			}
+    	if (cue_TipAuxiliar[ilFila-1].value == 9999 && det_IDAuxiliar[ilFila-1].value == 0) {
+			det_IDAuxiliar[ilFila-1].value  = 0;
+			det_DescAuxiliar[ilFila-1].value  = "-";
+			return;
+			}
+
+		if (cue_TipAuxiliar[ilFila-1].value != 9999 && det_IDAuxiliar[ilFila-1].value == 0) {     // NS lanza el evento al cambiar valor via script
+		    window.status = "Digite un auxiliar";
+			det_DescAuxiliar[ilFila-1].value  = "-";
+			det_DescAuxiliar[ilFila-1].focus();
+			det_DescAuxiliar[ilFila-1].select();
+			return;
+	       }
+        var sArgs = "X";
+        if (aux_Clase[ilFila-1].value == "Persona" ){
+        	var sSql = 	"SELECT p.per_codauxiliar as per_CodAuxiliar, concat(per_Apellidos, ' ', per_Nombres) AS per_Apellidos, d.par_valor1 AS aux_Clase " +
+        				"FROM ((concategorias c INNER JOIN conpersonas p ON c.cat_CodAuxiliar = p.per_CodAuxiliar) " +
+        					"INNER JOIN genparametros d ON c.cat_Categoria = d.par_Secuencia) " +
+        					"INNER JOIN genparametros e ON c.cat_Activo = e.par_Secuencia " +
+        				"WHERE ( c.cat_activo > 0 AND d.par_Clave = 'CAUTI' AND e.par_Clave = 'LGESTA' ) AND ( per_Apellidos LIKE '"  + escape(odata.value) + "%' " +
+        					"OR per_CodAuxiliar = '" + odata.value + "' OR d.par_Descripcion LIKE '"  + escape(odata.value) + "%' "  +
+                            "OR e.par_Descripcion LIKE '"  + escape(odata.value) + "%' )" ;
+            sArgs = "P";
+            sMensaje = " --  SELECCIONE UN AUXILIAR VALIDO (Persona)  -- ";
+            }
+        else  {
+        	var sSql =	"SELECT p.act_codauxiliar as per_CodAuxiliar, concat(act_descripcion, ' ', act_descripcion1) AS per_Apellidos, d.par_valor1 AS aux_Clase " +
+    					"FROM ((concategorias c INNER JOIN conactivos p ON c.cat_CodAuxiliar = p.act_CodAuxiliar) " +
+    					   "INNER JOIN genparametros d ON c.cat_Categoria = d.par_Secuencia) " +
+    					   "INNER JOIN genparametros e ON c.cat_Activo = e.par_Secuencia " +
+    					"WHERE ( c.cat_activo > 0 AND d.par_Clave = 'CAUTI' AND e.par_Clave = 'LGESTA' ) AND (p.act_descripcion  LIKE  '"  + escape(odata.value) + "%' " +
+    					   "OR p.act_descripcion1  LIKE  '"  + odata.value + "%' " +
+    					   "OR act_CodAuxiliar =  '"  + escape(odata.value) + "' OR d.par_Descripcion LIKE '"  + escape(odata.value) + "%' " +
+    					   "OR e.par_Descripcion LIKE  '"  + escape(odata.value) + "%' )";
+    	   if (aux_Clase[ilFila-1].value == "Activo" ) sArgs = "A";
+    	   else sArgs="X";
+    	   sMensaje = " --  SELECCIONE UN AUXILIAR VALIDO (Activo/Otros)  -- ";
+    		}
+		}	
+	var sWhere = 	"order by 2"
+
+//	fValoresIniciales(ilFila-1);
+	mAuxConsulFlag = true;
+	setCookie("coSelect", sSql);
+	setCookie("coWhere",  sWhere);
+	setCookie("coDestino", sDestino);
+	setCookie("coOrigen", sOrigen);
+	setCookie("coCompon", "CoTrTr_detalle");
+	setCookie("coSearchPage", "CoAdAu_search.php");
+	setCookie("coFocus", "det_ValDebito");
+	setCookie("coErrMensaje", sMensaje);
+//	setCookie("coMensj", " --  SELECCIONE UN AUXILIAR VALIDO  -- ");
+    setCookie("coMensj", sMensaje);
+	setCookie("coSufijo", k);
+    SearchFrame.location.replace("Validador.php?pOpCode='R'&SearchField=" + escape(odata.value) +
+                                    "&pField=" + escape(odata.name) + "&pArgs=" + sArgs );
+                                    
+//   window.open("Validador.php?pOpCode='R'&SearchField=" + escape(odata.value) +
+//                                    "&pField=" + escape(odata.name) + "&pArgs=" + sArgs );
+}
+
+/**
+*	Lanza una seleccion de auxiliar, anulando el contenido del componente, para generar pantalla vacia
+*   llama a valida auxiliar
+*	@param:		odata: 		Objeto en el que se ejecuta el cambio
+*				sSufijo: 	Sufijo del nombre del campo, para determinar la linea de posicion
+*	@return:   	void
+*/
+function fBusca_Auxiliar(odata, sSufijo) {
+    var valtmp = odata.value;
+    odata.value="";
+     fValida_Auxiliar(odata, sSufijo);
+     odata.value = valtmp;
+}
+
+/**
+*	Recibe un sufijo de nombre de campo y retorna el número de fila que corresponde
+*	@param:		sl		string, sufijo del campo
+*	@return:			int, Número de fila
+*/
+function  fTraefila(sl) {
+	var slnomb = String(sl);
+	if (slnomb.length > 0 ){
+		k=slnomb.substr(slnomb.lastIndexOf("_"))
+	}
+	var ilFila= parseInt((k.substr(1)));
+    return ilFila;
+}
+
+/**
+*	Valida los valores ingresado en los campos ValDB o ValCR.
+*	Lanzada por el evento onchange de los dos campos
+*	@param:		pnom	string, nombre del campo modificado
+*	@return:			void
+*/
+function fCambiaDB(pnom) {
+	var i = fTraefila(pnom) -1;
+	with (document.CoTrTr_detalle) {
+//		if ((det_ValDebito[i].value + 0) != 0) {
+			if(fDatosValidos(i)) {
+				if ((det_ValDebito[i].value + 0) < 0) {
+					alert("EL DEBITO TIENE QUE SER POSITIVO");
+					det_ValDebito[i].focus();
+					}
+				else {
+					det_ValCredito[i].value = 0;
+					fTotaliza();
+					}
+				}
+			else {
+				alert("NO PUEDE INGRESAR DATOS EN ESTE CAMPO SIN DEFINIR PREVIAMENTE CUENTA Y AUXILIAR");
+				det_ValDebito[i].value = 0;
+				}
+//		}
+	}
+}
+
+
+/**
+*	Valida que la cuenta y el auxiliar sean correctos antes de recibir otros datos,
+*	sino, pasa el enfoque a los campos correspondientes
+*	Lanzada por el evento onfocus  de campos DB y CR
+*	@param:		pnom	string, nombre del campo modificado
+*	@return:			void
+*/
+function fDatosValidos(i) {
+	with (document.CoTrTr_detalle) {
+		if (!fCodCuentaOK) {
+			det_CodCuenta[i].focus();
+			return false;
+			}
+		else {
+			if ( fCodAuxiliarOK(i)) 	return  true;
+			else	return  false;
+			}
+		}
+}
+
+
+/**
+*	Valida los valores de Auxiliar, evaluando la consistencia del codigo con las
+*	caracteristicas de la cuenta
+*	@param:		i		int, numero de fila en que se produce
+*	@return:			true si esta OK, caso contrario false
+*/
+function fCodAuxiliarOK(i) {
+	with (document.CoTrTr_detalle) {
+		if (cue_TipAuxiliar[i].value == 9999 || cue_TipAuxiliar[i].value == 0 ) {								// Si Cuenta sin auxiliar
+			return  ((det_IDAuxiliar[i].value  == 0 && parseFloat(det_IDAuxiliar[i].value) == 0 )?true:false);	// el auxiliar debe ser cero
+			}
+		else {																									// Si la   cuenta requiere auxiliar
+			return ((det_IDAuxiliar[i].value  > 0  && parseFloat(det_IDAuxiliar[i].value) > 0 )?true:false);    // Debe existir un codigo de auxiliar valido	
+			}
+		}
+}
+
+/**
+*	Valida los valores de Cuenta, evaluando datos previos, para evitar se tipee
+*	informacion en lineas vacías
+*	@param:		i		int, numero de fila en que se produce
+*	@return:			true si esta OK, caso contrario false
+*/
+function fCodCuentaOK(i) {
+	with (document.CoTrTr_detalle) {
+		if (!(parseInt(det_Secuencia[i].value) > 0)) {						// Linea no iniciada
+			det_CodCuenta[i].focus();
+			return false;
+			}
+		else {																// Linia iniciada, con codigo y descripcoin de cuenta 
+			if ( det_CodCuenta[i].value.length > 1 &&  
+				 parseFloat(det_CodCuenta[i].value) > 0  && 
+				 cue_Descripcion[i].value.length > 0 ) {
+				return true;
+				}
+			else return false;
+			}
+		}
+}
+	
+
+/**
+*	Valida los valores ingresado en los campos ValDB o ValCR.
+*	Lanzada por el evento onchange de los dos campos
+*	@param:		pnom	string, nombre del campo modificado
+*	@return:			void
+*/
+function fCambiaCR(pnom) {
+	var i = fTraefila(pnom) -1;
+	with (document.CoTrTr_detalle) {
+//		if ((det_ValCredito[i].value + 0) != 0) {		
+			if(fDatosValidos(i)) {
+				if ((det_ValCredito[i].value + 0) < 0) {
+					alert("EL CREDITO TIENE QUE SER POSITIVO");
+					det_ValCredito[i].focus();
+					}
+				else {
+					det_ValDebito[i].value = 0;
+					fTotaliza();
+					}
+				}
+			else {
+				alert("NO PUEDE INGRESAR DATOS EN ESTE CAMPO SIN DEFINIR PREVIAMENTE CUENTA Y AUXILIAR");
+				det_ValCredito[i].value = 0;
+				}
+//			}
+		}
+}
+var fgTotDb = 0;//                          Suma total debitos
+var fgTotCr = 0;//                          Suma Total crediros del comprobante
+var fgPagDb = 0;//                          Suma de debitos de la pagina al cargar
+var fgPagCr = 0;//                          Suma de creditos de la pagina al cargar
+
+/**
+*	Suma las columnas DB y CR para generar totales y actualizar los controles 
+*	correspondientes
+*	@param:		
+*	@return:	
+*/
+function fTotaliza() {
+    var aSum = new Array();
+    aSum[0]=0;
+    aSum[1]=0;
+    aSum= fSumaDbCr();
+    with (document.CoTrTr_detalle) {
+        TotDb = fgTotDb + aSum[0] + 0.00;
+        TotCr = fgTotCr + aSum[1] + 0.00;
+    	tot_ValDebito.value  = formatNum(fredondear(TotDb ,2),ES_EC);
+    	tot_ValCredito.value = formatNum(fredondear(TotCr ,2),ES_EC);
+    	fDifer= TotDb  - TotCr ;
+    	if (fDifer != 0)
+    	   tot_Diferencia.value = "    ** DIFERENCIA:   " + formatNum(fredondear(fDifer,2), ES_EC);
+    	else
+    	   tot_Diferencia.value = "";
+    }
+}
+/**
+*   Bbanderas para saber si la cuenta y Aux origen han sido digitados
+*
+**/
+	 var blCtaOrigen = false;
+	 var blCtaDestin = false;
+	 var blAuxOrigen = false;
+	 var blAuxDestin = false;
+/**
+*	Suma las columnas DB y CR 
+*	correspondientes
+*	@param:		
+*	@return:	
+*/
+function fSumaDbCr(){
+	 flValdb = 0.00;
+	 flValcr = 0.00;
+	 j       = 0;
+	 blCtaOrigen = false;
+	 blCtaDestin = false;
+	 blAuxOrigen = false;
+	 blAuxDestin = false;
+     with (document.CoTrTr_detalle) {
+		for (i=0; i<=(det_ValDebito.length -1) ; i++) {
+		    if (window.parent.document.forms.InTrTr_comp) {
+		        with (window.parent.document.forms.InTrTr_comp) {
+			        if (cla_CtaOrigen.value  == det_CodCuenta[i].value) blCtaOrigen = true;
+			        if (cla_CtaDestino.value == det_CodCuenta[i].value) blCtaDestin = true;
+					if (cla_AuxOrigen.value  == det_IDAuxiliar[i].value) blAuxOrigen = true;
+					if (cla_AuxDestino.value == det_IDAuxiliar[i].value) blAuxDestin = true;
+				}
+			}
+        	numdb   = 0.00;
+        	numcr   = 0.00;
+        	exp=/,/g;
+    		numdb = parseFloat(String(det_ValDebito[i].value).replace(exp,""));
+// alert(String(det_ValDebito[i].value).replace(",","") + " // " + numdb);
+			numcr = parseFloat(String(det_ValCredito[i].value).replace(exp,""));
+			if (!isNaN(numdb)) {
+				flValdb = flValdb +  numdb;
+			}
+			if (!isNaN(numcr)) {
+				flValcr = flValcr + numcr ;
+			}
+		}
+//with (window.parent.document.forms.InTrTr_comp) {
+//alert (cla_CtaDestino.value + "/" + det_CodCuenta[1].value + "/" + blCtaOrigen + " / " + blAuxOrigen + "/  /" + blCtaDestin + " / " + blAuxDestin + "/" );
+//}
+/**
+		tot_ValDebito.value = fredondear(parseFloat(flValdb),2);
+		tot_ValCredito.value = fredondear(parseFloat(flValcr),2);
+**/
+	}
+//window.status +=  " sum. " + flValdb + "  /  " + flValcr;
+	var a= new Array(flValdb, flValcr);
+	return a;
+	flValdb = 0.00;
+	flValcr = 0.00;
+	
+}
+</script>
+  <script language="JavaScript">
+//Begin CCS script
+//Include JSFunctions @1-5F368366
+  </script>
+  <script language="JavaScript" src="../functions.js"></script>
+  <script language="JavaScript">
+  
+//End Include JSFunctions
+
+//page_CoTrTr_detalle_Button_Submit_OnClick @121-D17E1575
+function page_CoTrTr_detalle_Button_Submit_OnClick()
+{
+    var result;
+//End page_CoTrTr_detalle_Button_Submit_OnClick
+
+//Custom Code @318-2A29BDB7
+    // -------------------------
+	msMensaje = "DESEA GRABAR ? ";
+	msOper    = "UPD";
+	// -------------------------
+//End Custom Code
+
+//Close page_CoTrTr_detalle_Button_Submit_OnClick @121-BC33A33A
+    return result;
+}
+//End Close page_CoTrTr_detalle_Button_Submit_OnClick
+
+//page_CoTrTr_detalle_Cancel_OnClick @123-F0E9F045
+function page_CoTrTr_detalle_Cancel_OnClick()
+{
+    var result;
+//End page_CoTrTr_detalle_Cancel_OnClick
+
+//Custom Code @319-2A29BDB7
+    // -------------------------
+ 	msMensaje = "DESEA CANCELAR LAS MODIFICACIONES REALIZADAS AL COMPROBANTE ?";
+	msOper    = "CAN";
+    // -------------------------
+//End Custom Code
+
+//Close page_CoTrTr_detalle_Cancel_OnClick @123-BC33A33A
+    return result;
+}
+//End Close page_CoTrTr_detalle_Cancel_OnClick
+
+//page_CoTrTr_detalle_OnSubmit @11-013CC17C
+function page_CoTrTr_detalle_OnSubmit()
+{
+    var result;
+//End page_CoTrTr_detalle_OnSubmit
+
+//Custom Code @312-2A29BDB7
+	slTexto = ""
+	if (msOper != "CAN")  {
+		with (window.parent.document.forms.InTrTr_comp) {
+		    fSumaDbCr();
+			if (cla_CtaOrigen.value   	 && !blCtaOrigen) slTexto = "Es Obligatorio registrar un Debito para la Cuenta '" + cla_CtaOrigen.value + "'\n"
+			if (cla_CtaDestino.value  	 && !blCtaDestin) slTexto += "Es Obligatorio registrar un Credito para la Cuenta '" +cla_CtaDestino.value + "'\n"
+			if (cla_AuxOrigen.value >  0 && !blAuxOrigen) slTexto += "Es Obligatorio registrar un Debito para el Auxiliar '" +cla_AuxOrigen.value + "'\n"
+			if (cla_AuxDestino.value > 0 && !blAuxDestin) slTexto += "Es Obligatorio registrar un Credito para el Auxiliar '" +cla_AuxDestino.value + "'\n"
+		}
+		if (slTexto) {
+			alert(" * * * * * * ATENCION !! * * * * * * \n\n" + slTexto + "\nCorrija esto antes de Continuar");
+			return false;
+		}
+	}
+
+	with (document.CoTrTr_detalle) {
+		if (msOper == "UPD") {
+			if(parseFloat(tot_ValDebito.value.replace(',','')) != parseFloat(tot_ValCredito.value.replace(',',''))) {
+				setCookie("coEstado", -1);
+				result = confirm("ATENCION: LA SUMA DE CREDITOS DIFIERE DE SUMA DE DEBITOS!!!.\n\nSOLO PUEDE GRABAR TEMPORALMENTE ESTE COMPOBANTE,\nY NO TENDRA EFECTO CONTABLE HASTA QUE LO COMPLETE");
+				}
+	   	    else
+				 { 
+				 setCookie("coEstado", 5);
+				 result = confirm("     COMPROBANTE CUADRADO!              \n\n                DESEA GRABAR?");
+				 }
+			}
+		else {
+			setCookie("coEstado", 0);
+			result = confirm(msMensaje);
+			}
+	}
+
+
+//End Custom Code
+
+//Close page_CoTrTr_detalle_OnSubmit @11-BC33A33A
+    return result;
+}
+
+/**
+	Generacion de un combo box dinamico de Referencias Operativas
+	@param		oCtrl	objeto	Referencia del Objeto que recibe enfoque
+	@pSalida	string	Lista de elementos que reciben datos del combo
+	@pCons	    string	Condicion adicional
+	@return	void
+**/
+function fSelecRO(oCtrl) {
+	gAutosuggestCont=0;
+	slSql = escape("SELECT if(ord_ID>0, concat(ifnull(par_Valor2,''), '-', " +
+                        "ifnull(ord_NumDocum,ord_ID), '  / ', left(IFNULL(per_Apellidos,''), 12), ' ' , " +
+                        "left(IFNULL(per_Nombres,''),12)),'N.A.') as txt_orden, " +
+                        "ord_ID, concat(left(IFNULL(per_Apellidos,''), 12), ' ' , left(IFNULL(per_Nombres,''),12))  as txt_cliente, " +
+                        "ord_estado " +
+                   "FROM serordenes " +
+	               "LEFT JOIN  conpersonas pe on per_codauxiliar = ord_Cliente " +
+	               "LEFT JOIN  genparametros pa on par_clave = 'VGTIP' AND par_secuencia = ord_tipo "+
+                    "WHERE ord_estado >=0 and ord_estado < 10 and " +
+	                       "concat(ifnull(par_Valor2,''), ifnull(ord_NumDocum,ord_ID))  like ");
+	fListaOrdenes(oCtrl, slSql, "", "det_RefOperativa", 1, 200, "auto");
+	}
+	
+/**
+*       Habilita el proceso de generacion de un combo box en un objeto que recibe enfoque,
+*   reutiliza siempre el mismo objeto, solo la primera vez crea los objetos
+*       @param  oCtrl   objeto  Referencia del Objeto que recibe enfoque
+*       @param  pSql    String  Sentencia SQl que genera datos para el combo
+*       @param  pCond   String  Sentencia SQl adicional para el combo
+*       @param  pSalida String  Lista de los elementos que reciben la salida del combo
+*                                                       (Deben estar en el mismo contenedor que el elemento del combo)
+*       @param  pConten integer Nivel de ascendencia del nodo contenedor del los objetos de salida
+*                                                       (cuantos parentNode hay que aplicar para direccionarlos como childNodes)
+*       @param  pWidth  integer Ancho de la lista
+*       @return void
+*/
+var gAutosuggestCont=0;
+var oProvSubg= new Object();
+var oSubGrupo= new Object();
+function fListaOrdenes(oCtrl, pSql, pCond, pSalida, pConten, pWidth, pExtra) {
+    var     aData = new Array();
+    var     aColumns = new Array();
+    if (!pConten) pConten = 1;
+    if (!pWidth) pWidth=false;
+    gTeclaProcesada=false;
+    oCtrl.style.borderColor = "blue";
+    slUri='../Ge_Files/GeGeGe_sugerir.php?pLim=40&pCon=' + pCond + '&pQry=' + '&pSql=' + pSql;
+    oSubGrupo.data =aData;
+    oSubGrupo.columns =aColumns;
+    oProv = new dataProvider('');
+    oSubGrupo = new AutoSuggestController(oCtrl, oProv, 0, true, true, slUri);
+  	oSubGrupo.autoExpand = false;
+   	oSubGrupo.staticData = false;
+  	oSubGrupo.minLength  = 4;
+   	oSubGrupo.notInList  = true;
+    oSubGrupo.width_ = pWidth;
+    oSubGrupo.init();
+//    oSubGrupo.uri='../Ge_Files/GeGeGe_sugerir.php?pLim=40&pCon=' + pCond + '&pQry=' + '&pSql=' + pSql;
+    AutoSuggestController.prototype.onCtrlB = function (oThis)  {}
+    AutoSuggestController.prototype.onCtrlZ = function (oThis) {}
+    oSubGrupo.contenedor = oSubGrupo.textbox.parentNode // asumir el primer nivel de ascendencia
+/*    for (i=1; i < pConten; i++) {                       // iterar hasta el nivel de ascendencia definido
+        oSubGrupo.contenedor = oSubGrupo.contenedor.parentNode;
+    } */
+    aSalida = pSalida.split(",");
+    for (i=0; i < aSalida.length; i++) {
+        oSubGrupo.output[i+1]=aSalida[i];
+    }
+        oSubGrupo.minLength=0;
+}
+
+
+//End Close page_CoTrTr_detalle_OnSubmit
+
+//bind_events @1-B9E374B1
+function bind_events() {
+    if (document.forms["CoTrTr_detalle"]) check_and_bind('document.forms["CoTrTr_detalle"]','onsubmit',page_CoTrTr_detalle_OnSubmit);
+    if (document.forms["CoTrTr_detalle"]) check_and_bind('document.forms["CoTrTr_detalle"].Cancel','onclick',page_CoTrTr_detalle_Cancel_OnClick);
+    if (document.forms["CoTrTr_detalle"]) check_and_bind('document.forms["CoTrTr_detalle"].Button_Submit','onclick',page_CoTrTr_detalle_Button_Submit_OnClick);
+    forms_onload();
+    exp=/,/g;
+    fgTotCr = String(document.CoTrTr_detalle.tot_ValCredito.value).replace(exp,"") + 0;
+    fgTotDb = String(document.CoTrTr_detalle.tot_ValDebito.value).replace(exp,"") + 0 ;
+    aPag = fSumaDbCr();
+    fgTotDb -= aPag[0];//               valor al debito que no esta en esta pagina
+    fgTotCr -= aPag[1];//               valor al credito que no esta en esta pagina
+    fTotaliza();
+    window.status =   " ";
+    if(document.forms.CoTrTr_detalle.det_CodCuenta_1) {
+        try {
+            document.forms.CoTrTr_detalle.det_CodCuenta_1.focus();
+            document.forms.CoTrTr_detalle.det_CodCuenta_1.select()
+        } catch (e) {window.status =   " ";}
+    }
+}
+//End bind_events
+
+window.onload = bind_events; //Assign bind_events @1-19F7B649
+
+//End CCS script
+</script>
+  <link rel="stylesheet" type="text/css" href="../Themes/Aqua/Style.css">
+  <link rel="stylesheet" type="text/css" href="../Themes/Cobalt/Style.css">
+</head>
+<body bgcolor="#fffff7" link="#000000" alink="#ff0000" vlink="#000000" text="#000000"
+class="CobaltPageBODY" style="margin:0; border:0">
+  <table align="center" cellpadding="0" cellspacing="0" style="border-collapse: collapse; border:0; margin:0">
+    <tr valign="top">
+      <td valign="top"  align:"center" cellpadding="0" cellspacing="0" nowrap style="FONT-SIZE: 9px">
+        <!-- BEGIN EditableGrid CoTrTr_detalle -->
+        <form action="{Action}" method="post" name="{HTMLFormName}" class="CobaltFormHeaderFont"
+        style="margin:0; border:0">
+          <input name="FormState" type="hidden" value="{FormState}" style="WIDTH: 26px; HEIGHT: 0px"
+          size="3">
+            {FormScript}&nbsp; <font style="FONT-SIZE: 9px">Detalles:
+            {condetalle_concuentas_con_TotalRecords}&nbsp; &nbsp;
+            <!-- BEGIN Label lbTitulo --><font color="red">{lbTitulo}{lbEstado}</font>
+            <!-- END Label lbTitulo --></font>
+            <a name="bkInicio" accesskey ="n"></a>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            &nbsp;&nbsp; 
+            <a class="CobaltDataLink" title="Ir a la linea de totales" style="FONT-SIZE: 9px"  href="#bkTotales">Totales</a>
+            <table cellpadding="0" border="1" class="CobaltFormTABLE" cellspacing="0" width="100%" style=" border-color:white; border-right-width:1; border-top-width:0; border-collapse:collapse">
+                <colgroup span="11" > </colgroup>
+                <!-- BEGIN Error -->
+                <tr >
+                  <td class="CobaltErrorDataTD" colspan="13">
+                    {Error} 
+                  </td>
+ 
+                </tr>
+                <!-- END Error -->
+                <tr align="middle" >
+                  <td class="CobaltColumnTD" nowrap>
+                  </td>
+ 
+                  <td class="CobaltColumnTD" nowrap>
+                    <!-- BEGIN Sorter Sorter_det_Secuencia -->
+                    <a class="CobaltSorterLink" href="{Sort_URL}">#</a>
+ 
+                    <!-- END Sorter Sorter_det_Secuencia -->
+                  </td>
+ 
+                  <td class="CobaltColumnTD" nowrap colspan="2">
+                    <!-- BEGIN Sorter Sorter_cue_Descripcion -->
+                    <a class="CobaltSorterLink" href="{Sort_URL}">CUENTA /
+                      DESCRIPCION </a>
+ 
+                    <!-- END Sorter Sorter_cue_Descripcion -->
+                    &nbsp; 
+                  </td>
+ 
+                  <td class="CobaltColumnTD" nowrap colspan="2">
+                    <!-- BEGIN Sorter Sorter_det_IDAuxiliar -->
+                    <a class="CobaltSorterLink" href="{Sort_URL}">AUXILIAR </a>
+ 
+                    <!-- END Sorter Sorter_det_IDAuxiliar -->
+                    &nbsp; 
+                  </td>
+ 
+                  <td class="CobaltColumnTD" nowrap>
+                    <!-- BEGIN Sorter Sorter_det_ValDebito -->
+                    <a class="CobaltSorterLink" href="{Sort_URL}">DEBITO </a>
+ 
+                    <!-- END Sorter Sorter_det_ValDebito -->
+                    &nbsp; 
+                  </td>
+ 
+                  <td class="CobaltColumnTD" nowrap>
+                    <!-- BEGIN Sorter Sorter_det_ValCredito -->
+                    <a class="CobaltSorterLink" href="{Sort_URL}">CREDITO </a>
+ 
+                    <!-- END Sorter Sorter_det_ValCredito -->
+                    &nbsp; 
+                  </td>
+ 
+                  <td class="CobaltColumnTD" nowrap>
+                    <!-- BEGIN Sorter Sorter_det_Glosa -->GLOSA
+                    <!-- END Sorter Sorter_det_Glosa -->
+                    &nbsp; 
+                  </td>
+ 
+                  <td class="CobaltColumnTD" nowrap>
+                    REF. 
+                  </td>
+ 
+                  <td class="CobaltColumnTD" nowrap colspan="2">
+                    DOC# (CHEQ) 
+                  </td>
+ 
+                  <td class="CobaltColumnTD" nowrap>
+                    Borrar  
+                  </td>
+ 
+                </tr>
+                <!-- BEGIN Row -->
+                <!-- BEGIN RowError -->
+                <tr>
+                  <td class="CobaltErrorDataTD" colspan="14">
+                    {Error} 
+                  </td>
+ 
+                </tr>
+                <!-- END RowError -->
+            <tr valign="top" height="15">
+                <td class="{rowClass}" valign="top" nowrap>
+                    <input  type="hidden" name="{det_TipoComp_Name}" value="{det_TipoComp}"
+                            style="WIDTH: 0px; HEIGHT: 10px" id="det_TipoComp">
+                    <input  name="{det_NumComp_Name}" value="{det_NumComp}" type="hidden" style="WIDTH: 0px; HEIGHT: 13px"
+                            id="det_NumComp" size="17">
+                    <input  name="{det_RegNumero_Name}" value="{det_RegNumero}" type="hidden"
+                            style="WIDTH: 0px; HEIGHT: 11px"
+                            id="det_RegNumero">
+                </td>
+                <td class="{rowClass}" valign="top" nowrap>
+                    <input  class="CobaltInputSB" maxlength="10" name="{det_Secuencia_Name}"
+                            onKeyUp="fKeyUp_Secuencia(event)" size="5" value="{det_Secuencia}" style="WIDTH: 25px; HEIGHT: 15px"
+                            id="det_Secuencia" dir="det_Secuencia"  title="Nro. de secuencia de la transacción ">
+                    <input  type="hidden" name="{det_ClasRegistro_Name}" value="{det_ClasRegistro}"
+                            id="det_ClasRegistro" style="WIDTH: 12px; HEIGHT: 12px">
+                </td>
+                <td class="{rowClass}" nowrap>
+                    <input  class="CobaltInputSB" name="{det_CodCuenta_Name}"  accesskey="c"
+                            onKeyUp="fKeyUp_Secuencia(event, 'det_CodCuenta')"
+                            onchange="fValida_Cuenta(this,'x')" ondblclick="fBusca_Cuenta(this,'x')"
+                            onblur="fExitCuenta(event)" size="17"
+                            id="det_CodCuenta" style="WIDTH: 65px; HEIGHT: 15px" value="{det_CodCuenta}"
+                            title="Código de la Cuenta que se afecta con el movimiento. --Digite Alt-c para moverse a este campo directamente--" >
+                        &nbsp; 
+                </td>
+                <td class="{rowClass}" nowrap>
+                    <input class="CobaltInputSB" id="cue_Descripcion"
+                           onKeyUp="fKeyUp_Secuencia(event, 'det_CodCuenta')"
+                            title="Descripción de la Cuenta Contable"
+                            style="WIDTH: 140px; HEIGHT: 15px" readonly maxlength="30" size="76"
+                            value="{cue_Descripcion}"
+                            name="{cue_Descripcion_Name}">
+                </td>
+                <td class="{rowClass}" valign="top" nowrap>
+                          &nbsp; 
+                    <input  class="CobaltInputSB" maxlength="10" name="{det_IDAuxiliar_Name}" value="{det_IDAuxiliar}" size="6"
+                            onKeyUp="fKeyUp_Secuencia(event, 'det_CodCuenta')"
+                            onchange="fValida_Auxiliar(this,'x')"
+                            onblur="fExitAuxiliar(this.name)"
+                            ondblclick="fBusca_Auxiliar(this,'x')" style="WIDTH: 47px; HEIGHT: 15px"
+                            id="det_IDAuxiliar" title="Código de Auxiliar asociado a la cuenta. (ó texto a buscar )">
+                            &nbsp;
+                </td>
+                <td class="{rowClass}" nowrap>
+                    <input class="CobaltInputSB" id="det_DescAuxiliar"
+                            onKeyUp="fKeyUp_Secuencia(event, 'det_CodCuenta')" title="Descripción de Auxiliar"
+                            style="WIDTH: 118px; HEIGHT: 15px" readonly maxlength="25" size="38"
+                            value="{det_DescAuxiliar}"
+                            name="{det_DescAuxiliar_Name}">
+                </td>
+                <td class="{rowClass}" valign="top" nowrap>
+                    <input  class="CobaltInputSB" maxlength="12"
+                            onKeyUp="fKeyUp_Secuencia(event, 'det_CodCuenta')"
+                            name="{det_ValDebito_Name}" onchange="fCambiaDB(this.name)"
+                            size="12" value="{det_ValDebito}" id="det_ValDebito"
+                            style="WIDTH: 76px; HEIGHT: 15px; TEXT-ALIGN: right"
+                            title="Valor al Débito">
+                            &nbsp;&nbsp;
+                </td>
+                <td class="{rowClass}" valign="top" nowrap>  &nbsp;
+                    <input class="CobaltInputSB" id="det_ValCredito"
+                           onKeyUp="fKeyUp_Secuencia(event, 'det_CodCuenta')"
+                           title="Valor al Crédito"
+                           onchange="fCambiaCR(this.name)" style="WIDTH: 80px; HEIGHT: 15px; TEXT-ALIGN: right"
+                           maxlength="12" size="12" value="{det_ValCredito}"
+                           name="{det_ValCredito_Name}">
+                </td>
+                <td class="{rowClass}" valign="top" nowrap style="WIDTH: 180px;">
+                    <input class="CobaltInputSB" maxlength="100"
+                           onKeyUp="fKeyUp_Secuencia(event, 'det_CodCuenta')"
+                           name="{det_Glosa_Name}" size="30" value="{det_Glosa}"
+                           id="det_Glosa" style="WIDTH: 175px; HEIGHT: 15px"
+                           title="Glosa contable que acompaña al movimiento"> 
+                </td>
+                <td class="{rowClass}" nowrap>
+                    <input class="CobaltInputSB" maxlength="10"
+                            name="{txt_RefOperativa_Name}" size="10"
+                            onfocus="fSelecRO(this)"
+                            onKeyUp="fKeyUp_Secuencia(event, 'det_CodCuenta')"
+                            style="WIDTH: 120px; HEIGHT: 15px" 
+                            value="{txt_RefOperativa}" id="txt_RefOperativa"
+                            title="Referencia Operativa de la Transacción.">
+                    <input class="CobaltInputSB" maxlength="10" readonly  type="hidden"
+                            name="{det_RefOperativa_Name}" size="10"
+                            onKeyUp="fKeyUp_Secuencia(event, 'det_CodCuenta')"
+                            style="WIDTH: 15px; HEIGHT: 15px"
+                            value="{det_RefOperativa}" id="det_RefOperativa"
+                            title="Referencia Operativa de la Transacción">
+                </td>
+                <td class="{rowClass}" nowrap> &nbsp;
+                    <input class="CobaltInputSB" maxlength="10"
+                            name="{det_NumCheque_Name}" size="12"
+                            onKeyUp="fKeyUp_Secuencia(event, 'det_CodCuenta')"
+                            style="WIDTH: 37px; HEIGHT: 15px"
+                            value="{det_NumCheque}" id="det_NumCheque"
+                            title="Nro de Documento que se emite (Cheque)  En caso de movimientos de banco">
+                </td>
+                <td class="{rowClass}" nowrap>
+                    <input class="CobaltInputSB" id="det_FecCheque"
+                            title="Fecha de Vencimiento del Documento"
+                            onKeyUp="fKeyUp_Secuencia(event, 'det_CodCuenta')"
+                            style="WIDTH: 55px; HEIGHT:15px"
+                            maxlength="9" size="9" value="{det_FecCheque}"
+                            name="{det_FecCheque_Name}" >
+                </td>
+                <td class="{rowClass}" title="Marque esta casilla si desea eliminar el registro" valign="top" nowrap>
+                    <!-- BEGIN CheckBox CheckBox_Delete -->
+                        <input  class="CobaltInput" name="{CheckBox_Delete_Name}" accesskey="X"
+                                onKeyUp="fKeyUp_Secuencia(event, 'det_CodCuenta')"
+                                type="checkbox" value="1" title="Marque esta casilla si desea eliminar el registro ó presione ALT-X"
+                                style="WIDTH: 12px; HEIGHT: 12px"  {DEL_flag}>
+                    <!-- END CheckBox CheckBox_Delete -->
+                    <input  id="aux_Clase" style="WIDTH: 1px; HEIGHT: 10px" size="6" value="{aux_Clase}" type="hidden"
+                            name="{aux_Clase_Name}">
+                    <input  id="det_EstLibros" style="WIDTH: 1px; HEIGHT: 10px" type="hidden" size="6"
+                            value="{det_EstLibros}" name="{det_EstLibros_Name}">
+                    <input  id="det_FecEjecucion" style="WIDTH: 1px; HEIGHT:10px" type="hidden" size="9"
+                            value="{det_FecEjecucion}" name="{det_FecEjecucion_Name}">
+                    <input  type="hidden" name="{aux_ReqRefOper_Name}" value="{aux_ReqRefOper}"
+                            id="aux_ReqRefOper" style="WIDTH: 1px; HEIGHT: 10px">
+                    <input  id="det_EstEjecucion" style="WIDTH: 91px; HEIGHT: 9px" type="hidden" size="11"
+                            value="{det_EstEjecucion}" name="{det_EstEjecucion_Name}">
+                    <input  id="cue_ReqRefOperat" style="WIDTH: 1px; HEIGHT: 10px" type="hidden" size="7"
+                            value="{cue_ReqRefOperat}" name="{cue_ReqRefOperat_Name}">
+                    <input  id="cue_TipAuxiliar" style="WIDTH: 1px; HEIGHT: 10px" type="hidden" size="7"
+                            value="{cue_TipAuxiliar}" name="{cue_TipAuxiliar_Name}">
+                    <input  id="det_FecLibros" style="WIDTH: 1px; HEIGHT: 10px" type="hidden" size="7"
+                            value="{det_FecLibros}" name="{det_FecLibros_Name}"> &nbsp;
+                </td>
+            </tr>
+            <!-- END Row -->
+        <tr>
+            <a name="bkTotales" accesskey="t"> </a>
+            <td class="CobaltDataTD" colspan="6" align="right">  &nbsp;T O T A L E S:&nbsp;&nbsp;&nbsp; </td>
+            <td class="CobaltDataTD">
+                <input  class="CobaltInputSB" title="Suma de los Débitos des TODO el comprobante" style="WIDTH: 76px; HEIGHT: 15px; TEXT-ALIGN: right"
+                        maxlength="12" size="12" value="{tot_ValDebito}" name="{tot_ValDebito_Name}">
+            </td>
+            <td class="CobaltDataTD"> &nbsp;
+                <input class="CobaltInputSB" title="Suma de los Crébitos des TODO el comprobante" size="12" value="{tot_ValCredito}"
+                        style="WIDTH: 80px; HEIGHT: 15px; TEXT-ALIGN: right" maxlength="12"
+                        name="{tot_ValCredito_Name}">
+            </td>
+            <td class="CobaltDataTD" colspan="6">
+                <blink>
+                <input class="CobaltInputSB" title="Diferencia entre DB y CR destl Comprobante" size="100" value=""
+                        style="WIDTH: 200px; HEIGHT: 15px; TEXT-ALIGN: left; color:red" maxlength="100" readonly
+                        name="tot_Diferencia">
+                </blink>
+
+            </td>
+        </tr>
+        <!-- BEGIN NoRecords -->
+        <tr>
+            <td class="CobaltDataTD" colspan="14"> No hay detalle&nbsp; </td>
+
+        </tr>
+        <!-- END NoRecords -->
+        <tr>
+            <td align="left" class="CobaltFooterTD" colspan="14" nowrap>
+            
+                  <!-- BEGIN Navigator Navigator -->
+                      <!-- BEGIN First_On --><a class="CobaltNavigatorLink" href="{First_URL}"><img height="14" src="../Themes/Aqua/FirstOn.gif" width="24" border="0"></a> <!-- END First_On -->
+                      <!-- BEGIN Prev_On --><a class="CobaltNavigatorLink" href="{Prev_URL}"><img height="14" src="../Themes/Aqua/PrevOn.gif" width="24" border="0"></a> <!-- END Prev_On -->&nbsp;
+                      <!-- BEGIN Pages -->
+                          <!-- BEGIN Page_On --><a class="CobaltNavigatorLink" href="{Page_URL}">{Page_Number}</a>&nbsp; <!-- END Page_On -->
+                          <!-- BEGIN Page_Off -->{Page_Number}&nbsp;<!-- END Page_Off -->
+                      <!-- END Pages -->de {Total_Pages}&nbsp;
+                      <!-- BEGIN Next_On --><a class="CobaltNavigatorLink" href="{Next_URL}"><img height="14" src="../Themes/Aqua/NextOn.gif" width="24" border="0"></a> <!-- END Next_On -->
+                      <!-- BEGIN Last_On --><a class="CobaltNavigatorLink" href="{Last_URL}"><img height="14" src="../Themes/Aqua/LastOn.gif" width="24" border="0"></a> <!-- END Last_On -->
+                <!-- END Navigator Navigator -->
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;
+                <!-- BEGIN Button Button_Submit -->
+                    <input class="" style="FONT-SIZE: 9px; WIDTH: 70px; HEIGHT: 20px" accesskey="G"
+                            name="{Button_Name}" type="submit" value="GRABAR" {UPD_flag}
+                            title="Graba las modificaciones realizadas o Añade los detalles Nuevos">
+                <!-- END Button Button_Submit -->
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <!-- BEGIN Button Cancel -->
+                    <input class="" style="FONT-SIZE: 9px; WIDTH: 70px; HEIGHT: 20px" accesskey="G"
+                            name="{Button_Name}" type="submit" value="CANCELAR" title="Deshace los datos Modificados en el Detalle">
+                <!-- END Button Cancel -->
+                &nbsp;
+            </td>
+        </tr>
+    </table>
+</form>
+<!-- END EditableGrid CoTrTr_detalle -->
+</td>
+</tr>
+</table>
+
+<iframe style="WIDTH: 0px; HEIGHT: 0px; border:0" marginwidth="0" marginheight="0"
+        frameborder="no" name="SearchFrame" scroll="no" src=""></iframe>
+</body>
+</html>

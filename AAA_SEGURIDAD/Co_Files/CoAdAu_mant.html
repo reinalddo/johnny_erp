@@ -1,0 +1,573 @@
+<html>
+<head>
+<meta charset="UTF-8">
+<base target="_self">
+<link rel="stylesheet" type="text/css" href="../Themes/StormyWeather/Style.css">
+<link rel="stylesheet" type="text/css" href="../Themes/Menu/Style.css">
+<link rel="stylesheet" type="text/css" href="../css/tab-view.css" media="screen">
+<title>AUXILIARES: MANTENIMIENTO</title>
+<script language="JavaScript" src="../LibJava/general.js" type="text/javascript"></script>
+<script language="JavaScript" src="../LibJava/menu_func.js"></script>
+<script language="JavaScript" src="../LibJs/general.js"></script>
+<script language="JavaScript" src="../LibJava/tab-view.js"></script>
+<link rel="stylesheet" type="text/css" href="../Themes/Cobalt/Style.css">
+<script language="JavaScript">
+function fValida(pCond) 
+{
+    slHref = "../Ge_Files/ValidaGeneral.php?" +
+			 "pCond=" + pCond +
+	         "&pTabla=conpersonas" +
+			 "&pTipo=0" +
+			 "&pMensj=EXISTE UNO O MAS AUXILIARES SIMILARES, REVISE ANTES DE CREARLO" +
+			 "&pCampos=per_Apellidos" +
+			 "&pForm=CoAdAu_mant" +
+			 "&pDesti=x" +							// para que no devuelva nada
+//			 "&pPageR=../Co_Files/CoAdAU_Search.php|pOpCode@E|pCond@" + pCond.replace("=","@") +			// Ejecuta pagina de busqueda simple, sustituyr = por @
+			 "&pPageR=../Co_Files/CoAdAU_Search.php|pOpCode@E|s_keyword@" + CoAdAu_mant.per_Apellidos.value.replace("=","@") +			// Ejecuta pagina de busqueda simple, sustituyr = por @
+			 "&pFocus=per_Apellidos"  ;
+	window.frames["frValida"].location.replace(slHref);
+}
+
+function fValidaNombres() 
+{
+     
+	fValida("per_Nombres LIKE '%" + CoAdAu_mant.per_Nombres.value + "%'");
+}
+
+
+function fValidaApellidos() 
+{
+    fValida("per_Apellidos LIKE '%" + CoAdAu_mant.per_Apellidos.value + "%'");
+}
+
+/*function fValidaCedula(oControl)
+{
+var numero = oControl.value;
+var tipo=document.getElementById("per_TipoID").value;
+var suma = 0;
+var residuo = 0;
+var pri = false;
+var pub = false;
+var nat = false;
+var numeroProvincias = 22;
+var modulo = 11;
+
+var ok=1;
+
+
+d1 = numero.substr(0,1);
+d2 = numero.substr(1,1);
+d3 = numero.substr(2,1);
+d4 = numero.substr(3,1);
+d5 = numero.substr(4,1);
+d6 = numero.substr(5,1);
+d7 = numero.substr(6,1);
+d8 = numero.substr(7,1);
+d9 = numero.substr(8,1);
+d10 = numero.substr(9,1);
+
+
+if (d3==7 || d3==8){
+alert('El tercer d�gito ingresado es inv�lido');
+return false;
+}
+
+
+if (d3 < 6){
+nat = true;
+p1 = d1 * 2; if (p1 >= 10) p1 -= 9;
+p2 = d2 * 1; if (p2 >= 10) p2 -= 9;
+p3 = d3 * 2; if (p3 >= 10) p3 -= 9;
+p4 = d4 * 1; if (p4 >= 10) p4 -= 9;
+p5 = d5 * 2; if (p5 >= 10) p5 -= 9;
+p6 = d6 * 1; if (p6 >= 10) p6 -= 9;
+p7 = d7 * 2; if (p7 >= 10) p7 -= 9;
+p8 = d8 * 1; if (p8 >= 10) p8 -= 9;
+p9 = d9 * 2; if (p9 >= 10) p9 -= 9;
+modulo = 10;
+}
+
+else if(d3 == 6){
+pub = true;
+p1 = d1 * 3;
+p2 = d2 * 2;
+p3 = d3 * 7;
+p4 = d4 * 6;
+p5 = d5 * 5;
+p6 = d6 * 4;
+p7 = d7 * 3;
+p8 = d8 * 2;
+p9 = 0;
+}
+
+else if(d3 == 9) {
+pri = true;
+p1 = d1 * 4;
+p2 = d2 * 3;
+p3 = d3 * 2;
+p4 = d4 * 7;
+p5 = d5 * 6;
+p6 = d6 * 5;
+p7 = d7 * 4;
+p8 = d8 * 3;
+p9 = d9 * 2;
+}
+
+suma = p1 + p2 + p3 + p4 + p5 + p6 + p7 + p8 + p9;
+residuo = suma % modulo;
+
+
+digitoVerificador = residuo==0 ? 0: modulo - residuo;
+
+
+if (pub==true)
+{
+    if (digitoVerificador != d9)
+    {
+	alert('El ruc de la empresa del sector p�blico es incorrecto.');
+	return false;
+    }
+
+    if ( numero.substr(9,4) != '0001' ){
+	alert('El ruc de la empresa del sector p�blico debe terminar con 0001');
+	return false;
+    }
+}
+else if(pri == true)
+{
+    if (digitoVerificador != d10)
+    {
+	alert('El ruc de la empresa del sector privado es incorrecto.');
+	return false;
+    }
+    if ( numero.substr(10,3) != '001' )
+    {
+	alert('El ruc de la empresa del sector privado debe terminar con 001');
+	return false;
+    }
+}
+
+else if(nat == true)
+{
+  if (tipo == 1)
+    {
+	if (tipo == 1 && numero.length == 10)
+	{
+	    if (digitoVerificador != d10)
+	    {
+		alert('El n�mero de c�dula de la persona natural es incorrecto.');
+		return false;
+	    }
+	}
+	else
+	{
+	    alert('Usted selecciono tipo *Cedula* e ingreso un Ruc');
+	    return false;
+	}
+    }
+    else
+    {
+	if(tipo==2 && numero.length >10 && numero.substr(10,3) == '001')
+	{
+	    if (numero.length >10 && numero.substr(10,3) != '001')
+	    {
+		alert('El ruc de la persona natural debe terminar con 001');
+		return false;
+	    }
+	    else if(digitoVerificador != d10 && numero.length >10)
+	    {
+		alert('El ruc de la persona natural es incorrecto');
+		return false;
+	    }
+	}
+	else
+	{
+	    alert('Usted selecciono tipo *Ruc* e ingreso una Cedula');
+	    return false;
+	}
+    }
+}
+return true;
+}
+//////////////////////////////
+//otra validacion de la cedula
+/////////////////////////////
+/*{
+  var cedula = oControl.value;
+  array = cedula.split( "" );
+  num = array.length;
+  if ( num == 10 )
+  {
+    total = 0;
+    digito = (array[9]*1);
+    for( i=0; i<(num-1); i++ )
+    {
+      mult = 0;
+      if ( ( i%2 ) != 0 )
+        total = total + ( array[i] * 1 );
+      else
+      {
+        mult = array[i] * 2;
+        if ( mult > 9 )
+          total = total + ( mult - 9 );
+        else
+          total = total + mult;
+      }
+    }
+    decena = total / 10;
+    decena = Math.floor( decena );
+    decena = ( decena + 1 ) * 10;
+    final = ( decena - total );
+     if ( ( final == 10 && digito == 0 ) || ( final == digito ) )
+      return true;
+    else
+    {
+      alert( "La c�dula no es valida!!!" );
+      return false;
+    }
+  }
+  else
+  {
+    alert("La c�dula no puede tener menos de 10 digitos");
+    return false;
+  }  
+}*/
+
+
+//Begin CCS script
+//Include JSFunctions @1-5F368366
+  </script>
+<script language="JavaScript" src="../functions.js"></script>
+<script language="JavaScript">
+  
+//End Include JSFunctions
+
+//Include Common JSFunctions @1-73ADA5ED
+</script>
+<script language="JavaScript" src="../DatePicker.js"></script>
+<script language="JavaScript">
+//End Include Common JSFunctions
+
+//Date Picker Object Definitions @1-F9288462
+
+var CoAdAu_cate_DatePicker_cat_FecIncorp = new Object(); 
+CoAdAu_cate_DatePicker_cat_FecIncorp.format           = "dd/mm/yy";
+CoAdAu_cate_DatePicker_cat_FecIncorp.style            = "Themes/Cobalt/Style.css";
+CoAdAu_cate_DatePicker_cat_FecIncorp.relativePathPart = "../";
+
+//End Date Picker Object Definitions
+
+//page_CoAdAu_mant_Button_Delete_OnClick @261-FDCECDDB
+function page_CoAdAu_mant_Button_Delete_OnClick()
+{
+    var result;
+//End page_CoAdAu_mant_Button_Delete_OnClick
+
+//Confirmation Message @262-BED55CD3
+    return confirm('Borrar registro?');
+//End Confirmation Message
+
+//Close page_CoAdAu_mant_Button_Delete_OnClick @261-BC33A33A
+    return result;
+}
+//End Close page_CoAdAu_mant_Button_Delete_OnClick
+
+//bind_events @1-32CE03E9
+function bind_events() {
+    if (document.forms["CoAdAu_mant"]) check_and_bind('document.forms["CoAdAu_mant"].Button_Delete','onclick',page_CoAdAu_mant_Button_Delete_OnClick);
+    forms_onload();
+}
+//End bind_events
+
+window.onload = bind_events; //Assign bind_events @1-19F7B649
+
+//End CCS script
+</script>
+</head>
+<body bgcolor="#fffff7" link="#000000" alink="#ff0000" vlink="#000000" text="#000000" class="CobaltPageBODY"
+	  style="text-align:center">
+{Cabecera}
+
+    <div id="dhtmlgoodies_tabView" style="text-align:center; position:fixed">
+ <!-- ---------------------------------------------------Tab: datos Generales -----------  -->
+    <div class="dhtmlgoodies_aTab" style="Z-INDEX: -1; text-align:center; ">
+      <!-- BEGIN Record CoAdAu_mant -->&nbsp;
+      <font class="CobaltFormHeaderFont">{lbTitulo}</font>
+      <form action="{Action}" method="post" name="{HTMLFormName} style="margin:0; border:0; align:center">
+      <table border="0" cellpadding="2" class="CobaltFormTABLE" cellspacing="1" style="BORDER-RIGHT: 0px; BORDER-TOP: 0px; MARGIN: 0px; BORDER-LEFT: 0px; BORDER-BOTTOM: 0px; POSITION: fixed">
+          <!-- BEGIN Error -->
+          <tr>
+            <td class="CobaltErrorDataTD" colspan="2">{Error}</td> 
+          </tr>
+ <!-- END Error -->
+          <tr >
+            <td class="CobaltFieldCaptionTD" nowrap>APELLIDOS / RAZON SOCIAL</td> 
+            <td class="CobaltDataTD"><input class="CobaltInput" maxlength="100" name="{per_Apellidos_Name}" size="50" value="{per_Apellidos}">&nbsp;
+            </td> 
+          </tr>
+          <tr >
+            <td class="CobaltFieldCaptionTD" nowrap>NOMBRES / RAZON SOCIAL</td> 
+            <td class="CobaltDataTD"><input class="CobaltInput" maxlength="100" name="{per_Nombres_Name}" size="50" value="{per_Nombres}"></td> 
+          </tr>          
+ 
+          <tr>
+            <!-- BEGIN ListBox lbCategAux -->
+            <td class="CobaltFieldCaptionTD" nowrap>CATEGORIA INICIAL:</td> 
+            <td class="CobaltDataTD">
+              <select class="CobaltSelect" name="{lbCategAux_Name}" style="WIDTH: 176px; HEIGHT: 17px">
+                <option selected value="">- - - - - - - - - - - - - - - - - - -
+                - - - - -</option>
+ {lbCategAux_Options} 
+              </select>
+ <!-- END ListBox lbCategAux --></td> 
+          </tr>
+ 
+          <tr>
+            <td class="CobaltFieldCaptionTD" nowrap>SUB CATEGORIA</td> 
+            <td class="CobaltDataTD">
+              <select class="CobaltSelect" name="{per_Subcategoria_Name}" style="WIDTH: 154px; HEIGHT:17px">
+                <option selected value="">- - - - - - - - - - - - - - - - - - -
+                - - - - -</option>
+ {per_Subcategoria_Options} 
+              </select>
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; CODIGO: <input class="CobaltInput" name="{per_CodAuxiliar_Name}" readonly style="WIDTH: 59px; COLOR: #990000; HEIGHT: 17px" title="C�digo del Auxiliar" value="{per_CodAuxiliar}">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td> 
+          </tr>
+ 
+          <tr>
+            <td class="CobaltFieldCaptionTD" nowrap>GRUPO / CORPORACION:</td> 
+            <td class="CobaltDataTD">
+              <select class="CobaltSelect" name="{per_Grupo_Name}" style="WIDTH: 156px; HEIGHT: 17px">
+                <option selected value="">- - - - - - - - - - - - - - - - - - -
+                - - - - -</option>
+ {per_Grupo_Options} 
+              </select>
+ </td> 
+          </tr>
+ 
+          <tr>
+            <td class="CobaltFieldCaptionTD" nowrap>TIPO DE ID. / NUMERO DE ID</td> 
+            <td class="CobaltDataTD">
+              <select class="CobaltSelect" id = "per_TipoID" name="{per_TipoID_Name}" style="WIDTH: 156px; HEIGHT: 17px">
+                <option selected value="">- - - - - - - - - - - - - - - - - - -
+                - - - - -</option>
+ {per_TipoID_Options} 
+              </select>
+ &nbsp; <input class="CobaltInput" maxlength="15" onblur="fValidaCedula(this);" name="{per_Ruc_Name}" size="15" value="{per_Ruc}">&nbsp;</td> 
+          </tr>
+ 
+          <tr>
+            <td class="CobaltFieldCaptionTD" nowrap>PERSONA DE CONTACTO</td> 
+            <td class="CobaltDataTD"><input class="CobaltInput" maxlength="100" name="{per_PersonaContacto_Name}" size="50" value="{per_PersonaContacto}">&nbsp;</td> 
+          </tr>
+ 
+          <tr>
+            <td class="CobaltFieldCaptionTD" nowrap>Direccion</td>
+            <td class="CobaltDataTD"><input class="CobaltInput" maxlength="200" name="{per_Direccion_Name}" size="50" value="{per_Direccion}">&nbsp;</td>
+          </tr>
+ 
+          <tr>
+            <td class="CobaltFieldCaptionTD" nowrap>CIUDAD</td> 
+            <td class="CobaltDataTD"><input class="CobaltInput" maxlength="100" name="{per_Ciudad_Name}" size="50" value="{per_Ciudad}">&nbsp;</td> 
+          </tr>
+ 
+          <tr>
+            <td class="CobaltFieldCaptionTD" nowrap>TELÉFONOS</td> 
+            <td class="CobaltDataTD"><input class="CobaltInput" maxlength="15" name="{per_Telefono1_Name}" size="15" value="{per_Telefono1}">&nbsp; <input class="CobaltInput" maxlength="15" name="{per_Telefono2_Name}" size="15" value="{per_Telefono2}">&nbsp; <input class="CobaltInput" maxlength="15" name="{per_Telefono3_Name}" size="15" value="{per_Telefono3}"></td>
+          </tr>
+ 
+          <tr>
+            <td class="CobaltFieldCaptionTD" nowrap>PÁG. WEB / E MAIL</td> 
+            <td class="CobaltDataTD"><input class="CobaltInput" maxlength="100" name="{per_WebPage_Name}" size="25" value="{per_WebPage}">&nbsp; <input class="CobaltInput" maxlength="100" name="{per_Email_Name}" size="40" value="{per_Email}">&nbsp;</td> 
+          </tr>
+ 
+          <tr>
+            <td class="CobaltFieldCaptionTD" nowrap>PAÍS, PROV. CANTÓN PARROQUIA </td> 
+            <td class="CobaltDataTD">
+              <select class="StormyWeatherSelect" name="{per_Pais_Name}" style="FONT-SIZE: 10px; WIDTH: 83px; HEIGHT: 17px">
+                <option selected value="">- - - - - - - - - - - - - - - - - - -
+                - - - - -</option>
+ {per_Pais_Options} 
+              </select>
+ 
+              <select class="StormyWeatherSelect" name="{per_Provincia_Name}" style="FONT-SIZE: 10px; WIDTH: 77px; HEIGHT: 17px">
+                <option selected value="">- - - - - - - - - - - - - - - - - - -
+                - - - - -</option>
+ {per_Provincia_Options} 
+              </select>
+ 
+              <select class="StormyWeatherSelect" name="{per_Canton_Name}" style="FONT-SIZE: 10px; WIDTH: 82px; HEIGHT: 17px">
+                <option selected value="">- - - - - - - - - - - - - - - - - - -
+                - - - - -</option>
+ {per_Canton_Options} 
+              </select>
+ &nbsp; 
+              <select class="StormyWeatherSelect" name="{per_Parroquia_Name}" style="FONT-SIZE: 10px; WIDTH: 78px; HEIGHT: 17px">
+                <option selected value="">- - - - - - - - - - - - - - - - - - -
+                - - - - -</option>
+ {per_Parroquia_Options} 
+              </select>
+ </td> 
+          </tr>
+ 
+          <tr>
+            <td class="CobaltFieldCaptionTD" nowrap>ZONA, SUBZONA</td> 
+            <td class="CobaltDataTD">
+              <select class="StormyWeatherSelect" name="{per_Zona_Name}" style="FONT-SIZE: 10px; WIDTH: 117px; HEIGHT: 17px">
+                <option selected value="">- - - - - - - - - - - - - - - - - - -
+                - - - - -</option>
+ {per_Zona_Options} 
+              </select>
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+              <select class="StormyWeatherSelect" name="{per_SubZona_Name}" style="FONT-SIZE: 10px; WIDTH: 124px; HEIGHT: 17px">
+                <option selected value="">- - - - - - - - - - - - - - - - - - -
+                - - - - -</option>
+ {per_SubZona_Options} 
+              </select>
+ </td> 
+          </tr>
+ 
+          <tr>
+            <td class="CobaltFieldCaptionTD" nowrap>PERFIL FISCAL</td> 
+            <td class="CobaltDataTD">
+              <select class="StormyWeatherSelect" name="{per_PerFisco_Name}" style="FONT-SIZE: 10px; WIDTH: 118px; HEIGHT: 17px">
+                <option selected value="">- - - - - - - - - - - - - - - - - - -
+                - - - - -</option>
+ {per_PerFisco_Options} 
+              </select>
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+              CODIGO ANTERIOR: <input class="CobaltInput" style="WIDTH: 86px; HEIGHT: 17px" size="14" value="{per_CodAnterior}" name="{per_CodAnterior_Name}" title="C�digo Anterior. Referencia para manejar C�digos heredados por aplicaciones anteriores."></td> 
+          </tr>
+                    <tr>
+            <td class="CobaltFieldCaptionTD" nowrap>ATS: PARTE RELACIONADA</td> 
+            <td class="CobaltDataTD">
+              <select class="StormyWeatherSelect" name="{per_ParteRelacionada_Name}" style="FONT-SIZE: 10px; WIDTH: 117px; HEIGHT: 17px">
+                <option selected value="">- - - - - - - - - - - - - - - - - - -
+                - - - - -</option>
+ {per_ParteRelacionada_Options} 
+              </select>
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+ 
+ </td> 
+          </tr>
+
+          <tr>
+            <td align="left" class="CobaltFooterTD" colspan="2" nowrap title="Deshace Cambios y Permite A�adir un nuevo Auxiliar">
+              <!-- BEGIN Button Button_Insert --><input class="CobaltButton" name="{Button_Name}" type="submit" value="GRABAR"><!-- END Button Button_Insert -->
+              <!-- BEGIN Button Button_Update --><input class="CobaltButton" name="{Button_Name}" type="submit" value="GRABAR"><!-- END Button Button_Update -->
+              <!-- BEGIN Button Button_Delete --><input class="CobaltButton" name="{Button_Name}" type="submit" value="ELIMINAR"><!-- END Button Button_Delete -->
+              <!-- BEGIN Button Button_Cancel --><input class="CobaltButton" name="{Button_Name}" type="submit" value="CANCELAR"><!-- END Button Button_Cancel -->&nbsp; 
+              <!-- BEGIN Button Button1 --><input class="CobaltButton" name="{Button_Name}" title="Cancela modificaiones y Regresa a B�squeda de Auxiliares" type="submit" value="REGRESAR.."><!-- END Button Button1 -->&nbsp;&nbsp;<a class="CobaltDataLink" style="COLOR: #99cccc" href="{lkNuevo_Src}">Nuevo</a></td> 
+          </tr>
+ 
+        </table>
+ 
+      </form>
+ <!-- END Record CoAdAu_mant --></td> 
+    </div >
+<!-- ---------------------------------------------------Tab: Categorias  -----------  -->
+    <div class="dhtmlgoodies_aTab" style="Z-INDEX: -1; text-align:center">
+	<font class="CobaltFormHeaderFont">{lbTitulo}</font>
+    <table border="0" cellpadding="2" class="CobaltFormTABLE" cellspacing="1" >
+	<tr>
+	    <td class="CobaltFieldCaptionTD" nowrap>APELLIDOS, NOMBRES / RAZON SOCIAL</td>
+	    <td class="CobaltDataTD"><input class="CobaltInputSB" readonly  maxlength="100" name="{per_Apellidos_Name}" size="25" value="{per_Apellidos}">&nbsp; <input class="CobaltInputSB" readonly  maxlength="100" name="{per_Nombres_Name}" size="25" value="{per_Nombres}"></td>
+    </tr>
+	</table>
+    <!-- BEGIN EditableGrid CoAdAu_cate --> &nbsp;
+      <form action="{Action}" method="post" name="{HTMLFormName}">
+        <font class="CobaltFormHeaderFont"></font> <input name="FormState" type="hidden" value="{FormState}">{FormScript}
+        <table border="0" cellpadding="0" class="CobaltFormTABLE" cellspacing="1">
+          <!-- BEGIN Error -->
+
+          <tr>
+            <td class="CobaltErrorDataTD" colspan="6">{Error}</td> 
+          </tr>
+ <!-- END Error -->
+          <tr>
+            <td class="CobaltColumnTD" nowrap>&nbsp;</td> 
+            <td class="CobaltColumnTD" nowrap>
+              <!-- BEGIN Sorter Sorter_cat_Categoria --><a class="CobaltSorterLink" href="{Sort_URL}">&nbsp;CATEGORIA </a> 
+              <!-- BEGIN Asc_On --><img height="9" src="../Themes/Cobalt/AscOn.gif" width="13" border="0"><!-- END Asc_On -->
+              <!-- BEGIN Desc_On --><img height="9" src="../Themes/Cobalt/DescOn.gif" width="13" border="0"><!-- END Desc_On --><!-- END Sorter Sorter_cat_Categoria -->&nbsp;</td> 
+            <td class="CobaltColumnTD" nowrap>
+              <!-- BEGIN Sorter Sorter_cat_FecIncorp --><a class="CobaltSorterLink" href="{Sort_URL}">FEC.
+              INCORP </a> 
+              <!-- BEGIN Asc_On --><img height="9" src="../Themes/Cobalt/AscOn.gif" width="13" border="0"><!-- END Asc_On -->
+              <!-- BEGIN Desc_On --><img height="9" src="../Themes/Cobalt/DescOn.gif" width="13" border="0"><!-- END Desc_On --><!-- END Sorter Sorter_cat_FecIncorp --></td> 
+            <td class="CobaltColumnTD" nowrap>
+              <!-- BEGIN Sorter Sorter_cat_Activo -->ESTADO 
+              <!-- BEGIN Asc_On --><img height="9" src="../Themes/Cobalt/AscOn.gif" width="13" border="0"><!-- END Asc_On -->
+              <!-- BEGIN Desc_On --><img height="9" src="../Themes/Cobalt/DescOn.gif" width="13" border="0"><!-- END Desc_On --><!-- END Sorter Sorter_cat_Activo -->&nbsp;</td> 
+            <td class="CobaltColumnTD" nowrap>&nbsp; x</td> 
+          </tr>
+ 
+          <!-- BEGIN Row -->
+          <!-- BEGIN RowError -->
+          <tr>
+            <td class="CobaltErrorDataTD" colspan="6">{Error}</td> 
+          </tr>
+ <!-- END RowError -->
+          <tr>
+            <td class="CobaltDataTD"><input name="{cat_CodAuxiliar_Name}" style="WIDTH: 0px; HEIGHT: 22px" type="hidden" value="{cat_CodAuxiliar}">&nbsp;</td> 
+            <td class="CobaltDataTD">
+              <select class="CobaltSelect" name="{cat_Categoria_Name}" style="WIDTH: 114px; HEIGHT: 22px">
+                <option selected value="">- - - - - - - - - - - - - - - - - - -
+                - - - - -</option>
+ {cat_Categoria_Options} 
+              </select>
+ &nbsp;</td> 
+            <td class="CobaltDataTD"><input class="CobaltInput" maxlength="10" name="{cat_FecIncorp_Name}" size="10" value="{cat_FecIncorp}" style="WIDTH: 56px; HEIGHT: 20px" title="Fecha en la que se incia con esta categor�a">
+              <!-- BEGIN DatePicker DatePicker_cat_FecIncorp --><a class="CobaltDataLink" href="javascript:showDatePicker('{Name}','{FormName}','{DateControl}');"><img height="15" src="../Themes/DatePicker/DatePicker1.gif" width="17" border="0"></a> <!-- END DatePicker DatePicker_cat_FecIncorp -->&nbsp; </td> 
+            <td class="CobaltDataTD">
+              <select class="CobaltSelect" name="{cat_Activo_Name}" style="WIDTH: 61px; HEIGHT: 22px">
+                <option selected value="">-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;- </option>
+ {cat_Activo_Options} 
+              </select>
+ &nbsp;</td> 
+            <td class="CobaltDataTD">
+              <!-- BEGIN CheckBox CheckBox_Delete --><input class="CobaltInput" name="{CheckBox_Delete_Name}" type="checkbox" value="1" title="Marque este casillero so desea eliminar el registro" {CheckBox_Delete}><!-- END CheckBox CheckBox_Delete -->&nbsp;</td> 
+          </tr>
+ <!-- END Row -->
+          <!-- BEGIN NoRecords -->
+          <tr>
+            <td class="CobaltDataTD" colspan="6">No hay registros&nbsp;</td> 
+          </tr>
+ <!-- END NoRecords -->
+          <tr>
+            <td align="right" class="CobaltFooterTD" colspan="6" nowrap>
+              <!-- BEGIN Navigator Navigator -->
+              <!-- BEGIN Prev_On --><a class="CobaltNavigatorLink" href="{Prev_URL}"><img height="13" src="../Themes/Cobalt/PrevOn.gif" width="35" border="0"></a><!-- END Prev_On -->
+              <!-- BEGIN Next_On --><a class="CobaltNavigatorLink" href="{Next_URL}"><img height="13" src="../Themes/Cobalt/NextOn.gif" width="34" border="0"></a><!-- END Next_On --><!-- END Navigator Navigator -->&nbsp; 
+              <!-- BEGIN Button Button_Submit --><input class="CobaltButton" name="{Button_Name}" type="submit" value="Enviar"><!-- END Button Button_Submit -->&nbsp; 
+              <!-- BEGIN Button Cancel --><input class="CobaltButton" name="{Button_Name}" type="submit" value="Cancelar"><!-- END Button Cancel -->&nbsp; </td> 
+          </tr>
+ 
+        </table>
+ 
+      </form>
+ <!-- END EditableGrid CoAdAu_cate --></td> 
+  </tr>
+ 
+  <tr>
+    <td colspan="2">&nbsp;<iframe name="frValida" frameborder="0" style="WIDTH: 0px; HEIGHT: 0px"></iframe></td> 
+  </tr>
+  </div >
+<!-- ---------------------------------------------------Tab: Variables  -----------  -->
+
+<!-- ---------------------------------------------------Tab: Categorias  -----------  -->
+  <div class="dhtmlgoodies_aTab" style="Z-INDEX: -1; TEXT-ALIGN: center">{CoAdAu_varimant}
+    <table border="0" cellpadding="2" class="CobaltFormTABLE" cellspacing="1" >
+	<tr>
+	    <td class="CobaltFieldCaptionTD" nowrap>APELLIDOS, NOMBRES / RAZON SOCIAL</td>
+	    <td class="CobaltDataTD"><input class="CobaltInputSB" readonly   maxlength="25" name="{per_Apellidos_Name}" size="25" value="{per_Apellidos}">&nbsp; <input class="CobaltInputSB" readonly  maxlength="25" name="{per_Nombres_Name}" size="25" value="{per_Nombres}"></td>
+    </tr>
+	</table>
+  </div>
+</div>
+
+<script type="text/javascript">
+initTabs(Array('<strong>D</strong>ATOS GENERALES','<strong>C</strong>ATEGORIAS A LAS QUE PERTENECE','DATOS <strong>V</strong>ARIABLES'),0,630,330, false,Array('D','C','V'));
+</script>
+</body>
+</html>

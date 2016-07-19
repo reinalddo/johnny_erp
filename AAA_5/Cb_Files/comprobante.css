@@ -1,0 +1,168 @@
+.HEADER {
+	font-family: "arial","verdana";
+	font-size: 10px;
+	color: #000000;
+	background: #FFFFFF;
+}
+.HEADER_REP_CENTER {
+	font-family: "tahoma";
+	font-size: 11px;
+	color: #505050;
+	background: #FFFFFF;
+	font-weight: bold;
+	text-align:center;
+}
+.HEADER_REP_LEFT {
+	font-family: "tahoma";
+	font-size: 11px;
+	color: #505050;
+	background: #FFFFFF;
+	font-weight: bold;
+	text-align:left;
+}
+.HEADER_REP_RIGHT {
+	font-family: "tahoma";
+	font-size: 11px;
+	color: #505050;
+	background: #FFFFFF;
+	font-weight: bold;
+	text-align:right;
+}
+
+.HEADER_DET{
+	border-bottom:#999999 1px solid;
+	border-top:#999999 1px solid;
+	border-left:#999999 1px solid;
+	border-right:#999999 1px solid;
+}
+.TITULOS_CAB {
+	font-family: "tahoma";
+	font-size: 11px;
+	color: #505050;
+	font-weight: bold;
+}							
+.HEADER_CAB_COL_LEFT {
+	font-family: "tahoma";
+	font-size: 11px;
+	color: #505050;
+	background: #FFFFFF;
+	font-weight: normal;
+	width:250px;
+}
+.HEADER_CAB_COL_RIGHT {
+	font-family: "tahoma";
+	font-size: 11px;
+	color: #505050;
+	background: #FFFFFF;
+	font-weight: normal;
+	width:250px;
+	text-align:right;
+	
+}
+.HEADER_DET_COL_CTA-AUX {
+	font-family: "tahoma";
+	font-size: 11px;
+	color: #505050;
+	background: #FFFFFF;
+	font-weight: bold;
+	
+	text-align:center;
+	border-right:#999999 1px solid;
+}
+
+.HEADER_DET_COL_DESCRIPCION {
+	font-family: "tahoma";
+	font-size: 11px;
+	color: #505050;
+	background: #FFFFFF;
+	font-weight: bold;
+	
+	text-align:center;
+	border-right:#999999 1px solid;
+}
+.HEADER_DET_COL_CHEQ
+{
+	font-family: "tahoma";
+	font-size: 11px;
+	color: #505050;
+	background: #FFFFFF;
+	font-weight: bold;
+	
+	text-align:center;
+	border-right:#999999 1px solid;
+}
+.HEADER_DET_COL_DEBITO
+{
+	font-family: "tahoma";
+	font-size: 11px;
+	color: #505050;
+	background: #FFFFFF;
+	font-weight: bold;
+	
+	text-align:center;
+	border-right:#999999 1px solid;
+	
+}
+.HEADER_DET_COL_CREDITO{
+	font-family: "tahoma";
+	font-size: 11px;
+	color: #505050;
+	background: #FFFFFF;
+	font-weight: bold;
+	
+	text-align:center;
+}
+
+.FOOTER {
+	font-family: "tahoma","verdana";
+	font-size: 10px;
+	color: #505050;
+	background: #FFFFFF;
+}
+
+.FIELDS {
+	font-family: "arial","verdana";
+	font-size: 10px;
+	color: #000000;
+	background: #FEFEFE;
+}
+
+.EVEN {
+	font-family: "arial","verdana";
+	font-size: 10px;
+	color: #000000;
+	background: #95CDED;
+}
+
+.ODD {
+	font-family: "arial","verdana";
+	font-size: 10px;
+	color: #000000;
+	background: #BDDFF3;
+}
+
+.BOLD {
+	font-weight: bold;
+}
+
+.BOLDRED {
+	color: #FF0000;
+	font-weight: bold;
+}
+
+.PHPREPORTS_PAGE_CELL {
+	font-family:"verdana","arial";
+	font-size:12px;
+	color:#000000;
+}
+
+.PHPREPORTS_PAGE_LINK {
+	font-family:"verdana","arial";
+	font-size:12px;
+	color:#000000;
+}
+
+.PHPREPORTS_PAGE_LINK_BOLD {
+	font-size:16px;
+	font-weight:bold;
+}

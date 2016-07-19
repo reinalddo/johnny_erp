@@ -1,0 +1,160 @@
+<html>
+<head>
+<title>CUENTAS: BUSQUEDA</title>
+<base target="_self">
+<link rel="stylesheet" type="text/css" href="../Themes/StormyWeather/Style.css">
+<link rel="stylesheet" type="text/css" href="../Themes/Menu/Style.css">
+<link rel="stylesheet" type="text/css" href="../Themes/Cobalt/Style.css">
+<script language="JavaScript1.3" src="../LibJava/general.js"></script>
+<script language="javascript1.3">
+
+function fPasaDatos(slContr) {
+    window.opener.parent.top.mAuxConsulFlag = false;
+    window.onerror = prueba;
+	i = fTraefila(slContr)-1; 
+	{tvElegir} }
+function prueba(msg, url, lno)
+ {   alert("ERROR:" + msg + "\n" + url + "\n " + lno )
+     return true
+}
+
+//document.onload=fEnfoca('Button1_1');
+</script>
+</head>
+<body bgcolor="#fffff7" link="#000099" alink="#ff0000" vlink="#9999cc" text="#000000" class="CobaltPageBODY" style="PADDING-RIGHT: 0px; PADDING-LEFT: 0px; PADDING-BOTTOM: 0px; PADDING-TOP: 0px; magin: 0; spacing: 0" bottommargin="0" nowrap leftmargin="0" topmargin="0" rightmargin="0" marginwidth="0" marginheight="0">
+<table border="0" align="center" width="100%" cellspacing="0" cellpadding="0"
+       style="border-collapse:collapse font-size:x-small" valign="top">
+  <tr>
+    <td align="middle" valign="top">
+     <!-- BEGIN Record CoAdCu_search -->
+      <form action="{Action}" method="post" name="{HTMLFormName}"
+            style="padding:0; border:0 groove blue ; spacing:0; margin:0; border-collapse:collapse">
+        <font class="CobaltFormHeaderFont">BUSCAR </font>
+        <table  border="0" cellpadding="1" cellspacing="1"
+                style="padding:0; border-collapse:collapse; font-size:x-small">
+          <!-- BEGIN Error -->
+          <tr>
+            <td class="CobaltErrorDataTD" colspan="1">{Error}</td>
+          </tr>
+          <!-- END Error -->
+          <tr>
+            <td class="CobaltFieldCaptionTD" nowrap></td> 
+            <td class="CobaltFooterTD">&nbsp;
+                <input  class="CobaltInput" maxlength="25" name="{s_keyword_Name}" size="25" tabindex="2"
+                        value="{s_keyword}" style="WIDTH: 259px; HEIGHT: 20px" accesskey="b" id="s_keyword"
+                        title="Código, o Descripcion que se buscará en el plan de cuentas"> &nbsp;&nbsp; </td>
+            <td class="CobaltFooterTD">
+              <!-- BEGIN Button Button_DoSearch -->
+                <input  class="CobaltLink" name="{Button_Name}" type="submit" value="BUSCAR .." tabindex="2"
+                        title="Aplicar la condición de bùsqueda"><!-- END Button Button_DoSearch -->&nbsp;&nbsp;
+                <a class="CobaltSorterLink" title="Eliminar la condición de bùsqueda y presentar todas las cuentas"
+                    tabindex="2" href="{ClearParameters_Src}">&nbsp;VER TODAS </a>&nbsp;&nbsp;&nbsp;&nbsp; </td>
+          </tr>
+        </table>
+      </form>
+ <!-- END Record CoAdCu_search -->
+      <!-- BEGIN EditableGrid CoAdCu_list -->
+      <font class="CobaltFormHeaderFont">Lista de Cuentas </font>
+      <form name="{HTMLFormName}" id="componentlist"  action="{Action}" method="post" style=" margin:0; border: none; border-collapse: collapse">
+        <input  type="hidden" value="{FormState}" name="FormState" style="height:2px">{FormScript}
+        <table cellpadding="0" border="0" cellspacing="1" width="100%" style=" margin:0; padding:0; border:none; border-collapse:collapse; font-size:x-small; empty-cells:hide">
+        <input  type="hidden" name="{num_Recs_Name}" value="{num_Recs}" maxlength="1" size="1" type = "text" readonly title=" ">&nbsp;
+          <!-- BEGIN Error -->
+          <tr>
+            <td class="CobaltErrorDataTD" colspan="4">{Error}</td> 
+          </tr>
+          <!-- END Error -->
+          <tr align="left">
+            <td class="CobaltFooterTD" nowrap align="left" colspan="4">
+              <!-- BEGIN Navigator Navigator -->
+              <!-- BEGIN First_On --><a class="CobaltNavigatorLink" href="{First_URL}"><img title="Presentar Primera Pág. de resultados" src="../Themes/Aqua/FirstOn.gif" border="0"></a> <!-- END First_On -->
+              <!-- BEGIN First_Off --><img title="Esta es la Primera Pág. de resultados" src="../Themes/Aqua/FirstOff.gif" border="0"><!-- END First_Off -->
+              <!-- BEGIN Prev_On --><a class="CobaltNavigatorLink" href="{Prev_URL}"><img title="Presentar Pág. Anterior de resultados" src="../Themes/Aqua/PrevOn.gif" border="0"></a> <!-- END Prev_On -->
+              <!-- BEGIN Prev_Off --><img title="No hay Pág. Anterior" src="../Themes/Aqua/PrevOff.gif" border="0"><!-- END Prev_Off -->&nbsp;{Page_Number}&nbsp;de
+              {Total_Pages}&nbsp; 
+              <!-- BEGIN Next_On --><a class="CobaltNavigatorLink" href="{Next_URL}"><img title="Presentar Pág. Siguiente de resultados" src="../Themes/Aqua/NextOn.gif" border="0"></a> <!-- END Next_On -->
+              <!-- BEGIN Next_Off --><img title="No hay Pág. Siguiente" src="../Themes/Aqua/NextOff.gif" border="0"><!-- END Next_Off -->
+              <!-- BEGIN Last_On --><a class="CobaltNavigatorLink" href="{Last_URL}"><img title="Presentar la Última Pág. de resultados" src="../Themes/Aqua/LastOn.gif" border="0"></a> <!-- END Last_On -->
+              <!-- BEGIN Last_Off --><img title="Esta es la última Pág. de Resultados" src="../Themes/Aqua/LastOff.gif" border="0"><!-- END Last_Off --><!-- END Navigator Navigator -->&nbsp; </td> 
+          </tr>
+ 
+          <tr cellspacing="0" align="middle">
+            <td class="CobaltColumnTD" nowrap>
+              <!-- BEGIN Sorter Sorter_Cue_CodCuenta --><a class="CobaltSorterLink" href="{Sort_URL}" onfocus="fEnfoca('Button1_1')" tabindex="999" >CODIGO</a>
+              <!-- BEGIN Asc_On --><img src="../Themes/Cobalt/AscOn.gif" border="0" tabindex="999"><!-- END Asc_On -->
+              <!-- BEGIN Desc_On --><img src="../Themes/Cobalt/DescOn.gif" border="0" tabindex="999"><!-- END Desc_On --><!-- END Sorter Sorter_Cue_CodCuenta -->&nbsp;</td>
+            <td class="CobaltColumnTD" nowrap align="middle">
+              <!-- BEGIN Sorter Sorter_cue_Descripcion --><a class="CobaltSorterLink" href="{Sort_URL}" tabindex="999">DESCRIPCIÓN</a>&nbsp;
+              <!-- BEGIN Asc_On --><img src="../Themes/Cobalt/AscOn.gif" border="0" tabindex="999"><!-- END Asc_On -->
+              <!-- BEGIN Desc_On --><img src="../Themes/Cobalt/DescOn.gif" border="0" tabindex="999"><!-- END Desc_On --><!-- END Sorter Sorter_cue_Descripcion -->&nbsp;</td>
+            <td class="CobaltColumnTD" nowrap>
+              <!-- BEGIN Sorter Sorter_cue_TipAuxiliar --><a class="CobaltSorterLink" href="{Sort_URL}" tabindex="999">TIPO
+              AUXILIAR</a>&nbsp; 
+              <!-- BEGIN Asc_On --><img src="../Themes/Cobalt/AscOn.gif" border="0" tabindex="999"><!-- END Asc_On -->
+              <!-- BEGIN Desc_On --><img src="../Themes/Cobalt/DescOn.gif" border="0" tabindex="999"><!-- END Desc_On --><!-- END Sorter Sorter_cue_TipAuxiliar -->&nbsp;</td>
+            <td class="CobaltColumnTD" nowrap>
+              <!-- BEGIN Sorter Sorter_cue_ReqRefOperat --><a class="CobaltSorterLink" href="{Sort_URL}" tabindex="999">R.O</a>.&nbsp;
+              <!-- BEGIN Asc_On --><img src="../Themes/Cobalt/AscOn.gif" border="0" tabindex="999"><!-- END Asc_On -->
+              <!-- BEGIN Desc_On --><img src="../Themes/Cobalt/DescOn.gif" border="0" tabindex="999"><!-- END Desc_On --><!-- END Sorter Sorter_cue_ReqRefOperat -->&nbsp;</td>
+          </tr>
+          <!-- BEGIN Row -->
+          <!-- BEGIN RowError -->
+          <tr>
+            <td class="CobaltErrorDataTD" colspan="4">{Error}</td> 
+          </tr>
+          <!-- END RowError -->
+          <tr valign="top" style="FONT-SIZE: x-small"  id="row">
+            <td class="CobaltDataTD"  nowrap >
+              <!-- BEGIN Button Button1 -->
+                <input  class="CobaltDataTD" onclick="fPasaDatos(this.name) ;"  tabindex="1"
+                        style="BORDER-TOP-WIDTH: 0px; BORDER-LEFT-WIDTH: 0px; BORDER-BOTTOM-WIDTH: 0px; MARGIN: 0px; WIDTH: 8px; HEIGHT: 10px; TEXT-ALIGN: left; BORDER-RIGHT-WIDTH: 0px"
+                        type="button" value=" >" name="{Button_Name}"
+                        title="Presione este botón para seleccionar la cuenta."
+                        onfocus="fCambiarFondo(this.parentNode.parentNode, '#CCCCCC')"
+                        onblur="fCambiarFondo(this.parentNode.parentNode, '')">
+              <!-- END Button Button1 -->&nbsp;
+              <input name="{cue_CodCuenta_Name}" value="{cue_CodCuenta}" maxlength="15" size="15" tabindex="999"
+                     class="CobaltInputSB" id="cue_CodCuenta" readonly style="WIDTH: 93px; HEIGHT: 13px">&nbsp;
+            </td>
+            <td class="CobaltDataTD" >
+                <input  name="{cue_Texto_Name}" value="{cue_Texto}" maxlength="80" size="64" class="CobaltInputSB"
+                        id="cue_Texto" readonly style="WIDTH: 408px; HEIGHT: 13px" tabindex="999">
+                <input  style="WIDTH:  5px;  HEIGHT:  5px" type="hidden" size="7" tabindex="999"
+                        value="{aux_Clase}" name="{aux_Clase_Name}" id="aux_Clase">
+			    <input   style="WIDTH:  5px;  HEIGHT:  5px" type="hidden" size="7" tabindex="999"
+                        value="{cue_Descripcion}" name="{cue_Descripcion_Name}" id="cue_Descripcion">
+            </td>
+		    <td class="CobaltDataTD" align="middle" >
+                <input  name="{par_Descripcion_Name}" value="{par_Descripcion}" maxlength="15" size="10" tabindex="999"
+                        class="CobaltInputSB" readonly title="Tipo de Auxiliar que se utiliza con esta cuenta. (N.D = No Definido)"
+                        style="WIDTH: 95px; HEIGHT: 13px">&nbsp;
+            </td>
+            <td class="CobaltDataTD" align="middle" >
+                <input  type="hidden" name="{cue_TipAuxiliar_Name}" value="{cue_TipAuxiliar}" tabindex="999"
+                        style="WIDTH:10px; HEIGHT:8px" size="2" id="cue_TipAuxiliar">
+                <input  name="{cue_Ro_Name}" value="{cue_Ro}" style="HEIGHT:  13px" maxlength="4" size="4" tabindex="999"
+                        class="CobaltInputSB" readonly title="Requiere Referencia Operativa (0= No,   1= Sí)">
+                <input  style="WIDTH:8px;  HEIGHT:7px" type="hidden" size="3" value="{cue_ReqAuxiliar}" tabindex="999"
+                        name="{cue_ReqAuxiliar_Name}" id="cue_ReqAuxiliar">
+                <input  id="cue_ReqRefOperat" style="WIDTH: 5px; HEIGHT: 5px" type="hidden" size="2" tabindex="999"
+                        value="{cue_ReqRefOperat}" name="{cue_ReqRefOperat_Name}">
+            </td>
+          </tr>
+          <!-- END Row -->
+          <tr style="HEIGHT:5">
+            <td class="CobaltFooterTD" colspan="4">&nbsp;</td>
+          </tr>
+          <!-- BEGIN NoRecords -->
+          <tr>
+            <td class="CobaltDataTD"  colspan="4">No hay cuentas para el criterio elegido&nbsp;</td>
+          </tr>
+          <!-- END NoRecords -->
+        </table>
+ 
+      </form>
+ <!-- END EditableGrid CoAdCu_list -->
+   </td>
+  </tr>
+</table>
+ </body>
+</html>

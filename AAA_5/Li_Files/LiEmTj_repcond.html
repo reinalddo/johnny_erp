@@ -1,0 +1,342 @@
+<html>
+<head>
+<base target="_self">
+<link rel="stylesheet" type="text/css" href="../Themes/Cobalt/Style.css">
+<link rel="stylesheet" type="text/css" href="../Themes/Menu/Style.css">
+<title>CRITERIO PARA REPORTE DE TARJAS</title>
+<script language="JavaScript" src="../LibJava/menu_func.js"></script>
+<script language="JavaScript" src="../LibJava/general.js"></script>
+<script language="JavaScript" src="../LibJava/validations.js"></script>
+<script language="JavaScript" src="../LibJava/construct.js"></script>
+<script language="JavaScript1.3">
+gaCampos = new Array();
+gaCampos["emb_AnoOperacion"   ] = new oCampo( "N", "Año");
+gaCampos["emb_SemInicio"      ] = new oCampo( "N", "Sem. Inicio");
+gaCampos["emb_SemTermino"     ] = new oCampo( "N", "Sem. Termino");
+gaCampos["emb_FecZarpe"       ] = new oCampo( "F", "Fecha Zarpe");
+gaCampos["emb_NumViaje"       ] = new oCampo( "N", "Viaje #");
+gaCampos["emb_FecInicio"      ] = new oCampo( "F", "Fecha inicio");
+gaCampos["emb_FecTermino"     ] = new oCampo( "F", "Fecha termino");
+gaCampos["emb_Estado"         ] = new oCampo( "N", "Estado");
+gaCampos["tac_NumLiquid"      ] = new oCampo( "N", "Liquid #");
+gaCampos["tac_Semana"         ] = new oCampo( "N", "Semana");
+gaCampos["tac_Fecha"          ] = new oCampo( "F", "Fecha");
+gaCampos["tad_Observaciones"  ] = new oCampo( "C", "Observ.");
+gaCampos["emb_CodVapor"       ] = new oCampo( "N", "Vapor");
+gaCampos["emb_Destino"        ] = new oCampo( "N", "Destino");
+gaCampos["emb_Consignatario"  ] = new oCampo( "N", "Consign.");
+gaCampos["emb_TipoVenta"      ] = new oCampo( "N", "Venta");
+gaCampos["tac_Zona"           ] = new oCampo( "N", "Zona");
+gaCampos["tac_GrupLiquidacion"] = new oCampo( "N", "Grupo");
+gaCampos["tac_Embarcador"     ] = new oCampo( "N", "Productor");
+gaCampos["tac_UniProduccion"  ] = new oCampo( "N", "Hacienda");
+gaCampos["tac_PueRecepcion"   ] = new oCampo( "N", "Puerto");
+gaCampos["tad_CodProducto"    ] = new oCampo( "N", "Producto");
+gaCampos["tad_CodMarca"       ] = new oCampo( "N", "Marca");
+gaCampos["tad_CodEmpaque"     ] = new oCampo( "N", "Empaque");
+
+function fEjecuta(pUrl, pTipo){
+	pTipo=pTipo||0;
+	fInicializaQuery();
+
+	if (pUrl.length < 3 ) {
+		alert("NO SE HA DEFINIDO EL REPORTE A EJECUTAR");
+		return false;
+		}
+	else slUrl = pUrl;
+	if (String(slUrl).indexOf('?') < 1) slUrl+= '?';
+//alert(slUrl);	
+    if (fGeneraQry(pTipo)) {
+		if (gaString['qry'].length > 0 ) {
+			if (pTipo == 0)
+				slUrl += "pQryTar=" + gaString['qry'] + "&pCond=" + gaString['txt'];
+			else slUrl += gaString['qry'] + "&pCond=" + gaString['txt'];
+		}
+		fAbrirWin(slUrl, 'w', 'menubar=1 ', 900, 800)
+	}
+	
+	if (gaString['err'] > 0) {
+		alert ("HA DEFINIDO MAL EL CRITERIO DE SELECCION: " + gaString['txt']);
+	}
+	return false;
+}
+function fEjecutaOp(pUrl, pTipo){
+	pTipo=pTipo||0;
+	fInicializaQuery();
+
+	if (pUrl.length < 3 ) {
+		alert("NO SE HA DEFINIDO EL REPORTE A EJECUTAR");
+		return false;
+		}
+	else slUrl = pUrl;
+	if (String(slUrl).indexOf('?') < 1) slUrl+= '?';
+//alert(slUrl);	
+    if (fGeneraQry(pTipo)) {
+		if (gaString['qry'].length > 0 ) {
+		    slUrl += "pQryTar=" + gaString['qry'] + "&pCond=" + gaString['txt'];
+		}
+		fAbrirWin(slUrl, 'w', 'menubar=1 ', 900, 800)
+	}
+	
+	if (gaString['err'] > 0) {
+		alert ("HA DEFINIDO MAL EL CRITERIO DE SELECCION: " + gaString['txt']);
+	}
+	return false;
+}
+
+//Begin CCS script
+//Include Common JSFunctions @1-73ADA5ED
+</script>
+<script language="JavaScript" src="../DatePicker.js"></script>
+<script language="JavaScript">
+//End Include Common JSFunctions
+
+//Date Picker Object Definitions @1-BB148483
+
+var liqembarquesSearch_DatePicker_s_emb_FecZarpe = new Object(); 
+liqembarquesSearch_DatePicker_s_emb_FecZarpe.format           = "dd/mm/yy";
+liqembarquesSearch_DatePicker_s_emb_FecZarpe.style            = "Li_Files/../Themes/Default/Style.css";
+liqembarquesSearch_DatePicker_s_emb_FecZarpe.relativePathPart = "../";
+
+var liqembarquesSearch_DatePicker_s_emb_FecInicio = new Object(); 
+liqembarquesSearch_DatePicker_s_emb_FecInicio.format           = "dd/mm/yy";
+liqembarquesSearch_DatePicker_s_emb_FecInicio.style            = "Li_Files/../Themes/Default/Style.css";
+liqembarquesSearch_DatePicker_s_emb_FecInicio.relativePathPart = "../";
+
+var liqembarquesSearch_DatePicker_s_emb_FecTermino = new Object(); 
+liqembarquesSearch_DatePicker_s_emb_FecTermino.format           = "dd/mm/yy";
+liqembarquesSearch_DatePicker_s_emb_FecTermino.style            = "Li_Files/../Themes/Default/Style.css";
+liqembarquesSearch_DatePicker_s_emb_FecTermino.relativePathPart = "../";
+
+var liqembarquesSearch_DatePicker1 = new Object(); 
+liqembarquesSearch_DatePicker1.format           = "dd/mm/yy";
+liqembarquesSearch_DatePicker1.style            = "Themes/Cobalt/Style.css";
+liqembarquesSearch_DatePicker1.relativePathPart = "../";
+
+//End Date Picker Object Definitions
+
+//End CCS script
+</script>
+</head>
+<body bgcolor="#fffff7" link="#000000" alink="#ff0000" vlink="#000000" text="#000000" class="CobaltPageBODY" style="PADDING-RIGHT: 0px; PADDING-LEFT: 0px; PADDING-BOTTOM: 0px; PADDING-TOP: 0px; magin: 0; spacing: 0" bottommargin="0" nowrap leftmargin="0" topmargin="17" rightmargin="0" marginwidth="0" marginheight="0">
+{Cabecera} 
+<table background="../Themes/Cobalt/Light Streaks.bmp" border="0" width="100%" class="CobaltPageBODY">
+  <tr>
+    <td align="middle" width="100%">&nbsp; 
+      <!-- BEGIN Record liqembarquesSearch -->
+      <form method="post" action="{Action}" name="{HTMLFormName}">
+        <font color="#546785">REPORTES DE TARJAS<font class="CobaltFormHeaderFont"></font></font> 
+        <div class="normalbox" style="PADDING-RIGHT: 4px; PADDING-LEFT: 4px; PADDING-BOTTOM: 4px; MARGIN: 20px; PADDING-TOP: 4px; TEXT-ALIGN: left">
+          <span class="spantitle" style="LEFT: 0px; POSITION: relative; TOP: -10px">&nbsp;
+          &nbsp; CONDICIONES DE EMBARQUE&nbsp; &nbsp; </span> 
+          <table align="center" border="0" cellpadding="1" class="CobaltFormTABLE" cellspacing="1">
+            <!-- BEGIN Error -->
+            <tbody>
+              <tr>
+                <td colspan="2" class="CobaltErrorDataTD">{Error} </td> 
+              </tr>
+              <!-- END Error -->
+              <tr>
+                <td nowrap class="CobaltFieldCaptionTD">AÑo Operacion&nbsp; </td> 
+                <td class="CobaltDataTD"><input name="{emb_AnoOperacion_Name}" value="{emb_AnoOperacion}" maxlength="10" size="10" class="CobaltInput">&nbsp; </td> 
+                <td nowrap class="CobaltFieldCaptionTD">Sem. Inicio&nbsp; </td> 
+                <td class="CobaltDataTD"><input name="{emb_SemInicio_Name}" value="{emb_SemInicio}" maxlength="5" size="5" class="CobaltInput" title="SEMANA DE INICIO DEL EMBARQUE (PARA VAPORES QUE TARDAN MAS DE UNA SEMANA)">&nbsp; </td> 
+                <td nowrap class="CobaltFieldCaptionTD">Sem. Termino&nbsp; </td> 
+                <td class="CobaltDataTD"><input name="{emb_SemTermino_Name}" value="{emb_SemTermino}" maxlength="5" size="5" class="CobaltInput" title="SEMANA DE TERMINO DEL EMBARQUE (PARA VAPORES QUE TARDAN MAS DE UNA SEMANA)">&nbsp; </td> 
+                <td nowrap class="CobaltFieldCaptionTD">FecHA Zarpe&nbsp; </td> 
+                <td class="CobaltDataTD"><input name="{emb_FecZarpe_Name}" value="{emb_FecZarpe}" maxlength="8" size="8" class="CobaltInput">
+                  <!-- BEGIN DatePicker DatePicker_s_emb_FecZarpe --><a class="CobaltDataLink" href="javascript:showDatePicker('{Name}','{FormName}','{DateControl}');"><img height="15" src="../Themes/DatePicker/DatePicker1.gif" width="17" border="0"></a><!-- END DatePicker DatePicker_s_emb_FecZarpe -->&nbsp; </td> 
+              </tr>
+ 
+            </tr>
+ 
+            <tr>
+              <td nowrap class="CobaltFieldCaptionTD">Buque&nbsp; </td> 
+              <td class="CobaltDataTD" width="130">
+                <select name="{emb_CodVapor_Name}" class="CobaltSelect">
+                  <option value="" selected>-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;</option>
+ {emb_CodVapor_Options} 
+                </select>
+ <input name="{s_emb_NumViaje_Name}" value="{s_emb_NumViaje}" maxlength="10" size="3" class="CobaltInput" style="WIDTH: 24px; HEIGHT: 17px" title="NÚMERO DE VIAJE"></td> 
+              <td nowrap class="CobaltFieldCaptionTD">Destino&nbsp; </td> 
+              <td class="CobaltDataTD">
+                <select name="{emb_Destino_Name}" class="CobaltSelect" style="WIDTH: 118px">
+                  <option value="" selected>-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;</option>
+ {emb_Destino_Options} 
+                </select>
+ &nbsp; </td> 
+              <td nowrap class="CobaltFieldCaptionTD">Consignatario&nbsp; </td> 
+              <td class="CobaltDataTD">
+                <select name="{emb_Consignatario_Name}" class="CobaltSelect" style="WIDTH: 115px">
+                  <option value="" selected>-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;</option>
+ {emb_Consignatario_Options} 
+                </select>
+ </td> 
+              <td nowrap class="CobaltFieldCaptionTD">Tipo DE Venta&nbsp; &nbsp; </td> 
+              <td class="CobaltDataTD">
+                <select name="{emb_TipoVenta_Name}" class="CobaltSelect" style="WIDTH: 110px">
+                  <option value="" selected>-&nbsp;-&nbsp;--&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;--&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;--&nbsp;</option>
+ {emb_TipoVenta_Options} 
+                </select>
+ &nbsp; </td> 
+            </tr>
+ 
+            <tr>
+              <td nowrap class="CobaltFieldCaptionTD">FecHA Inicio&nbsp; </td> 
+              <td class="CobaltDataTD"><input name="{emb_FecInicio_Name}" value="{emb_FecInicio}" maxlength="8" size="8" class="CobaltInput" title="FECHA DE INICIO DE CARGA">
+                <!-- BEGIN DatePicker DatePicker_s_emb_FecInicio --><a class="CobaltDataLink" href="javascript:showDatePicker('{Name}','{FormName}','{DateControl}');"><img height="15" src="../Themes/DatePicker/DatePicker1.gif" width="17" border="0"></a><!-- END DatePicker DatePicker_s_emb_FecInicio -->&nbsp; </td> 
+              <td nowrap class="CobaltFieldCaptionTD">FecHA Termino&nbsp; </td> 
+              <td class="CobaltDataTD"><input name="{emb_FecTermino_Name}" value="{emb_FecTermino}" maxlength="8" size="8" class="CobaltInput" title="FECHA DETERMINO DE CARGA">
+                <!-- BEGIN DatePicker DatePicker_s_emb_FecTermino --><a class="CobaltDataLink" href="javascript:showDatePicker('{Name}','{FormName}','{DateControl}');"><img height="15" src="../Themes/DatePicker/DatePicker1.gif" width="17" border="0"></a><!-- END DatePicker DatePicker_s_emb_FecTermino -->&nbsp; </td> 
+              <td nowrap class="CobaltFieldCaptionTD">Estado&nbsp; </td> 
+              <td class="CobaltDataTD" colspan="3"><input name="{emb_Estado_Name}" value="{emb_Estado}" maxlength="5" size="5" class="CobaltInput">&nbsp; </td> 
+            </tr>
+ 
+          </table>
+        </div>
+ 
+        <div class="normalbox" style="PADDING-RIGHT: 4px; PADDING-LEFT: 4px; PADDING-BOTTOM: 4px; MARGIN: 20px; PADDING-TOP: 4px; TEXT-ALIGN: left">
+          <span class="spantitle" style="LEFT: 0px; POSITION: relative; TOP: -10px">&nbsp;&nbsp;CONDICIONES
+          PARA TARJAS&nbsp;&nbsp;</span> 
+          <table border="0" align="center" cellpadding="1" class="CobaltFormTABLE" cellspacing="1">
+            <tr>
+              <td class="CobaltFieldCaptionTD" nowrap>NUM.
+                TARJA&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </td> 
+              <td class="CobaltDataTD"><input class="CobaltInput" style="WIDTH: 44px; HEIGHT: 17px" size="6" value="{tac_NumLiquid}" name="{tac_NumLiquid_Name}" title="NUMERO DE TARJA"></td> 
+              <td class="CobaltFieldCaptionTD" nowrap>SEMANA </td> 
+              <td class="CobaltDataTD"><input class="CobaltInput" style="WIDTH: 34px; HEIGHT: 17px" size="4" value="{tac_Semana}" name="{tac_Semana_Name}" title="SEMANA EN LA QUE EL PRODUCTOR ENTREGA LA FRUTA EN PUERTO"></td> 
+              <td class="CobaltFieldCaptionTD" nowrap>FECHA </td> 
+              <td class="CobaltDataTD"><input class="CobaltInput" style="WIDTH: 64px; HEIGHT: 17px" size="7" value="{tac_Fecha}" name="{tac_Fecha_Name}" title="FECHA DE ENTREGA EN PUERTO">&nbsp; 
+                <!-- BEGIN DatePicker DatePicker1 --><a class="CobaltDataLink" href="javascript:showDatePicker('{Name}','{FormName}','{DateControl}');"><img height="15" src="../Themes/DatePicker/DatePicker1.gif" width="17" border="0"></a><!-- END DatePicker DatePicker1 --></td> 
+              <td class="CobaltFieldCaptionTD" nowrap>ZONA </td> 
+              <td class="CobaltDataTD">
+                <select class="CobaltSelect" name="{tac_Zona_Name}" style="WIDTH: 111px">
+                  <option value="" selected>-&nbsp;-&nbsp;-&nbsp;--&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;</option>
+ {tac_Zona_Options} 
+                </select>
+ </td> 
+            </tr>
+ 
+            <tr>
+              <td class="CobaltFieldCaptionTD" nowrap>GRUPO </td> 
+              <td class="CobaltDataTD" title="GRUPO DE LIQUIDACION">
+                <select class="CobaltSelect" style="WIDTH: 110px" name="{tac_GrupLiquidacion_Name}">
+                  <option value="" selected>-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-</option>
+ {tac_GrupLiquidacion_Options} 
+                </select>
+ </td> 
+              <td class="CobaltFieldCaptionTD" nowrap>PRODUCTOR&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </td> 
+              <td class="CobaltDataTD">
+                <select class="CobaltSelect" name="{tac_Embarcador_Name}" style="WIDTH: 146px">
+                  <option value="" selected>-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-</option>
+ {tac_Embarcador_Options} 
+                </select>
+ </td> 
+              <td class="CobaltFieldCaptionTD" nowrap>HACIENDA&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </td> 
+              <td class="CobaltDataTD">
+                <select class="CobaltSelect" name="{tac_UniProduccion_Name}" style="WIDTH: 118px">
+                  <option value="" selected>-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-</option>
+ {tac_UniProduccion_Options} 
+                </select>
+ </td> 
+              <td class="CobaltFieldCaptionTD" nowrap>PUERTO&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </td> 
+              <td class="CobaltDataTD">
+                <select name="{tac_PueRecepcion_Name}" class="CobaltSelect" style="WIDTH: 111px">
+                  <option value="" selected>-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;</option>
+ {tac_PueRecepcion_Options} 
+                </select>
+ </td> 
+            </tr>
+ 
+          </table>
+ 
+        </div>
+ 
+        <div class="normalbox" style="PADDING-RIGHT: 4px; PADDING-LEFT: 4px; PADDING-BOTTOM: 4px; MARGIN: 20px; PADDING-TOP: 4px; TEXT-ALIGN: left">
+          <span class="spantitle" style="LEFT: 0px; POSITION: relative; TOP: -10px">&nbsp;
+          &nbsp; CONDICIONES PARA DETALLE DE TARJAS&nbsp; &nbsp; </span> 
+          <table align="center" border="0" cellpadding="1" class="CobaltFormTABLE" cellspacing="1">
+            <tr>
+              <td class="CobaltFieldCaptionTD" nowrap>PRODUCTO&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </td> 
+              <td class="CobaltDataTD">
+                <select class="CobaltSelect" name="{tad_CodProducto_Name}" style="WIDTH: 110px">
+                  <option value="" selected>-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-</option>
+ {tad_CodProducto_Options} 
+                </select>
+ </td> 
+              <td class="CobaltFieldCaptionTD" nowrap>MARCA&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </td> 
+              <td class="CobaltDataTD">
+                <select class="CobaltSelect" name="{tad_CodMarca_Name}" style="WIDTH: 146px">
+                  <option value="" selected>-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-</option>
+ {tad_CodMarca_Options} 
+                </select>
+ </td> 
+              <td class="CobaltFieldCaptionTD" nowrap>EMPAQUE&nbsp;&nbsp;&nbsp;
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; </td> 
+              <td class="CobaltDataTD">
+                <select class="CobaltSelect" name="{tad_CodCaja_Name}" style="WIDTH: 118px">
+                  <option value="" selected>-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-</option>
+ {tad_CodCaja_Options} 
+                </select>
+ </td> 
+              <td class="CobaltFieldCaptionTD" nowrap>OBSERVACIONES. </td> 
+              <td class="CobaltDataTD"><input class="CobaltInput" style="WIDTH: 111px; HEIGHT: 17px" size="17" value="{tad_Observaciones}" name="{tad_Observaciones_Name}"></td> 
+            </tr>
+ 
+            <tr>
+              <td class="CobaltFieldCaptionTD" nowrap></td> 
+              <td class="CobaltDataTD"></td> 
+              <td class="CobaltFieldCaptionTD" nowrap></td> 
+              <td class="CobaltDataTD"></td> 
+              <td class="CobaltFieldCaptionTD" nowrap></td> 
+              <td class="CobaltDataTD"></td> 
+            </tr>
+ 
+          </table>
+ 
+        </div>
+ 
+        <div class="normalbox" style="PADDING-RIGHT: 4px; PADDING-LEFT: 4px; PADDING-BOTTOM: 4px; MARGIN: 20px; PADDING-TOP: 0px; TEXT-ALIGN: left">
+          <span class="spantitle" style="LEFT: 0px; MARGIN: 0px; POSITION: relative; TOP: -10px">&nbsp;
+          &nbsp; FORMATOS DE REPORTE &nbsp; &nbsp; </span> 
+          <table align="center" border="0" cellpadding="1" margin="'0&quot;class=&quot;CobaltFormTABLE'" cellspacing="1">
+            <tr>
+              <td colspan="6" align="right" nowrap><input class="CobaltDataLink" style="FONT-SIZE: 9px; WIDTH: 131px; HEIGHT: 25px" onclick="fEjecuta('../Li_Files/LiEmTj_restar.rpt.php')" type="button" value="RESUMEN DE TARJAS" name="Button_2">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+              <input name="Button_2" type="button" value="TARJAS Y PRECIOS" class="CobaltDataLink" onclick="fEjecuta('../Li_Files/LiEmTj_lipre.rpt.php')" style="FONT-SIZE: 9px; WIDTH: 131px; HEIGHT: 25px">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+              <input name="Button_3" type="button" value=" DETALLE DE TARJAS " class="CobaltDataLink" onclick="fEjecuta('../Li_Files/LiEmTj_detemb.rpt.php')" style="FONT-SIZE: 9px; WIDTH: 131px; HEIGHT: 25px">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+              <input name="Button_3" type="button" value=" TARJAS POR EMBARQUE " class="CobaltDataLink" onclick="fEjecuta('../Li_Files/LiEmTj_restarpropre.rpt.php')" style="FONT-SIZE: 9px; WIDTH: 131px; HEIGHT: 25px">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+              <input name="Button_3" type="button" value="SECUENCIAL" class="CobaltDataLink" onclick="fEjecuta('../Li_Files/LiEmTj_detsecu.rpt.php')" style="FONT-SIZE: 9px; WIDTH: 131px; HEIGHT: 25px">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </td> 
+            </tr>
+ 
+            <tr>
+              <td><input class="CobaltDataLink" style="FONT-SIZE: 9px; WIDTH: 131px; HEIGHT: 25px" onclick="fEjecuta('../Li_Files/LiEmTj_respropre.rpt.php')" type="button" value="TARJAS POR PRODUCTOR" name="Button_2" title="Resumen de Tarjas Agrupadas por Productor, Embarque, Empaque y precio">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <input class="CobaltDataLink" style="FONT-SIZE: 9px; WIDTH: 131px; HEIGHT: 25px" onclick="fEjecuta('../Li_Files/LiEmTj_detembsec.rpt.php')" type="button" value="DETALLE EMBARQ." name="Button_2"title="Detalle de Tarjas Agrupadas por Vapor, Marca">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                &nbsp;
+                <input class="CobaltDataLink" style="FONT-SIZE: 9px; WIDTH: 131px; HEIGHT: 25px" onclick="fEjecuta('../Li_Files/LiEmTj_precios.rpt.php')" type="button" value="PRECIOS POR PRODUCTOR " name="Button_2" title="Resumen dest Precios por productor, incluyendo cantidades embarcadas y Empaque">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <input class="CobaltDataLink" style="FONT-SIZE: 9px; WIDTH: 131px; HEIGHT: 25px" type="button" value=" " name="Button_2">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <input class="CobaltDataLink" value="PRELIQUIDACION" style="FONT-SIZE: 9px; WIDTH: 131px; HEIGHT: 25px" onclick="fEjecuta('../Li_Files/LiLiRp_preliq.rpt.php?pSem=' + document.forms[0].tac_Semana.value + '&')"type="button" value=" " name="Button_2">
+                </td>
+            </tr>
+            <tr>
+              <td>
+				<input class="CobaltDataLink" style="FONT-SIZE: 9px; WIDTH: 131px; HEIGHT: 25px" onclick="fEjecuta('../Op_Files/OpTrTr_rescontenedores.php',1)" type="button" value="RESUMEN / CONTEN." name="Button_2" title="Resumen de Tarjas Agrupadas por Contenedor">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <input class="CobaltDataLink" style="FONT-SIZE: 9px; WIDTH: 131px; HEIGHT: 25px" onclick="fEjecuta('../Li_Files/LiEmTj_detembcnt.rpt.php',1)" type="button" value="DETALLE / CONTEN. " name="Button_2"title="Detalle de Tarjas Agrupadas por Contenedor">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                &nbsp;
+                <input class="CobaltDataLink" style="FONT-SIZE: 9px; WIDTH: 131px; HEIGHT: 25px" onclick="" type="button" value="" name="Button_2" title="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <input class="CobaltDataLink" style="FONT-SIZE: 9px; WIDTH: 131px; HEIGHT: 25px" type="button" value=" " name="Button_2">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <input class="CobaltDataLink" value=" " style="FONT-SIZE: 9px; WIDTH: 131px; HEIGHT: 25px" onclick=""type="button" value=" " name="Button_2">
+                </td>
+            </tr> 
+          </table>
+ 
+        </div>
+      </form>
+ <!-- END Record liqembarquesSearch --></td> 
+    <td>&nbsp; </td>
+  </tr>
+</tbody>
+</table>
+ 
+</body>
+ 
+</html>

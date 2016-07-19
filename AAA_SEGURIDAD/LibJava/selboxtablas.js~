@@ -1,0 +1,508 @@
+/**
+*
+*
+**/
+
+function fProcesaTecla(e){
+    var oEvent = e || window.event;
+    var code = oEvent.keyCode;
+    if(oEvent.modifiers) {   // moz browsers
+        this.ctrlKeyPressed = (oEvent.modifiers & oEvent.CONTROL_MASK) != 0;
+        this.altKeyPressed = (oEvent.modifiers & oEvent.ALT_MASK) != 0;
+    } else {                // ie
+        this.ctrlKeyPressed = oEvent.ctrlKey;
+        this.altKeyPressed = oEvent.altKey;
+    }
+//    if (this.altKeyPressed) alert("alt");
+}
+/**
+ *  Cajas de seleccion de tablas de Sri, 
+ *  @package utilitarios
+ *  @rev 1.01
+ **/
+function fInicializa() {
+//	document.fiscompras.tco_Descripcion.onclick = fChangeTipoc2;
+	document.fiscompras.secRetencion1.onchange = fCambioRetencion;
+	document.onkeydown=fProcesaTecla;
+//	document.fiscompras.onchange = fChangeTipoc;
+}
+function fCambioRetencion(){
+    slSql = "SELECT tab_txtData FROM fistablassri " +
+			 "WHERE tab_codTabla = '99' AND tab_codSecuencial = " +
+			 		document.getElementById('tipoComprobante').value +
+			 		" AND tab_Codigo = '" + document.getElementById('tipoTransac').value + "' ";
+	olAct.procesa(false, slSql, '', '');
+	olAct.onLoad  =  function () {
+    	var data  = this.getResponse();
+		slTxt=data.datos[0][0].substring(1,2);
+		slSql = fDefineQryAut(slTxt, fiscompras.fechaRegistro.value, 7);
+		olRpc.onLoad  =  function () {
+	    	var data  = this.getResponse();
+	    	if (data.datos.length > 0){
+				slTxt=data.datos[0][0];
+				fiscompras.autRetencion1.value = data.datos[0][0];
+	    	} else {
+				fiscompras.autRetencion1.value = '';
+	    	}
+
+		}
+		olRpc.procesa(false, slSql, '', '');
+	}
+}
+/**
+	Generacion de un combo box dinamico de Tipos de Transacciones
+	@param		oCtrl	objeto	Referencia del Objeto que recibe enfoque
+	@pSalida	string	Lista de elementos que reciben datos del combo
+	@pCons	    string	Condicion adicional
+	@return	void
+**/
+function fSelectTipoTran(oCtrl) {
+    gAutosuggestCont=0;
+	slSql = escape("SELECT concat(tab_Codigo,'.-',ucase(tab_Descripcion)),  tab_Codigo,  tab_txtData , tab_txtData2, tab_IndProceso FROm fistablassri " +
+				    "WHERE tab_CodTabla = 'A' AND tab_Descripcion LIKE ");
+	fImpuestBox(oCtrl, slSql, "", "tipoTransac,tra_CodCompr,tra_Secuencial", 2, false, "auto");
+}
+/**
+	Generacion de un combo box dinamico de Sustentos de Credito Tribut
+	@param		oCtrl	objeto	Referencia del Objeto que recibe enfoque
+	@pSalida	string	Lista de elementos que reciben datos del combo
+	@pCons	    string	Condicion adicional
+	@return	void
+**/
+function fSelectTipoSust(oCtrl) {
+    gAutosuggestCont=0;
+	slSql = escape("SELECT concat(tab_Codigo,'.-', UCASE(tab_Descripcion)),  tab_Codigo,  tab_txtData FROm fistablassri " +
+				    "WHERE tab_CodTabla = '3' AND tab_Descripcion LIKE ");
+	fImpuestBox(oCtrl, slSql, "", "codSustento,sus_CodCompr", 3, 800, "auto");
+}
+
+/**
+	Generacion de un combo box dinamico de Proveedores
+	@param		oCtrl	objeto	Referencia del Objeto que recibe enfoque
+	@return	void
+**/
+function fSelectProveedor(oCtrl, pSalida) {
+    gAutosuggestCont=0;
+	slSql = escape("SELECT UCASE(ltrim(concat(ifnull(per_Ruc,'-----------------'), ' ', ifnull(per_Apellidos,'-'), ' ',  ifnull(per_Nombres,''), ' [',per_codAuxiliar, ']'))) as 	txt_Prov, " +
+						   	"per_codAuxiliar as txt_CodProv, concat(ifnull(per_Ruc,''),' ') as per_Ruc, " +
+							"ifnull(par_Valor2,'') as txt_Tipo, " +
+                            "UCASE(ltrim(concat(ifnull(per_Ruc,'-----------------'), ' ', ifnull(per_Apellidos,'-'), ' ',  ifnull(per_Nombres,''), ' [',per_codAuxiliar, ']'))) as 	txt_ProvFact, " +
+							"per_codAuxiliar as txt_CodProvFact, concat(ifnull(per_Ruc,''),' ') as tmp_RucFac, " +
+							"ifnull(par_Valor2,'') as txt_Tipo2Fact " +
+					"FROM  conpersonas " +
+							"LEFT JOIN genparametros on par_clave = 'TIPID' " +
+					"AND par_secuencia = per_tipoID " +
+					"WHERE (ltrim(concat(ifnull(per_Ruc,''), ' ', ifnull(per_Apellidos,''), ' ',  ifnull(per_Nombres,''))))  LIKE '{1}'  OR " +
+							"(ltrim(concat(ifnull(per_Apellidos,''), ' ',  ifnull(per_Nombres,''))))  LIKE '{1}' " +
+					"ORDER BY concat( per_Apellidos, per_Nombres)");
+	fSelectBox(oCtrl, slSql, "", pSalida, 3, 400, "");
+}
+
+/**
+	Generacion de un combo box dinamico de Tipos de Comprobante
+	@param		oCtrl	objeto	Referencia del Objeto que recibe enfoque
+	@pSalida	string	Lista de elementos que reciben datos del combo
+	@pCons	    string	Condicion adicional
+	@return	void
+**/
+function fSelectTipoComp(oCtrl) {
+
+	gAutosuggestCont=0;
+	slSql = escape("SELECT concat(tab_Codigo, '.-', UCASE(tab_Descripcion)),  tab_Codigo,  tab_txtData2, tab_txtData FROm fistablassri " +
+					    "WHERE tab_CodTabla = '2'  AND " );
+	switch(oCtrl.name ) {
+	case "tco_Descripcion":
+	    slSus= String(document.fiscompras.tra_CodCompr.value).length> 0 ? document.fiscompras.tra_CodCompr.value: -1;
+		slSql += escape("tab_Codigo in (" + slSus + ") AND tab_Descripcion  LIKE ");
+		fImpuestBox(oCtrl, slSql, "", "tipoComprobante,tco_Sustento,tco_Secuencial", 3, 400, "auto");
+		break;
+	case "tce_Descripcion":
+		slSql += escape(" tab_IndProceso like '%i%' AND tab_Descripcion  LIKE ");
+		fImpuestBox(oCtrl, slSql, "", "facturaExportacion", 3, 400, "auto");
+		break;
+	}
+}
+
+/**
+	Generacion de un combo box dinamico de Autorizaciones
+	@param		oCtrl	objeto	Referencia del Objeto que recibe enfoque
+	@pSalida	string	Lista de elementos que reciben datos del combo
+	@pCons	    string	Condicion adicional
+	@return	void
+**/
+olRpc = new clsRpc();
+function fSelectAutorizComp(oCtrl) {
+    slSql = "SELECT tab_txtData FROM fistablassri " +
+			 "WHERE tab_codTabla = '99' AND tab_codSecuencial = " +
+			 		document.getElementById('tipoComprobante').value +
+			 		" AND tab_Codigo = '" + document.getElementById('tipoTransac').value + "' ";
+	olAct.procesa(false, slSql, '', '');
+	olAct.onLoad  =  function () {
+    	var data  = this.getResponse();
+		slTxt= data.datos[0][0].substring(0,1);
+		fiscompras.tmp_IndicTransComp.value = data.datos[0][0];
+		document.getElementById('autRetencion1').tipoEmisor = data.datos[0][0].substring(1,1);
+		slSql = fDefineQryAut(slTxt, fiscompras.fechaRegistro.value, fiscompras.tipoComprobante.value);
+		olRpc.onLoad  =  function () {
+	    	var data  = this.getResponse();
+	    	if (data.datos.length > 0){
+				slTxt=data.datos[0][0];
+				fiscompras.autorizacion.value = data.datos[0][0];
+				fiscompras.tmp_FecEmision.value = data.datos[0][1];
+				fiscompras.tmp_FecCaduc.value = data.datos[0][2];
+	    	} else {
+  				fiscompras.autorizacion.value = '';
+				fiscompras.tmp_FecEmision.value = '';
+				fiscompras.tmp_FecCaduc.value = '';
+	    	}
+
+		}
+		olRpc.procesa(false, slSql, '', '');
+
+/**     No usar autoseleccion
+	    gAutosuggestCont=0;
+	    slSus= String(oCtrl.value).length> 0 ? oCtrl.value: -1;
+		slSql = escape("SELECT  aut_AutSri, " +
+							"concat(day(aut_FecEmision), '/', left(monthname(aut_FecEmision),3), '/', year(aut_FecEmision)), " +
+							"concat(day(aut_FecVigencia), '/', left(monthname(aut_FecVigencia),3), '/', year(aut_FecVigencia)), " +
+							"aut_NroInicial, aut_NroFinal " +
+						"FROM genautsri " +
+					    "WHERE aut_AutSri LIKE '{1}' " +
+						" AND aut_IdAuxiliar = '"  + slProv + "' " );
+		fImpuestBox(oCtrl, slSql, "", "tmp_FecEmision,tmp_FecCaduc", 3, 400, "");
+**/
+	}
+}
+function fDefineQryAut(pTxt, pFecha, pTipo){
+	switch (pTxt) {
+	case "E":
+		    slProv ="-99";             // El Informante es Emisor del Documento de Compra / venta
+		    break;
+	case "R":
+	        slProv =fiscompras.idProvFact.value;
+	        break;
+	default:
+	    alert("No se ha definido la relacion entre el Tipo de Transaccion y el Tipo de Comprobante");
+	    return;
+	}
+//	xx;
+	slFecha = fConvFecha(pFecha, "dd/MMM/yy", "yyyy-mm-dd");
+    slSql =  "SELECT aut_autSri, DATE_FORMAT(aut_FecEmision, '%d/%m/%y'), DATE_FORMAT(aut_FecVigencia,'%d/%m/%y') " +
+			"FROM genautsri " +
+			"WHERE aut_idauxiliar = " + slProv +
+				" AND aut_tipodocum = " + pTipo +
+				" AND aut_FecEmision = (Select Max(aut_FecEmision)  " +
+									" FROM genautsri  " +
+									" WHERE aut_idauxiliar =" + slProv +
+									" AND aut_tipodocum = " + pTipo +
+									" AND '" + slFecha + "' BETWEEN aut_FecEmision AND aut_FecVigencia ) " +
+			" AND aut_FecVigencia >=  '" + slFecha +"'" ;
+//		alert (slSql);
+	return slSql;
+}
+
+function fEditarProv(pCod){
+	switch (pCod) {
+	case 'P':
+	    slUrl='../Co_Files/CoAdAu_mant.php?per_CodAuxiliar=' + fiscompras.codProv.value;
+	    break;
+	default:
+	    slUrl='../Co_Files/CoAdAu_mant.php?per_CodAuxiliar=' + fiscompras.idProvFact.value;
+	}
+    fAbrirWin(slUrl,'','',950,600)
+}
+
+function fImprimirRetenc(){
+   slUrl='../Rt_Files/CoRtTr_comprob.rpt.php?ID=' + getFromurl("ID", -1);
+   fAbrirWin(slUrl,'','',950,650)
+}
+olAct = new clsRpc();
+function fVerAutorizacion(pTipo){
+    slSql = "SELECT tab_txtData FROM fistablassri " +
+			 "WHERE tab_codTabla = '99' AND tab_codSecuencial = " +
+			 		document.getElementById('tipoComprobante').value +
+			 		" AND tab_Codigo = '" + document.getElementById('tipoTransac').value + "' ";
+	olAct.procesa(false, slSql, '', '');
+
+	olAct.onLoad  =  function () {
+    	var data  = this.getResponse();
+    	var slUrl = '../Co_Files/CoTrCo_sriautoriz.php?aut_TipoDocum=' +
+					((pTipo == "R")? 7 : document.getElementById('tipoComprobante').value) +
+					'&aut_ID=' + ((pTipo == "R")? fiscompras.autRetencion1.value : fiscompras.autorizacion.value )+ '&aut_IdAuxiliar=' ;
+//		alert(data.codRetorno + " / " + data.mensaje + " / " + data.datos[0] + " - " + data.datos[0][0]);
+//		slTxt=data.datos[0].[0];
+		slTxt= (pTipo == "R")? data.datos[0][0].substring(1,2) : data.datos[0][0].substring(0,1);
+		fiscompras.tmp_IndicTransComp.value = data.datos[0][0];
+		switch (slTxt) {
+		case "E":
+			    slUrl +="-99";             // El Informante es Emisor del Documento de Compra / venta
+			    break;
+		case "R":
+		        slUrl+=fiscompras.idProvFact.value;
+		        break;
+		default:
+		    alert("No se ha definido la relacion entre el Tipo de Transaccion y el Tipo de Comprobante");
+		    return;
+		}
+		fAbrirWin(slUrl,'wret','',600,450)
+	}
+}
+/**
+	Generacion de un combo box dinamico de Tipos de DistritosAduaneros
+	@param		oCtrl	objeto	Referencia del Objeto que recibe enfoque
+	@pSalida	string	Lista de elementos que reciben datos del combo
+	@pCons	    string	Condicion adicional
+	@return	void
+**/
+function fSelectDistrito(oCtrl) {
+    gAutosuggestCont=0;
+	slSql = escape("SELECT concat(tab_Codigo,' '), tab_Codigo,  tab_txtData , tab_txtData2, tab_IndProceso FROm fistablassri " +
+				    "WHERE tab_CodTabla = '12' AND tab_Codigo LIKE ");
+	fImpuestBox(oCtrl, slSql, "", "", 2, false, "auto");
+}
+/**
+	Generacion de un combo box dinamico de Regimen Aduanero
+	@param		oCtrl	objeto	Referencia del Objeto que recibe enfoque
+	@pSalida	string	Lista de elementos que reciben datos del combo
+	@pCons	    string	Condicion adicional
+	@return	void
+**/
+function fSelectRegimen(oCtrl) {
+    gAutosuggestCont=0;
+	slSql = escape("SELECT tab_Codigo, tab_Codigo,  tab_txtData , tab_txtData2, tab_IndProceso FROm fistablassri " +
+				    "WHERE tab_CodTabla = '9' AND tab_Codigo LIKE ");
+	fImpuestBox(oCtrl, slSql, "", "", 2, false, "auto");
+}
+	/**
+*        Genera ub Combo-Box semi dinamico para Codigos de Impuestos
+*        @param          oCtrl   objeto  Referencia del Objeto que recibe enfoque
+*        @pSalida        string  Lista de elementos que reciben datos del combo
+*        @return void
+*/
+function fSelectImpuesto(oCtrl) {
+	var	pTabla = "";
+	var	pCalcu = 0;
+	var	pSalida ="";
+	gAutosuggestCont=0;
+	ilAncho = 400;
+	switch(oCtrl.id){
+	    case "civ_Descripcion":
+			pTabla = "4";
+			pCalcu = document.fiscompras.baseImpGrav.value ;
+			pSalida ="porcentajeIva,civ_Porcent,montoIva";
+			break;
+	    case "prb_Descripcion":
+			pTabla = "5a";
+			pCalcu = document.fiscompras.montoIvaBienes.value ;
+			pSalida ="porRetBienes,prb_Porcent,valorRetBienes";
+			ilAncho = 100;
+			break;
+	    case "prs_Descripcion":
+			pTabla = "5";
+			pCalcu = document.fiscompras.montoIvaServicios.value ;
+			pSalida ="porRetServicios,prs_Porcent,valorRetServicios";
+			ilAncho = 100;
+			break;
+	    case "pic_Descripcion":
+			pTabla = "6";
+			pCalcu = document.fiscompras.baseImpIce.value ;
+			pSalida ="porcentajeIce,pic_porcent,montoIce";
+			break;
+  	    case "cra_Descripcion":
+			pTabla = "10";
+			pCalcu = document.fiscompras.baseImpAir.value ;
+			pSalida ="codRetAir,porcentajeAir,valRetAir";
+			break;
+  	    case "cra_Descripcion2":
+			pTabla = "10";
+			pCalcu = document.fiscompras.baseImpAir2.value ;
+			pSalida ="codRetAir2,porcentajeAir2,valRetAir2";
+			break;
+  	    case "cra_Descripcion3":
+			pTabla = "10";
+			pCalcu = document.fiscompras.baseImpAir3.value ;
+			pSalida ="codRetAir3,porcentajeAir3,valRetAir3";
+			break;
+	}
+    gAutosuggestCont=0;
+	slSql = escape("SELECT concat(tab_Codigo,  ' .-  ', UCASE(tab_Descripcion)),  tab_Codigo,  tab_porcentaje,  + round( " + fParseDec(pCalcu) + " *  tab_porcentaje +  / 100 , 2)" +
+					"FROM fistablassri " +
+				    "WHERE tab_CodTabla = '" + pTabla + "' AND tab_Descripcion LIKE ");
+    slCond = escape("");
+    fImpuestBox(oCtrl, slSql, slCond, pSalida, 3, ilAncho , "auto");
+}
+
+/**
+*       Habilita el proceso de generacion de un combo box en un objeto que recibe enfoque,
+*   reutiliza siempre el mismo objeto, solo la primera vez crea los objetos
+*       @param  oCtrl   objeto  Referencia del Objeto que recibe enfoque
+*       @param  pSql    String  Sentencia SQl que genera datos para el combo
+*       @param  pCond   String  Sentencia SQl adicional para el combo
+*       @param  pSalida String  Lista de los elementos que reciben la salida del combo
+*                                                       (Deben estar en el mismo contenedor que el elemento del combo)
+*       @param  pConten integer Nivel de ascendencia del nodo contenedor del los objetos de salida
+*                                                       (cuantos parentNode hay que aplicar para direccionarlos como childNodes)
+*       @param  pWidth  integer Ancho de la lista
+*       @return void
+*/
+var gAutosuggestCont=0;
+var oProvSubg= new Object();
+var oSubGrupo= new Object();
+function fImpuestBox(oCtrl, pSql, pCond, pSalida, pConten, pWidth, pExtra) {
+    var     aData = new Array();
+    var     aColumns = new Array();
+    if (!pConten) pConten = 1;
+    if (!pWidth) pWidth=false;
+    gTeclaProcesada=false;
+    oCtrl.style.borderColor = "blue";
+    slUri='../Ge_Files/GeGeGe_sugerir.php?pLim=80&pCon=' + pCond + '&pQry=' + '&pSql=' + pSql;
+//    if (oSubGrupo.data == undefined || oSubGrupo.data.length < 1) {//                                               La primera vez, generar lista deopciones
+        oSubGrupo.data =aData;
+        oSubGrupo.columns =aColumns;
+        oProv = new dataProvider('');
+        oSubGrupo = new AutoSuggestController(oCtrl, oProv, 0, true, true, slUri);
+/*        oSubGrupo.addData = function () {
+                    ilNext= oSubGrupo.data.length  ? oSubGrupo.data.length -1: 0;
+                    this.data[ilNext] = "-General";
+                    this.columns[1] = new Array();
+                    this.columns[1][ilNext] = "0";
+            }
+
+            oSubGrupo.addData(); */
+            if (oCtrl.name != "autorizacion"){
+            	oSubGrupo.autoExpand = true;
+            	oSubGrupo.staticData = true;
+            }
+            else {
+            	oSubGrupo.autoExpand = false;
+            	oSubGrupo.staticData = false;
+            	oSubGrupo.minLength  = 4;
+            	oSubGrupo.notInList  = true;
+            }
+            oSubGrupo.width_ = pWidth;
+/*
+    } else  {
+            if (oSubGrupo.textbox.name  != oCtrl.name || oSubGrupo.textbox.id  != oCtrl.id) {
+               oSubGrupo.textbox =  oCtrl;
+               oSubGrupo.typedText = oCtrl.value;
+               oSubGrupo.selectedIndex = -1;
+               oSubGrupo.textbox.value = oCtrl.value;
+               if (!oSubGrupo.staticData) { //      Si es un box dinamico, regenerar lista
+                   oSubGrupo.data =aData;
+                   oSubGrupo.columns =aColumns;
+               }
+                }
+    }
+*/
+    oSubGrupo.init();
+    oSubGrupo.uri='../Ge_Files/GeGeGe_sugerir.php?pLim=80&pCon=' + pCond + '&pQry=' + '&pSql=' + pSql;
+    AutoSuggestController.prototype.onCtrlB = function (oThis)  {}
+    AutoSuggestController.prototype.onCtrlZ = function (oThis) {}
+    oSubGrupo.contenedor = oSubGrupo.textbox.parentNode // asumir el primer nivel de ascendencia
+    for (i=1; i < pConten; i++) {                       // iterar hasta el nivel de ascendencia definido
+        oSubGrupo.contenedor = oSubGrupo.contenedor.parentNode;
+    }
+    aSalida = pSalida.split(",");
+    for (i=0; i < aSalida.length; i++) {
+        oSubGrupo.output[i+1]=aSalida[i];
+    }
+        oSubGrupo.minLength=0;
+}
+/**
+*   Reca�ular el monto del iva
+*/
+function fRecalcIva(){
+		with (document.fiscompras) {
+			montoIva.value = formatNum(fredondear(fParseDec(baseImpGrav.value) * fParseDec(civ_Porcent.value) / 100, 2),ES_EC);
+			fRecalcIRt();
+		}
+}
+/**
+*   Reca�ular el monto del Impuesto a la renta
+*/
+function fRecalcIRt(){
+		with (document.fiscompras) {
+			baseImpAir.value = formatNum((fParseDec(baseImpGrav.value) + fParseDec(baseImponible.value)), ES_EC);
+		fRecalcAir();
+		}
+}
+/**
+*   Recalcular el monto del Ice
+*/
+function fRecalcIce(){
+		with (document.fiscompras) {
+			montoIce.value = formatNum(fredondear(fParseDec(baseImpIce.value) * fParseDec(pic_porcent.value) / 100, 2),ES_EC);
+		}
+}
+/**
+*   Recalcular el monto de IR
+*/
+function fRecalcAir(){
+		with (document.fiscompras) {
+		    valRetAir.value = formatNum(fredondear(fParseDec(baseImpAir.value) * fParseDec(porcentajeAir.value) / 100,2),ES_EC);
+		    valRetAir2.value = formatNum(fredondear(fParseDec(baseImpAir2.value) * fParseDec(porcentajeAir2.value) / 100,2),ES_EC);
+		    valRetAir3.value = formatNum(fredondear(fParseDec(baseImpAir3.value) * fParseDec(porcentajeAir3.value) / 100,2),ES_EC);
+		    fValidaRet()
+		}
+}
+/**
+*   Dar formato numerico a un textbox
+*/
+function fReFormatear(oCtrl){
+		oCtrl.value = formatNum(fParseDec(oCtrl.value), ES_EC)
+}
+/**
+*   Recalcular el monto de Retencion Iva Bienes
+*/
+function fRecalcIbi(){
+		with (document.fiscompras) {
+			valorRetBienes.value = formatNum(fredondear(fParseDec(montoIvaBienes.value) * fParseDec(prb_Porcent.value) / 100, 2),ES_EC);
+		}
+}
+/**
+*   Recalcular el monto de Retencion Iva Servicios
+*/
+function fRecalcIse(){
+		with (document.fiscompras) {
+			valorRetServicios.value = formatNum(fredondear(fParseDec(montoIvaServicios.value) * fParseDec(prs_Porcent.value) / 100, 2),ES_EC);
+		}
+		fValidaIva();
+}
+/**
+*   Valida la Base Impon. de de Retencion Iva
+*/
+function fValidaIva(){
+		var flSum = 0;
+		with (document.fiscompras) {
+		    flSum = fredondear(fParseDec(montoIvaBienes.value),2) + fredondear(fParseDec(montoIvaServicios.value),2);
+		    if (flSum  > montoIva.value) {
+				alert ("La SUMA de base imponible de retenciones de IVA (" +  flSum + ")\n NO DEBE SER MAYOR QUE EL MONTO TOTAL DE IVA (" + montoIva.value + ") " );
+		    }
+		}
+}
+/**
+*   Valida la Base Impon. de de Retencion en la Fuente
+*/
+function fValidaRet(){
+		var flSum = 0;
+		with (document.fiscompras) {
+		    valRetAirTot.value  =formatNum(fredondear(fParseDec(valRetAir.value) + fParseDec(valRetAir2.value) + fParseDec(valRetAir3.value) ,2),ES_EC);
+		    baseImpAirTot.value =formatNum(fredondear(fParseDec(baseImpAir.value) + fParseDec(baseImpAir2.value) + fParseDec(baseImpAir3.value) ,2),ES_EC);
+		    flSum = fredondear(fParseDec(baseImponible.value) + fParseDec(baseImpGrav.value),2);
+		    if (flSum  != fParseDec(baseImpAirTot.value)) {
+				alert ("ERROR EN CALCULO DE RETENCIONES: \nLA BASE IMPONIBLE TOTAL  (" +  flSum + ")\n DEBE SER IGUAL QUE LA BASE IMPONIBLE DE RETENCION EN LA FUENTE (" + baseImpAirTot.value + ") " );
+		    }
+		}
+}
+/**
+*   Carga datos de ventana hija
+*/
+function fCargarFechas(pFecEmi, pFecVig, pNumIni, pNumFin){
+	with (document.fiscompras) {
+		tmp_FecEmision.value = pFecEmi;
+		tmp_FecCaduc.value  = pFecVig;
+		aut_NroInicial.value  = pNumIni;
+		aut_NroFinal.value  = pNumFin;
+	}
+}
+

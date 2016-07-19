@@ -1,0 +1,55 @@
+<html>
+<head>
+<base target="PAGINA">
+<link rel="stylesheet" type="text/css" href="../Themes/StormyWeather/Style.css">
+<link rel="stylesheet" type="text/css" href="../Themes/Menu/Style.css">
+<title>ESTADOS FINANCIEROS: SELECCION</title>
+<script language="JavaScript" src="../LibJava/menu_func.js"></script>
+<link rel="stylesheet" type="text/css" href="../Themes/Cobalt/Style.css">
+</head>
+<body bgcolor="#fffff7" link="#000000" alink="#ff0000" vlink="#000000" text="#000000" class="CobaltPageBODY">
+<p>{Cabecera}
+<table background="../Themes/Cobalt/Light Streaks.bmp" border="0" width="100%" cellpadding="0" cellspacing="0">
+  <tr>
+    <td>&nbsp; 
+      <!-- BEGIN Record Seleccion -->
+      <form method="post" action="{Action}" name="{HTMLFormName}">
+        <font class="CobaltFormHeaderFont">Seleccion</font> 
+        <table border="0" cellpadding="3" class="CobaltFormTABLE">
+          <!-- BEGIN Error -->
+          <tr>
+            <td colspan="2" class="CobaltErrorDataTD">{Error}</td> 
+          </tr>
+ <!-- END Error -->
+          <tr>
+            <td nowrap class="CobaltFieldCaptionTD">PERÌODO</td> 
+            <td class="CobaltDataTD">
+              <select name="{lbPeriodo_Name}" class="CobaltSelect">
+                <option value="" selected>Seleccionar Valor</option>
+ {lbPeriodo_Options} 
+              </select>
+ &nbsp;</td> 
+          </tr>
+ 
+          <tr>
+            <td colspan="2" align="right" nowrap class="CobaltFooterTD">
+              <!-- BEGIN Button Button_Insert --><input name="{Button_Name}" type="submit" value="Agregar" class="CobaltButton"><!-- END Button Button_Insert -->
+              <!-- BEGIN Button Button_Update --><input name="{Button_Name}" type="submit" value="Enviar" class="CobaltButton"><!-- END Button Button_Update -->
+              <!-- BEGIN Button Button_Delete --><input name="{Button_Name}" type="submit" value="Borrar" class="CobaltButton"><!-- END Button Button_Delete -->&nbsp; </td> 
+          </tr>
+ 
+        </table>
+ 
+      </form>
+ <!-- END Record Seleccion --></td> 
+    <td>&nbsp;</td> 
+  </tr>
+ 
+  <tr>
+    <td>&nbsp;</td> 
+    <td>&nbsp;</td> 
+  </tr>
+</table>
+ </p>
+</body>
+</html>

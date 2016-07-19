@@ -1,0 +1,47 @@
+/*
+ *  Report CSS
+ *  @author: Fausto Astudillo
+ *  @created: 2007/01/01
+ **/
+.etiqueta {width:80px; display:table-cell; font-size:8px; text-align:left}
+.celda    {width:180px; display:table-cell; font-size:8px; text-align:left }
+.sinlineas {text-align:left; border:0;  line-height:1;  padding-left:4px !important;  }
+.sinlineas2 {text-align:left; border:0;  line-height:1;  padding-left:4px; font-weight:bold !important;  }
+@media screen {
+	body {vertical-align:top; border:5px}
+	TABLE {border-collapse:collapse; table-layout: inherit}
+	td {border: 1px solid #d8d8d8 ; }
+	.rowpar{background-color:transparent}
+	.rowimpar{background-color:#EAF2EE}
+	.colnom {font-size:10px; text-align:left; vertical-align:top;  overflow:hidden}
+	.col120 {width:120px; vertical-align:top; font-size:10px}
+	.col80 {width:80px; vertical-align:top; font-size:10px}
+	.coldat {width:40px; vertical-align:top; font-size:10px}
+	.colnum {text-align:right; border:  1px solid #d8d8d8;  border-right: 1px #d8d8d8; padding:1px}
+	/*.headerrow{font-weight:bold; ; border:  1px solid white; }*/
+	.colhead{/*width:80px;*/ font-weight:500; font-size:10px; text-align:center; overflow:hidden; }
+}
+@media print {
+	body {font-size:7pt; vertical-align:top}
+	TABLE {border-collapse:collapse;  }
+	td {border: 0.5pt solid #d8d8d8}
+	.colnom {font-size:7pt; text-align:left; vertical-align:top; overflow:hidden}
+	.col120 {width:auto; vertical-align:top; font-size:7pt; overflow: hidden; overflow:hidden}
+	.col80{width:auto; vertical-align:top; font-size:7pt}
+	.colnum{text-align:right; border:  1pt solid #d8d8d8; padding:1pt}
+	.coldat{width:auto; vertical-align:top; font-size:7pt}
+	.headerrow{font-weight:bold;  }
+	.colhead{/*width:80pt;*/ font-weight:500; font-size:7pt; text-align:center;}
+}
+/* @media print {
+	body {font-size:7pt; vertical-align:top}
+	TABLE {border-collapse:collapse; width:"90%"; }
+	td {border: 0.5pt solid #d8d8d8}
+	.colnom {font-size:7pt; text-align:left; vertical-align:top; overflow:hidden}
+	.col120 {width:90pt; vertical-align:top; font-size:7pt; overflow: hidden; overflow:hidden}
+	.col80{width:80pt; vertical-align:top; font-size:7pt}
+	.colnum{text-align:right; border:  1pt solid #d8d8d8; padding:1pt}
+	.coldat{width:40pt; vertical-align:top; font-size:7pt}
+	.headerrow{font-weight:bold;  }
+	.colhead{/*width:80pt;*/ font-weight:500; font-size:7pt; text-align:center;}
+}*/

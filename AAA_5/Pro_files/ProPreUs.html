@@ -1,0 +1,58 @@
+<html>
+<head>
+<base target="_self">
+<link rel="stylesheet" type="text/css" href="../Themes/StormyWeather/Style.css">
+<link rel="stylesheet" type="text/css" href="../Themes/Menu/Style.css">
+<title>USUARIOS</title>
+<link rel="stylesheet" type="text/css" href="../Themes/Cobalt/Style.css">
+</head>
+<body   align="center" bgcolor="#fffff7" link="#000099" alink="#ff0000" vlink="#9999cc" text="#000000" class="CobaltPageBODY"
+        style="PADDING-RIGHT: 0px; PADDING-LEFT: 0px; PADDING-BOTTOM: 0px; PADDING-TOP: 0px; magin: 0; spacing: 0"
+        bottommargin="0" nowrap leftmargin="0" topmargin="17" rightmargin="0" marginwidth="0" marginheight="0">
+<script language="JavaScript" src="../LibJava/menu_func.js"></script>
+{Cabecera};
+<table align="center" style:"border-colapse:collapse">
+  <tr style="FONT-SIZE: x-small">
+    <td style="FONT-SIZE: x-small" align="middle" valign="top">
+      <form>
+        <!-- BEGIN Grid SeGeUs_qry --><font class="CobaltFormHeaderFont">PRESUPUESTO</font>
+        <table border="0" cellpadding="1" style="WIDTH: 419px; HEIGHT: 159px" cellspacing="1">
+          <tr align="middle">
+            <td nowrap class="CobaltColumnTD">
+              <!-- BEGIN Sorter Sorter_usu_IDusuario --><a class="CobaltSorterLink" href="{Sort_URL}"><font size="1">ID</font> </a>&nbsp; <!-- END Sorter Sorter_usu_IDusuario -->&nbsp;</td>
+            <td nowrap class="CobaltColumnTD">
+              <!-- BEGIN Sorter Sorter_usu_login --><a class="CobaltSorterLink" href="{Sort_URL}">&nbsp;LOGIN </a> <!-- END Sorter Sorter_usu_login -->&nbsp;</td>
+            <td nowrap class="CobaltColumnTD">
+              <!-- BEGIN Sorter Sorter_usu_Nombre --><a class="CobaltSorterLink" href="{Sort_URL}">NOMBRE </a> <!-- END Sorter Sorter_usu_Nombre -->&nbsp;</td>
+            <td nowrap class="CobaltColumnTD">
+              <p>
+              <!-- BEGIN Sorter Sorter_usu_Activo --><a class="CobaltSorterLink" href="{Sort_URL}">ACTIVO </a> <!-- END Sorter Sorter_usu_Activo -->&nbsp;</p>
+ </td>
+          </tr>
+          <!-- BEGIN Row -->
+          <tr align="middle" valign="top">
+            <td class="CobaltDataTD"><a class="CobaltDataLink" href="{usu_IDusuario_Src}" target="_self">{usu_IDusuario} </a>&nbsp;</td>
+            <td class="CobaltDataTD"><a class="CobaltDataLink" href="{usu_IDusuario_Src}" target="_self">{usu_login}</a>&nbsp;</td>
+            <td class="CobaltDataTD" nowrap>{usu_Nombre}&nbsp;</td>
+            <td class="CobaltDataTD">{usu_Activo}&nbsp;</td>
+          </tr>
+          <!-- END Row -->
+          <!-- BEGIN NoRecords -->
+          <tr>
+            <td colspan="4" class="CobaltDataTD">No hay registros&nbsp;</td>
+          </tr>
+          <!-- END NoRecords -->
+          <tr>
+            <td aling="center" colspan="4" nowrap class="CobaltFooterTD">
+              <!-- BEGIN Navigator Navigator -->
+              <!-- BEGIN Prev_On --><a class="StormyWeatherNavigatorLink" href="{Prev_URL}"><img height="14" src="../Themes/aqua/prevon.gif" width="24" border="0"></a><!-- END Prev_On -->&nbsp;{page_number}&nbsp;
+              <!-- BEGIN Next_On --><a class="StormyWeatherNavigatorLink" href="{Next_URL}"><img height="14" src="../Themes/aqua/nexton.gif" width="24" border="0"></a><!-- END Next_On --><!-- END Navigator Navigator -->&nbsp; </td>
+          </tr>
+        </table>
+ <a class="CobaltFooterTD" href="{Link1_Src}">Agregar Usuario{Link1}</a> <!-- END Grid SeGeUs_qry -->&nbsp;
+      </form>
+ </td>
+  </tr>
+</table>
+</body>
+</html>

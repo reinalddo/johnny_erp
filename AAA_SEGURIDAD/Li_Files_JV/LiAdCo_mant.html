@@ -1,0 +1,110 @@
+<html>
+<head>
+<base>
+<link rel="stylesheet" type="text/css" href="../Themes/Cobalt/Style.css">
+<link rel="stylesheet" type="text/css" href="../Themes/Menu/Style.css">
+<title>COMPONENTES</title>
+<script language="JavaScript" src="../LibJava/menu_func.js"></script>
+<script language="JavaScript">
+//Begin CCS script
+//Include JSFunctions @1-5F368366
+  </script>
+<script language="JavaScript" src="../functions.js"></script>
+<script language="JavaScript">
+  
+//End Include JSFunctions
+
+//page_liqcomponent_Button_Delete_OnClick @5-03D18142
+function page_liqcomponent_Button_Delete_OnClick()
+{
+    var result;
+//End page_liqcomponent_Button_Delete_OnClick
+
+//Confirmation Message @6-BED55CD3
+    return confirm('Borrar registro?');
+//End Confirmation Message
+
+//Close page_liqcomponent_Button_Delete_OnClick @5-BC33A33A
+    return result;
+}
+//End Close page_liqcomponent_Button_Delete_OnClick
+
+//page_liqcomponent_Button_Cancel_OnClick @7-4A929458
+function page_liqcomponent_Button_Cancel_OnClick()
+{
+    disableValidation = true;
+}
+//End page_liqcomponent_Button_Cancel_OnClick
+
+//bind_events @1-DE1FDE32
+function bind_events() {
+    if (document.forms["liqcomponent"]) check_and_bind('document.forms["liqcomponent"].Button_Delete','onclick',page_liqcomponent_Button_Delete_OnClick);
+    if (document.forms["liqcomponent"]) check_and_bind('document.forms["liqcomponent"].Button_Cancel','onclick',page_liqcomponent_Button_Cancel_OnClick);
+    forms_onload();
+}
+//End bind_events
+
+window.onload = bind_events; //Assign bind_events @1-19F7B649
+
+//End CCS script
+</script>
+</head>
+<body bgcolor="#fffff7" link="#000000" alink="#ff0000" vlink="#000000" text="#000000" class="CobaltPageBODY">
+{Cabecera}
+<table background="../Themes/Cobalt/Light Streaks.bmp" border="0" width="100%" class="CobaltPageBODY" style="BORDER-COLLAPSE: collapse" align="center">
+  <tr align="middle">
+    <td>
+      <!-- BEGIN Record liqcomponent -->&nbsp;<br>
+      <form name="{HTMLFormName}" action="{Action}" method="post">
+        <font class="CobaltFormHeaderFont">{lbTitulo}</font> 
+        <table class="CobaltFormTABLE" cellpadding="0" border="0" cellspacing="1">
+          <!-- BEGIN Error -->
+          <tr>
+            <td class="CobaltErrorDataTD" colspan="2">{Error}</td> 
+          </tr>
+ <!-- END Error -->
+          <tr>
+            <td class="CobaltFieldCaptionTD" nowrap>&nbsp;CODIGO</td> 
+            <td class="CobaltDataTD"><input class="CobaltInputSB" style="FONT-WEIGHT: bold; WIDTH: 58px; COLOR: #990000; HEIGHT: 17px; TEXT-ALIGN: right" readonly size="9" value="{cte_Codigo}" name="{cte_Codigo_Name}"></td> 
+          </tr>
+ 
+          <tr height="40">
+            <td class="CobaltFieldCaptionTD" nowrap>&nbsp;CLASE DE
+              COMPONENTE&nbsp;</td> 
+            <td class="CobaltDataTD" width="300">
+              <!-- BEGIN RadioButton cte_Clase --><input type="radio" name="{cte_Clase_Name}" value="{Value}" class="CobaltInput" {Check}>{Description}<!-- END RadioButton cte_Clase -->&nbsp;</td> 
+          </tr>
+ 
+          <tr>
+            <td class="CobaltFieldCaptionTD" nowrap>&nbsp;ABREVIATURA</td> 
+            <td class="CobaltDataTD"><input class="CobaltInputSB2" maxlength="15" size="10" value="{cte_Referencia}" name="{cte_Referencia_Name}" style="WIDTH: 69px; HEIGHT: 17px">&nbsp;</td> 
+          </tr>
+ 
+          <tr>
+            <td class="CobaltFieldCaptionTD" nowrap>&nbsp;CONDICION DE
+              RECHAZO&nbsp;</td> 
+            <td class="CobaltDataTD">
+              <!-- BEGIN RadioButton cte_IndRechazo --><input type="radio" name="{cte_IndRechazo_Name}" value="{Value}" class="CobaltInput" {Check}>{Description}<!-- END RadioButton cte_IndRechazo -->&nbsp;</td> 
+          </tr>
+ 
+          <tr>
+            <td class="CobaltFieldCaptionTD" nowrap>&nbsp;DESCRIPCION&nbsp;</td> 
+            <td class="CobaltDataTD"><input class="CobaltInputSB2" maxlength="80" size="50" value="{cte_Descripcion}" name="{cte_Descripcion_Name}">&nbsp;</td> 
+          </tr>
+ 
+          <tr>
+            <td class="CobaltFooterTD" nowrap align="right" colspan="2">
+              <!-- BEGIN Button Button_Insert --><input class="CobaltButton" type="submit" value="AGREGAR" name="{Button_Name}" title="GRABAR EL NUEVO REGISTRO"><!-- END Button Button_Insert -->
+              <!-- BEGIN Button Button_Update --><input class="CobaltButton" type="submit" value="GRABAR" name="{Button_Name}" title="GRABAR LAS MODIFICACIONES"><!-- END Button Button_Update -->
+              <!-- BEGIN Button Button_Delete --><input class="CobaltButton" type="submit" value="ELIMINAR" name="{Button_Name}" title="BORRAR ESTE COMPONENTE EN FORMA DEFINITIVA"><!-- END Button Button_Delete -->
+              <!-- BEGIN Button Button_Cancel --><input class="CobaltButton" type="submit" value="DESHACER" name="{Button_Name}" title="DESHACER LAS MODIFICACIONES EN CURSO"><!-- END Button Button_Cancel -->&nbsp; </td> 
+          </tr>
+ 
+        </table>
+ 
+      </form>
+ <!-- END Record liqcomponent --></td> 
+  </tr>
+</table>
+</body>
+</html>

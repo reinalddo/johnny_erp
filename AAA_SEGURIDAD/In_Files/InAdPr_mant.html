@@ -1,0 +1,167 @@
+<html>
+<head>
+<meta name="GENERATOR" content="CodeCharge Studio 2.3.2.24">
+<base target="_self">
+<link rel="stylesheet" type="text/css" href="../Themes/Cobalt/Style.css">
+<link rel="stylesheet" type="text/css" href="../Themes/Menu/Style.css">
+<title>PROCESOS: MANTENIMIENTO</title>
+ 
+<script language="JavaScript" src="../LibJava/menu_func.js"></script>
+</head>
+ 
+<body bgcolor="#fffff7" link="#000000" alink="#ff0000" vlink="#000000" text="#000000" class="CobaltPageBODY" style="PADDING-RIGHT: 0px; PADDING-LEFT: 0px; PADDING-BOTTOM: 0px; PADDING-TOP: 0px; magin: 0; spacing: 0" bottommargin="0" nowrap leftmargin="0" topmargin="17" rightmargin="0" marginwidth="0" marginheight="0">
+{Cabecera} 
+<table background="../Themes/Cobalt/Light Streaks.bmp" border="0" width="100%" class="CobaltPageBODY">
+  <tr>
+    <td nowrap valign="top" align="center">&nbsp; 
+      <!-- BEGIN Grid genparametros --><font class="CobaltFormHeaderFont">PROCESOS </font> 
+      <table class="CobaltFormTABLE" cellpadding="1" border="0" cellspacing="0">
+        <tr align="center">
+          <td class="CobaltColumnTD" nowrap>
+            <!-- BEGIN Sorter Sorter_par_Secuencia --><a class="CobaltSorterLink" href="{Sort_URL}">#</a> 
+            <!-- BEGIN Asc_On --><img height="9" src="../Themes/Cobalt/AscOn.gif" width="13" border="0"><!-- END Asc_On -->
+            <!-- BEGIN Desc_On --><img height="9" src="../Themes/Cobalt/DescOn.gif" width="13" border="0"><!-- END Desc_On --><!-- END Sorter Sorter_par_Secuencia -->&nbsp;</td> 
+          <td class="CobaltColumnTD" nowrap>
+            <!-- BEGIN Sorter Sorter_par_Descripcion --><a class="CobaltSorterLink" href="{Sort_URL}">PROCESO</a> 
+            <!-- BEGIN Asc_On --><img height="9" src="../Themes/Cobalt/AscOn.gif" width="13" border="0"><!-- END Asc_On -->
+            <!-- BEGIN Desc_On --><img height="9" src="../Themes/Cobalt/DescOn.gif" width="13" border="0"><!-- END Desc_On --><!-- END Sorter Sorter_par_Descripcion -->&nbsp;</td> 
+        </tr>
+        <!-- BEGIN Row -->
+        <tr>
+          <td class="CobaltDataTD"><a class="CobaltDataLink" title="HAGA CLICK PARA PRESENTAR LAS TRANSACCIONES ASOCIADAS A ESTE PROCESO" href="{par_Secuencia_Src}">{par_Secuencia}</a>&nbsp; </td> 
+          <td class="CobaltDataTD">{par_Descripcion}&nbsp;</td> 
+        </tr>
+        <!-- END Row -->
+        <!-- BEGIN AltRow -->
+        <tr>
+          <td class="CobaltAltDataTD"><a class="CobaltDataLink" title="HAGA CLICK PARA PRESENTAR LAS TRANSACCIONES ASOCIADAS A ESTE PROCESO" href="{Alt_par_Secuencia_Src}">{Alt_par_Secuencia}</a>&nbsp; </td> 
+          <td class="CobaltAltDataTD">{Alt_par_Descripcion}&nbsp;</td> 
+        </tr>
+        <!-- END AltRow -->
+        <!-- BEGIN NoRecords -->
+        <tr>
+          <td class="CobaltAltDataTD" colspan="2">No hay registros&nbsp;</td> 
+        </tr>
+        <!-- END NoRecords -->
+        <tr>
+          <td class="CobaltFooterTD" nowrap colspan="2">
+            <!-- BEGIN Navigator Navigator -->
+            <!-- BEGIN First_On --><a class="CobaltNavigatorLink" href="{First_URL}"><img height="13" src="../Themes/StormyWeather/FirstOn.gif" width="38" border="0"></a> <!-- END First_On -->
+            <!-- BEGIN Prev_On --><a class="CobaltNavigatorLink" href="{Prev_URL}"><img height="13" src="../Themes/StormyWeather/PrevOn.gif" width="38" border="0"></a> <!-- END Prev_On -->&nbsp; 
+            <!-- BEGIN Pages -->
+            <!-- BEGIN Page_On --><a class="CobaltNavigatorLink" href="{Page_URL}">{Page_Number}</a>&nbsp; <!-- END Page_On -->
+            <!-- BEGIN Page_Off -->{Page_Number}&nbsp; <!-- END Page_Off --><!-- END Pages -->de
+            {Total_Pages}&nbsp; 
+            <!-- BEGIN Next_On --><a class="CobaltNavigatorLink" href="{Next_URL}"><img height="13" src="../Themes/StormyWeather/NextOn.gif" width="38" border="0"></a> <!-- END Next_On -->
+            <!-- BEGIN Last_On --><a class="CobaltNavigatorLink" href="{Last_URL}"><img height="13" src="../Themes/StormyWeather/LastOn.gif" width="38" border="0"></a> <!-- END Last_On --><!-- END Navigator Navigator -->&nbsp; </td> 
+        </tr>
+ 
+      </table>
+ <!-- END Grid genparametros -->
+      <!-- BEGIN EditableGrid invprocesos -->
+      <form name="{HTMLFormName}" action="{Action}" method="post" style="MARGIN: 0px">
+        <font class="CobaltFormHeaderFont">TRANSACCIONES
+        PARA:&nbsp;&nbsp;{pro_Descripcion} &nbsp; </font> <input type="hidden" name="FormState" value="{FormState}">{FormScript} 
+        <table border="0" cellpadding="1" class="CobaltFormTABLE" cellspacing="1">
+          <!-- BEGIN Error -->
+          <tr>
+            <td colspan="9" class="CobaltErrorDataTD">{Error}</td> 
+          </tr>
+          <!-- END Error -->
+          <tr style="PADDING-BOTTOM: 4px; PADDING-TOP: 4px" align="center">
+            <td nowrap class="CobaltColumnTD">
+              <!-- BEGIN Sorter Sorter_pro_codProceso --><a class="CobaltSorterLink" href="{Sort_URL}">SEC</a> 
+              <!-- BEGIN Asc_On --><img height="9" src="../Themes/Cobalt/AscOn.gif" width="13" border="0"><!-- END Asc_On -->
+              <!-- BEGIN Desc_On --><img height="9" src="../Themes/Cobalt/DescOn.gif" width="13" border="0"><!-- END Desc_On --><!-- END Sorter Sorter_pro_codProceso -->&nbsp;</td> 
+            <td nowrap class="CobaltColumnTD">
+              <!-- BEGIN Sorter Sorter_cla_TipoTransacc --><a class="CobaltSorterLink" href="{Sort_URL}">TRANSACCION</a> 
+              <!-- BEGIN Asc_On --><img height="9" src="../Themes/Cobalt/AscOn.gif" width="13" border="0"><!-- END Asc_On -->
+              <!-- BEGIN Desc_On --><img height="9" src="../Themes/Cobalt/DescOn.gif" width="13" border="0"><!-- END Desc_On --><!-- END Sorter Sorter_cla_TipoTransacc -->&nbsp;</td> 
+            <td nowrap class="CobaltColumnTD">
+              <!-- BEGIN Sorter Sorter_pro_Orden --><a class="CobaltSorterLink" href="{Sort_URL}">ORDEN</a> 
+              <!-- BEGIN Asc_On --><img height="9" src="../Themes/Cobalt/AscOn.gif" width="13" border="0"><!-- END Asc_On -->
+              <!-- BEGIN Desc_On --><img height="9" src="../Themes/Cobalt/DescOn.gif" width="13" border="0"><!-- END Desc_On --><!-- END Sorter Sorter_pro_Orden -->&nbsp;</td> 
+            <td nowrap class="CobaltColumnTD">
+              <!-- BEGIN Sorter Sorter_pro_Signo --><a class="CobaltSorterLink" href="{Sort_URL}">SIGNO</a> 
+              <!-- BEGIN Asc_On --><img height="9" src="../Themes/Cobalt/AscOn.gif" width="13" border="0"><!-- END Asc_On -->
+              <!-- BEGIN Desc_On --><img height="9" src="../Themes/Cobalt/DescOn.gif" width="13" border="0"><!-- END Desc_On --><!-- END Sorter Sorter_pro_Signo -->&nbsp;</td> 
+            <td nowrap class="CobaltColumnTD">
+              <!-- BEGIN Sorter Sorter_pro_Efecto --><a class="CobaltSorterLink" href="{Sort_URL}">EFECTO</a> 
+              <!-- BEGIN Asc_On --><img height="9" src="../Themes/Cobalt/AscOn.gif" width="13" border="0"><!-- END Asc_On -->
+              <!-- BEGIN Desc_On --><img height="9" src="../Themes/Cobalt/DescOn.gif" width="13" border="0"><!-- END Desc_On --><!-- END Sorter Sorter_pro_Efecto -->&nbsp;</td> 
+            <td nowrap class="CobaltColumnTD">
+              <!-- BEGIN Sorter Sorter_pro_EfeAcumula --><a class="CobaltSorterLink" href="{Sort_URL}">ACUMULACION</a> 
+              <!-- BEGIN Asc_On --><img height="9" src="../Themes/Cobalt/AscOn.gif" width="13" border="0"><!-- END Asc_On -->
+              <!-- BEGIN Desc_On --><img height="9" src="../Themes/Cobalt/DescOn.gif" width="13" border="0"><!-- END Desc_On --><!-- END Sorter Sorter_pro_EfeAcumula -->&nbsp;</td> 
+            <td nowrap class="CobaltColumnTD">
+              <!-- BEGIN Sorter Sorter_pro_Costeo --><a class="CobaltSorterLink" href="{Sort_URL}">COSTEO</a> 
+              <!-- BEGIN Asc_On --><img height="9" src="../Themes/Cobalt/AscOn.gif" width="13" border="0"><!-- END Asc_On -->
+              <!-- BEGIN Desc_On --><img height="9" src="../Themes/Cobalt/DescOn.gif" width="13" border="0"><!-- END Desc_On --><!-- END Sorter Sorter_pro_Costeo -->&nbsp;</td> 
+            <td nowrap class="CobaltColumnTD">
+              <!-- BEGIN Sorter Sorter_pro_Grupo --><a class="CobaltSorterLink" href="{Sort_URL}">GRUPO</a> 
+              <!-- BEGIN Asc_On --><img height="9" src="../Themes/Cobalt/AscOn.gif" width="13" border="0"><!-- END Asc_On -->
+              <!-- BEGIN Desc_On --><img height="9" src="../Themes/Cobalt/DescOn.gif" width="13" border="0"><!-- END Desc_On --><!-- END Sorter Sorter_pro_Grupo -->&nbsp;</td> 
+            <td nowrap class="CobaltColumnTD">Borrar &nbsp;</td> 
+          </tr>
+          <!-- BEGIN Row -->
+          <!-- BEGIN RowError -->
+          <tr>
+            <td colspan="9" class="CobaltErrorDataTD">{Error}</td> 
+          </tr>
+          <!-- END RowError -->
+          <tr style="PADDING-BOTTOM: 1px; PADDING-TOP: 1px">
+            <td class="CobaltDataTD"><input type="hidden" name="{pro_codProceso_Name}" value="{pro_codProceso}" style="WIDTH: 36px; HEIGHT: 13px" size="4">&nbsp; <input class="CobaltInputSB2" value="{pro_Secuencia}" name="{pro_Secuencia_Name}" style="WIDTH: 18px; HEIGHT: 18px" size="2"></td> 
+            <td class="CobaltDataTD">
+              <select name="{cla_TipoTransacc_Name}" class="CobaltInputSB2" style="FONT-SIZE: 9px; WIDTH: 174px">
+                <option value="" selected>-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;</option>
+ {cla_TipoTransacc_Options} 
+              </select>
+ &nbsp;</td> 
+            <td class="CobaltDataTD"><input name="{pro_Orden_Name}" value="{pro_Orden}" maxlength="5" size="5" class="CobaltInputSB2">&nbsp;</td> 
+            <td class="CobaltDataTD">
+              <select name="{pro_Signo_Name}" class="CobaltInputSB2" style="FONT-SIZE: 9px; WIDTH: 81px">
+                <option value="" selected>-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;</option>
+ {pro_Signo_Options} 
+              </select>
+ &nbsp;</td> 
+            <td class="CobaltDataTD"><input name="{pro_Efecto_Name}" value="{pro_Efecto}" maxlength="5" size="5" class="CobaltInputSB2">&nbsp;</td> 
+            <td class="CobaltDataTD"><input name="{pro_EfeAcumula_Name}" value="{pro_EfeAcumula}" maxlength="5" size="5" class="CobaltInputSB2">&nbsp;</td> 
+            <td class="CobaltDataTD"><input name="{pro_Costeo_Name}" value="{pro_Costeo}" maxlength="4" size="4" class="CobaltInputSB2">&nbsp;</td> 
+            <td class="CobaltDataTD"><input name="{pro_Grupo_Name}" value="{pro_Grupo}" maxlength="5" size="5" class="CobaltInputSB2">&nbsp;</td> 
+            <td class="CobaltDataTD">
+              <!-- BEGIN CheckBox CheckBox_Delete --><input type="checkbox" name="{CheckBox_Delete_Name}" value="1" class="CobaltInput" {CheckBox_Delete}><!-- END CheckBox CheckBox_Delete -->&nbsp;</td> 
+          </tr>
+          <!-- END Row -->
+          <!-- BEGIN NoRecords -->
+          <tr>
+            <td colspan="9" class="CobaltDataTD">No hay registros&nbsp;</td> 
+          </tr>
+          <!-- END NoRecords -->
+          <tr>
+            <td align="center" colspan="9" nowrap class="CobaltFooterTD">
+              <!-- BEGIN Navigator Navigator -->
+              <!-- BEGIN First_On --><a class="CobaltNavigatorLink" href="{First_URL}"><img height="13" src="../Themes/StormyWeather/FirstOn.gif" width="38" border="0"></a> <!-- END First_On -->
+              <!-- BEGIN Prev_On --><a class="CobaltNavigatorLink" href="{Prev_URL}"><img height="13" src="../Themes/StormyWeather/PrevOn.gif" width="38" border="0"></a> <!-- END Prev_On -->&nbsp; 
+              <!-- BEGIN Pages -->
+              <!-- BEGIN Page_On --><a class="CobaltNavigatorLink" href="{Page_URL}">{Page_Number}</a>&nbsp; <!-- END Page_On -->
+              <!-- BEGIN Page_Off -->{Page_Number}&nbsp; <!-- END Page_Off --><!-- END Pages -->de
+              {Total_Pages}&nbsp; 
+              <!-- BEGIN Next_On --><a class="CobaltNavigatorLink" href="{Next_URL}"><img height="13" src="../Themes/StormyWeather/NextOn.gif" width="38" border="0"></a> <!-- END Next_On -->
+              <!-- BEGIN Last_On --><a class="CobaltNavigatorLink" href="{Last_URL}"><img height="13" src="../Themes/StormyWeather/LastOn.gif" width="38" border="0"></a> <!-- END Last_On --><!-- END Navigator Navigator -->&nbsp; 
+              <!-- BEGIN Button Button_Submit --><input name="{Button_Name}" type="submit" value="GRABAR" class="CobaltDataLink" style="FONT-SIZE: 9px; WIDTH: 54px; HEIGHT: 18px"><!-- END Button Button_Submit -->&nbsp; </td> 
+          </tr>
+ 
+        </table>
+ 
+      </form>
+ <!-- END EditableGrid invprocesos --></td> 
+    <td>&nbsp;</td> 
+  </tr>
+ 
+</table>
+ 
+<p></p>
+ 
+</body>
+ 
+</html>

@@ -1,0 +1,165 @@
+<html>
+<head>
+<base target="_self">
+<link rel="stylesheet" type="text/css" href="../Themes/StormyWeather/Style.css">
+<link rel="stylesheet" type="text/css" href="../Themes/menu/Style.css">
+<title>EMPRESAS</title>
+<script language="JavaScript" src="../LibJava/menu_func.js"></script>
+<link rel="stylesheet" type="text/css" href="../Themes/Cobalt/Style.css">
+<script language="JavaScript">
+//Begin CCS script
+//Include JSFunctions @1-5F368366
+  </script>
+<script language="JavaScript" src="../functions.js"></script>
+<script language="JavaScript">
+//End Include JSFunctions
+//page_SeGeEm_mant_Button_Delete_OnClick @28-C937B049
+function page_SeGeEm_mant_Button_Delete_OnClick()
+{
+    var result;
+//End page_SeGeEm_mant_Button_Delete_OnClick
+//Confirmation Message @29-BED55CD3
+    return confirm('Borrar registro?');
+//End Confirmation Message
+
+//Close page_SeGeEm_mant_Button_Delete_OnClick @28-BC33A33A
+    return result;
+}
+//End Close page_SeGeEm_mant_Button_Delete_OnClick
+
+//bind_events @1-4C3D40CB
+function bind_events() {
+    if (document.forms["SeGeEm_mant"]) check_and_bind('document.forms["SeGeEm_mant"].Button_Delete','onclick',page_SeGeEm_mant_Button_Delete_OnClick);
+    forms_onload();
+}
+//End bind_events
+
+window.onload = bind_events; //Assign bind_events @1-19F7B649
+
+//End CCS script
+</script>
+</head>
+<body bgcolor="#fffff7" link="#000000" alink="#ff0000" vlink="#000000" text="#000000" class="CobaltPageBODY" background="../Themes/Cobalt/Light Streaks.bmp" topmargin="20" align="center">
+{Cabecera}
+<center>
+<table background="../Themes/cobalt/light streaks.bmp" border="0" align="center" cellspacing="0" cellpadding="0">
+  <tr align="left" valign="top">
+    <td background="../Themes/cobalt/light streaks.bmp" align="middle" valign="top">&nbsp;
+      <!-- BEGIN Record SeGeEm_list -->
+      <form action="{Action}" method="post" name="{HTMLFormName}">
+        <font class="CobaltFormHeaderFont">BUSCAR EMPRESA </font>
+        <table border="0" cellpadding="1" class="CobaltFormTABLE">
+          <!-- BEGIN Error -->
+          <tr>
+            <td class="CobaltErrorDataTD" colspan="2">{Error}</td> 
+          </tr>
+ <!-- END Error -->
+          <tr>
+            <td class="CobaltFieldCaptionTD" nowrap>CONDICION&nbsp;</td> 
+            <td class="CobaltDataTD"><input class="CobaltInput" maxlength="5" name="{s_keyword_Name}" size="5" value="{s_keyword}" style="WIDTH: 221px; HEIGHT: 20px">&nbsp; </td> 
+          </tr>
+ 
+          <tr>
+            <td align="right" class="CobaltFooterTD" colspan="2" nowrap>
+              <!-- BEGIN Button Button_DoSearch --><input class="CobaltButton" name="{Button_Name}" type="submit" value="Buscar"><!-- END Button Button_DoSearch -->&nbsp; </td> 
+          </tr>
+ 
+        </table>
+ 
+      </form>
+ <!-- END Record SeGeEm_list -->
+      <!-- BEGIN Grid SeGeEm_qry --><font class="CobaltFormHeaderFont">LISTA DE
+      EMPRESAS </font> 
+      <table border="0" cellpadding="1" class="CobaltFormTABLE">
+        <tr align="middle">
+          <td class="CobaltColumnTD" nowrap>
+            <!-- BEGIN Sorter Sorter_emp_IDempresa --><a class="CobaltSorterLink" href="{Sort_URL}">ID </a> <!-- END Sorter Sorter_emp_IDempresa -->&nbsp; </td> 
+          <td class="CobaltColumnTD" nowrap>
+            <!-- BEGIN Sorter Sorter_emp_Descripcion --><a class="CobaltSorterLink" href="{Sort_URL}">DESCRIPCION </a> <!-- END Sorter Sorter_emp_Descripcion -->&nbsp;</td> 
+          <td class="CobaltColumnTD" nowrap>
+            <!-- BEGIN Sorter Sorter_emp_Estado --><a class="CobaltSorterLink" href="{Sort_URL}">ESTADO </a> <!-- END Sorter Sorter_emp_Estado -->&nbsp;</td> 
+          <td class="CobaltColumnTD" nowrap>
+            <!-- BEGIN Sorter Sorter_emp_BaseDatos --><a class="CobaltSorterLink" href="{Sort_URL}">BASE
+            DE DATOS </a> <!-- END Sorter Sorter_emp_BaseDatos -->&nbsp;</td> 
+        </tr>
+ 
+        <!-- BEGIN Row -->
+        <tr>
+          <td class="CobaltDataTD">&nbsp;<a class="CobaltDataLink" href="{emp_IDempresa_Src}" target="_self">{emp_IDempresa} </a>&nbsp;</td> 
+          <td class="CobaltDataTD">&nbsp;{emp_Descripcion}&nbsp;</td> 
+          <td class="CobaltDataTD">&nbsp;{par_Descripcion}&nbsp;</td> 
+          <td class="CobaltDataTD">&nbsp;{emp_BaseDatos}&nbsp;</td> 
+        </tr>
+ <!-- END Row -->
+        <!-- BEGIN NoRecords -->
+        <tr>
+          <td class="CobaltDataTD" colspan="4">NO HAY EMPRESAS QUE CUMPLAN LA
+            CONDICION DE BUSQUEDA&nbsp;</td> 
+        </tr>
+ <!-- END NoRecords -->
+        <tr>
+          <td class="CobaltFooterTD" colspan="4" nowrap><a class="CobaltNavigatorLink" href="{segempresas_Insert_Src}">Agregar
+            Nuevo </a>&nbsp; 
+            <!-- BEGIN Navigator Navigator -->
+            <!-- BEGIN Prev_On --><a class="CobaltNavigatorLink" href="{Prev_URL}"><img height="13" src="../Themes/cobalt/prevon.gif" width="35" border="0"></a><!-- END Prev_On -->
+            <!-- BEGIN Prev_Off --><img height="13" src="../Themes/cobalt/prevoff.gif" width="35" border="0"><!-- END Prev_Off -->
+            <!-- BEGIN Next_On --><a class="CobaltNavigatorLink" href="{Next_URL}"><img height="13" src="../Themes/cobalt/nexton.gif" width="34" border="0"></a><!-- END Next_On -->
+            <!-- BEGIN Next_Off --><img height="13" src="../Themes/cobalt/nextoff.gif" width="34" border="0"><!-- END Next_Off --><!-- END Navigator Navigator -->&nbsp; </td> 
+        </tr>
+ 
+      </table>
+ <!-- END Grid SeGeEm_qry --></td> 
+    <td background="../Themes/cobalt/light streaks.bmp" align="middle" valign="top">&nbsp; 
+      <!-- BEGIN Record SeGeEm_mant -->
+      <form action="{Action}" method="post" name="{HTMLFormName}">
+        <font class="CobaltFormHeaderFont">{lbTitulo} </font>
+        <table border="0" cellpadding="1" class="CobaltFormTABLE">
+          <!-- BEGIN Error -->
+          <tr>
+            <td class="CobaltErrorDataTD" colspan="2">{Error}</td>
+          </tr>
+ <!-- END Error -->
+          <tr>
+            <td class="CobaltFieldCaptionTD" nowrap>&nbsp; ID&nbsp;</td>
+            <td class="CobaltDataTD"><input class="CobaltInput" maxlength="5" name="{emp_IDempresa_Name}" size="5" value="{emp_IDempresa}">&nbsp;</td>
+          </tr>
+
+          <tr>
+            <td class="CobaltFieldCaptionTD" nowrap>&nbsp; DESCRIPCION</td>
+            <td class="CobaltDataTD"><input class="CobaltInput" maxlength="18" name="{emp_Descripcion_Name}" size="18" value="{emp_Descripcion}">&nbsp;</td>
+          </tr>
+
+          <tr>
+            <td class="CobaltFieldCaptionTD" nowrap>&nbsp; ESTADO</td>
+            <td class="CobaltDataTD">
+              <select class="CobaltSelect" name="{emp_Estado_Name}">
+                <option selected value="">- - - - - - - - - - - - </option>
+ {emp_Estado_Options}
+              </select>
+ &nbsp;</td>
+          </tr>
+          <tr>
+            <td class="CobaltFieldCaptionTD" nowrap>&nbsp; BASE DE DATOS&nbsp;</td>
+            <td class="CobaltDataTD"><input class="CobaltInput" maxlength="25" name="{emp_BaseDatos_Name}" size="25" value="{emp_BaseDatos}">&nbsp;</td>
+          </tr>
+
+          <tr>
+            <td align="right" class="CobaltFooterTD" colspan="2" nowrap>
+              <!-- BEGIN Button Button_Insert --><input class="CobaltButton" name="{Button_Name}" type="submit" value="AGREGAR"><!-- END Button Button_Insert -->
+              <!-- BEGIN Button Button_Update --><input class="CobaltButton" name="{Button_Name}" type="submit" value="GRABAR"><!-- END Button Button_Update -->
+              <!-- BEGIN Button Button_Delete --><input class="CobaltButton" name="{Button_Name}" type="submit" value="BORRAR"><!-- END Button Button_Delete -->
+              <!-- BEGIN Button Button_Cancel --><input class="CobaltButton" name="{Button_Name}" type="submit" value="CANCELAR"><!-- END Button Button_Cancel -->&nbsp; </td>
+          </tr>
+        </table>
+      </form>
+ <!-- END Record SeGeEm_mant --></td>
+  </tr>
+
+  <tr>
+    <td></td>
+    <td></td>
+  </tr>
+</table>
+</center>
+</body>
+</html>

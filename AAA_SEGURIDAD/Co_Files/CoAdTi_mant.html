@@ -1,0 +1,355 @@
+<html>
+<head>
+<base target="PAGINA">
+<link rel="stylesheet" type="text/css" href="../Themes/StormyWeather/Style.css">
+<link rel="stylesheet" type="text/css" href="../Themes/Menu/Style.css">
+<title>TIPOS DE TRANSACCIONES</title>
+<script language="JavaScript" src="../LibJava/menu_func.js"></script>
+<link rel="stylesheet" type="text/css" href="../Themes/Cobalt/Style.css">
+<script language="JavaScript">
+//Begin CCS script
+//Include JSFunctions @1-5F368366
+  </script>
+<script language="JavaScript" src="../functions.js"></script>
+<script language="JavaScript">
+  
+//End Include JSFunctions
+
+//page_CoAdTi_man_Button_Delete_OnClick @40-62062624
+function page_CoAdTi_man_Button_Delete_OnClick()
+{
+    var result;
+//End page_CoAdTi_man_Button_Delete_OnClick
+
+//Confirmation Message @41-BED55CD3
+    return confirm('Borrar registro?');
+//End Confirmation Message
+
+//Close page_CoAdTi_man_Button_Delete_OnClick @40-BC33A33A
+    return result;
+}
+//End Close page_CoAdTi_man_Button_Delete_OnClick
+
+//bind_events @1-B64AA2D4
+function bind_events() {
+    if (document.forms["CoAdTi_man"]) check_and_bind('document.forms["CoAdTi_man"].Button_Delete','onclick',page_CoAdTi_man_Button_Delete_OnClick);
+    forms_onload();
+}
+//End bind_events
+
+window.onload = bind_events; //Assign bind_events @1-19F7B649
+
+//End CCS script
+</script>
+</head>
+<body bgcolor="#fffff7" link="#000000" alink="#ff0000" vlink="#000000" text="#000000" class="CobaltPageBODY" topmargin="0">
+<p title="CLASES DE TRANSACCIONES" class="CobaltDataTD">{Cabecera}&nbsp;
+<table background="../Themes/Cobalt/Light Streaks.bmp" border="0" cellpadding="0" cellspacing="0" width="100%" align="center">
+  <tr>
+    <td align="middle" valign="top" width="100%">
+      <!-- BEGIN Record CoAdTi_man -->
+      <form action="{Action}" method="post" name="{HTMLFormName}" target="_self">
+        <font class="CobaltFormHeaderFont"><br>
+        {lbTitulo} </font> 
+        <table border="1" cellpadding="0" class="CobaltDataTD" align="center" cellspacing="0">
+          <!-- BEGIN Error -->
+          <tr>
+            <td class="CobaltErrorDataTD" colspan="5">{Error}</td> 
+          </tr>
+ <!-- END Error -->
+          <tr>
+            <td class="CobaltFieldCaptionTD" nowrap>&nbsp;&nbsp;Aplicación&nbsp;</td> 
+            <td class="CobaltDataTD" colspan="2">&nbsp; 
+              <select class="CobaltSelect" name="{cla_aplicacion_Name}" style="WIDTH: 137px; HEIGHT: 22px">
+                <option selected value="">- - - - - - - - - - - - </option>
+ {cla_aplicacion_Options} 
+              </select>
+ </td> 
+            <td class="CobaltFieldCaptionTD">&nbsp;Tipo Comprobante</td> 
+            <td class="CobaltDataTD">&nbsp; <input class="CobaltInput" maxlength="3" name="{cla_tipoComp_Name}" size="3" value="{cla_tipoComp}"></td> 
+          </tr>
+ 
+          <tr>
+            <td class="CobaltFieldCaptionTD" nowrap>&nbsp; Descripcion&nbsp;</td> 
+            <td class="CobaltDataTD" colspan="2">&nbsp;<input class="CobaltInput" maxlength="30" name="{cla_Descripcion_Name}" size="30" value="{cla_Descripcion}" style="WIDTH: 211px; HEIGHT: 21px"></td> 
+            <td class="CobaltFieldCaptionTD"></td> 
+            <td class="CobaltDataTD"></td> 
+          </tr>
+ 
+          <tr>
+            <td class="CobaltFieldCaptionTD">&nbsp; Formulario a usar </td> 
+            <td class="CobaltDataTD" colspan="2">&nbsp;<input class="CobaltInput" maxlength="100" name="{cla_Formulario_Name}" size="50" value="{cla_Formulario}" style="WIDTH: 211px; HEIGHT: 20px" title="Url correspondiente al formulario que captura los datos de la transacción"></td> 
+            <td class="CobaltFieldCaptionTD">&nbsp;&nbsp;Informe&nbsp; </td> 
+            <td class="CobaltDataTD">&nbsp;<input class="CobaltInput" maxlength="100" name="{cla_Informe_Name}" size="50" value="{cla_Informe}" style="WIDTH: 199px; HEIGHT: 20px" title="Url correspondiente al proceso que genera el documento impreso de esta transacción"></td> 
+          </tr>
+ 
+          <tr>
+            <td class="CobaltDataTD" nowrap align="middle" colspan="5" style="COLOR: #0084c4">--------
+              EFECTO CONTABLE:-------</td> 
+          </tr>
+ 
+          <tr>
+            <td class="CobaltFieldCaptionTD" nowrap>&nbsp; Requiere Emisor&nbsp;</td> 
+            <td class="CobaltDataTD">&nbsp; 
+              <select class="CobaltSelect" name="{cla_ReqEmisor_Name}" style="WIDTH: 38px; HEIGHT: 22px">
+                <option selected value="">- - - - - - - - - - - - </option>
+ {cla_ReqEmisor_Options} 
+              </select>
+ </td> 
+            <td class="CobaltDataTD" style="COLOR: #006699">&nbsp;Texto: <input class="CobaltInput" maxlength="25" name="{cla_TxtEmisor_Name}" size="25" value="{cla_TxtEmisor}" style="WIDTH: 157px; HEIGHT: 20px" title="Texto que aparecerá junto al campo que solicita el Emisor">&nbsp;&nbsp;&nbsp; </td> 
+            <td class="CobaltFieldCaptionTD">&nbsp; Requiere Receptor&nbsp;</td> 
+            <td class="CobaltDataTD" style="COLOR: #006699">&nbsp; 
+              <select class="CobaltSelect" name="{cla_ReqReceptor_Name}" style="WIDTH: 35px; HEIGHT: 22px">
+                <option selected value="">- - - - - - - - - - - - </option>
+ {cla_ReqReceptor_Options} 
+              </select>
+ Texto:<input class="CobaltInput" maxlength="25" name="{cla_TxtReceptor_Name}" size="25" value="{cla_TxtReceptor}" style="WIDTH: 156px; HEIGHT: 20px" title="Texto que aparecera junto al campo de Receptor">&nbsp;&nbsp;</td> 
+          </tr>
+ 
+          <tr>
+            <td class="CobaltFieldCaptionTD" nowrap>&nbsp; Tipo de Emisor&nbsp;</td> 
+            <td class="CobaltDataTD" colspan="2">&nbsp; 
+              <select class="CobaltSelect" name="{cla_TipoEmisor_Name}" style="WIDTH: 140px; HEIGHT: 22px">
+                <option selected value="">- - - - - - - - - - - - </option>
+ {cla_TipoEmisor_Options} 
+              </select>
+ <font color="#006699">Default:</font><input class="CobaltInput" maxlength="10" name="{cla_EmiDefault_Name}" size="10" style="WIDTH: 29px; HEIGHT: 20px" title="Código de Receptor por Omisión (si no se especifica lo contrario)" value="{cla_EmiDefault}"></td> 
+            <td class="CobaltFieldCaptionTD">&nbsp; Tipo de Receptor&nbsp;</td> 
+            <td class="CobaltDataTD" style="COLOR: #006699">&nbsp; 
+              <select class="CobaltSelect" name="{cla_TipoReceptor_Name}" style="WIDTH: 130px; HEIGHT: 22px">
+                <option selected value="">- - - - - - - - - - - - </option>
+ {cla_TipoReceptor_Options} 
+              </select>
+ Default:&nbsp;<input class="CobaltInput" maxlength="10" name="{cla_RecDefault_Name}" size="10" style="WIDTH: 36px; HEIGHT: 20px" title="Receptor por Omisión (si no se especifica lo contrario)" value="{cla_RecDefault}"></td> 
+          </tr>
+ 
+          <tr>
+            <td class="CobaltFieldCaptionTD" nowrap>&nbsp; Emite Cheque?</td> 
+            <td class="CobaltDataTD" colspan="2">&nbsp; 
+              <select class="CobaltSelect" name="{cla_IndCheque_Name}" style="WIDTH: 99px; HEIGHT: 22px">
+                <option selected value="">- - - - - - - - - - - - </option>
+ {cla_IndCheque_Options} 
+              </select>
+ </td> 
+            <td class="CobaltFieldCaptionTD">&nbsp; Estado&nbsp;</td> 
+            <td class="CobaltDataTD">&nbsp; 
+              <select class="CobaltSelect" name="{cla_Indicador_Name}" style="WIDTH: 99px; HEIGHT: 22px">
+                <option selected value="">- - - - - - - - - - - - </option>
+ {cla_Indicador_Options} 
+              </select>
+ </td> 
+          </tr>
+ 
+          <tr>
+            <td class="CobaltDataTD" nowrap align="middle" colspan="5" style="COLOR: #0088ca">--------
+              PARA TRANSACCIONES DE INVENTARIO: --------</td> 
+          </tr>
+ 
+          <tr>
+            <td class="CobaltFieldCaptionTD" nowrap>&nbsp; Indic. Contabiliz.</td> 
+            <td class="CobaltDataTD" colspan="2">&nbsp; 
+              <select class="CobaltSelect" name="{cla_Contabilizacion_Name}" style="WIDTH: 97px; HEIGHT: 22px">
+                <option selected value="">- - - - - - - - - - - - </option>
+ {cla_Contabilizacion_Options} 
+              </select>
+ </td> 
+            <td class="CobaltFieldCaptionTD">&nbsp; Ind. Transferencia</td> 
+            <td class="CobaltDataTD">&nbsp; 
+              <select class="CobaltSelect" name="{cla_IndTransfer_Name}" style="WIDTH: 96px; HEIGHT: 22px">
+                <option selected value="">- - - - - - - - - - - - </option>
+ {cla_IndTransfer_Options} 
+              </select>
+ </td> 
+          </tr>
+ 
+          <tr>
+            <td class="CobaltFieldCaptionTD" nowrap>&nbsp; Lista /Precios a
+              Aplicar</td> 
+            <td class="CobaltDataTD" colspan="2">&nbsp; 
+              <select class="CobaltSelect" name="{cla_LisPrecios_Name}" style="WIDTH: 98px; HEIGHT: 22px">
+                <option selected value="">- - - - - - - - - - - - </option>
+ {cla_LisPrecios_Options} 
+              </select>
+ </td> 
+            <td class="CobaltFieldCaptionTD">&nbsp; Lis Costos&nbsp;</td> 
+            <td class="CobaltDataTD">&nbsp; 
+              <select name="{cla_LisCostos_Name}" class="CobaltSelect" style="WIDTH: 97px; HEIGHT: 22px">
+                <option value="" selected>- - - - - - - - - - - - </option>
+ {cla_LisCostos_Options} 
+              </select>
+ </td> 
+          </tr>
+ 
+          <tr>
+            <td class="CobaltFieldCaptionTD" nowrap>&nbsp; El Costo es
+              Fijo&nbsp; </td> 
+            <td class="CobaltDataTD" colspan="2">&nbsp; 
+              <select class="CobaltSelect" name="{cla_CosFijo_Name}" style="WIDTH: 98px; HEIGHT: 22px">
+                <option selected value="">- - - - - - - - - - - - </option>
+ {cla_CosFijo_Options} 
+              </select>
+ </td> 
+            <td class="CobaltFieldCaptionTD">&nbsp; El Precio es Fijo&nbsp;</td> 
+            <td class="CobaltDataTD">&nbsp; 
+              <select class="CobaltSelect" name="{cla_PreFijo_Name}" style="WIDTH: 98px; HEIGHT: 22px">
+                <option selected value="">- - - - - - - - - - - - </option>
+ {cla_PreFijo_Options} 
+              </select>
+ </td> 
+          </tr>
+ 
+          <tr>
+            <td class="CobaltFieldCaptionTD" nowrap>&nbsp; Presentar Costo&nbsp;</td> 
+            <td class="CobaltDataTD" colspan="2">&nbsp; 
+              <select class="CobaltSelect" name="{cla_VerCosto_Name}" style="WIDTH: 96px; HEIGHT: 22px">
+                <option selected value="">- - - - - - - - - - - - </option>
+ {cla_VerCosto_Options} 
+              </select>
+ </td> 
+            <td class="CobaltFieldCaptionTD">&nbsp; Presentar&nbsp;Precio&nbsp;</td> 
+            <td class="CobaltDataTD">&nbsp; 
+              <select class="CobaltSelect" name="{cla_VerPrecio_Name}" style="WIDTH: 95px; HEIGHT: 22px">
+                <option selected value="">- - - - - - - - - - - - </option>
+ {cla_VerPrecio_Options} 
+              </select>
+ </td> 
+          </tr>
+ 
+          <tr>
+            <td class="CobaltFieldCaptionTD" nowrap>&nbsp; Cuenta Origen&nbsp;</td> 
+            <td class="CobaltDataTD" colspan="2">&nbsp; 
+              <select class="CobaltSelect" name="{cla_CtaOrigen_Name}" style="WIDTH: 195px; HEIGHT: 16px">
+                <option selected value="">- - - - - - - - - - - - </option>
+ {cla_CtaOrigen_Options} 
+              </select>
+ </td> 
+            <td class="CobaltFieldCaptionTD">&nbsp; Aux Origen&nbsp;</td> 
+            <td class="CobaltDataTD">&nbsp; 
+              <select class="CobaltSelect" name="{cla_AuxOrigen_Name}" style="WIDTH: 184px; HEIGHT: 16px">
+                <option selected value="">- - - - - - - - - - - - </option>
+ {cla_AuxOrigen_Options} 
+              </select>
+ </td> 
+          </tr>
+ 
+          <tr>
+            <td class="CobaltFieldCaptionTD" nowrap>&nbsp; Cuenta Destino&nbsp;</td> 
+            <td class="CobaltDataTD" colspan="2">&nbsp; 
+              <select class="CobaltSelect" name="{cla_CtaDestino_Name}" style="WIDTH: 192px; HEIGHT: 16px">
+                <option selected value="">- - - - - - - - - - - - </option>
+ {cla_CtaDestino_Options} 
+              </select>
+ </td> 
+            <td class="CobaltFieldCaptionTD">&nbsp; Auxiliar Destino&nbsp;</td> 
+            <td class="CobaltDataTD">&nbsp; 
+              <select class="CobaltSelect" name="{cla_AuxDestino_Name}" style="WIDTH: 180px; HEIGHT: 16px">
+                <option selected value="">- - - - - - - - - - - - </option>
+ {cla_AuxDestino_Options} 
+              </select>
+ </td> 
+          </tr>
+ 
+          <tr>
+            <td class="CobaltFieldCaptionTD" nowrap>&nbsp; Cuenta Ingresos&nbsp;</td> 
+            <td class="CobaltDataTD" colspan="2">&nbsp; 
+              <select class="CobaltSelect" name="{cla_CtaIngresos_Name}" style="WIDTH: 194px; HEIGHT: 16px">
+                <option selected value="">- - - - - - - - - - - - </option>
+ {cla_CtaIngresos_Options} 
+              </select>
+ </td> 
+            <td class="CobaltFieldCaptionTD">&nbsp; Cuenta Costo&nbsp;</td> 
+            <td class="CobaltDataTD">&nbsp; 
+              <select class="CobaltSelect" name="{cla_CtaCosto_Name}" style="WIDTH: 127px; HEIGHT: 22px">
+                <option selected value="">- - - - - - - - - - - - </option>
+ {cla_CtaCosto_Options} 
+              </select>
+ </td> 
+          </tr>
+ 
+          <tr>
+            <td class="CobaltFieldCaptionTD" nowrap>&nbsp; Cuenta de
+              Difer.&nbsp; </td> 
+            <td class="CobaltDataTD" colspan="2">&nbsp; 
+              <select class="CobaltSelect" name="{cla_CtaDiferencia_Name}" style="WIDTH: 186px; HEIGHT: 16px">
+                <option selected value="">- - - - - - - - - - - - </option>
+ {cla_CtaDiferencia_Options} 
+              </select>
+ </td> 
+          </tr>
+ 
+          <tr>
+            <td class="CobaltFieldCaptionTD" nowrap>&nbsp; Requiere Ref.
+              Oper.&nbsp;</td> 
+            <td class="CobaltDataTD" colspan="2">&nbsp; 
+              <select class="CobaltSelect" name="{cla_ReqReferencia_Name}" style="WIDTH: 186px; HEIGHT: 16px">
+                <option selected value="">- - - - - - - - - - - - </option>
+ {cla_ReqReferencia_Options} 
+              </select>
+ </td> 
+            <td class="CobaltFieldCaptionTD">&nbsp; Requiere Semana&nbsp;</td> 
+            <td class="CobaltDataTD">&nbsp; 
+              <select class="CobaltSelect" name="{cla_ReqSemana_Name}" style="WIDTH: 81px; HEIGHT: 16px">
+                <option selected value="">- - - - - - - - - - - - </option>
+ {cla_ReqSemana_Options} 
+              </select>
+ </td> 
+          </tr>
+ 
+          <tr>
+            <td class="CobaltFieldCaptionTD" nowrap>&nbsp; Clase de Transacc.</td> 
+            <td class="CobaltDataTD" colspan="2">&nbsp; 
+              <select class="CobaltSelect" name="{cla_ClaTransaccion_Name}" style="WIDTH: 184px; HEIGHT: 16px">
+                <option selected value="">- - - - - - - - - - - - </option>
+ {cla_ClaTransaccion_Options} 
+              </select>
+ </td> 
+            <td class="CobaltFieldCaptionTD">&nbsp; Indicador de Costeo&nbsp;</td> 
+            <td class="CobaltDataTD">&nbsp; 
+              <select class="CobaltSelect" name="{cla_IndiCosteo_Name}" style="WIDTH: 82px; HEIGHT: 16px">
+                <option selected value="">- - - - - - - - - - - - </option>
+ {cla_IndiCosteo_Options} 
+              </select>
+ </td> 
+          </tr>
+ 
+          <tr>
+            <td class="CobaltFieldCaptionTD" nowrap>&nbsp; Requiere
+              Cantidad&nbsp;</td> 
+            <td class="CobaltDataTD" colspan="2">&nbsp; 
+              <select class="CobaltSelect" name="{cla_reqCantidad_Name}" style="WIDTH: 97px; HEIGHT: 16px">
+                <option selected value="">- - - - - - - - - - - - </option>
+ {cla_reqCantidad_Options} 
+              </select>
+ </td> 
+            <td class="CobaltFieldCaptionTD">&nbsp;&nbsp;Query Auxiliar&nbsp;</td> 
+            <td class="CobaltDataTD">&nbsp; <textarea class="CobaltTextarea" style="WIDTH: 101px; HEIGHT: 18px" name="{cla_QryAuxiliar_Name}" rows="3" cols="50">{cla_QryAuxiliar}</textarea> </td> 
+          </tr>
+ 
+          <tr>
+            <td class="CobaltDataTD" style="COLOR: #0088ca" nowrap align="middle" colspan="5" height="5"></td> 
+          </tr>
+ 
+          <tr>
+            <td align="middle" class="CobaltFooterTD" colspan="5" nowrap title="Regresa a Busqueda">
+              <!-- BEGIN Button Button_Insert --><input class="CobaltButton" name="{Button_Name}" type="submit" value="GRABAR" title="Añade el Registro"><!-- END Button Button_Insert -->&nbsp;
+              &nbsp; 
+              <!-- BEGIN Button Button_Update --><input class="CobaltButton" name="{Button_Name}" type="submit" value="GRABAR" title="Graba los Cambios"><!-- END Button Button_Update -->&nbsp;&nbsp; 
+              <!-- BEGIN Button Button_Delete --><input class="CobaltButton" name="{Button_Name}" type="submit" value="BORRAR" title="Elimina el Registro"><!-- END Button Button_Delete -->&nbsp;&nbsp; 
+              <!-- BEGIN Button Button_Cancel --><input class="CobaltButton" name="{Button_Name}" type="submit" value="CANCELAR" title="Cancela las modificaciones"><!-- END Button Button_Cancel -->&nbsp;&nbsp; 
+              <!-- BEGIN Button btRegresar --><input class="CobaltButton" name="{Button_Name}" type="submit" value="REGRESAR.." title="Regresa a Pantalla de Búsqueda, sin Grabar el contenido"><!-- END Button btRegresar -->&nbsp;&nbsp; 
+              <!-- BEGIN Button btAnadir --><input class="CobaltButton" name="{Button_Name}" title="Limpia la pantalla para Insertar un nuevo Registro" type="submit" value="AÑADIR"><!-- END Button btAnadir --></td> 
+          </tr>
+ 
+        </table>
+ 
+      </form>
+ <!-- END Record CoAdTi_man -->&nbsp;</td> 
+  </tr>
+ 
+  <tr>
+    <td>&nbsp;</td> 
+  </tr>
+</table>
+ </p>
+</body>
+</html>

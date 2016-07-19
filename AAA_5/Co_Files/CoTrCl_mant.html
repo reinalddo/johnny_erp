@@ -1,0 +1,337 @@
+<html>
+<head>
+<meta name="GENERATOR" content="CodeCharge Studio 2.3.2.24">
+<base target="_self">
+<link rel="stylesheet" type="text/css" href="../Themes/Cobalt/Style.css">
+<link rel="stylesheet" type="text/css" href="../Themes/Menu/Style.css">
+<title>CONCILIACION BANCARIA</title>
+<script language="JavaScript" src="../LibJava/menu_func.js"></script>
+<script language="JavaScript" src="../LibJava/general.js"></script>
+<script language="JavaScript" src="../LibJava/fechas.js"></script>
+<script language="JavaScript" type="text/javascript">
+/**
+*	Secuencia de oeraciones necesarias al cambiar el estado e la transaccion
+*	@access		public
+*	@param		oCtrl		Object		Control en el que ocurre el cambio
+**/
+function fCambioEstado(oCtrl) {
+    sCampo = oCtrl.name;
+	i =fTraefila(sCampo);
+	if(document.movimlist["det_EstLibros" + "_" + i].value == 1) { // antes  estaba marcado, se desmarca
+		document.movimlist["det_FecLibros" + "_" + i].style.color="";
+		document.movimlist["det_EstLibros" + "_" + i].value  = 0;
+		document.movimlist["det_FecLibros" + "_" + i].value  ='01/Ene/20';
+		}
+	else {//														 Estaba desmarcado, se marca
+		document.movimlist["det_FecLibros" + "_" + i].style.color=document.movimlist["det_FecLibros" + "_" + i].style.backgroundcolor;
+		document.movimlist["det_FecLibros" + "_" + i].value = window.conconcil.con_FecCorte.value;
+		document.movimlist["det_EstLibros" + "_" + i].value  = 1;
+		}
+}
+function fAnula(pRegNum) {
+    sFec = fConvFecha(document.conconcil.con_FecCorte.value, conconcil_DatePicker_con_FecCorte.format)
+    sUrl = "../Co_Files/CoTrTr_anula.php?pReg=" + pRegNum + "&pFec=" + sFec;
+//  fAbrirWin(sUrl, 'wAnu', '', 900, 600);
+    fAbrirWin("../Ge_Files/GeGeGe_selfech.php?pTitul=ANULACION&pTipo=F&pUrl=" + sUrl +"&pTxtI=FECHA: &pNom1=pFec&pWin=wAnu", 'wAnu', '', 450, 150);
+}
+//Begin CCS script
+//Include JSFunctions @1-FB634A57
+  </script>
+<script language="JavaScript" type="text/javascript" src="../functions.js"></script>
+<script language="JavaScript" type="text/javascript">
+  
+//End Include JSFunctions
+
+//Include Common JSFunctions @1-A1D84A39
+</script>
+<script language="JavaScript" type="text/javascript" src="../DatePicker.js"></script>
+<script language="JavaScript" type="text/javascript">
+//End Include Common JSFunctions
+
+//Date Picker Object Definitions @1-0F492D28
+
+var conconcil_DatePicker_con_FecCorte = new Object(); 
+conconcil_DatePicker_con_FecCorte.format           = "dd/MMM/yy";
+conconcil_DatePicker_con_FecCorte.style            = "Themes/Cobalt/Style.css";
+conconcil_DatePicker_con_FecCorte.relativePathPart = "../";
+
+//End Date Picker Object Definitions
+
+//page_conconcil_Button_Delete_OnClick @5-9E557D4E
+function page_conconcil_Button_Delete_OnClick()
+{
+    var result;
+//End page_conconcil_Button_Delete_OnClick
+
+//Confirmation Message @6-BED55CD3
+    return confirm('Borrar registro?');
+//End Confirmation Message
+
+//Close page_conconcil_Button_Delete_OnClick @5-BC33A33A
+    return result;
+}
+//End Close page_conconcil_Button_Delete_OnClick
+
+//page_conconcil_Button_Cancel_OnClick @7-91010DD1
+function page_conconcil_Button_Cancel_OnClick()
+{
+    disableValidation = true;
+}
+//End page_conconcil_Button_Cancel_OnClick
+
+//bind_events @1-B11E1900
+function bind_events() {
+    if (document.forms["conconcil"]) check_and_bind('document.forms["conconcil"].Button_Delete','onclick',page_conconcil_Button_Delete_OnClick);
+    if (document.forms["conconcil"]) check_and_bind('document.forms["conconcil"].Button_Cancel','onclick',page_conconcil_Button_Cancel_OnClick);
+    forms_onload();
+}
+//End bind_events
+
+//window.onload = bind_events; //Assign bind_events @1-19F7B649
+
+//End CCS script
+function fEjecutar(pRep){
+    sBase='../Co_Files/'
+    switch(pRep){
+        case 'LB':
+            sUrl=sBase + 'CoTrTr_libroban.rpt.php?';
+            break;
+        case 'EC':
+            sUrl=sBase + 'CoTrTr_estadocue.rpt.php?';
+            break;
+        case 'CO':
+            sUrl=sBase + 'CoTrTr_conciliacion.rpt.php?';
+            break;
+        }
+    with (document.conconcil){
+        sPar =  "pQryCom=det_codcuenta='" + con_CodCuenta.value + "' AND det_idauxiliar = " + con_CodAuxiliar.value
+        sPar += "&pID=" + con_IdRegistro.value + "&pCue=" +con_CodCuenta.value + "&pAux=" + con_CodAuxiliar.value
+        sPar += "&pFec=" + fConvFecha(con_FecCorte.value, 'dd/MMM/yy' );
+        if(tmp_Tipo.checked) sPar +="&pTip=T";
+        }
+    fAbrirWin(sUrl + sPar, pRep, '', 900, 600);
+    }
+</script>
+</head>
+ 
+<body bgcolor="#fffff7" link="#000000" alink="#ff0000" vlink="#000000" text="#000000" class="CobaltPageBODY" style="PADDING-RIGHT: 0px; PADDING-LEFT: 0px; PADDING-BOTTOM: 0px; PADDING-TOP: 0px; TEXT-ALIGN: center; magin: 0; spacing: 0" bottommargin="0" nowrap leftmargin="0" topmargin="0" rightmargin="0" marginwidth="0" marginheight="0">
+&nbsp; {Cabecera}
+<!-- BEGIN Record conconcil -->
+<form name="{HTMLFormName}" action="{Action}" method="post" style="BORDER-RIGHT: 0px; BORDER-TOP: 0px; MARGIN: 0px; BORDER-LEFT: 0px; BORDER-BOTTOM: 0px">
+  <font class="CobaltFormHeaderFont" style="TEXT-ALIGN: center">A�DIR /
+  MODIFICAR CONCILIACIONES </font> 
+  <table class="CobaltFormTABLE" cellpadding="0" border="0" align="center" style="BORDER-RIGHT: 0px; PADDING-RIGHT: 0px; BORDER-TOP: 0px; PADDING-LEFT: 0px; PADDING-BOTTOM: 0px; MARGIN: 0px; BORDER-LEFT: 0px; PADDING-TOP: 0px; BORDER-BOTTOM: 0px; BORDER-COLLAPSE: collapse">
+    <!-- BEGIN Error -->
+    <tr>
+      <td class="CobaltErrorDataTD" colspan="10">{Error}</td> 
+    </tr>
+    <!-- END Error -->
+    <tr>
+      <td class="CobaltFieldCaptionTD" nowrap>Cod Cuenta&nbsp;</td> 
+      <td class="CobaltDataTD">
+        <select class="CobaltSelect" name="{con_CodCuenta_Name}" style="WIDTH: 99px">
+          <option value="" selected>Seleccionar Valor</option>
+ {con_CodCuenta_Options} 
+        </select>
+ &nbsp;&nbsp;<input class="CobaltinputSB2" style="WIDTH: 24px; HEIGHT: 17px" maxlength="10" size="3" value="{con_IdRegistro}" name="{con_IdRegistro_Name}" readonly></td> 
+      <td class="CobaltFieldCaptionTD" nowrap>Auxiliar&nbsp;</td> 
+      <td class="CobaltDataTD"><input class="CobaltinputSB2" maxlength="10" size="10" value="{con_CodAuxiliar}" name="{con_CodAuxiliar_Name}"></td> 
+      <td class="CobaltDataTD">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td> 
+      <td class="CobaltFieldCaptionTD" colspan="3" align="center">VALORES EN
+        LIBROS</td> 
+      <td class="CobaltDataTD"></td> 
+      <td class="CobaltDataTD"></td> 
+    </tr>
+ 
+    <tr>
+      <td class="CobaltFieldCaptionTD" nowrap>FECHA DE INICIO</td> 
+      <td class="CobaltDataTD"><input class="CobaltinputSB2" maxlength="12" size="12" value="{tmp_FecInicio}" name="{tmp_FecInicio_Name}"></td> 
+      <td class="CobaltFieldCaptionTD" nowrap></td> 
+      <td class="CobaltDataTD"></td> 
+      <td class="CobaltDataTD"></td> 
+      <td class="CobaltDataTD">DEBITOS</td> 
+      <td class="CobaltDataTD"><input class="CobaltinputSB2" maxlength="12" size="12" value="{con_DebIncluidos}" name="{con_DebIncluidos_Name}"></td> 
+      <td class="CobaltDataTD"><input class="CobaltinputSB2" maxlength="12" size="12" value="{con_DebExcluidos}" name="{con_DebExcluidos_Name}"></td> 
+    </tr>
+ 
+    <tr>
+      <td class="CobaltFieldCaptionTD" nowrap>FecHA DE&nbsp;Corte&nbsp;</td> 
+      <td class="CobaltDataTD"><input class="CobaltinputSB2" maxlength="12" size="12" value="{con_FecCorte}" name="{con_FecCorte_Name}">
+        <!-- BEGIN DatePicker DatePicker_con_FecCorte --><a class="CobaltDataLink" href="javascript:showDatePicker('{Name}','{FormName}','{DateControl}');"><img src="../Themes/DatePicker/DatePicker1.gif" border="0"></a><!-- END DatePicker DatePicker_con_FecCorte -->&nbsp;</td> 
+      <td class="CobaltFieldCaptionTD" nowrap></td> 
+      <td class="CobaltDataTD"></td> 
+      <td class="CobaltDataTD"></td> 
+      <td class="CobaltDataTD">CREDITOS</td> 
+      <td class="CobaltDataTD"><input class="CobaltinputSB2" maxlength="12" size="12" value="{con_CreIncluidos}" name="{con_CreIncluidos_Name}"></td> 
+      <td class="CobaltDataTD"><input class="CobaltinputSB2" maxlength="12" size="12" value="{con_CredExcluidos}" name="{con_CredExcluidos_Name}"></td> 
+    </tr>
+ 
+    <tr>
+      <td class="CobaltFieldCaptionTD" nowrap>SalDO INICIAL</td> 
+      <td class="CobaltDataTD">&nbsp;</td> 
+      <td class="CobaltFieldCaptionTD" nowrap>SalDO FINAL</td> 
+      <td class="CobaltDataTD"><input class="CobaltinputSB2" maxlength="12" size="12" value="{con_SalLibros}" name="{con_SalLibros_Name}"></td> 
+      <td class="CobaltDataTD"></td> 
+      <td class="CobaltDataTD"></td> 
+      <td class="CobaltDataTD"></td> 
+      <td class="CobaltDataTD"></td> 
+    </tr>
+ 
+    <tr>
+      <td class="CobaltDataTD" nowrap colspan="10">&nbsp;</td> 
+    </tr>
+ 
+    <tr>
+      <td class="CobaltFieldCaptionTD" nowrap>Estado&nbsp;</td> 
+      <td class="CobaltDataTD"><input class="CobaltinputSB2" maxlength="10" size="10" value="{con_Estado}" name="{con_Estado_Name}">&nbsp;</td> 
+      <td class="CobaltDataTD" nowrap colspan="6"><input class="CobaltinputSB2" style="WIDTH: 51px; HEIGHT: 17px" maxlength="15" size="10" value="{con_Ususario}" name="{con_Ususario_Name}">&nbsp;<input class="CobaltinputSB2" maxlength="10" size="10" value="{con_FecRegistro}" name="{con_FecRegistro_Name}"></td> 
+    </tr>
+    <tr>
+    <tr>
+      <td class="CobaltFooterTD" nowrap align="center" colspan="10">
+        <!-- BEGIN Button Button_Insert --><input class="" type="submit" value="AGREGAR" name="{Button_Name}" style="FONT-SIZE: 9px; WIDTH: 70px; HEIGHT: 20px"><!-- END Button Button_Insert -->&nbsp;&nbsp;&nbsp;&nbsp;
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+        <!-- BEGIN Button Button_Update --><input class="" type="submit" value="GRABAR" name="{Button_Name}" style="FONT-SIZE: 9px; WIDTH: 70px; HEIGHT: 20px"><!-- END Button Button_Update -->&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        &nbsp;&nbsp;&nbsp;&nbsp; 
+        <!-- BEGIN Button Button_Delete --><input class="" type="submit" value="BORRAR" name="{Button_Name}" style="FONT-SIZE: 9px; WIDTH: 70px; HEIGHT: 20px"><!-- END Button Button_Delete -->&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        &nbsp;&nbsp;&nbsp; &nbsp; 
+        <!-- BEGIN Button Button_Cancel --><input class="" type="submit" value="CNCELAR" name="{Button_Name}" style="FONT-SIZE: 9px; WIDTH: 70px; HEIGHT: 20px"><!-- END Button Button_Cancel -->&nbsp; </td> 
+    </tr>
+ 
+    <tr>
+      <td class="CobaltFooterTD" nowrap align="center" colspan="10" title="OPCIONES DE REPORTES; MARQUE EL CASILLERO DE LA IZQUIERDA (alt-t) SI DERSEA REPORTES ESTRUCTURADOS, DEJELO VACIO PARA REPORTES CRONOLOGICOS"><input type="checkbox" name="tmp_Tipo" value="1" class="CobaltInput" accesskey="t" title="MARQUE ESTE CASILLERO SI DESEA REPORTES ESTRUCTUTRADOS"><input class="" type="button" value="LIBRO BANCOS" onclick="fEjecutar('LB')" name="{Button_Name}" style="FONT-SIZE: 9px; WIDTH: 70px; HEIGHT: 20px">&nbsp;&nbsp;&nbsp;&nbsp;
+        &nbsp;&nbsp;&nbsp;&nbsp; <input class="" type="button" value="EDO. CUENTA" onclick="fEjecutar('EC')" name="{Button_Name}" style="FONT-SIZE: 9px; WIDTH: 70px; HEIGHT: 20px">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        &nbsp;&nbsp;&nbsp;&nbsp; <input class="" type="button" value="CONCILIACION" onclick="fEjecutar('CO')" name="{Button_Name}" style="FONT-SIZE: 9px; WIDTH: 70px; HEIGHT: 20px">&nbsp; </td> 
+    </tr>
+ 
+  </table>
+</form>
+<!-- END Record conconcil -->
+<!-- busqueda -->
+<form name="Busqueda"  action="CoTrCl_mant.php?con_IdRegistro={con_IdRegistro}" method="get" style="BORDER-RIGHT: 0px; BORDER-TOP: 0px; MARGIN: 0px; BORDER-LEFT: 0px; BORDER-BOTTOM: 0px">
+  <font class="CobaltFormHeaderFont">CONDICION DE BUSQUEDA </font>
+  <table border="0" cellpadding="1" class="CobaltFormTABLE" cellspacing="1" style="BORDER-RIGHT: 0px; PADDING-RIGHT: 0px; BORDER-TOP: 0px; PADDING-LEFT: 0px; PADDING-BOTTOM: 0px; MARGIN: 0px; BORDER-LEFT: 0px; PADDING-TOP: 0px; BORDER-BOTTOM: 0px; BORDER-COLLAPSE: collapse">
+    <tr>
+      <td class="CobaltFieldCaptionTD" nowrap>NRO. CHEQUE:</td>
+      <td class="CobaltDataTD">
+        <input type = "hidden" maxlength="4" size="4"  value="{con_IdRegistro}" name="con_IdRegistro">
+        <input class="CobaltinputSB2" maxlength="10" size="10"  value="" name="txt_CheqInicial">&nbsp;
+        <input class="CobaltinputSB2" maxlength="10" size="10"  value="" name="txt_CheqFinal">
+        </td>
+      <td class="CobaltDataTD" nowrap colspan="6">VALOR:
+        <input class="CobaltinputSB2" style="WIDTH: 71px; HEIGHT: 17px" maxlength="15" size="15"  name="txt_Valor" name="txt_Valor">&nbsp;
+      </td>
+        <td class="CobaltDataTD">
+        <input style="FONT-SIZE: 9px; WIDTH: 52px; HEIGHT: 18px" accesskey="b" type="submit" value="BUSCAR" name="BUSCAR" size="14">&nbsp;
+        <input style="FONT-SIZE: 9px; WIDTH: 52px; HEIGHT: 18px" type="reset" value="VER TODOS" name="TODOS" size="14">&nbsp;</td>
+        </td>
+      <td class="CobaltDataTD">
+    </tr>
+  </table>
+</form>
+<!-- busqueda -->
+
+
+<!-- BEGIN EditableGrid movimlist -->
+<form name="{HTMLFormName}" action="{Action}" method="post" style="BORDER-RIGHT: 0px; BORDER-TOP: 0px; MARGIN: 0px; BORDER-LEFT: 0px; BORDER-BOTTOM: 0px">
+  <font class="CobaltFormHeaderFont">DETALLE DE TRANSACCIONES </font><input type="hidden" name="FormState" value="{FormState}">{FormScript} 
+  <table border="0" cellpadding="1" class="CobaltFormTABLE" cellspacing="1" style="BORDER-RIGHT: 0px; PADDING-RIGHT: 0px; BORDER-TOP: 0px; PADDING-LEFT: 0px; PADDING-BOTTOM: 0px; MARGIN: 0px; BORDER-LEFT: 0px; PADDING-TOP: 0px; BORDER-BOTTOM: 0px; BORDER-COLLAPSE: collapse">
+    <tr align="center">
+      <td align="center" colspan="14" nowrap class="CobaltFooterTD">
+        <!-- BEGIN Navigator Navigator -->
+        <!-- BEGIN First_On --><a class="CobaltNavigatorLink" href="{First_URL}"><img src="../Themes/StormyWeather/FirstOn.gif" border="0"></a> <!-- END First_On -->
+        <!-- BEGIN Prev_On --><a class="CobaltNavigatorLink" href="{Prev_URL}"><img src="../Themes/StormyWeather/PrevOn.gif" border="0"></a> <!-- END Prev_On -->&nbsp;
+        <!-- BEGIN Pages -->
+        <!-- BEGIN Page_On --><a class="CobaltNavigatorLink" href="{Page_URL}">{Page_Number}</a>&nbsp;<!-- END Page_On -->
+        <!-- BEGIN Page_Off -->{Page_Number}&nbsp;<!-- END Page_Off --><!-- END Pages -->de
+        {Total_Pages}&nbsp;
+        <!-- BEGIN Next_On --><a class="CobaltNavigatorLink" href="{Next_URL}"><img src="../Themes/StormyWeather/NextOn.gif" border="0"></a> <!-- END Next_On -->
+        <!-- BEGIN Last_On --><a class="CobaltNavigatorLink" href="{Last_URL}"><img src="../Themes/StormyWeather/LastOn.gif" border="0"></a> <!-- END Last_On --><!-- END Navigator Navigator -->&nbsp;
+        <!-- BEGIN Button Button_Submit --><input name="{Button_Name}" type="submit" value="Enviar" class="" style="FONT-SIZE: 9px; WIDTH: 70px; HEIGHT: 20px"><!-- END Button Button_Submit -->&nbsp; </td>
+    </tr>
+
+    <!-- BEGIN Error -->
+    <tr>
+      <td colspan="14" class="CobaltErrorDataTD">{Error}</td> 
+    </tr>
+    <!-- END Error -->
+    <tr align="center">
+      <td nowrap class="CobaltColumnTD">
+        <!-- BEGIN Sorter Sorter_com_TipoComp --><a class="CobaltSorterLink" href="{Sort_URL}">COMPROB</a> 
+        <!-- BEGIN Asc_On --><img src="../Themes/Cobalt/AscOn.gif" border="0"><!-- END Asc_On -->
+        <!-- BEGIN Desc_On --><img src="../Themes/Cobalt/DescOn.gif" border="0"><!-- END Desc_On --><!-- END Sorter Sorter_com_TipoComp -->&nbsp;</td> 
+      <td class="CobaltColumnTD" nowrap>
+        <!-- BEGIN Sorter BENEFICIARIO --><a class="CobaltSorterLink" href="{Sort_URL}">BENEFICIARIO</a><!-- END Sorter BENEFICIARIO --></td> 
+      <td class="CobaltColumnTD" nowrap>
+        <!-- BEGIN Sorter CONCEPTO --><a class="CobaltSorterLink" href="{Sort_URL}">CONCEPTO</a><!-- END Sorter CONCEPTO --></td> 
+      <td nowrap class="CobaltColumnTD">
+        <!-- BEGIN Sorter Sorter_com_FecTrans --><a class="CobaltSorterLink" href="{Sort_URL}">&nbsp;F.
+        TRANSAC.</a> 
+        <!-- BEGIN Asc_On --><img src="../Themes/Cobalt/AscOn.gif" border="0"><!-- END Asc_On -->
+        <!-- BEGIN Desc_On --><img src="../Themes/Cobalt/DescOn.gif" border="0"><!-- END Desc_On --><!-- END Sorter Sorter_com_FecTrans -->&nbsp;</td> 
+      <td nowrap class="CobaltColumnTD">
+        <!-- BEGIN Sorter Sorter_com_FecContab --><a class="CobaltSorterLink" href="{Sort_URL}">&nbsp;F.
+        CONTAB.</a> 
+        <!-- BEGIN Asc_On --><img src="../Themes/Cobalt/AscOn.gif" border="0"><!-- END Asc_On -->
+        <!-- BEGIN Desc_On --><img src="../Themes/Cobalt/DescOn.gif" border="0"><!-- END Desc_On --><!-- END Sorter Sorter_com_FecContab -->&nbsp;</td> 
+      <td nowrap class="CobaltColumnTD">
+        <!-- BEGIN Sorter Sorter_com_FecVencim --><a class="CobaltSorterLink" href="{Sort_URL}">&nbsp;EN
+        LIBROS</a> 
+        <!-- BEGIN Asc_On --><img src="../Themes/Cobalt/AscOn.gif" border="0"><!-- END Asc_On -->
+        <!-- BEGIN Desc_On --><img src="../Themes/Cobalt/DescOn.gif" border="0"><!-- END Desc_On --><!-- END Sorter Sorter_com_FecVencim -->&nbsp; 
+        <!-- BEGIN Sorter X --><a class="CobaltSorterLink" href="{Sort_URL}">X</a><!-- END Sorter X --></td> 
+      <td class="CobaltColumnTD" nowrap>
+        <!-- BEGIN Sorter NUM_CHEQ --><a class="CobaltSorterLink" href="{Sort_URL}">NUM_CHEQ</a><!-- END Sorter NUM_CHEQ --></td> 
+      <td class="CobaltColumnTD" nowrap>
+        <!-- BEGIN Sorter DEBITO --><a class="CobaltSorterLink" href="{Sort_URL}">DEBITO</a><!-- END Sorter DEBITO --></td> 
+      <td class="CobaltColumnTD" nowrap>
+        <!-- BEGIN Sorter CREDITO --><a class="CobaltSorterLink" href="{Sort_URL}">CREDITO</a><!-- END Sorter CREDITO --></td> 
+      <td nowrap class="CobaltColumnTD">&nbsp;</td> 
+      <td nowrap class="CobaltColumnTD">Borrar &nbsp;</td> 
+    </tr>
+    <!-- BEGIN Row -->
+    <!-- BEGIN RowError -->
+    <tr>
+      <td colspan="14" class="CobaltErrorDataTD">{Error}</td> 
+    </tr>
+    <!-- END RowError -->
+    <tr >
+      <td class="CobaltDataTD"><input name="{com_TipoComp_Name}" value="{com_TipoComp}" maxlength="3" size="4" class="CobaltinputSB3" readonly style="WIDTH: 69px; HEIGHT: 18px">&nbsp;<input name="{com_RegNumero_Name}" value="{com_RegNumero}" maxlength="10" size="5" class="CobaltinputSB3" style="WIDTH: 39px; COLOR: #c7c1c8; HEIGHT: 17px" readonly><input type="hidden" name="{det_Secuencia_Name}" value="{det_Secuencia}" style="WIDTH: 24px; HEIGHT: 15px" size="2"></td> 
+      <td class="CobaltDataTD"><input class="CobaltinputSB3" value="{tmp_Benef}" name="{tmp_Benef_Name}" readonly style="WIDTH: 130px; HEIGHT: 18px" size="23"></td> 
+      <td class="CobaltDataTD" style="padding:2">&nbsp;&nbsp;<input class="CobaltinputSB3" value="{tmp_Concepto}" name="{tmp_Concepto_Name}" readonly style="WIDTH: 190px; HEIGHT: 18px" size="33"></td> 
+      <td class="CobaltDataTD" align="center"><input name="{com_FecTrans_Name}" value="{com_FecTrans}" maxlength="12" size="12" class="CobaltinputSB3" readonly>&nbsp;</td> 
+      <td class="CobaltDataTD" align="center"><input name="{com_FecContab_Name}" value="{com_FecContab}" maxlength="12" size="12" class="CobaltinputSB3" readonly>&nbsp;</td> 
+      <td class="CobaltDataTD" align="center"><input name="{det_FecLibros_Name}" value="{det_FecLibros}" onkeyup="fKeyUp_Secuencia(event)" maxlength="12" size="12" class="CobaltinputSB3" readonly>&nbsp; <input name="{det_EstLibros_Name}" value="{det_EstLibros}" class="CobaltInput" style="WIDTH: 12px; HEIGHT: 12px" size="1" type="hidden"><input type="checkbox" name="{Marcador_Name}" value="1" onchange="fCambioEstado(this)" onkeyup="fKeyUp_Secuencia(event)" class="CobaltInput" {Marcador}></td> 
+      <td class="CobaltDataTD"><input class="CobaltinputSB3" onkeyup="fKeyUp_Secuencia(event)" value="{det_NumCheque}" name="{det_NumCheque_Name}" style="WIDTH: 47px; HEIGHT: 17px" size="7"></td> 
+      <td class="CobaltDataTD" align="right"><input class="CobaltinputSB3" onkeyup="fKeyUp_Secuencia(event)" value="{det_ValDebito}" name="{det_ValDebito_Name}" style="WIDTH: 60px; HEIGHT: 17px; TEXT-ALIGN: right" size="10" readonly></td> 
+      <td class="CobaltDataTD" align="right"><input class="CobaltinputSB3" onkeyup="fKeyUp_Secuencia(event)" style="WIDTH: 60px;  HEIGHT: 17px; TEXT-ALIGN: right" readonly size="9" value="{det_ValCredito}" name="{det_ValCredito_Name}"></td> 
+      <td class="CobaltDataTD">
+        <!-- BEGIN Button Button1 --><input style="FONT-SIZE: 9px; WIDTH: 52px; HEIGHT: 18px" type="button" value="ANULAR" name="{Button_Name}" onclick="fAnula({com_RegNumero});" size="14"><!-- END Button Button1 -->&nbsp;</td> 
+      <td class="CobaltDataTD">
+        <!-- BEGIN CheckBox CheckBox_Delete --><input type="checkbox" name="{CheckBox_Delete_Name}" value="1" class="CobaltinputSB2" {CheckBox_Delete}><!-- END CheckBox CheckBox_Delete -->&nbsp;</td> 
+    </tr>
+    <!-- END Row -->
+    <!-- BEGIN NoRecords -->
+    <tr>
+      <td colspan="14" class="CobaltDataTD">No hay registros&nbsp;</td> 
+    </tr>
+    <!-- END NoRecords -->
+    <tr align="center">
+      <td align="center" colspan="14" nowrap class="CobaltFooterTD">
+        <!-- BEGIN Navigator Navigator -->
+        <!-- BEGIN First_On --><a class="CobaltNavigatorLink" href="{First_URL}"><img src="../Themes/StormyWeather/FirstOn.gif" border="0"></a> <!-- END First_On -->
+        <!-- BEGIN Prev_On --><a class="CobaltNavigatorLink" href="{Prev_URL}"><img src="../Themes/StormyWeather/PrevOn.gif" border="0"></a> <!-- END Prev_On -->&nbsp; 
+        <!-- BEGIN Pages -->
+        <!-- BEGIN Page_On --><a class="CobaltNavigatorLink" href="{Page_URL}">{Page_Number}</a>&nbsp;<!-- END Page_On -->
+        <!-- BEGIN Page_Off -->{Page_Number}&nbsp;<!-- END Page_Off --><!-- END Pages -->de
+        {Total_Pages}&nbsp; 
+        <!-- BEGIN Next_On --><a class="CobaltNavigatorLink" href="{Next_URL}"><img src="../Themes/StormyWeather/NextOn.gif" border="0"></a> <!-- END Next_On -->
+        <!-- BEGIN Last_On --><a class="CobaltNavigatorLink" href="{Last_URL}"><img src="../Themes/StormyWeather/LastOn.gif" border="0"></a> <!-- END Last_On --><!-- END Navigator Navigator -->&nbsp; 
+        <!-- BEGIN Button Button_Submit --><input name="{Button_Name}" type="submit" value="Enviar" class="" style="FONT-SIZE: 9px; WIDTH: 70px; HEIGHT: 20px"><!-- END Button Button_Submit -->&nbsp; </td> 
+    </tr>
+ 
+  </table>
+</form>
+<!-- END EditableGrid movimlist -->
+</body>
+</html>

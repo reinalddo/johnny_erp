@@ -1,0 +1,184 @@
+<html>
+<head>
+<base href="_self">
+<link rel="stylesheet" type="text/css" href="../Themes/Cobalt/Style.css">
+  <link rel="stylesheet" type="text/css" href="../Themes/Menu/Style.css">
+    <title></title>
+ 
+    <script language="JavaScript" src="../LibJava/menu_func.js"></script>
+    </head>
+ 
+    <body bgcolor="#FFFFF7" link="#000000" alink="#FF0000" vlink="#000000" text="#000000" class="CobaltPageBODY" style="PADDING-RIGHT: 0px; PADDING-LEFT: 0px; PADDING-BOTTOM: 0px; PADDING-TOP: 0px; magin: 0; spacing: 0" bottommargin="0" nowrap leftmargin="0" topmargin="17" rightmargin="0" marginwidth="0" marginheight="0">
+    <!-- BEGIN Record genvarproceso_genparametrSearch -->
+    <form name="{HTMLFormName}" action="{Action}" method="post">
+      <font class="CobaltFormHeaderFont">Buscar Genvarproceso, Genparametros </font> 
+      <table class="CobaltFormTABLE" cellpadding="3" border="0">
+        <!-- BEGIN Error -->
+        <tr>
+        <td class="CobaltErrorDataTD" colspan="2">{Error}</td> 
+        </tr>
+ 
+        <!-- END Error -->
+        <tr>
+        <td class="CobaltFieldCaptionTD" nowrap>Palabra clave&nbsp;</td> 
+        <td class="CobaltDataTD">
+        <input class="CobaltInput" maxlength="5" size="5" value="{s_keyword}" name="{s_keyword_Name}">&nbsp;</td> 
+        </tr>
+ 
+        <tr>
+        <td class="CobaltFooterTD" nowrap><a class="CobaltSorterLink" href="{ClearParameters_Src}">Limpiar</a>&nbsp; </td> 
+        <td class="CobaltFooterTD" nowrap align="right">
+        <!-- BEGIN Button Button_DoSearch -->
+        <input class="CobaltButton" type="submit" value="Buscar" name="{Button_Name}">
+        <!-- END Button Button_DoSearch -->&nbsp; </td> 
+        </tr>
+ 
+      </table>
+ 
+    </form>
+ 
+    <!-- END Record genvarproceso_genparametrSearch -->
+    <!-- BEGIN Grid genvarproceso_genparametr --><font class="CobaltFormHeaderFont">Lista
+    de Genvarproceso, Genparametros </font><br>
+    Total de Registros:&nbsp; {genvarproceso_genparametr_TotalRecords}&nbsp; 
+    <table class="CobaltFormTABLE" cellpadding="3" border="0">
+      <tr>
+      <td class="CobaltColumnTD" nowrap>
+      <!-- BEGIN Sorter Sorter_var_ID --><a class="CobaltSorterLink" href="{Sort_URL}">Var
+      ID</a> 
+      <!-- BEGIN Asc_On --><img src="../Themes/Cobalt/AscOn.gif" border="0">
+      <!-- END Asc_On -->
+      <!-- BEGIN Desc_On --><img src="../Themes/Cobalt/DescOn.gif" border="0">
+      <!-- END Desc_On -->
+      <!-- END Sorter Sorter_var_ID -->&nbsp;</td> 
+      <td class="CobaltColumnTD" nowrap>
+      <!-- BEGIN Sorter Sorter_var_TipProceso --><a class="CobaltSorterLink" href="{Sort_URL}">Var
+      Tip Proceso</a> 
+      <!-- BEGIN Asc_On --><img src="../Themes/Cobalt/AscOn.gif" border="0">
+      <!-- END Asc_On -->
+      <!-- BEGIN Desc_On --><img src="../Themes/Cobalt/DescOn.gif" border="0">
+      <!-- END Desc_On -->
+      <!-- END Sorter Sorter_var_TipProceso -->&nbsp;</td> 
+      <td class="CobaltColumnTD" nowrap>
+      <!-- BEGIN Sorter Sorter_var_Nombre --><a class="CobaltSorterLink" href="{Sort_URL}">Var
+      Nombre</a> 
+      <!-- BEGIN Asc_On --><img src="../Themes/Cobalt/AscOn.gif" border="0">
+      <!-- END Asc_On -->
+      <!-- BEGIN Desc_On --><img src="../Themes/Cobalt/DescOn.gif" border="0">
+      <!-- END Desc_On -->
+      <!-- END Sorter Sorter_var_Nombre -->&nbsp;</td> 
+      <td class="CobaltColumnTD" nowrap>
+      <!-- BEGIN Sorter Sorter_var_Descripcion --><a class="CobaltSorterLink" href="{Sort_URL}">Var
+      Descripcion</a> 
+      <!-- BEGIN Asc_On --><img src="../Themes/Cobalt/AscOn.gif" border="0">
+      <!-- END Asc_On -->
+      <!-- BEGIN Desc_On --><img src="../Themes/Cobalt/DescOn.gif" border="0">
+      <!-- END Desc_On -->
+      <!-- END Sorter Sorter_var_Descripcion -->&nbsp;</td> 
+      <td class="CobaltColumnTD" nowrap>
+      <!-- BEGIN Sorter Sorter_var_Clase --><a class="CobaltSorterLink" href="{Sort_URL}">Var
+      Clase</a> 
+      <!-- BEGIN Asc_On --><img src="../Themes/Cobalt/AscOn.gif" border="0">
+      <!-- END Asc_On -->
+      <!-- BEGIN Desc_On --><img src="../Themes/Cobalt/DescOn.gif" border="0">
+      <!-- END Desc_On -->
+      <!-- END Sorter Sorter_var_Clase -->&nbsp;</td> 
+      <td class="CobaltColumnTD" nowrap>
+      <!-- BEGIN Sorter Sorter_var_Orden --><a class="CobaltSorterLink" href="{Sort_URL}">Var
+      Orden</a> 
+      <!-- BEGIN Asc_On --><img src="../Themes/Cobalt/AscOn.gif" border="0">
+      <!-- END Asc_On -->
+      <!-- BEGIN Desc_On --><img src="../Themes/Cobalt/DescOn.gif" border="0">
+      <!-- END Desc_On -->
+      <!-- END Sorter Sorter_var_Orden -->&nbsp;</td> 
+      <td class="CobaltColumnTD" nowrap>
+      <!-- BEGIN Sorter Sorter_var_Estado --><a class="CobaltSorterLink" href="{Sort_URL}">Var
+      Estado</a> 
+      <!-- BEGIN Asc_On --><img src="../Themes/Cobalt/AscOn.gif" border="0">
+      <!-- END Asc_On -->
+      <!-- BEGIN Desc_On --><img src="../Themes/Cobalt/DescOn.gif" border="0">
+      <!-- END Desc_On -->
+      <!-- END Sorter Sorter_var_Estado -->&nbsp;</td> 
+      <td class="CobaltColumnTD" nowrap>
+      <!-- BEGIN Sorter Sorter_par_Descripcion --><a class="CobaltSorterLink" href="{Sort_URL}">Par
+      Descripcion</a> 
+      <!-- BEGIN Asc_On --><img src="../Themes/Cobalt/AscOn.gif" border="0">
+      <!-- END Asc_On -->
+      <!-- BEGIN Desc_On --><img src="../Themes/Cobalt/DescOn.gif" border="0">
+      <!-- END Desc_On -->
+      <!-- END Sorter Sorter_par_Descripcion -->&nbsp;</td> 
+      </tr>
+ 
+      <!-- BEGIN Row -->
+      <tr>
+      <td class="CobaltDataTD">{var_ID}&nbsp;</td> 
+      <td class="CobaltDataTD">{var_TipProceso}&nbsp;</td> 
+      <td class="CobaltDataTD">{var_Nombre}&nbsp;</td> 
+      <td class="CobaltDataTD">{var_Descripcion}&nbsp;</td> 
+      <td class="CobaltDataTD">{var_Clase}&nbsp;</td> 
+      <td class="CobaltDataTD">{var_Orden}&nbsp;</td> 
+      <td class="CobaltDataTD">{var_Estado}&nbsp;</td> 
+      <td class="CobaltDataTD">{par_Descripcion}&nbsp;</td> 
+      </tr>
+ 
+      <!-- END Row -->
+      <!-- BEGIN AltRow -->
+      <tr>
+      <td class="CobaltAltDataTD">{Alt_var_ID}&nbsp;</td> 
+      <td class="CobaltAltDataTD">{Alt_var_TipProceso}&nbsp;</td> 
+      <td class="CobaltAltDataTD">{Alt_var_Nombre}&nbsp;</td> 
+      <td class="CobaltAltDataTD">{Alt_var_Descripcion}&nbsp;</td> 
+      <td class="CobaltAltDataTD">{Alt_var_Clase}&nbsp;</td> 
+      <td class="CobaltAltDataTD">{Alt_var_Orden}&nbsp;</td> 
+      <td class="CobaltAltDataTD">{Alt_var_Estado}&nbsp;</td> 
+      <td class="CobaltAltDataTD">{Alt_par_Descripcion}&nbsp;</td> 
+      </tr>
+ 
+      <!-- END AltRow -->
+      <!-- BEGIN NoRecords -->
+      <tr>
+      <td class="CobaltAltDataTD" colspan="8">No hay registros&nbsp;</td> 
+      </tr>
+ 
+      <!-- END NoRecords -->
+      <tr>
+      <td class="CobaltFooterTD" nowrap colspan="8">
+      <!-- BEGIN Navigator Navigator -->
+      <!-- BEGIN First_On --><a class="CobaltNavigatorLink" href="{First_URL}"><img src="../Themes/Cobalt/FirstOn.gif" border="0"></a> 
+      <!-- END First_On -->
+      <!-- BEGIN Prev_On --><a class="CobaltNavigatorLink" href="{Prev_URL}"><img src="../Themes/Cobalt/PrevOn.gif" border="0"></a> 
+      <!-- END Prev_On -->&nbsp; 
+      <!-- BEGIN Pages -->
+      <!-- BEGIN Page_On --><a class="CobaltNavigatorLink" href="{Page_URL}">{Page_Number}</a>&nbsp; 
+      <!-- END Page_On -->
+      <!-- BEGIN Page_Off -->{Page_Number}&nbsp; 
+      <!-- END Page_Off -->
+      <!-- END Pages -->de {Total_Pages}&nbsp; 
+      <!-- BEGIN Next_On --><a class="CobaltNavigatorLink" href="{Next_URL}"><img src="../Themes/Cobalt/NextOn.gif" border="0"></a> 
+      <!-- END Next_On -->
+      <!-- BEGIN Last_On --><a class="CobaltNavigatorLink" href="{Last_URL}"><img src="../Themes/Cobalt/LastOn.gif" border="0"></a> 
+      <!-- END Last_On -->
+      <!-- END Navigator Navigator -->&nbsp; </td> 
+      </tr>
+ 
+    </table>
+ 
+    <!-- END Grid genvarproceso_genparametr -->{Cabecera} 
+    <table background="../Themes/Cobalt/Light Streaks.bmp" border="0" width="100%" class="CobaltPageBODY">
+      <tr>
+      <td>&nbsp; </td> 
+      <td>&nbsp;</td> 
+      </tr>
+ 
+      <tr>
+      <td>&nbsp;</td> 
+      <td>&nbsp;</td> 
+      </tr>
+ 
+    </table>
+ 
+    <p></p>
+ 
+    </body>
+ 
+    </html>

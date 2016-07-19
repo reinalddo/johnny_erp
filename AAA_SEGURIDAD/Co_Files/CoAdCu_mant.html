@@ -1,0 +1,141 @@
+<html>
+<head>
+<base target="PAGINA">
+<link rel="stylesheet" type="text/css" href="../Themes/StormyWeather/Style.css">
+<link rel="stylesheet" type="text/css" href="../Themes/Menu/Style.css">
+<title></title>
+<link rel="stylesheet" type="text/css" href="../Themes/Cobalt/Style.css">
+<script language="JavaScript">
+//Begin CCS script
+//Include JSFunctions @1-5F368366
+  </script>
+  <script language="JavaScript" src="../functions.js"></script>
+  <script language="JavaScript">
+  
+//End Include JSFunctions
+
+//page_CoAdCu_mant_Button_Delete_OnClick @53-64CCC246
+function page_CoAdCu_mant_Button_Delete_OnClick()
+{
+    var result;
+//End page_CoAdCu_mant_Button_Delete_OnClick
+
+//Confirmation Message @54-BED55CD3
+    return confirm('Borrar registro?');
+//End Confirmation Message
+
+//Close page_CoAdCu_mant_Button_Delete_OnClick @53-BC33A33A
+    return result;
+}
+//End Close page_CoAdCu_mant_Button_Delete_OnClick
+
+//bind_events @1-01517003
+function bind_events() {
+    if (document.forms["CoAdCu_mant"]) check_and_bind('document.forms["CoAdCu_mant"].Button_Delete','onclick',page_CoAdCu_mant_Button_Delete_OnClick);
+    forms_onload();
+}
+//End bind_events
+
+window.onload = bind_events; //Assign bind_events @1-19F7B649
+
+//End CCS script
+</script>
+</head>
+<body bgcolor="#fffff7" link="#000000" alink="#ff0000" vlink="#000000" text="#000000" class="CobaltPageBODY" topmargin="0">
+<table background="../Themes/Cobalt/Light Streaks.bmp" border="0" align="center">
+  <tr>
+    <td valign="top" align="middle">
+      <!-- BEGIN Record CoAdCu_mant -->
+      <form action="{Action}" method="post" name="{HTMLFormName}" target="_self">
+        <font class="CobaltFormHeaderFont"><br>
+        {lbTitulo}<br>
+        <br>
+        </font> 
+        <table border="0" cellpadding="1" class="CobaltFormTABLE" cellspacing="1">
+          <!-- BEGIN Error -->
+          <tr>
+            <td class="CobaltErrorDataTD" colspan="2">{Error}</td> 
+          </tr>
+ <!-- END Error -->
+          <tr>
+            <td class="CobaltFieldCaptionTD" nowrap>&nbsp;CÓDIGO DE CUENTA </td> 
+            <td class="CobaltDataTD">
+              <!-- BEGIN TextBox Cue_CodCuenta --><input class="CobaltInput" maxlength="15" name="{Cue_CodCuenta_Name}" size="15" value="{Cue_CodCuenta}" title="Còdigo Identificador de Cuenta"><!-- END TextBox Cue_CodCuenta -->&nbsp;&nbsp;{lbCodCuenta} <input name="{hdCueId_Name}" style="WIDTH: 59px; HEIGHT: 14px" type="hidden" value="{hdCueId}"></td> 
+          </tr>
+ 
+          <tr>
+            <td class="CobaltFieldCaptionTD" nowrap>&nbsp;CUENTA PADRE&nbsp;</td> 
+            <td class="CobaltDataTD">
+              <select class="CobaltSelect" name="{Cue_Padre_Name}">
+                <option selected value="">- - - - - - - - - - - - </option>
+ {Cue_Padre_Options} 
+              </select>
+ </td> 
+          </tr>
+ 
+          <tr>
+            <td class="CobaltFieldCaptionTD" nowrap>&nbsp;DESCRIPCIÓN&nbsp;</td> 
+            <td class="CobaltDataTD"><input class="CobaltInput" maxlength="40" name="{cue_Descripcion_Name}" size="40" value="{cue_Descripcion}" title="Nombre de la Cuenta"></td> 
+          </tr>
+ 
+          <tr>
+            <td class="CobaltFieldCaptionTD" nowrap>&nbsp;CLASE</td> 
+            <td class="CobaltDataTD">
+              <select class="CobaltSelect" name="{cue_Clase_Name}">
+                <option selected value="">- - - - - - - - - - - - </option>
+ {cue_Clase_Options} 
+              </select>
+ </td> 
+          </tr>
+ 
+          <tr>
+            <td class="CobaltFieldCaptionTD" nowrap>&nbsp;POSICION&nbsp;</td> 
+            <td class="CobaltDataTD"><input class="CobaltInput" maxlength="5" name="{cue_Posicion_Name}" size="5" value="{cue_Posicion}" title="Indicador de estructura de cuenta"></td> 
+          </tr>
+ 
+          <tr>
+            <td class="CobaltFieldCaptionTD" nowrap>&nbsp;ESTADO</td> 
+            <td class="CobaltDataTD"><input type="checkbox" name="{cue_Estado_Name}" value="1" class="CobaltInput" title="MARCADO: La cuenta està Activa DESMARCADO: La cuenta está Inactiva" {cue_Estado}></td> 
+          </tr>
+ 
+          <tr>
+            <td class="CobaltFieldCaptionTD">&nbsp;REQUIERE AUXILIAR?</td> 
+            <td class="CobaltDataTD"><input type="checkbox" name="{cue_ReqAuxiliar_Name}" value="1" class="CobaltInput" title="Marquelo si desea que esta cuenta Exije un Auxiliar en cada transacción" {cue_ReqAuxiliar}>&nbsp;&nbsp;TIPO
+              : 
+              <select class="CobaltSelect" name="{cue_TipAuxiliar_Name}">
+                <option selected value="">- - - - - - - - - - - - </option>
+ {cue_TipAuxiliar_Options} 
+              </select>
+ </td> 
+          </tr>
+ 
+          <tr>
+            <td class="CobaltFieldCaptionTD">&nbsp;REQ. REFER. OPERATIVA? </td> 
+            <td class="CobaltDataTD"><input type="checkbox" name="{cue_ReqRefOperat_Name}" value="1" class="CobaltInput" title="Las Transacciones de esta cuenta exijen una Ref. Operativa" {cue_ReqRefOperat}></td> 
+          </tr>
+ 
+          <tr>
+            <td class="CobaltFieldCaptionTD" nowrap>&nbsp;ACEPTA&nbsp;MOVIMIENTO? </td> 
+            <td class="CobaltDataTD"><input class="CobaltInput" name="{cue_TipMovim_Name}" type="checkbox" value="1" title="Marque este casillero si la cuenta ACEPTA movimientos" {cue_TipMovim}></td> 
+          </tr>
+ 
+          <tr>
+            <td align="right" class="CobaltFooterTD" colspan="2" nowrap title="Añadir una Cuenta Nueva">
+              <!-- BEGIN Button Button_Insert --><input class="CobaltButton" name="{Button_Name}" {ADD_flag} type="submit" value="AGREGAR" title="Agrega el registro"><!-- END Button Button_Insert -->
+              <!-- BEGIN Button Button_Update --><input class="CobaltButton" name="{Button_Name}" {UPD_flag} type="submit" value="GRABAR" title="Graba las modificaciones realizadas"><!-- END Button Button_Update -->
+              <!-- BEGIN Button Button_Delete --><input class="CobaltButton" name="{Button_Name}" {DEL_flag} type="submit" value="BORRAR" title="Elimina este Registro, si no tiene movimientos ni saldos"><!-- END Button Button_Delete -->
+              <!-- BEGIN Button Button_Cancel --><input class="CobaltButton" name="{Button_Name}" type="submit" title="Cancela Modificaciones" value="CANCELAR"><!-- END Button Button_Cancel -->&nbsp;&nbsp; 
+              <!-- BEGIN Button btAgregar --><input class="CobaltButton" name="{Button_Name}" {ADD_flag} type="submit" value="NUEVA.." title="Crea una Cuenta Nueva"><!-- END Button btAgregar --></td> 
+          </tr>
+ 
+        </table>
+ 
+      </form>
+ <!-- END Record CoAdCu_mant -->&nbsp;</td> 
+  </tr>
+ 
+  <tr>
+  </tr>
+</table>
+</body>
+</html>

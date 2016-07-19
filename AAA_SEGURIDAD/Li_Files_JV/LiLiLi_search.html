@@ -1,0 +1,121 @@
+<html>
+<head>
+<base target="_self">
+<link rel="stylesheet" type="text/css" href="../Themes/Cobalt/Style.css">
+<link rel="stylesheet" type="text/css" href="../Themes/Menu/Style.css">
+<title>LIQUIDACIONES: BUSQUEDA</title>
+<script language="JavaScript" src="../LibJava/menu_func.js"></script>
+<script language="JavaScript" src="../LibJava/general.js"></script>
+<script language="JavaScript" src="../LibJava/cookies.js"></script>
+<script language="JavaScript" src="../LibJava/validaDB_ret.js"></script>
+</head>
+ 
+<body bgcolor="#fffff7" link="#000000" alink="#ff0000" vlink="#000000" text="#000000" class="CobaltPageBODY" style="PADDING-RIGHT: 0px; PADDING-LEFT: 0px; PADDING-BOTTOM: 0px; PADDING-TOP: 0px; magin: 0; spacing: 0" bottommargin="0" nowrap leftmargin="0" topmargin="17" rightmargin="0" marginwidth="0" marginheight="0">
+{Cabecera} 
+<table background="../Themes/Cobalt/Light Streaks.bmp" border="0" width="100%" class="CobaltPageBODY" cellspacing="1" cellpadding="1">
+  <tr>
+    <td align="middle">&nbsp; 
+      <!-- BEGIN Record liquidac_qry -->
+      <form style="MARGIN: 0px" name="{HTMLFormName}" action="{Action}" method="post">
+        <font color="#336699">PROCESOS DE LIQUIDACION&nbsp; <font class="CobaltFormHeaderFont"></font></font> 
+        <table class="CobaltFormTABLE" cellpadding="3" border="0">
+          <!-- BEGIN Error -->
+          <tr>
+            <td class="CobaltErrorDataTD" colspan="2">{Error} </td> 
+          </tr>
+          <!-- END Error -->
+          <tr>
+            <td class="CobaltDataTD" nowrap>AÑO </td> 
+            <td class="CobaltDataTD"><input class="CobaltInputSB2" maxlength="5" size="5" value="{pro_Ano}" name="{pro_Ano_Name}">&nbsp; </td> 
+            <td class="CobaltDataTD" nowrap>SEMANA&nbsp; </td> 
+            <td class="CobaltDataTD"><input class="CobaltInputSB2" maxlength="5" size="5" value="{pro_Semana}" name="{pro_Semana_Name}">&nbsp; </td> 
+            <td class="CobaltDataTD" nowrap align="right" colspan="2">
+              <!-- BEGIN Button Button_DoSearch --><input class="CobaltDataLink" type="submit" value="Buscar" name="{Button_Name}"><!-- END Button Button_DoSearch -->&nbsp; </td> 
+          </tr>
+ 
+        </table>
+ 
+      </form>
+ <!-- END Record liquidac_qry --></td> 
+  </tr>
+ 
+  <tr>
+    <td align="middle">&nbsp; 
+      <!-- BEGIN Grid liquidac_list --><font class="CobaltFormHeaderFont">LISTA
+      DE
+      LIQUIDACIONES&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+      &nbsp; </font> Reg:&nbsp; {tmp_res002_TotalRecords}&nbsp; 
+      <table class="CobaltFormTABLE" cellpadding="0" border="0" width="75%" cellspacing="1">
+        <tr align="middle" style="PADDING-BOTTOM: 3px; PADDING-TOP: 3px">
+          <td class="CobaltColumnTD" nowrap>
+            <!-- BEGIN Sorter Sorter_liq_numliquida --><a class="CobaltSorterLink" href="{Sort_URL}">LIQ#</a> 
+            <!-- BEGIN Asc_On --><img height="9" src="../Themes/Cobalt/AscOn.gif" width="13" border="0"><!-- END Asc_On -->
+            <!-- BEGIN Desc_On --><img height="9" src="../Themes/Cobalt/DescOn.gif" width="13" border="0"><!-- END Desc_On --><!-- END Sorter Sorter_liq_numliquida -->&nbsp; </td> 
+          <td class="CobaltColumnTD" nowrap>
+            <!-- BEGIN Sorter Sorter_pro_id --><a class="CobaltSorterLink" href="{Sort_URL}">PR#</a> 
+            <!-- BEGIN Asc_On --><img height="9" src="../Themes/Cobalt/AscOn.gif" width="13" border="0"><!-- END Asc_On -->
+            <!-- BEGIN Desc_On --><img height="9" src="../Themes/Cobalt/DescOn.gif" width="13" border="0"><!-- END Desc_On --><!-- END Sorter Sorter_pro_id -->&nbsp; </td> 
+          <td class="CobaltColumnTD" nowrap>
+            <!-- BEGIN Sorter Sorter_tmp_nombre --><a class="CobaltSorterLink" href="{Sort_URL}">PRODUCTOR</a> 
+            <!-- BEGIN Asc_On --><img height="9" src="../Themes/Cobalt/AscOn.gif" width="13" border="0"><!-- END Asc_On -->
+            <!-- BEGIN Desc_On --><img height="9" src="../Themes/Cobalt/DescOn.gif" width="13" border="0"><!-- END Desc_On --><!-- END Sorter Sorter_tmp_nombre -->&nbsp; </td> 
+          <td class="CobaltColumnTD" nowrap>
+            <!-- BEGIN Sorter Sorter_tmp_cantembarcada -->&nbsp;CANT. EMBARC. 
+            <!-- BEGIN Asc_On --><img height="9" src="../Themes/Cobalt/AscOn.gif" width="13" border="0"><!-- END Asc_On -->
+            <!-- BEGIN Desc_On --><img height="9" src="../Themes/Cobalt/DescOn.gif" width="13" border="0"><!-- END Desc_On --><!-- END Sorter Sorter_tmp_cantembarcada -->&nbsp; </td> 
+          <td class="CobaltColumnTD" nowrap>
+            <!-- BEGIN Sorter Sorter_sum_liq_valtotal_rub_inddbcr_1 --><a class="CobaltSorterLink" href="{Sort_URL}">VALOR</a> 
+            <!-- BEGIN Asc_On --><img height="9" src="../Themes/Cobalt/AscOn.gif" width="13" border="0"><!-- END Asc_On -->
+            <!-- BEGIN Desc_On --><img height="9" src="../Themes/Cobalt/DescOn.gif" width="13" border="0"><!-- END Desc_On --><!-- END Sorter Sorter_sum_liq_valtotal_rub_inddbcr_1 -->&nbsp; </td> 
+        </tr>
+        <!-- BEGIN Row -->
+        <tr onmouseover="fTxtResalta(this,'#009999');" onmouseout="fTxtNormal(this);">
+          <td class="CobaltDataTD" align="middle"><input type="hidden" name="{liq_numliquida_Name}" value="{liq_numliquida}" style="WIDTH: 17px; HEIGHT: 14px" size="2">
+            <!-- BEGIN Button btMantto1 --><input class="CobaltLink" title="Abre un apantalla para Añadir una Tarja" style="FONT-SIZE: 9px; WIDTH: 40px; HEIGHT: 18px" onclick="JavaScript:window.enMantto= true; fAbrirWin('LiLiLi_mant.php?liq_NumLiquida={liq_numliquida}' ,'WinTj',' ', 700,550); return false;" type="button" size="8" value="{liq_numliquida}" name="{Button_Name}"><!-- END Button btMantto1 --></td> 
+          <td class="CobaltDataTD" align="middle">{pro_id}&nbsp; </td> 
+          <td class="CobaltDataTD" style="TEXT-TRANSFORM: uppercase">&nbsp;&nbsp;&nbsp;&nbsp;{tmp_nombre}&nbsp; </td> 
+          <td class="CobaltDataTD" align="right">{tmp_cantembarcada}
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </td> 
+          <td class="CobaltDataTD" align="right">{sum_liq_valtotal_rub_inddbcr_1}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </td> 
+        </tr>
+        <!-- END Row -->
+        <!-- BEGIN AltRow -->
+        <tr onmouseover="fTxtResalta(this,'#009999');" onmouseout="fTxtNormal(this);">
+          <td class="CobaltAltDataTD" align="middle"><input type="hidden" name="{Alt_liq_numliquida_Name}" value="{Alt_liq_numliquida}" style="WIDTH: 17px; HEIGHT: 15px" size="2">
+            <!-- BEGIN Button btMantto2 --><input class="CobaltLink" title="Abre un apantalla para Añadir una Tarja" style="FONT-SIZE: 9px; WIDTH: 40px; HEIGHT: 18px" onclick="JavaScript:window.enMantto= true; fAbrirWin('LiLiLi_mant.php?liq_NumLiquida={Alt_liq_numliquida}' ,'WinTj',' ', 700,550); return false;" type="button" size="8" value="{Alt_liq_numliquida}" name="{Button_Name}"><!-- END Button btMantto2 --></td> 
+          <td class="CobaltAltDataTD" align="middle">{Alt_pro_id}&nbsp; </td> 
+          <td class="CobaltAltDataTD" style="TEXT-TRANSFORM: uppercase">&nbsp;&nbsp;&nbsp;&nbsp;{Alt_tmp_nombre}&nbsp; </td> 
+          <td class="CobaltAltDataTD" align="right">{Alt_tmp_cantembarcada}
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </td> 
+          <td class="CobaltAltDataTD" align="right">{Alt_sum_liq_valtotal_rub_inddbcr_1}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </td> 
+        </tr>
+        <!-- END AltRow -->
+        <!-- BEGIN NoRecords -->
+        <tr>
+          <td class="CobaltAltDataTD" colspan="5">No hay registros&nbsp; </td> 
+        </tr>
+        <!-- END NoRecords -->
+        <tr style="PADDING-BOTTOM: 2px; PADDING-TOP: 2px">
+          <td class="CobaltFooterTD" nowrap colspan="5" style="FONT-SIZE: 10px">
+            <!-- BEGIN Navigator Navigator -->
+            <!-- BEGIN First_On --><a class="CobaltNavigatorLink" href="{First_URL}"><img height="14" src="../Themes/Aqua/FirstOn.gif" width="24" border="0"></a> <!-- END First_On -->
+            <!-- BEGIN Prev_On --><a class="CobaltNavigatorLink" href="{Prev_URL}"><img height="14" src="../Themes/Aqua/PrevOn.gif" width="24" border="0"></a> <!-- END Prev_On -->&nbsp; 
+            <!-- BEGIN Pages -->
+            <!-- BEGIN Page_On --><a class="CobaltNavigatorLink" href="{Page_URL}">{Page_Number}</a>&nbsp;<!-- END Page_On -->
+            <!-- BEGIN Page_Off -->{Page_Number}&nbsp;<!-- END Page_Off --><!-- END Pages -->de
+            {Total_Pages}&nbsp; 
+            <!-- BEGIN Next_On --><a class="CobaltNavigatorLink" href="{Next_URL}"><img height="14" src="../Themes/Aqua/NextOn.gif" width="24" border="0"></a> <!-- END Next_On -->
+            <!-- BEGIN Last_On --><a class="CobaltNavigatorLink" href="{Last_URL}"><img height="14" src="../Themes/Aqua/LastOn.gif" width="24" border="0"></a> <!-- END Last_On --><!-- END Navigator Navigator -->&nbsp; </td> 
+        </tr>
+ 
+      </table>
+ <!-- END Grid liquidac_list --></td> 
+  </tr>
+ 
+</table>
+ 
+<p></p>
+ 
+</body>
+ 
+</html>

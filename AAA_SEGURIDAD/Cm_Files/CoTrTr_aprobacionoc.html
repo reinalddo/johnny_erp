@@ -1,0 +1,219 @@
+<html>
+<head>
+<base target="_self">
+<link rel="stylesheet" type="text/css" href="../Themes/StormyWeather/Style.css">
+<link rel="stylesheet" type="text/css" href="../Themes/Menu/Style.css">
+<title>TRANSACCIONES</title>
+<script language="JavaScript" src="../LibJava/menu_func.js"></script>
+<!-- Jquery -->
+<script language="JavaScript" src="../Themes/Javascript/jquery-1.10.1.js"></script>
+<script language="JavaScript" src="../Themes/Javascript/jquery-ui-1.10.3.js"></script>
+<!-- Jquery TableSorter -->
+<script language="JavaScript" src="../Themes/Javascript/jquery.tablesorter.js"></script>
+<script language="JavaScript" src="../Themes/Javascript/jquery.tablesorter.widgets.js"></script>
+<script language="JavaScript" src="../Themes/Javascript/jquery.tablesorter.pager.js"></script>
+<script language="JavaScript" src="../Themes/Javascript/parser-input-select.js"></script>
+<!-- --- ----->
+<link rel="stylesheet" type="text/css" href="../Themes/NewStyle/Style.css">
+<link rel="stylesheet" type="text/css" href="../Themes/NewStyle/jquery-ui.css">
+</head>
+<body bgcolor="#fffff7" link="#000000" alink="#ff0000" vlink="#000000" text="#000000" class="CobaltPageBODY">
+<table border="0" align="center" cellspacing="0" cellpadding="0">
+  <tbody>
+    <tr>
+      <td>&nbsp;</td> 
+    </tr>
+    <tr>
+      <td valign="top" align="middle">&nbsp;
+        <!-- BEGIN Grid CmTrTr_list -->
+         <form action="{Action}" method="post" name="{HTMLFormName}" class="" target="_self">
+          <h1>LISTA DE COMPROBANTES EN ESTADO ACTIVO</h1> 
+          <table border="0" cellpadding="0" id="listtable" class="CobaltFormTABLE tablesorter" cellspacing="0">            
+            <thead>
+              <th class="CobaltColumnTD" nowrap>TIPO</th> 
+              <th class="CobaltColumnTD" nowrap># ORDEN</th>
+              <th class="CobaltColumnTD" nowrap>PROVEEDOR</th>
+              <th class="CobaltColumnTD" nowrap>TOTAL</th>
+              <th class="CobaltColumnTD" nowrap>SOLICITADO POR</th>
+              <th class="CobaltColumnTD" nowrap>EMISIÓN</th>
+              <!--<td class="CobaltColumnTD" nowrap>
+                <a class="CobaltSorterLink" href="{Sort_URL}">F/
+                CONTAB.</a>&nbsp;</td> 
+              <td class="CobaltColumnTD" nowrap>CONCEPTO&nbsp;&nbsp;</td> 
+
+              <td class="CobaltColumnTD" nowrap>
+                <a class="CobaltSorterLink" href="{Sort_URL}">DIGITADO</a>&nbsp;</td>
+              <td class="CobaltColumnTD" nowrap width="50">ESTADO</td> 
+              <td class="CobaltColumnTD" nowrap>
+                <a class="CobaltSorterLink" href="{Sort_URL}">REF.</a>&nbsp;</td>-->
+              <th class="CobaltColumnTD" nowrap>APROBAR</th>
+              <th class="CobaltColumnTD" nowrap>ANULAR</th>
+            </tr>
+            </thead>
+            <tbody> 
+            <!-- BEGIN Row -->                           
+            <tr>
+              <td class="CobaltDataTD" align="middle">{hTipoComp}</td> 
+              <td class="CobaltDataTD" align="middle"><a class="CobaltDataLink" href="#">{hNumComp}</a></td>
+              <td class="CobaltDataTD" align="middle">{Proveedor}</td>
+              <td class="CobaltDataTD" align="middle">{Total}</td>
+              <td class="CobaltDataTD" align="middle">{SolicitadoPor}</td>
+              <td class="CobaltDataTD" align="middle">{com_FecTrans}</td>
+              <!--<td class="CobaltDataTD" align="middle">{com_FecContab}&nbsp;</td> 
+              <td class="CobaltDataTD" width="500" style="FONT-SIZE: 11px">{com_Concepto}&nbsp; </td> 
+              <td class="CobaltDataTD" width="120" nowrap align="left">{com_Usuario}&nbsp;&nbsp;</td> 
+              <td class="CobaltDataTD" width="50">{com_EstProceso}</td> 
+              <td class="CobaltDataTD">{com_RefOperat}&nbsp;</td>-->
+              <td class="CobaltDataTD" align="middle"><div class="item_ok" onclick="aprobarComprobante(this);"></div></td>
+              <td class="CobaltDataTD" align="middle"><div class="cancelar_ok" onclick="desaprobarComprobante(this);"></div></td>
+            </tr>
+            
+            <!-- END Row -->
+            <!-- BEGIN NoRecords -->
+            <tr>
+              <td class="CobaltDataTD" colspan="7">No hay Comprobantes&nbsp;</td> 
+            </tr>
+            <!-- END NoRecords -->
+            </tbody>
+          </table>
+          <div class="pager">
+          <form>
+            <img src="../Themes/Images/icons/first.png" class="first"/>
+            <img src="../Themes/Images/icons/back.png" class="back"/>
+            <span class="pagedisplay"></span> <!-- this can be any element, including an input -->
+            <img src="../Themes/Images/icons/next.png" class="next"/>
+            <img src="../Themes/Images/icons/last.png" class="last"/>
+            <select class="pagesize">
+              <option selected="selected" value="10">10</option>
+              <option value="20">20</option>
+              <option value="30">30</option>
+              <option value="40">40</option>
+            </select>
+          </form>
+        </div>
+        </form>
+ <!-- END Grid CmTrTr_list --></td> 
+    </tr>
+  </tbody>
+</table>
+<script>
+$(function(){
+    //alert('sasa');
+    // **********************************
+  //  Description of ALL pager options
+  // **********************************
+  var pagerOptions = {
+
+    // target the pager markup - see the HTML block below
+    container: $(".pager"),
+
+    // use this url format "http:/mydatabase.com?page={page}&size={size}&{sortList:col}"
+    ajaxUrl: null,
+
+    // modify the url after all processing has been applied
+    customAjaxUrl: function(table, url) { return url; },
+
+    // process ajax so that the data object is returned along with the total number of rows
+    // example: { "data" : [{ "ID": 1, "Name": "Foo", "Last": "Bar" }], "total_rows" : 100 }
+    ajaxProcessing: function(ajax){
+      if (ajax && ajax.hasOwnProperty('data')) {
+        // return [ "data", "total_rows" ];
+        return [ ajax.total_rows, ajax.data ];
+      }
+    },
+
+    // output string - default is '{page}/{totalPages}'
+    // possible variables: {page}, {totalPages}, {filteredPages}, {startRow}, {endRow}, {filteredRows} and {totalRows}
+    //output: '{startRow} al {endRow} de ({totalRows})',
+
+    // apply disabled classname to the pager arrows when the rows at either extreme is visible - default is true
+    updateArrows: true,
+
+    // starting page of the pager (zero based index)
+    page: 0,
+
+    // Number of visible rows - default is 10
+    size: 10,
+
+    // if true, the table will remain the same height no matter how many records are displayed. The space is made up by an empty
+    // table row set to a height to compensate; default is false
+    fixedHeight: true,
+
+    // remove rows from the table to speed up the sort of large tables.
+    // setting this to false, only hides the non-visible rows; needed if you plan to add/remove rows with the pager enabled.
+    removeRows: false,
+
+    // css class names of pager arrows
+    cssNext: '.next', // next page arrow
+    cssPrev: '.back', // previous page arrow
+    cssFirst: '.first', // go to first page arrow
+    cssLast: '.last', // go to last page arrow
+    cssGoto: '.gotoPage', // select dropdown to allow choosing a page
+
+    cssPageDisplay: '.pagedisplay', // location of where the "output" is displayed
+    cssPageSize: '.pagesize', // page size selector - select dropdown that sets the "size" option
+
+    // class added to arrows when at the extremes (i.e. prev/first arrows are "disabled" when on the first page)
+    cssDisabled: 'disabled', // Note there is no period "." in front of this class name
+    cssErrorRow: 'tablesorter-errorRow' // ajax error information row
+
+  };
+  $("#listtable").tablesorter({ sortList: [[4,1]],widgets: ["zebra", "filter"], 
+      headers: {
+        5: { sorter: "checkbox" }
+      },
+
+      widgetOptions: {
+        // include child row content while filtering, if true
+        filter_childRows  : true,
+        // class name applied to filter row and each input
+        filter_cssFilter  : 'tablesorter-filter',
+        // search from beginning
+        filter_startsWith : false,
+        // Set this option to false to make the searches case sensitive 
+        filter_ignoreCase : true
+      }
+ }).tablesorterPager(pagerOptions);
+/*
+Jquery para llamado y subida de archivos
+*/
+});
+function aprobarComprobante(itemToDelete){
+    //alert($(itemToDelete).parent().parent().find("td:eq(0)").html() + " " + $(itemToDelete).parent().parent().find("td:eq(1) a").html());
+    $.ajax({
+        url:  '#',
+        type:'POST',
+        data: { actionoc: "aprobar",itemoc : $(itemToDelete).parent().parent().find("td:eq(0)").html() , itemnumero : $(itemToDelete).parent().parent().find("td:eq(1) a").html() },
+        dataType: 'json',
+        success: function(json){
+            alert(json['verifyStatus']);
+            deleteItemList(itemToDelete);
+        }
+    }); // End of ajax call    
+}
+function desaprobarComprobante(itemToDelete){
+    //alert($(itemToDelete).parent().parent().find("td:eq(0)").html() + " " + $(itemToDelete).parent().parent().find("td:eq(1) a").html());
+    $.ajax({
+        url:  '#',
+        type:'POST',
+        data: { actionoc: "desaprobar",itemoc : $(itemToDelete).parent().parent().find("td:eq(0)").html() , itemnumero : $(itemToDelete).parent().parent().find("td:eq(1) a").html() },
+        dataType: 'json',
+        success: function(json){
+            alert(json['verifyStatus']);
+            deleteItemList(itemToDelete);
+        }
+    }); // End of ajax call    
+}
+function deleteItemList(itemToDelete){
+    $(itemToDelete).parent().parent().remove();
+    $('#listtable').trigger("update");
+    // set sorting column and direction, this will sort on the first and third column 
+    var sorting = [[4,1]];
+    // sort on the first column 
+    $('#listtable').trigger("sorton", [sorting]);
+    //alert($("#ostoload").val());
+    //listeemh.splice(listeemh.indexOf($(itemToDelete).parent().parent().find("td:eq(0)").html()),1);    
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,147 @@
+<html>
+<head>
+<title>MANTENIMIENTO DE PARAMETROS</title>
+<link rel="stylesheet" type="text/css" href="../Themes/stormyweather/Style.css">
+<link rel="stylesheet" type="text/css" href="../Themes/menu/Style.css">
+<link rel="stylesheet" type="text/css" href="../Themes/Cobalt/Style.css">
+</head>
+<body bgcolor="#fffff7" link="#000000" alink="#ff0000" vlink="#000000" text="#000000" class="CobaltPageBODY" background="../Themes/Cobalt/light streaks.bmp" style="BACKGROUND-IMAGE: url(../themes/Cobalt/light streaks.bmp)">
+{Cabecera}
+<table border="0" background="../Themes/Cobalt/light streaks.bmp" class="stormyweatherformtable" style="BACKGROUND-IMAGE: url(../Themes/Cobalt/light streaks.bmp)" align="center" cellpadding="0" cellspacing="0" bordercolor="#ffffff" bordercolordark="#ffffff" bordercolorlight="#ffffff">
+  <tr align="left" valign="top">
+    <td align="middle" class="" valign="top">
+      <p>
+      <!-- BEGIN Record gecapa_mant -->
+      <form action="{Action}" method="post" name="{HTMLFormName}">
+        <font class="CobaltFormHeaderFont">{tbTitulo1} </font> 
+        <table border="0" cellpadding="1" class="CobaltFormTABLE">
+          <!-- BEGIN Error -->
+          <tr>
+            <td class="CobaltErrorDataTD" colspan="2">{Error}</td> 
+          </tr>
+          <!-- END Error -->
+          <tr>
+            <td class="CobaltFieldCaptionTD">CATEGORIA</td> 
+            <td class="CobaltDataTD"><input class="CobaltInput" disabled maxlength="25" name="{cat_Codigo_Name}" size="25" style="HEIGHT: 20px; WIDTH: 42px" value="{cat_Codigo}"></td> 
+          </tr>
+ 
+          <tr>
+            <td class="CobaltFieldCaptionTD" nowrap>DESCRIPCION</td> 
+            <td class="CobaltDataTD"><input class="CobaltInput" maxlength="25" name="{cat_Descripcion_Name}" size="25" value="{cat_Descripcion}">&nbsp;</td> 
+          </tr>
+ 
+          <tr>
+            <td class="CobaltFieldCaptionTD" nowrap>TIPO</td> 
+            <td class="CobaltDataTD">
+              <select class="CobaltSelect" name="{cat_Tipo_Name}">
+                <option selected value="">- - - - - - - - - - - - </option>
+ {cat_Tipo_Options} 
+              </select>
+ &nbsp;</td> 
+          </tr>
+ 
+          <tr>
+            <td class="CobaltFieldCaptionTD" nowrap>&nbsp;VARIABLE</td> 
+            <td class="CobaltDataTD"><input class="CobaltInput" maxlength="6" name="{cat_Clave_Name}" size="6" value="{cat_Clave}">&nbsp;</td> 
+          </tr>
+ 
+          <tr>
+            <td class="CobaltFieldCaptionTD" nowrap>&nbsp;CATEGORIA PADRE</td> 
+            <td class="CobaltDataTD">
+              <!-- BEGIN ListBox cat_CodPadre -->
+              <select class="CobaltSelect" name="{cat_CodPadre_Name}" style="HEIGHT: 19px; WIDTH: 172px">
+                <option selected value="">- - - - - - - - - - - - </option>
+ {cat_CodPadre_Options} 
+              </select>
+ <!-- END ListBox cat_CodPadre -->&nbsp;</td> 
+          </tr>
+ 
+          <tr align="left">
+            <td align="left" class="CobaltFooterTD" colspan="2" title="Abre una categoría nueva, cuyo padre es la actual">
+              <!-- BEGIN Button Button_Insert --><input class="CobaltButton" name="{Button_Name}" type="submit" value="AGREGAR" title="Agrega los datos registrados"><!-- END Button Button_Insert -->
+              <!-- BEGIN Button Button_Update --><input class="CobaltButton" name="{Button_Name}" type="submit" value="GRABAR"><!-- END Button Button_Update -->
+              <!-- BEGIN Button Button_Delete --><input class="CobaltButton" name="{Button_Name}" type="submit" value="BORRAR" title="Elimina esta Categoría"><!-- END Button Button_Delete -->
+              <!-- BEGIN Button Button_Cancel --><input class="CobaltButton" name="{Button_Name}" type="submit" value="CANCELAR" title="Cancela las últimas modificaciones "><!-- END Button Button_Cancel -->&nbsp; <a class="CobaltButton" href="{lkNuevo_Src}" title="Añade una Categoría Hija de la Actual">{lkNuevo}</a> &nbsp; <a class="CobaltButton" href="{Link1_Src}" title="Presenta el detalle de parámetros asociados a esta categoría">{Link1}</a>&nbsp; </td> 
+          </tr>
+ 
+        </table>
+ 
+      </form>
+ <!-- END Record gecapa_mant --></p>
+ </td> 
+  </tr>
+ 
+  <tr align="middle" valign="top">
+    <td class="" valign="top" align="middle">
+      <!-- BEGIN EditableGrid gecapa_deta -->
+      <form action="{Action}" method="post" name="{HTMLFormName}">
+        <font class="CobaltFormHeaderFont">Parametros </font><input name="FormState" type="hidden" value="{FormState}">{FormScript} 
+        <table border="0" cellpadding="0" class="CobaltFormTABLE" cellspacing="1">
+          <!-- BEGIN Error -->
+          <tr>
+            <td class="CobaltErrorDataTD" colspan="9">{Error}</td> 
+          </tr>
+          <!-- END Error -->
+          <tr align="middle">
+            <td class="CobaltColumnTD" nowrap></td> 
+            <td class="CobaltColumnTD" nowrap>
+              <!-- BEGIN Sorter Sorter_par_Clave --><a class="CobaltSorterLink" href="{Sort_URL}">CLAVE</a> <!-- END Sorter Sorter_par_Clave -->&nbsp;</td> 
+            <td class="CobaltColumnTD" nowrap>
+              <!-- BEGIN Sorter Sorter_par_Secuencia --><a class="CobaltSorterLink" href="{Sort_URL}">SEC.</a> <!-- END Sorter Sorter_par_Secuencia -->&nbsp;</td> 
+            <td class="CobaltColumnTD" nowrap>
+              <!-- BEGIN Sorter Sorter_par_Descripcion --><a class="CobaltSorterLink" href="{Sort_URL}">DESCRIPCIÓN</a> <!-- END Sorter Sorter_par_Descripcion -->&nbsp;</td> 
+            <td class="CobaltColumnTD" nowrap>
+              <!-- BEGIN Sorter Sorter_par_Valor1 -->DATO1 <!-- END Sorter Sorter_par_Valor1 -->&nbsp;</td> 
+            <td class="CobaltColumnTD" nowrap>
+              <!-- BEGIN Sorter Sorter_par_valor2 --><a class="CobaltSorterLink" href="{Sort_URL}">DATO2</a> <!-- END Sorter Sorter_par_valor2 -->&nbsp; </td> 
+            <td class="CobaltColumnTD" nowrap>
+              <!-- BEGIN Sorter Sorter_par_Valor3 --><a class="CobaltSorterLink" href="{Sort_URL}">DATO3</a> <!-- END Sorter Sorter_par_Valor3 -->&nbsp; </td> 
+            <td class="CobaltColumnTD" nowrap>
+              <!-- BEGIN Sorter Sorter_par_Valor4 -->D<a class="CobaltSorterLink" href="{Sort_URL}">ATO4</a> <!-- END Sorter Sorter_par_Valor4 -->&nbsp; </td> 
+            <td class="CobaltColumnTD" nowrap></td> 
+          </tr>
+          <!-- BEGIN Row -->
+          <!-- BEGIN RowError -->
+          <tr>
+            <td class="CobaltErrorDataTD" colspan="9">{Error}</td> 
+          </tr>
+          <!-- END RowError -->
+          <tr>
+            <td class="CobaltDataTD"><input name="{par_Categorias_Name}" type="hidden" value="{par_Categoria}" style="HEIGHT: 22px; WIDTH: 58px" size="7"></td> 
+            <td class="CobaltDataTD"><input class="CobaltInput" maxlength="6" name="{par_Clave_Name}" size="6" value="{par_Clave}"></td> 
+            <td class="CobaltDataTD"><input class="CobaltInput" maxlength="5" name="{par_Secuencia_Name}" size="5" value="{par_Secuencia}"></td> 
+            <td class="CobaltDataTD"><input class="CobaltInput" maxlength="25" name="{par_Descripcion_Name}" size="25" value="{par_Descripcion}"></td> 
+            <td class="CobaltDataTD"><input class="CobaltInput" maxlength="40" name="{par_Valor1_Name}" size="32" style="HEIGHT: 20px; WIDTH: 66px" value="{par_Valor1}"></td> 
+            <td class="CobaltDataTD"><input class="CobaltInput" maxlength="40" name="{par_valor2_Name}" size="28" style="HEIGHT: 20px; WIDTH: 66px" value="{par_valor2}"></td> 
+            <td class="CobaltDataTD"><input class="CobaltInput" maxlength="40" name="{par_Valor3_Name}" size="29" style="HEIGHT: 20px; WIDTH: 67px" value="{par_Valor3}"></td> 
+            <td class="CobaltDataTD"><input class="CobaltInput" maxlength="40" name="{par_Valor4_Name}" size="34" style="HEIGHT: 20px; WIDTH: 68px" value="{par_Valor4}"></td> 
+            <td class="CobaltDataTD" title="Marque este casillero para eliminar el Registro">
+              <!-- BEGIN CheckBox CheckBox_Delete --><input class="CobaltInput" name="{CheckBox_Delete_Name}" type="checkbox" value="1" title="Marque este casillero para eliminar el Registro" {CheckBox_Delete}><!-- END CheckBox CheckBox_Delete --></td> 
+          </tr>
+          <!-- END Row -->
+          <!-- BEGIN NoRecords -->
+          <tr>
+            <td class="CobaltDataTD" colspan="9">No hay Parámetros&nbsp;</td> 
+          </tr>
+          <!-- END NoRecords -->
+          <tr>
+            <td align="left" class="CobaltFooterTD" colspan="9" nowrap>
+              <!-- BEGIN Navigator Navigator1 -->
+              <!-- BEGIN First_On --><a class="CobaltNavigatorLink" href="{First_URL}"><img border="0" height="14" src="../Themes/Aqua/FirstOn.gif" title="Primeros Registros" width="24"></a> <!-- END First_On -->
+              <!-- BEGIN Prev_On --><a class="CobaltNavigatorLink" href="{Prev_URL}"><img border="0" height="14" src="../Themes/Aqua/PrevOn.gif" title="Página Anterior" width="24"></a> <!-- END Prev_On -->&nbsp;{Page_Number}&nbsp;de
+              {Total_Pages}&nbsp; 
+              <!-- BEGIN Next_On --><a class="CobaltNavigatorLink" href="{Next_URL}"><img border="0" height="14" src="../Themes/Aqua/NextOn.gif" title="Página Siguiente" width="24"></a> <!-- END Next_On -->
+              <!-- BEGIN Last_On --><a class="CobaltNavigatorLink" href="{Last_URL}"><img border="0" height="14" src="../Themes/Aqua/LastOn.gif" title="Última Página" width="24"></a> <!-- END Last_On --><!-- END Navigator Navigator1 -->&nbsp; 
+              <!-- BEGIN Button Button_Submit --><input class="CobaltButton" name="{Button_Name}" type="submit" value="GRABAR"><!-- END Button Button_Submit -->&nbsp; 
+              <!-- BEGIN Button Cancel --><input class="CobaltButton" name="{Button_Name}" type="submit" value="CANCELAR"><!-- END Button Cancel -->&nbsp; </td> 
+          </tr>
+ 
+        </table>
+ 
+      </form>
+ <!-- END EditableGrid gecapa_deta --></td> 
+  </tr>
+</table>
+<p>&nbsp;</p>
+</body>
+</html>

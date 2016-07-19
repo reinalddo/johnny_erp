@@ -1,0 +1,90 @@
+<?php
+/*    Reporte - Cuadro de Cuentas por Pagar
+ */
+
+ob_start("ob_gzhandler");
+include_once("General.inc.php");
+include_once("GenUti.inc.php");
+include_once("adodb.inc.php");
+include_once("adoConn.inc.php");
+$db->debug=fGetparam("pAdoDbg",false);
+require('Smarty.class.php');
+class Smarty_AAA extends Smarty {
+   function Smarty_AAA()
+   {
+        $this->Smarty();
+        $this->template_dir = '../templates';
+        $this->compile_dir = '../templates_c/';
+        $this->config_dir = '../configs';
+        $this->cache_dir = '../cache/';
+        $this->compile_check = true;
+        $this->debugging = false;
+   }
+}
+
+include("../LibPhp/excelOut.php");
+
+$Tpl = new Smarty_AAA();
+$Tpl->debugging =fGetparam("pAppDbg",false);
+$glFlag= fGetParam('pEmpq', false);
+// parametro para el query general
+$pQry = fGetParam('pQryCom','');
+
+// Parametros individuales para el query
+$pidProvFact = fGetParam('pidProvFact','');
+$psecuencial = fGetParam('psecuencial','');
+$pnombreProveedor = fGetParam('pnombreProveedor','');
+$pbase = fGetParam('pbase','');
+$pempresa = fGetParam('pempresa','');
+// base para la consulta
+if ($pbase != "") {
+   $b_comprobantes = $pbase.".concomprobantes";
+   $b_detalle = $pbase.".condetalle";
+   $encabezado = "EMPRESA";
+}
+else{
+   $b_comprobantes = "concomprobantes";
+   $b_detalle = "condetalle";
+   $encabezado = " ";
+}
+
+
+$subtitulo="Detalle de Cuenta por Pagar";
+$Tpl->assign("subtitulo",$subtitulo);
+$Tpl->assign("pnombreProveedor",$pnombreProveedor);
+
+/*para consultar los detalles*/
+$sSql = "select '".$pempresa."' as empresa,
+	    det_codcuenta, 
+	    det_idauxiliar, 
+	    det_numcheque,
+	    com_tipocomp,
+	    com_NumComp,
+	    com_FecContab,
+	    sum(ifnull(det_valdebito,0) - ifnull(det_valcredito,0))*-1 as valor,
+	    det_Glosa
+	    from ".$b_comprobantes." join ".$b_detalle." on det_regnumero = com_regnumero 
+	    where det_codcuenta LIKE (SELECT `genparametros`.`par_Valor1` FROM `genparametros` WHERE (`genparametros`.`par_Clave` = 'CUCXP'))
+	    and det_IDauxiliar=". $pidProvFact." and  det_NumCheque=".$psecuencial."
+	    group by 1, 2, 3,4,5,6
+	    order by com_FecContab";
+
+//$sSql .= " ORDER BY con.com_FecVencim";
+
+$rs = $db->execute($sSql . $slFrom);
+
+if($rs->EOF){
+    fErrorPage('','NO SE GENERARO DETALLE DE FACTURA', true,false);
+}else{
+    
+    $rs->MoveFirst();
+    $aDet =& SmartyArray($rs);
+    $Tpl->assign("agData", $aDet);
+    $slPiePag = $_SESSION["g_user"] . ", " . date("%d %M %y");
+    $Tpl->assign("slPiePag", $slPiePag);
+    $Tpl->assign("Encabezado", $encabezado);
+    if (!$Tpl->is_cached('CoTrTr_CuadroDet.tpl')) {
+            }
+            $Tpl->display('CoTrTr_CuadroDet.tpl');
+}
+?>

@@ -1,0 +1,14 @@
+
+APOYOS:
+
+encontrar la posicion del medio:
+
+$middle = ($this->ez['pageWidth']-$this->ez['rightMargin'])/2+($this->ez['leftMargin'])/2;
+
+tamano de un texto:
+
+$w = $this->ezPrvtGetTextWidth($options['fontSize'],(string)$row[$colName])*1.01;
+
+tamaño de etxto en eztable:
+    $w = $this->getTextWidth($options['titleFontSize'],$title);    //usar: Cezpdf::getTextWidth()
+    $this->y -= $this->getFontHeight($options['titleFontSize']);

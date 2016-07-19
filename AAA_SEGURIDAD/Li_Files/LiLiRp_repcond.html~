@@ -1,0 +1,192 @@
+<html>
+<head>
+<base target="_self">
+<link rel="stylesheet" type="text/css" href="../Themes/Cobalt/Style.css">
+<link rel="stylesheet" type="text/css" href="../Themes/Menu/Style.css">
+<title>CRITERIO PARA REPORTE DE LIQUIDACIONES</title>
+<script language="JavaScript" src="../LibJava/menu_func.js"></script>
+<script language="JavaScript" src="../LibJava/general.js"></script>
+<script language="JavaScript" src="../LibJava/validations.js"></script>
+<script language="JavaScript" src="../LibJava/construct.js"></script>
+<script language="JavaScript1.3">
+gaCampos = new Array();
+												// pType, pText, pField, pName )
+gaCampos["pro_Anoproceso"  ] = new oCampo( "N", "Año", "pro_Anoproceso", "pro_Anoproceso");
+gaCampos["pro_ID"          ] = new oCampo( "N", "Proceso", "pro_ID");
+gaCampos["pro_Semana"      ] = new oCampo( "N", "Semana", "pro_Semana");
+gaCampos["com_FecContab"   ] = new oCampo( "F", "Fecha", "com_FecContab");
+gaCampos["pro_GrupoLiquida"] = new oCampo( "N", "Grupo", "pro_GrupoLiquida");
+gaCampos["tac_Embarcador"   ] = new oCampo( "F", "tac_Embarcador");
+/**
+*   Procesa una peticion de ejecutar un comando,
+*   @param      pUrl    String      Cadena que contiene la direccion URL que se desea,
+*   @param      pTipo   Bool        Tipo de Condicion a generar: true=condiciones atomizada concatenadas con &, false=una sola condicion
+**/
+function fEjecuta(pUrl, pTipo){
+	fInicializaQuery();
+	
+	if (pUrl.length < 3 ) {
+		alert("NO SE HA DEFINIDO EL REPORTE A EJECUTAR");
+		return false;
+		}
+	else slUrl = pUrl;
+	if (String(pUrl).indexOf('?')<1) slUrl+="?"; //  Añadir '?' si la url no lo tiene
+	if (!pTipo) { //						Generar una sola cadena con las condicion es individuales + "AND"
+		slUrl += "pQryLiq=" ;
+		pTipo=false;
+	}
+	if (fGeneraQry(pTipo)) {
+		if (gaString['qry'].length > 0 ) {
+		slUrl += gaString['qry'] + "&pCond=" + gaString['txt'];
+		}
+		fAbrirWin(slUrl, 'w', ' ', 900, 600)
+	}
+	if (gaString['err'] > 0) {
+		alert ("HA DEFINIDO MAL EL CRITERIO DE SELECCION: " + gaString['txt']);
+	}
+	return false;
+}
+
+function fEjecutaEx(e, pUrl, pTipo)
+{
+	if (!e) e = window.event;
+	if (e.shiftKey) pUrl+="?pExcel=1&"
+	else pUrl+="?"
+	
+	fEjecuta(pUrl, pTipo)
+}
+
+//Begin CCS script
+//Include Common JSFunctions @1-73ADA5ED
+</script>
+<script language="JavaScript" src="../DatePicker.js"></script>
+<script language="JavaScript">
+//End Include Common JSFunctions
+
+//Date Picker Object Definitions @1-7E96A889
+
+var liqembarquesSearch_DatePicker1 = new Object(); 
+liqembarquesSearch_DatePicker1.format           = "dd/mm/yy";
+liqembarquesSearch_DatePicker1.style            = "Themes/Cobalt/Style.css";
+liqembarquesSearch_DatePicker1.relativePathPart = "../";
+
+//End Date Picker Object Definitions
+
+//End CCS script
+</script>
+</head>
+<body bgcolor="#fffff7" link="#000000" alink="#ff0000" vlink="#000000" text="#000000" class="CobaltPageBODY" style="PADDING-RIGHT: 0px; PADDING-LEFT: 0px; PADDING-BOTTOM: 0px; PADDING-TOP: 0px; magin: 0; spacing: 0" bottommargin="0" nowrap leftmargin="0" topmargin="17" rightmargin="0" marginwidth="0" marginheight="0">
+{Cabecera} 
+<table background="../Themes/Cobalt/Light Streaks.bmp" border="0" width="100%" class="CobaltPageBODY">
+  <tr>
+    <td align="middle" width="100%">&nbsp; 
+      <!-- BEGIN Record liqembarquesSearch -->
+      <form method="post" action="{Action}" name="{HTMLFormName}">
+        <font color="#546785">REPORTES DE&nbsp;LIQUIDACIONES</font> 
+        <div class="normalbox" style="PADDING-RIGHT: 4px; PADDING-LEFT: 4px; PADDING-BOTTOM: 4px; MARGIN: 20px; PADDING-TOP: 4px; TEXT-ALIGN: left">
+          <span class="spantitle" style="LEFT: 0px; POSITION: relative; TOP: -10px">&nbsp;&nbsp;CONDICIONES
+          PARA&nbsp;LIQUIDACIONES&nbsp;&nbsp;</span> 
+          <table border="0" align="center" cellpadding="1" class="CobaltFormTABLE" cellspacing="1">
+            <tr>
+              <td class="CobaltFieldCaptionTD" nowrap>AÑO OPERACION&nbsp; </td> 
+              <td class="CobaltDataTD">&nbsp; <input class="CobaltInput" maxlength="10" size="10" value="{liq_AnoOperacion}" name="{liq_AnoOperacion_Name}"></td> 
+              <td class="CobaltFieldCaptionTD" nowrap>SEMANA </td> 
+              <td class="CobaltDataTD">&nbsp; <input class="CobaltInput" style="WIDTH: 34px; HEIGHT: 17px" size="4" value="{pro_Semana}" name="{pro_Semana_Name}" title="SEMANA EN LA QUE EL PRODUCTOR ENTREGA LA FRUTA EN PUERTO"></td> 
+              <td class="CobaltFieldCaptionTD" nowrap>PROCESO NUM.&nbsp; </td> 
+              <td class="CobaltDataTD"><input class="CobaltInput" maxlength="10" size="10" value="{pro_ID}" name="{pro_ID_Name}"></td> 
+              <td class="CobaltFieldCaptionTD" nowrap>FECHA </td> 
+              <td class="CobaltDataTD"><input class="CobaltInput" style="WIDTH: 64px; HEIGHT: 17px" size="7" value="{pro_FechaLiquid}" name="{pro_FechaLiquid_Name}" title="FECHA DE ENTREGA EN PUERTO">&nbsp; 
+                <!-- BEGIN DatePicker DatePicker1 --><a class="CobaltDataLink" href="javascript:showDatePicker('{Name}','{FormName}','{DateControl}');"><img height="15" src="../Themes/DatePicker/DatePicker1.gif" width="17" border="0"></a><!-- END DatePicker DatePicker1 --></td> 
+            </tr>
+ 
+            <tr>
+              <td class="CobaltFieldCaptionTD" nowrap>GRUPO </td> 
+              <td class="CobaltDataTD" title="GRUPO DE LIQUIDACION">
+                <select class="CobaltSelect" style="WIDTH: 110px" name="{pro_GrupoLiquid_Name}">
+                  <option value="" selected>-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-</option>
+ {pro_GrupoLiquid_Options} 
+                </select>
+ </td> 
+              <td class="CobaltFieldCaptionTD" nowrap>PRODUCTOR&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </td> 
+              <td class="CobaltDataTD">
+                <select class="CobaltSelect" name="{tac_Embarcador_Name}" style="WIDTH: 146px">
+                  <option value="" selected>-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-</option>
+ {tac_Embarcador_Options} 
+                </select>
+ </td> 
+              <td class="CobaltFieldCaptionTD" nowrap>HACIENDA&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </td> 
+              <td class="CobaltDataTD">
+                <select class="CobaltSelect" name="{tac_UniProduccion_Name}" style="WIDTH: 118px">
+                  <option value="" selected>-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-</option>
+ {tac_UniProduccion_Options} 
+                </select>
+ </td> 
+            </tr>
+ 
+          </table>
+ 
+        </div>
+ 
+        <div class="normalbox" style="PADDING-RIGHT: 4px; PADDING-LEFT: 4px; PADDING-BOTTOM: 4px; MARGIN: 20px; PADDING-TOP: 0px; TEXT-ALIGN: left">
+          <span class="spantitle" style="LEFT: 0px; MARGIN: 0px; POSITION: relative; TOP: -10px">&nbsp;
+          &nbsp; FORMATOS DE REPORTES LQF &nbsp; &nbsp; </span> 
+          <table align="center" border="0" cellpadding="1" margin="'0&quot;class=&quot;CobaltFormTABLE'" cellspacing="1">
+            <tr>
+              <td colspan="6" align="right" nowrap>
+                  <input name="Button_1" type="button" value="CUADRO GENERAL" class="CobaltDataLink" onclick="fEjecuta('../Li_Files/LiLiRp_resumen2.rpt.php')" title="Cuadro General incluyendo TODOS los rubros" style="FONT-SIZE: 9px; WIDTH: 131px; HEIGHT: 25px" size="16">&nbsp;&nbsp;
+                  <input name="Button_2" type="button" value="CUADRO GENERAL 2" class="CobaltDataLink" onclick="fEjecuta('../Li_Files/LiLiRp_resumen2.rpt.php?pTipo=20&')" title="Cuadro General incluyendo SOLO rubros autorizados" style="FONT-SIZE: 9px; WIDTH: 131px; HEIGHT: 25px">&nbsp;&nbsp;
+                  <input name="Button_5" type="button" value=" LIQUIDACION SIMPLE" class="CobaltDataLink" onclick="fEjecuta('../Li_Files/LiLiRp_liquid.rpt.php?pTipo=20&', true)" title="LIQUIDACION en formato SIMPLE" style="FONT-SIZE: 9px; WIDTH: 131px; HEIGHT: 25px">&nbsp;&nbsp;
+                  <input name="Button_3" type="button" value=" DESC. AUTORIZADOS" class="CobaltDataLink" onclick="fEjecuta('../Li_Files/LiLiRp_liquid.rpt.php?pTipo=100&', true)" title="Descuentos Autorizados" style="FONT-SIZE: 9px; WIDTH: 131px; HEIGHT: 25px">&nbsp;&nbsp;
+                  <input name="Button_4" type="button" value=" LIQUIDACION VOUCHER" class="CobaltDataLink" onclick="fEjecuta('../Li_Files/LiLiRp_liquid2.rpt.php?pTipo=20&', true)" title="Liquidacion en formato de Cheque Voucher" style="FONT-SIZE: 9px; WIDTH: 131px; HEIGHT: 25px">&nbsp;&nbsp;
+                  <input name="Button_5" type="button" value=" PRE - LIQUID. VOUCHER" class="CobaltDataLink" onclick="fEjecuta('../Li_Files/LiLiRp_liquid2.rpt.php?pTipo=30&', true)" title="PRE-LIQUIDACION en formato de Cheque Voucher" style="FONT-SIZE: 9px; WIDTH: 131px; HEIGHT: 25px">
+            </tr>
+			 <td colspan="6" align="right" nowrap>
+                  <input name="Button_1" type="button" value="CUADRO GENERAL /CIA" class="CobaltDataLink" onclick="fEjecuta('../Li_Files/LiLiRp_resumen2dist.rpt.php')" title="Cuadro General incluyendo TODOS los rubros, distribuido por Cia, Ordenado por productor" style="FONT-SIZE: 9px; WIDTH: 131px; HEIGHT: 25px" size="16">&nbsp;&nbsp;
+                  <input name="Button_2" type="button" value="CUADRO GENERAL /PROD-CIA" class="CobaltDataLink" onclick="fEjecuta('../Li_Files/LiLiRp_resumen2dist2.rpt.php?pTipo=20&')" title="Cuadro General incluyendo TODOS los rubros, distribuido por Cia, Ordenado por Cia" style="FONT-SIZE: 9px; WIDTH: 131px; HEIGHT: 25px">&nbsp;&nbsp;
+                  <input name="Button_5" type="button" value=" LQF SIMPLE/CIA" class="CobaltDataLink" onclick="fEjecuta('../Li_Files/LiLiRp_liquidcia.rpt.php?pTipo=20&', true)" title="LIQUIDACION en formato SIMPLE, por CIA" style="FONT-SIZE: 9px; WIDTH: 131px; HEIGHT: 25px">&nbsp;&nbsp;
+                  <input name="Button_3" type="button" value=" " class="CobaltDataLink" onclick="" title="" style="FONT-SIZE: 9px; WIDTH: 131px; HEIGHT: 25px">&nbsp;&nbsp;
+                  <input name="Button_4" type="button" value=" " class="CobaltDataLink" onclick="" title="" style="FONT-SIZE: 9px; WIDTH: 131px; HEIGHT: 25px">&nbsp;&nbsp;
+                  <input name="Button_5" type="button" value=" " class="CobaltDataLink" onclick="" title="" style="FONT-SIZE: 9px; WIDTH: 131px; HEIGHT: 25px">
+            </tr>
+ 
+            <tr>
+              <td>
+                  <input name="Button_21" type="button" value=" ANEXO DE INV.(H)" class="CobaltDataLink" onclick="fEjecuta('../Li_Files/LiLiRp_anexo.rpt.php?pTipo=H&')" title="ANEXO DE INVENTARIO INTERNO, INCLUYE SALDOS HISTORICOS" style="FONT-SIZE: 9px; WIDTH: 131px; HEIGHT: 25px">&nbsp;&nbsp;
+                  <input name="Button_22" type="button" value=" ANEXO DE INV.(P) " class="CobaltDataLink" onclick="fEjecuta('../Li_Files/LiLiRp_anexo.rpt.php?pTipo=X&')" title="ANEXO DE INVENTARIO PARA PRODUCTORES" style="FONT-SIZE: 9px; WIDTH: 131px; HEIGHT: 25px">&nbsp;&nbsp;
+                  <input name="Button_23" type="button" value=" ANEXO DE INV.(M) " class="CobaltDataLink" onclick="fEjecuta('../Li_Files/LiLiRp_anexo_mod.rpt.php?pTipo=H&')" title="ANEXO DE INVENTARIO PARA PRODUCTORES INCLUYENDO SALDO POR COBRAR]" style="FONT-SIZE: 9px; WIDTH: 131px; HEIGHT: 25px">&nbsp;&nbsp;
+				  <input name="Button_24" type="button" value=" ANEXO DE INV.(I) " class="CobaltDataLink" onclick="fEjecuta('../Li_Files/LiLiRp_anexo.rpt.php?pTipo=I&')" title="ANEXO DE INVENTARIO PARA PRODUCTORES INCLUYENDO SOLO CANTIDADES]" style="FONT-SIZE: 9px; WIDTH: 131px; HEIGHT: 25px">&nbsp;&nbsp;
+                  <input name="Button_25" type="button" value=" LIQUID. UNICA SIMPLE" class="CobaltDataLink" onclick="fEjecuta('../Li_Files/LiLiRp_liquid.rpt.php?pTipo=1&', true)" title="Pre-liquidacion en formato SIMPLE" style="FONT-SIZE: 9px; WIDTH: 131px; HEIGHT: 25px">&nbsp;&nbsp;
+                  <input name="Button_26" type="button" value=" LIQUID. UNICA VOUCHER" class="CobaltDataLink" onclick="fEjecuta('../Li_Files/LiLiRp_liquid2.rpt.php?pTipo=1&', true)" title="Liquidacion GENERAL en  Cheque Voucher" style="FONT-SIZE: 9px; WIDTH: 131px; HEIGHT: 25px">
+                  </td>
+            </tr>
+
+            <tr>
+              <td>
+                  <input name="Button_31" type="button" value=" ANEXO COSTOS" class="CobaltDataLink" onclick="fEjecuta('../Li_Files/InTrTr_contabem2.pro.php?pTipo=H&')" title="ANEXO DE INVENTARIO INTERNO, INCLUYE SALDOS HISTORICOS" style="FONT-SIZE: 9px; WIDTH: 131px; HEIGHT: 25px">&nbsp;&nbsp;
+                  <input name="Button_32" type="button" value=" ROL GENERAL SEMANAL " class="CobaltDataLink" onclick="fEjecutaEx(event,'../Li_Files/LiEmTj_liquidacion_marco_standar.php')" title="" style="FONT-SIZE: 9px; WIDTH: 131px; HEIGHT: 25px">&nbsp;&nbsp;
+                  <input name="Button_32" type="button" value=" ROL GENERAL " class="CobaltDataLink" onclick="fEjecutaEx(event,'../Li_Files/LiEmTj_liquidacion_marco.php')" title="" style="FONT-SIZE: 9px; WIDTH: 131px; HEIGHT: 25px">&nbsp;&nbsp;
+                  <input name="Button_34" type="button" value="CUADROGENERAL/CIA HTML " class="CobaltDataLink" onclick="fEjecutaEx(event,'../Li_Files/LiLiRp_resumenMdist.rpt.php')" style="FONT-SIZE: 9px; WIDTH: 131px; HEIGHT: 25px">&nbsp;&nbsp;
+                  <input name="Button_35" type="button" value=" ANEXO DE INV. POR COLUMNAS " class="CobaltDataLink" onclick="fEjecutaEx(event,'../../AAA_5_2/work_alberto/LiLiRp_anexo_v3.rpt.php')" title="ANEXO POR COLUMNAS" style="FONT-SIZE: 9px; WIDTH: 131px; HEIGHT: 25px">&nbsp;&nbsp;
+                  <input name="Button_36" type="button" value=" " class="CobaltDataLink" onclick="" title="" style="FONT-SIZE: 9px; WIDTH: 131px; HEIGHT: 25px">
+                  </td>
+            </tr>
+	    <tr>
+              <td>
+                  <input name="Button_37" type="button" value="CUADRO LIQ HTML" class="CobaltDataLink" onclick="fEjecuta('../Li_Files/LiLiRp_CuadroLiquidacion.rpt.php')" title="Cuadro de Liquidacion Html/Excel" style="FONT-SIZE: 9px; WIDTH: 131px; HEIGHT: 25px" size="16">&nbsp;&nbsp;
+		  <input name="Button_37" type="button" value="CUADRO LIQ EXCEL" class="CobaltDataLink" onclick="fEjecuta('../Li_Files/LiLiRp_CuadroLiquidacion.rpt.php?&pExcel=1&')" title="Cuadro de Liquidacion Html/Excel" style="FONT-SIZE: 9px; WIDTH: 131px; HEIGHT: 25px" size="16">&nbsp;&nbsp;
+                  </td>
+            </tr>
+          </table>
+ 
+        </div>
+	
+ 
+      </form>
+ <!-- END Record liqembarquesSearch --></td> 
+    <td>&nbsp; </td> 
+  </tr>
+</table>
+ 
+</body>
+ 
+</html>

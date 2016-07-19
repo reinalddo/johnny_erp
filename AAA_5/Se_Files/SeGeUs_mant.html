@@ -1,0 +1,229 @@
+<html>
+<head>
+<base target="_self">
+<link rel="stylesheet" type="text/css" href="../Themes/StormyWeather/Style.css">
+<link rel="stylesheet" type="text/css" href="../Themes/Menu/Style.css">
+<title>USUARIOS</title>
+<script language="JavaScript">
+//Begin CCS script
+//Include JSFunctions @1-5F368366
+  </script>
+  <script language="JavaScript" src="../functions.js"></script>
+  <script language="JavaScript">
+
+//End Include JSFunctions
+
+//page_SeGeUs_mant_Button_Delete_OnClick @15-B06A1436
+function page_SeGeUs_mant_Button_Delete_OnClick()
+{
+    var result;
+//End page_SeGeUs_mant_Button_Delete_OnClick
+
+//Confirmation Message @16-BED55CD3
+    return confirm('Borrar registro?');
+//End Confirmation Message
+
+//Close page_SeGeUs_mant_Button_Delete_OnClick @15-BC33A33A
+    return result;
+}
+//End Close page_SeGeUs_mant_Button_Delete_OnClick
+
+//bind_events @1-500997B5
+function bind_events() {
+    if (document.forms["SeGeUs_mant"]) check_and_bind('document.forms["SeGeUs_mant"].Button_Delete','onclick',page_SeGeUs_mant_Button_Delete_OnClick);
+    forms_onload();
+}
+//End bind_events
+window.onload = bind_events; //Assign bind_events @1-19F7B649
+//End CCS script
+</script>
+<script language="JavaScript" src="../LibJava/menu_func.js"></script>
+<link rel="stylesheet" type="text/css" href="../Themes/Cobalt/Style.css">
+</head>
+<body style= "valign:'top'; align:'center'" bgcolor="#fffff7" link="#000000" alink="#ff0000" vlink="#000000" text="#000000" class="CobaltPageBODY" topmargin="0">
+{Cabecera}
+<center> 
+<table cellspacing="5" >
+<tr>
+<td align="center" valign="top">
+      <br>
+      <!-- BEGIN Record SeGeUs_mant -->
+      <form action="{Action}" method="post" name="{HTMLFormName}" target="_self">
+        <font class="CobaltFormHeaderFont">{lbTitulo} </font> 
+        <table border="0"  cellpadding="1" cellspacing="1" style="border-collapse:collapse;" class="CobaltFormTABLE" style="HEIGHT: 304px; WIDTH: 390px">
+          <!-- BEGIN Error -->
+          <tr>
+            <td class="CobaltErrorDataTD" colspan="2">{Error}</td> 
+          </tr>
+ <!-- END Error -->
+          <tr>
+            <td class="CobaltFieldCaptionTD" nowrap>LOGIN</td> 
+            <td class="CobaltDataTD"><input class="CobaltInput" maxlength="10" name="{usu_login_Name}"
+              size="10" value="{usu_login}">&nbsp;</td> 
+          </tr>
+ 
+          <tr>
+            <td class="CobaltFieldCaptionTD" nowrap>PASSWORD</td> 
+            <td class="CobaltDataTD"><input class="CobaltInput" maxlength="25" name="{usu_Password_Name}"
+              size="25" type="password" value="{usu_Password}">&nbsp;</td>
+          </tr>
+          <tr>
+            <td class="CobaltFieldCaptionTD" nowrap>NOMBRE</td>
+            <td class="CobaltDataTD"><input class="CobaltInput" maxlength="40" name="{usu_Nombre_Name}"
+              size="40" value="{usu_Nombre}">&nbsp;</td>
+          </tr>
+          <tr>
+            <td class="CobaltFieldCaptionTD" nowrap>GRUPO</td>
+            <td class="CobaltDataTD">
+              <select name="{usu_Grupo_Name}" class="CobaltSelect">
+                <option value="" selected>Seleccionar Valor</option>
+ {usu_Grupo_Options}
+              </select>
+ &nbsp;</td>
+          </tr>
+          <tr>
+            <td class="CobaltFieldCaptionTD" nowrap>ACTIVO&nbsp;</td>
+            <td class="CobaltDataTD">
+              <select name="{usu_Activo_Name}" class="CobaltSelect">
+                <option value="" selected>Seleccionar Valor</option>
+ {usu_Activo_Options}
+              </select>
+ &nbsp;</td>
+          </tr>
+          <tr>
+            <td class="CobaltFieldCaptionTD" nowrap>PAGINA INICIAL&nbsp;</td>
+            <td class="CobaltDataTD"><input class="CobaltInput" maxlength="40" name="{usu_PagInicial_Name}"
+              size="40" value="{usu_PagInicial}">&nbsp;</td>
+          </tr>
+          <tr>
+            <td class="CobaltFieldCaptionTD" nowrap>CODIGO DE AUXILIAR</td>
+            <td class="CobaltDataTD"><input class="CobaltInput" maxlength="10" name="{usu_AuxId_Name}"
+              size="10" value="{usu_AuxId}">&nbsp;</td>
+          </tr>
+          <tr>
+            <td class="CobaltFieldCaptionTD" nowrap>VALIDO DESDE</td>
+            <td class="CobaltDataTD"><input class="CobaltInput" maxlength="11" name="{usu_ValidoDesde_Name}"
+              size="10" value="{usu_ValidoDesde}">
+              <!-- BEGIN DatePicker DatePicker_usu_ValidoDesde --><a class="CobaltDataLink"
+              href="javascript:showDatePicker('{Name}','{FormName}','{DateControl}');">
+              <img border="0" height="15" src="../Themes/Datepicker/Datepicker1.gif"
+              width="17"></a> <!-- END DatePicker DatePicker_usu_ValidoDesde -->
+              &nbsp;</td>
+          </tr>
+          <tr>
+            <td class="CobaltFieldCaptionTD" nowrap>VALIDO HASTA</td>
+            <td class="CobaltDataTD"><input class="CobaltInput" maxlength="11" name="{usu_ValidoHasta_Name}"
+              size="10" value="{usu_ValidoHasta}">
+              <!-- BEGIN DatePicker DatePicker_usu_ValidoHasta --><a class="CobaltDataLink"
+              href="javascript:showDatePicker('{Name}','{FormName}','{DateControl}');">
+              <img border="0" height="15" src="../Themes/Datepicker/Datepicker1.gif"
+              width="17"></a> <!-- END DatePicker DatePicker_usu_ValidoHasta -->
+              &nbsp;</td>
+          </tr>
+          <tr>
+            <td align="right" class="CobaltFooterTD" colspan="2" nowrap title="Cancela modificaiones y regresa a pntalla de busueda">
+              <!-- BEGIN Button Button_Insert --><input class="CobaltButton" name="{Button_Name}"
+              type="submit" value="AGREGAR" language="Graba el registro"><!-- END Button Button_Insert -->
+              <!-- BEGIN Button Button_Update --><input class="CobaltButton" name="{Button_Name}"
+              type="submit" value="GRABAR" language="Graba el registro"><!-- END Button Button_Update -->
+              <!-- BEGIN Button Button_Delete --><input class="CobaltButton" name="{Button_Name}"
+              type="submit" value="BORRAR" language="Elimina el registro"><!-- END Button Button_Delete -->
+              <!-- BEGIN Button Button_Cancel --><input class="CobaltButton" name="{Button_Name}"
+              type="submit" value="CANCELAR" title="Deshace los Cambios"><!-- END Button Button_Cancel -->
+              <!-- BEGIN Button btRegresar --><input class="CobaltButton" name="{Button_Name}"
+              type="submit" value="REGRESAR"><!-- END Button btRegresar -->&nbsp;
+              <!-- BEGIN Button Button1 --><input class="CobaltButton" name="{Button_Name}"
+              type="submit" value="NUEVO"><!-- END Button Button1 --></td>
+          </tr>
+        </table>
+      </form>
+      <p><!-- END Record SeGeUs_mant -->&nbsp;</p>
+</td>
+<td align="center" valign="top">
+      <!-- BEGIN EditableGrid SeGeUs_perf -->
+      <form name="{HTMLFormName}" action="{Action}" method="post" target="_self">
+        <font class="CobaltFormHeaderFont"><br>
+        PERFILES DEL USUARIO </font> <input type="hidden" name="FormState" value="{FormState}">
+        {FormScript}
+        <table border="0" cellpadding="1" class="CobaltFormTABLE" cellspacing="0">
+          <!-- BEGIN Error -->
+          <tr>
+            <td colspan="4" class="CobaltErrorDataTD">{Error}</td>
+          </tr>
+ <!-- END Error -->
+          <tr>
+            <td nowrap class="CobaltColumnTD">
+              <!-- BEGIN Sorter Sorter_usp_IDusuario --><!-- END Sorter Sorter_usp_IDusuario -->
+              &nbsp;</td>
+            <td nowrap class="CobaltColumnTD">
+              <!-- BEGIN Sorter Sorter_usp_IDperfil -->P <a class="CobaltSorterLink"
+              href="{Sort_URL}">erfil </a>
+              <!-- BEGIN Asc_On --><!-- END Asc_On -->
+              <!-- BEGIN Desc_On --><!-- END Desc_On --><!-- END Sorter Sorter_usp_IDperfil -->
+              &nbsp;</td>
+            <td nowrap class="CobaltColumnTD">
+              <!-- BEGIN Sorter Sorter_usp_IDempresa -->E <a class="CobaltSorterLink"
+              href="{Sort_URL}">mpresa </a>
+              <!-- BEGIN Asc_On --><!-- END Asc_On -->
+              <!-- BEGIN Desc_On --><!-- END Desc_On --><!-- END Sorter Sorter_usp_IDempresa -->
+              &nbsp;</td>
+            <td nowrap class="CobaltColumnTD">Borrar &nbsp;</td>
+          </tr>
+
+          <!-- BEGIN Row -->
+          <!-- BEGIN RowError -->
+          <tr>
+            <td colspan="4" class="CobaltErrorDataTD">{Error}</td>
+          </tr>
+ <!-- END RowError -->
+          <tr>
+            <td class="CobaltDataTD" width="10" align="left" style="FONT-SIZE: x-small"
+            valign="top"><input name="{usp_IDusuario_Name}" style="HEIGHT: 22px; WIDTH: 10px"
+              type="hidden" value="{usp_IDusuario}"></td>
+            <td class="CobaltDataTD" width="100">
+              <select name="{usp_IDperfil_Name}" class="CobaltSelect" style="HEIGHT: 22px; WIDTH: 163px">
+                <option value="" selected>Seleccionar Valor</option>
+ {usp_IDperfil_Options}
+              </select>
+ </td>
+            <td class="CobaltDataTD">
+              <select name="{usp_IDempresa_Name}" class="CobaltSelect">
+                <option value="" selected>Seleccionar Valor</option>
+ {usp_IDempresa_Options}
+              </select>
+ </td>
+            <td class="CobaltDataTD">
+              <!-- BEGIN CheckBox CheckBox_Delete --><input type="checkbox" name="{CheckBox_Delete_Name}"
+              value="1" class="CobaltInput" {CheckBox_Delete}><!-- END CheckBox CheckBox_Delete -->
+              &nbsp;</td>
+          </tr>
+ <!-- END Row -->
+          <!-- BEGIN NoRecords -->
+          <tr>
+            <td colspan="4" class="CobaltDataTD">No hay registros&nbsp;</td>
+          </tr>
+ <!-- END NoRecords -->
+          <tr>
+            <td align="right" colspan="4" nowrap class="CobaltFooterTD">
+              <!-- BEGIN Navigator Navigator -->
+              <!-- BEGIN Prev_On --><a class="StormyWeatherNavigatorLink" href="{Prev_URL}">
+              <img border="0" height="13" src="../Themes/stormyweather/prevon.gif"
+              width="38"></a> <!-- END Prev_On -->
+              <!-- BEGIN Next_On --><a class="StormyWeatherNavigatorLink" href="{Next_URL}">
+              <img border="0" height="13" src="../Themes/stormyweather/nexton.gif"
+              width="38"></a> <!-- END Next_On --><!-- END Navigator Navigator -->
+              &nbsp;
+              <!-- BEGIN Button Button_Submit --><input name="{Button_Name}" type="submit"
+              value="Enviar" class="CobaltButton"><!-- END Button Button_Submit -->
+              &nbsp; </td>
+          </tr>
+
+        </table>
+      </form>
+<!-- END EditableGrid SeGeUs_perf --></p>
+</td>
+</tr>
+ </table>
+</center>
+</body>
+</html>

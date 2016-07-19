@@ -1,0 +1,126 @@
+<html>
+<head>
+<base target="_self">
+<link rel="stylesheet" type="text/css" href="../Themes/StormyWeather/Style.css">
+<link rel="stylesheet" type="text/css" href="../Themes/Menu/Style.css">
+<title>TIPOS DE TRANSACCION</title>
+<script language="JavaScript" src="../LibJava/menu_func.js"></script>
+<link rel="stylesheet" type="text/css" href="../Themes/Cobalt/Style.css">
+</head>
+<body bgcolor="#fffff7" link="#000000" alink="#ff0000" vlink="#000000" text="#000000" class="CobaltPageBODY">
+<p title="">{Cabecera}&nbsp;
+<table background="../Themes/Cobalt/Light Streaks.bmp" border="0" cellpadding="0" cellspacing="0" align="center">
+  <tr>
+    <td align="middle" class="" valign="top">
+      <!-- BEGIN Record CoAdTi_qry -->
+      <form action="{Action}" method="post" name="{HTMLFormName}">
+        <font class="CobaltFormHeaderFont">CONSULTAR TIPOS DE TRANSACCIONES
+        </font><font class="CobaltFormHeaderFont">&nbsp;
+        </font> 
+        <table border="0" cellpadding="1" class="CobaltFormTABLE" title="" cellspacing="1">
+          <!-- BEGIN Error -->
+          <tr>
+            <td class="CobaltErrorDataTD" colspan="8">{Error}</td> 
+          </tr>
+          <!-- END Error -->
+          <tr>
+            <td class="CobaltFieldCaptionTD" nowrap>&nbsp;Aplicación&nbsp;</td> 
+            <td class="CobaltDataTD" title="Módulo al que pertenecen las transacciones que se desea ubicar">
+              <select class="CobaltSelect" name="{s_cla_aplicacion_Name}" style="WIDTH: 99px; HEIGHT: 22px">
+                <option selected value="">- - - - - - - - - - - -</option>
+ {s_cla_aplicacion_Options} 
+              </select>
+ </td> 
+            <td class="CobaltFieldCaptionTD">&nbsp;Tipo Comprobante</td> 
+            <td class="CobaltDataTD"><input class="CobaltInput" maxlength="3" name="{s_cla_tipoComp_Name}" size="3" value="{s_cla_tipoComp}" title="Tipo de Comprobante (2 letras)"></td> 
+            <td class="CobaltFieldCaptionTD" nowrap>&nbsp;Descripción&nbsp;</td> 
+            <td class="CobaltDataTD"><input class="CobaltInput" maxlength="15" size="15" value="{s_cla_Descripcion}" name="{s_cla_Descripcion_Name}"></td> 
+            <td class="CobaltFieldCaptionTD" nowrap>&nbsp;Contabilización</td> 
+            <td class="CobaltDataTD"><input class="CobaltInput" title="Indica si genera contabilizacion" maxlength="4" size="4" value="{s_cla_Contabilizacion}" name="{s_cla_Contabilizacion_Name}"></td> 
+          </tr>
+ 
+          <tr>
+            <td class="CobaltFieldCaptionTD" nowrap>&nbsp;Formulario&nbsp;</td> 
+            <td class="CobaltDataTD"><input class="CobaltInput" maxlength="40" name="{s_cla_Formulario_Name}" size="40" value="{s_cla_Formulario}" style="WIDTH: 139px; HEIGHT: 20px" title="Pantalla que Captura los datos">&nbsp;</td> 
+            <td class="CobaltFieldCaptionTD">&nbsp;Informe&nbsp;</td> 
+            <td class="CobaltDataTD"><input class="CobaltInput" maxlength="40" name="{s_cla_Informe_Name}" size="40" style="WIDTH: 143px; HEIGHT: 20px" value="{s_cla_Informe}" title="Reporte que imprme el comprobante de la transaccion"></td> 
+            <td class="CobaltFieldCaptionTD" nowrap>&nbsp;Indicador&nbsp;</td> 
+            <td class="CobaltDataTD">
+              <select class="CobaltSelect" style="WIDTH: 99px; HEIGHT: 22px" name="{s_cla_Indicador_Name}">
+                <option value="" selected>- - - - - - - - - - - -</option>
+ {s_cla_Indicador_Options}
+              </select>
+            </td> 
+            <td class="CobaltFieldCaptionTD" nowrap></td> 
+            <td class="CobaltDataTD"></td> 
+          </tr>
+ 
+          <tr align="middle">
+            <td align="left" class="CobaltFooterTD" colspan="8" nowrap>
+              <!-- BEGIN Button Button_DoSearch --><input class="CobaltButton" name="{Button_Name}" type="submit" value="Buscar"><!-- END Button Button_DoSearch -->&nbsp; </td> 
+          </tr>
+ 
+        </table>
+ 
+      </form>
+ <!-- END Record CoAdTi_qry --></td> 
+  </tr>
+ 
+  <tr>
+    <td class="" align="middle">
+      <!-- BEGIN Grid CoAdTi_list --><font class="CobaltFormHeaderFont">LISTA DE
+      TIPOS DE TRANSACCIONES </font><br>
+      Total de Registros:&nbsp; {genclasetran_TotalRecords}&nbsp; 
+      <table border="0" cellpadding="1" class="CobaltFormTABLE" cellspacing="1" width="100%">
+        <tr align="middle">
+          <td class="CobaltColumnTD" nowrap>
+            <!-- BEGIN Sorter Sorter_cla_tipoComp --><a class="CobaltSorterLink" href="{Sort_URL}">TIPO</a><!-- END Sorter Sorter_cla_tipoComp -->&nbsp; </td> 
+          <td class="CobaltColumnTD" nowrap>
+            <!-- BEGIN Sorter Sorter_cla_aplicacion --><a class="CobaltSorterLink" href="{Sort_URL}">APLIC</a><!-- END Sorter Sorter_cla_aplicacion -->&nbsp;</td> 
+          <td class="CobaltColumnTD" nowrap align="middle">
+            <!-- BEGIN Sorter Sorter_cla_Descripcion --><a class="CobaltSorterLink" href="{Sort_URL}">DESCRIPCION</a><!-- END Sorter Sorter_cla_Descripcion -->&nbsp;</td> 
+          <td class="CobaltColumnTD" nowrap>
+            <!-- BEGIN Sorter Sorter_cla_Formulario --><a class="CobaltSorterLink" href="{Sort_URL}">FORMULARIO</a><!-- END Sorter Sorter_cla_Formulario -->&nbsp;</td> 
+          <td class="CobaltColumnTD" nowrap>
+            <!-- BEGIN Sorter Sorter_cla_Informe --><a class="CobaltSorterLink" href="{Sort_URL}">INFORME</a><!-- END Sorter Sorter_cla_Informe -->&nbsp;</td> 
+        </tr>
+        <!-- BEGIN Row -->
+        <tr>
+          <td class="CobaltDataTD" align="middle" title="Tipo de transacción "><a class="CobaltDataLink" title="Editar este tipo de Transacción" href="{cla_tipoComp_Src}" target="_self">{cla_tipoComp} </a>&nbsp;</td> 
+          <td class="CobaltDataTD" title="Módulo o aplicación a la que pertenece" align="middle">{cla_aplicacion}&nbsp;</td> 
+          <td class="CobaltDataTD" title="Nombre de la transacción">&nbsp;&nbsp;&nbsp;&nbsp;{cla_Descripcion}&nbsp;</td> 
+          <td class="CobaltDataTD" title="Nombre del Formulario, pantalla que Captura los datos de esta transacción">&nbsp;&nbsp;&nbsp;{cla_Formulario}&nbsp;</td> 
+          <td class="CobaltDataTD" id="Nombre del Reporte que Imprimelos datos de esta transacción">&nbsp;&nbsp;
+            &nbsp;{cla_Informe}&nbsp;</td> 
+        </tr>
+        <!-- END Row -->
+        <!-- BEGIN AltRow -->
+        <tr>
+          <td class="CobaltAltDataTD" align="middle"><a class="CobaltDataLink" title="Editar este tipo de Transacción" href="{Alt_cla_tipoComp_Src}" target="_self">{Alt_cla_tipoComp} </a>&nbsp;</td> 
+          <td class="CobaltAltDataTD" align="middle">{Alt_cla_aplicacion}&nbsp;</td> 
+          <td class="CobaltAltDataTD">&nbsp;&nbsp;
+            &nbsp;{Alt_cla_Descripcion}&nbsp;</td> 
+          <td class="CobaltAltDataTD">&nbsp;&nbsp;&nbsp;{Alt_cla_Formulario}&nbsp;</td> 
+          <td class="CobaltAltDataTD">&nbsp;&nbsp;&nbsp;{Alt_cla_Informe}&nbsp;</td> 
+        </tr>
+        <!-- END AltRow -->
+        <!-- BEGIN NoRecords -->
+        <tr>
+          <td class="CobaltAltDataTD" colspan="5">No hay registros&nbsp;</td> 
+        </tr>
+        <!-- END NoRecords -->
+        <tr>
+          <td class="CobaltFooterTD" colspan="5" nowrap>
+            <!-- BEGIN Navigator Navigator -->
+            <!-- BEGIN Prev_On --><a class="CobaltNavigatorLink" href="{Prev_URL}"><img src="../Themes/Cobalt/PrevOn.gif" border="0"></a> <!-- END Prev_On -->
+            <!-- BEGIN Next_On --><a class="CobaltNavigatorLink" href="{Next_URL}"><img src="../Themes/Cobalt/NextOn.gif" border="0"></a> <!-- END Next_On --><!-- END Navigator Navigator -->&nbsp; 
+            <!-- BEGIN Button Button1 --><input class="CobaltButton" name="{Button_Name}" title="Añadir un nuevo tipo de transaccion" type="submit" value="AÑADIR"><!-- END Button Button1 --></td> 
+        </tr>
+ 
+      </table>
+ <!-- END Grid CoAdTi_list --></td> 
+  </tr>
+</table>
+ </p>
+</body>
+</html>

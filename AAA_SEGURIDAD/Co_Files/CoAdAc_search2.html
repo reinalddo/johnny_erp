@@ -1,0 +1,192 @@
+<html>
+<head>
+<meta name="GENERATOR" content="CodeCharge Studio 2.3.2.24">
+<meta http-equiv="content-type" content="text/html; charset=iso-8859-1">
+<base target="_self">
+<link rel="stylesheet" type="text/css" href="../Themes/Cobalt/Style.css">
+<link rel="stylesheet" type="text/css" href="../Themes/Menu/Style.css">
+<title></title>
+ 
+<script language="JavaScript" src="../LibJava/menu_func.js"></script>
+</head>
+ 
+<body bgcolor="#fffff7" link="#000000" alink="#ff0000" vlink="#000000" text="#000000" class="CobaltPageBODY" style="PADDING-RIGHT: 0px; PADDING-LEFT: 0px; PADDING-BOTTOM: 0px; PADDING-TOP: 0px; magin: 0; spacing: 0" bottommargin="0" nowrap leftmargin="0" topmargin="17" rightmargin="0" marginwidth="0" marginheight="0">
+&nbsp;{Cabecera} 
+<p style="MARGIN-TOP: 9px; MARGIN-LEFT: 0px" align="center">
+<!-- BEGIN Record conactivosSearch -->
+<form method="post" action="{Action}" name="{HTMLFormName}" style="MARGIN: 0px">
+  <font class="CobaltFormHeaderFont">Buscar Activos </font> 
+  <table border="0" cellpadding="1" class="CobaltFormTABLE" align="center" cellspacing="1" style="MARGIN: 0px; BORDER-COLLAPSE: collapse">
+    <!-- BEGIN Error -->
+    <tr>
+      <td colspan="22" class="CobaltErrorDataTD">{Error}</td> 
+    </tr>
+    <!-- END Error -->
+    <tr>
+      <td nowrap class="CobaltFieldCaptionTD">&nbsp;Abreviatura&nbsp;</td> 
+      <td class="CobaltDataTD"><input name="{s_act_Abreviatura_Name}" value="{s_act_Abreviatura}" maxlength="8" size="8" class="CobaltInput">&nbsp;</td> 
+      <td nowrap class="CobaltFieldCaptionTD">&nbsp;Descripcion&nbsp;</td> 
+      <td class="CobaltDataTD"><input name="{s_act_Descripcion_Name}" value="{s_act_Descripcion}" maxlength="25" class="CobaltInput" style="WIDTH: 121px; HEIGHT: 17px">&nbsp;</td> 
+      <td nowrap class="CobaltFieldCaptionTD">&nbsp;Marca&nbsp;</td> 
+      <td class="CobaltDataTD"><input name="{s_act_Marca_Name}" value="{s_act_Marca}" maxlength="10" size="10" class="CobaltInput">&nbsp;</td> 
+      <td nowrap class="CobaltFieldCaptionTD">&nbsp;Modelo&nbsp;</td> 
+      <td class="CobaltDataTD"><input name="{s_act_Modelo_Name}" value="{s_act_Modelo}" maxlength="25" size="25" class="CobaltInput">&nbsp;</td> 
+    </tr>
+ 
+    <tr>
+      <td nowrap class="CobaltFieldCaptionTD">&nbsp;Num Serie&nbsp;</td> 
+      <td class="CobaltDataTD"><input name="{s_act_NumSerie_Name}" value="{s_act_NumSerie}" maxlength="25" size="13" class="CobaltInput" style="WIDTH: 83px; HEIGHT: 17px">&nbsp;</td> 
+      <td nowrap class="CobaltFieldCaptionTD">&nbsp;Tipo&nbsp;</td> 
+      <td class="CobaltDataTD">
+        <select name="{s_act_Tipo_Name}" class="CobaltSelect">
+          <option value="" selected>Seleccionar Valor</option>
+ {s_act_Tipo_Options} 
+        </select>
+ &nbsp;</td> 
+      <td nowrap class="CobaltFieldCaptionTD">&nbsp;Grupo&nbsp;</td> 
+      <td class="CobaltDataTD">
+        <select name="{s_act_Grupo_Name}" class="CobaltSelect">
+          <option value="" selected>Seleccionar Valor</option>
+ {s_act_Grupo_Options} 
+        </select>
+ &nbsp;</td> 
+      <td nowrap class="CobaltFieldCaptionTD">&nbsp;Sub Grupo&nbsp;</td> 
+      <td class="CobaltDataTD">
+        <select name="{s_act_SubGrupo_Name}" class="CobaltSelect">
+          <option value="" selected>Seleccionar Valor</option>
+ {s_act_SubGrupo_Options} 
+        </select>
+ &nbsp;</td> 
+    </tr>
+ 
+    <tr>
+      <td nowrap class="CobaltFieldCaptionTD">&nbsp;Usuario&nbsp;</td> 
+      <td class="CobaltDataTD"><input name="{s_act_usuario_Name}" value="{s_act_usuario}" maxlength="20" class="CobaltInput" style="WIDTH: 80px; HEIGHT: 17px" size="13">&nbsp;</td> 
+      <td nowrap class="CobaltFieldCaptionTD">&nbsp;Cod Anterior&nbsp;</td> 
+      <td class="CobaltDataTD"><input name="{s_act_CodAnterior_Name}" value="{s_act_CodAnterior}" maxlength="15" size="12" class="CobaltInput" style="WIDTH: 78px; HEIGHT: 17px">&nbsp;</td> 
+      <td nowrap class="CobaltFieldCaptionTD">&nbsp;Inventariable&nbsp;</td> 
+      <td class="CobaltDataTD" colspan="4">
+        <!-- BEGIN CheckBoxList s_act_Inventariable --><input type="checkbox" name="{s_act_Inventariable_Name}" value="{Value}" class="CobaltInput" {Check}>{Description}<!-- END CheckBoxList s_act_Inventariable -->&nbsp;</td> 
+    </tr>
+ 
+    <tr>
+      <td nowrap class="CobaltFooterTD" colspan="8" align="center"><a class="CobaltSorterLink" href="{ClearParameters_Src}">Limpiar</a>&nbsp; 
+        <!-- BEGIN Button Button_DoSearch --><input name="{Button_Name}" type="submit" value="Buscar" class="CobaltButton"><!-- END Button Button_DoSearch -->&nbsp; </td> 
+    </tr>
+ 
+  </table>
+</form>
+<!-- END Record conactivosSearch -->
+<!-- BEGIN Grid conactivos --><font class="CobaltFormHeaderFont">Lista de
+Activos </font>
+<table border="0" cellpadding="1" class="CobaltFormTABLE" cellspacing="1" style="MARGIN: 0px; BORDER-COLLAPSE: collapse">
+  <tr>
+    <td class="CobaltFooterTD" nowrap align="center" colspan="17">
+      <!-- BEGIN Navigator Navigator1 -->
+      <!-- BEGIN Prev_On --><a class="CobaltNavigatorLink" href="{Prev_URL}"><img src="../Themes/Aqua/PrevOn.gif" border="0"></a> <!-- END Prev_On -->&nbsp; 
+      <!-- BEGIN Pages -->
+      <!-- BEGIN Page_On --><a class="CobaltNavigatorLink" href="{Page_URL}">{Page_Number}</a>&nbsp;<!-- END Page_On -->
+      <!-- BEGIN Page_Off -->{Page_Number}&nbsp;<!-- END Page_Off --><!-- END Pages -->de
+      {Total_Pages}&nbsp; 
+      <!-- BEGIN Next_On --><a class="CobaltNavigatorLink" href="{Next_URL}"><img src="../Themes/Aqua/NextOn.gif" border="0"></a> <!-- END Next_On --><!-- END Navigator Navigator1 --></td> 
+  </tr>
+ 
+  <tr align="center">
+    <td nowrap class="CobaltColumnTD">
+      <!-- BEGIN Sorter Sorter_act_CodAuxiliar --><a class="CobaltSorterLink" href="{Sort_URL}">CODIGO</a><!-- END Sorter Sorter_act_CodAuxiliar -->&nbsp;</td> 
+    <td nowrap class="CobaltColumnTD">
+      <!-- BEGIN Sorter Sorter_act_Abreviatura --><a class="CobaltSorterLink" href="{Sort_URL}">ABREV</a><!-- END Sorter Sorter_act_Abreviatura -->&nbsp;</td> 
+    <td nowrap class="CobaltColumnTD">
+      <!-- BEGIN Sorter Sorter_act_Descripcion --><a class="CobaltSorterLink" href="{Sort_URL}">DESCRIPCION</a><!-- END Sorter Sorter_act_Descripcion -->&nbsp;</td> 
+    <td nowrap class="CobaltColumnTD">
+      <!-- BEGIN Sorter Sorter_act_SubCategoria --><a class="CobaltSorterLink" href="{Sort_URL}">&nbsp;SUBCATEG.</a><!-- END Sorter Sorter_act_SubCategoria -->&nbsp;</td> 
+    <td nowrap class="CobaltColumnTD">
+      <!-- BEGIN Sorter Sorter_act_Marca --><a class="CobaltSorterLink" href="{Sort_URL}">MARCA</a><!-- END Sorter Sorter_act_Marca -->&nbsp;</td> 
+    <td nowrap class="CobaltColumnTD">
+      <!-- BEGIN Sorter Sorter_act_Modelo --><a class="CobaltSorterLink" href="{Sort_URL}">MODELO</a><!-- END Sorter Sorter_act_Modelo -->&nbsp;</td> 
+    <td nowrap class="CobaltColumnTD">
+      <!-- BEGIN Sorter Sorter_act_NumSerie --><a class="CobaltSorterLink" href="{Sort_URL}">&nbsp;NUM
+      SERIE</a><!-- END Sorter Sorter_act_NumSerie -->&nbsp;</td> 
+    <td nowrap class="CobaltColumnTD">
+      <!-- BEGIN Sorter Sorter_act_UniMedida --><a class="CobaltSorterLink" href="{Sort_URL}">U.MEDIDA</a><!-- END Sorter Sorter_act_UniMedida -->&nbsp;</td> 
+    <td nowrap class="CobaltColumnTD">
+      <!-- BEGIN Sorter Sorter_act_Tipo --><a class="CobaltSorterLink" href="{Sort_URL}">TIPO</a><!-- END Sorter Sorter_act_Tipo -->&nbsp;</td> 
+    <td nowrap class="CobaltColumnTD">
+      <!-- BEGIN Sorter Sorter_act_Grupo --><a class="CobaltSorterLink" href="{Sort_URL}">GRUPO</a><!-- END Sorter Sorter_act_Grupo -->&nbsp;</td> 
+    <td nowrap class="CobaltColumnTD">
+      <!-- BEGIN Sorter Sorter_act_SubGrupo --><a class="CobaltSorterLink" href="{Sort_URL}">SUBGRUPO</a><!-- END Sorter Sorter_act_SubGrupo -->&nbsp;</td> 
+    <td nowrap class="CobaltColumnTD">
+      <!-- BEGIN Sorter Sorter_act_CodAnterior --><a class="CobaltSorterLink" href="{Sort_URL}">COD.
+      ANTERIOR</a><!-- END Sorter Sorter_act_CodAnterior -->&nbsp;</td> 
+    <td nowrap class="CobaltColumnTD">
+      <!-- BEGIN Sorter Sorter_act_usuario --><a class="CobaltSorterLink" href="{Sort_URL}">DIGITADO</a><!-- END Sorter Sorter_act_usuario -->&nbsp;</td> 
+    <td nowrap class="CobaltColumnTD">
+      <!-- BEGIN Sorter Sorter_act_IvaFlag --><a class="CobaltSorterLink" href="{Sort_URL}">IVA</a><!-- END Sorter Sorter_act_IvaFlag -->&nbsp;</td> 
+    <td nowrap class="CobaltColumnTD">
+      <!-- BEGIN Sorter Sorter_act_IceFlag --><a class="CobaltSorterLink" href="{Sort_URL}">ICE</a><!-- END Sorter Sorter_act_IceFlag -->&nbsp;</td> 
+    <td nowrap class="CobaltColumnTD">
+      <!-- BEGIN Sorter Sorter_act_SufijoCuenta --><a class="CobaltSorterLink" href="{Sort_URL}">SUF.</a><!-- END Sorter Sorter_act_SufijoCuenta -->&nbsp;</td> 
+    <td nowrap class="CobaltColumnTD">
+      <!-- BEGIN Sorter Sorter_act_Inventariable --><a class="CobaltSorterLink" href="{Sort_URL}">&nbsp;INVENT</a><!-- END Sorter Sorter_act_Inventariable -->&nbsp;</td> 
+  </tr>
+  <!-- BEGIN Row -->
+  <tr>
+    <td class="CobaltDataTD"><input type="hidden" name="{act_CodAuxiliar_Name}" value="{act_CodAuxiliar}" style="WIDTH: 31px; HEIGHT: 16px" size="4">&nbsp;<a class="CobaltDataLink" href="{Link1_Src}">{Link1}</a></td> 
+    <td class="CobaltDataTD">{act_Abreviatura}&nbsp;</td> 
+    <td class="CobaltDataTD" nowrap>{act_Descripcion}&nbsp;</td> 
+    <td class="CobaltDataTD" nowrap>{act_SubCategoria}&nbsp;</td> 
+    <td class="CobaltDataTD" nowrap>{act_Marca}&nbsp;</td> 
+    <td class="CobaltDataTD">{act_Modelo}&nbsp;</td> 
+    <td class="CobaltDataTD">{act_NumSerie}&nbsp;</td> 
+    <td class="CobaltDataTD">{act_UniMedida}&nbsp;</td> 
+    <td class="CobaltDataTD">{act_Tipo}&nbsp;</td> 
+    <td class="CobaltDataTD" nowrap>{act_Grupo}&nbsp;</td> 
+    <td class="CobaltDataTD" nowrap>{act_SubGrupo}&nbsp;</td> 
+    <td class="CobaltDataTD">{act_CodAnterior}&nbsp;</td> 
+    <td class="CobaltDataTD">{act_usuario}&nbsp;{act_FecRegistro}</td> 
+    <td class="CobaltDataTD" title="TIPO DE IVA QUE SE APLICA: -1=NO  1=IVA  SOBRE B.I.   2=INCLUIDO EN EL PRECIO">{act_IvaFlag}&nbsp;</td> 
+    <td class="CobaltDataTD">{act_IceFlag}&nbsp;</td> 
+    <td class="CobaltDataTD" title="SUFIJO DE CUENTA CONTABLE">{act_SufijoCuenta}&nbsp;</td> 
+    <td class="CobaltDataTD" title="INDICA SI ES ITEM INVENTARIABLE (0=NO 1=SI)">{act_Inventariable}&nbsp;</td> 
+  </tr>
+  <!-- END Row -->
+  <!-- BEGIN AltRow -->
+  <tr>
+    <td class="CobaltAltDataTD"><input type="hidden" name="{Alt_act_CodAuxiliar_Name}" value="{Alt_act_CodAuxiliar}" style="WIDTH: 25px; HEIGHT: 14px" size="2">&nbsp;<a class="CobaltDataLink" href="{Link2_Src}">{Link2}</a></td> 
+    <td class="CobaltAltDataTD">{Alt_act_Abreviatura}&nbsp;</td> 
+    <td class="CobaltAltDataTD" nowrap>{Alt_act_Descripcion}&nbsp;{Label1}&nbsp;</td> 
+    <td class="CobaltAltDataTD" nowrap>{Alt_act_SubCategoria}&nbsp;</td> 
+    <td class="CobaltAltDataTD" nowrap>{Alt_act_Marca}&nbsp;</td> 
+    <td class="CobaltAltDataTD">{Alt_act_Modelo}&nbsp;</td> 
+    <td class="CobaltAltDataTD">{Alt_act_NumSerie}&nbsp;</td> 
+    <td class="CobaltAltDataTD">{Alt_act_UniMedida}&nbsp;</td> 
+    <td class="CobaltAltDataTD">{Alt_act_Tipo}&nbsp;</td> 
+    <td class="CobaltAltDataTD" nowrap>{Alt_act_Grupo}&nbsp;</td> 
+    <td class="CobaltAltDataTD" nowrap>{Alt_act_SubGrupo}&nbsp;</td> 
+    <td class="CobaltAltDataTD">{Alt_act_CodAnterior}&nbsp;</td> 
+    <td class="CobaltAltDataTD">{Alt_act_usuario}&nbsp;{Alt_act_FecRegistro}</td> 
+    <td class="CobaltAltDataTD">{Alt_act_IvaFlag}&nbsp;</td> 
+    <td class="CobaltAltDataTD">{Alt_act_IceFlag}&nbsp;</td> 
+    <td class="CobaltAltDataTD" title="SUFIJO DE CUENTA CONTABLE">{Alt_act_SufijoCuenta}&nbsp;</td> 
+    <td class="CobaltAltDataTD" title="INDICA SI ES ITEM INVENTARIABLE (0=NO 1=SI)">{Alt_act_Inventariable}&nbsp;</td> 
+  </tr>
+  <!-- END AltRow -->
+  <!-- BEGIN NoRecords -->
+  <tr>
+    <td colspan="17" class="CobaltAltDataTD">No hay registros&nbsp;</td> 
+  </tr>
+  <!-- END NoRecords -->
+  <tr>
+    <td colspan="17" nowrap class="CobaltFooterTD" align="center" title="Agregar un Nuevo registro"><a class="CobaltDataLink" href="{ImageLink1}"><img class="CobaltInput" title="Agregar un Nuevo Auxiliar" style="WIDTH: 16px; HEIGHT: 14px" height="12" alt="NUEVO!" src="../Images/new.png" width="28" border="0"></a> 
+      <!-- BEGIN Navigator Navigator -->
+      <!-- BEGIN Prev_On --><a class="CobaltNavigatorLink" href="{Prev_URL}"><img src="../Themes/Aqua/PrevOn.gif" border="0"></a> <!-- END Prev_On -->&nbsp; 
+      <!-- BEGIN Pages -->
+      <!-- BEGIN Page_On --><a class="CobaltNavigatorLink" href="{Page_URL}">{Page_Number}</a>&nbsp;<!-- END Page_On -->
+      <!-- BEGIN Page_Off -->{Page_Number}&nbsp;<!-- END Page_Off --><!-- END Pages -->
+      <!-- BEGIN Next_On --><a class="CobaltNavigatorLink" href="{Next_URL}"><img src="../Themes/Aqua/NextOn.gif" border="0"></a> <!-- END Next_On --><!-- END Navigator Navigator -->&nbsp; </td> 
+  </tr>
+</table>
+<!-- END Grid conactivos --></p>
+</body>
+ 
+</html>

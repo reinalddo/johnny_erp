@@ -1,0 +1,115 @@
+<html>
+<head>
+<base target="_self">
+<link rel="stylesheet" type="text/css" href="../Themes/Cobalt/Style.css">
+<title></title>
+</head>
+ 
+<body bgcolor="#fffff7" link="#000000" alink="#ff0000" vlink="#000000" text="#000000" class="CobaltPageBODY" style="PADDING-RIGHT: 0px; PADDING-LEFT: 0px; PADDING-BOTTOM: 0px; PADDING-TOP: 0px; magin: 0; spacing: 0" bottommargin="0" nowrap leftmargin="0" topmargin="17" rightmargin="0" marginwidth="0" marginheight="0">
+{Cabecera} 
+<table background="../Themes/Cobalt/Light Streaks.bmp" border="0" width="100%" align="center">
+  <tr>
+    <td align="middle">&nbsp; 
+      <!-- BEGIN EditableGrid liqreportes -->
+      <form name="{HTMLFormName}" action="{Action}" method="post">
+        <font class="CobaltFormHeaderFont">{lbTitulo}</font> <input type="hidden" value="{FormState}" name="FormState">{FormScript}&nbsp; <br>
+        Regs:&nbsp; {liqreportes_TotalRecords}&nbsp; 
+        <table class="CobaltFormTABLE" cellpadding="0" border="0" cellspacing="1">
+          <!-- BEGIN Error -->
+          <tr>
+            <td class="CobaltErrorDataTD" colspan="7">{Error}</td> 
+          </tr>
+          <!-- END Error -->
+          <tr>
+            <td class="CobaltColumnTD" nowrap>&nbsp;</td> 
+            <td class="CobaltColumnTD" nowrap>
+              <!-- BEGIN Sorter Sorter_rep_PosOrdinal --><a class="CobaltSorterLink" href="{Sort_URL}">ORDEN</a> 
+              <!-- BEGIN Asc_On --><img src="../Themes/Cobalt/AscOn.gif" border="0"><!-- END Asc_On -->
+              <!-- BEGIN Desc_On --><img src="../Themes/Cobalt/DescOn.gif" border="0"><!-- END Desc_On --><!-- END Sorter Sorter_rep_PosOrdinal -->&nbsp;</td> 
+            <td class="CobaltColumnTD" nowrap>
+              <!-- BEGIN Sorter Sorter_rub_CodRubro --><a class="CobaltSorterLink" href="{Sort_URL}">&nbsp;RUBRO</a> 
+              <!-- BEGIN Asc_On --><img src="../Themes/Cobalt/AscOn.gif" border="0"><!-- END Asc_On -->
+              <!-- BEGIN Desc_On --><img src="../Themes/Cobalt/DescOn.gif" border="0"><!-- END Desc_On --><!-- END Sorter Sorter_rub_CodRubro -->&nbsp;</td> 
+            <td class="CobaltColumnTD" nowrap>
+              <!-- BEGIN Sorter Sorter_rep_TitLargo --><a class="CobaltSorterLink" href="{Sort_URL}">TITULO
+              LARGO</a> 
+              <!-- BEGIN Asc_On --><img src="../Themes/Cobalt/AscOn.gif" border="0"><!-- END Asc_On -->
+              <!-- BEGIN Desc_On --><img src="../Themes/Cobalt/DescOn.gif" border="0"><!-- END Desc_On --><!-- END Sorter Sorter_rep_TitLargo -->&nbsp;</td> 
+            <td class="CobaltColumnTD" nowrap>
+              <!-- BEGIN Sorter Sorter_rep_TitCorto --><a class="CobaltSorterLink" href="{Sort_URL}">TITULO
+              CORTO</a> 
+              <!-- BEGIN Asc_On --><img src="../Themes/Cobalt/AscOn.gif" border="0"><!-- END Asc_On -->
+              <!-- BEGIN Desc_On --><img src="../Themes/Cobalt/DescOn.gif" border="0"><!-- END Desc_On --><!-- END Sorter Sorter_rep_TitCorto -->&nbsp;</td> 
+            <td class="CobaltColumnTD" nowrap>
+              <!-- BEGIN Sorter Sorter_rep_IndDbCr --><a class="CobaltSorterLink" href="{Sort_URL}">SIGNO</a> 
+              <!-- BEGIN Asc_On --><img src="../Themes/Cobalt/AscOn.gif" border="0"><!-- END Asc_On -->
+              <!-- BEGIN Desc_On --><img src="../Themes/Cobalt/DescOn.gif" border="0"><!-- END Desc_On --><!-- END Sorter Sorter_rep_IndDbCr -->&nbsp;</td> 
+            <td class="CobaltColumnTD" nowrap>
+              <!-- BEGIN Sorter Sorter_rep_Activo --><a class="CobaltSorterLink" href="{Sort_URL}">&nbsp;ACTIVO</a> 
+              <!-- BEGIN Asc_On --><img src="../Themes/Cobalt/AscOn.gif" border="0"><!-- END Asc_On -->
+              <!-- BEGIN Desc_On --><img src="../Themes/Cobalt/DescOn.gif" border="0"><!-- END Desc_On --><!-- END Sorter Sorter_rep_Activo -->&nbsp;</td> 
+          </tr>
+          <!-- BEGIN Row -->
+          <!-- BEGIN RowError -->
+          <tr>
+            <td class="CobaltErrorDataTD" colspan="7">{Error}</td> 
+          </tr>
+          <!-- END RowError -->
+          <tr valign="top" height="15">
+            <td class="CobaltDataTD" nowrap>&nbsp;&nbsp; <input type="hidden" name="{rep_Secuencia_Name}" value="{rep_Secuencia}" style="WIDTH: 32px; HEIGHT: 11px" size="5"></td> 
+            <td class="CobaltDataTD" valign="top"><input class="CobaltInputSB2" maxlength="5" size="2" value="{rep_PosOrdinal}" name="{rep_PosOrdinal_Name}" style="WIDTH: 30px; HEIGHT: 18px">&nbsp;</td> 
+            <td class="CobaltDataTD" valign="center">
+              <select name="{rub_CodRubro_Name}" class="CobaltInputSB2" style="WIDTH: 195px">
+                <option value="" selected>-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;&nbsp;-&nbsp;&nbsp;-&nbsp;--&nbsp;-&nbsp;-&nbsp;</option>
+ {rub_CodRubro_Options} 
+              </select>
+ </td> 
+            <td class="CobaltDataTD"><input class="CobaltInputSB2" maxlength="15" size="15" value="{rep_TitLargo}" name="{rep_TitLargo_Name}">&nbsp;</td> 
+            <td class="CobaltDataTD" valign="top"><input class="CobaltInputSB2" maxlength="25" size="25" value="{rep_TitCorto}" name="{rep_TitCorto_Name}">&nbsp;</td> 
+            <td class="CobaltDataTD" valign="center">
+              <select class="CobaltInputSB2" name="{rep_IndDbCr_Name}">
+                <option value="" selected>-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;</option>
+ {rep_IndDbCr_Options} 
+              </select>
+ </td> 
+            <td class="CobaltDataTD">
+              <select class="CobaltSelect" name="{rep_Activo_Name}">
+                <option value="" selected>-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;</option>
+ {rep_Activo_Options} 
+              </select>
+ <input class="CobaltInput" type="checkbox" value="1" name="{del_Check_Name}" {del_Check}></td> 
+          </tr>
+          <!-- END Row -->
+          <!-- BEGIN NoRecords -->
+          <tr>
+            <td class="CobaltDataTD" colspan="7">No hay registros&nbsp;</td> 
+          </tr>
+          <!-- END NoRecords -->
+          <tr>
+            <td class="CobaltFooterTD" nowrap align="middle" colspan="7">
+              <!-- BEGIN Navigator Navigator -->
+              <!-- BEGIN First_On --><a class="CobaltNavigatorLink" href="{First_URL}"><img src="../Themes/StormyWeather/FirstOn.gif" border="0"></a> <!-- END First_On -->
+              <!-- BEGIN Prev_On --><a class="CobaltNavigatorLink" href="{Prev_URL}"><img src="../Themes/StormyWeather/PrevOn.gif" border="0"></a> <!-- END Prev_On -->&nbsp; 
+              <!-- BEGIN Pages -->
+              <!-- BEGIN Page_On --><a class="CobaltNavigatorLink" href="{Page_URL}">{Page_Number}</a>&nbsp;<!-- END Page_On -->
+              <!-- BEGIN Page_Off -->{Page_Number}&nbsp;<!-- END Page_Off --><!-- END Pages -->de
+              {Total_Pages}&nbsp; 
+              <!-- BEGIN Next_On --><a class="CobaltNavigatorLink" href="{Next_URL}"><img src="../Themes/StormyWeather/NextOn.gif" border="0"></a> <!-- END Next_On -->
+              <!-- BEGIN Last_On --><a class="CobaltNavigatorLink" href="{Last_URL}"><img src="../Themes/StormyWeather/LastOn.gif" border="0"></a> <!-- END Last_On --><!-- END Navigator Navigator -->&nbsp; 
+              <!-- BEGIN Button Button_Submit --><input class="FONT-SIZE: 9px; WIDTH: 60px; HEIGHT: 19px" type="submit" value="Enviar" name="{Button_Name}"><!-- END Button Button_Submit -->&nbsp; </td> 
+          </tr>
+ 
+        </table>
+ 
+      </form>
+ <!-- END EditableGrid liqreportes --></td> 
+    <td>&nbsp;</td> 
+  </tr>
+ 
+</table>
+ 
+<p></p>
+ 
+</body>
+ 
+</html>

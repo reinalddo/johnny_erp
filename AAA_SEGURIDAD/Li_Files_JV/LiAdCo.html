@@ -1,0 +1,169 @@
+<html>
+<head>
+<base target="_self">
+<link rel="stylesheet" type="text/css" href="../Themes/StormyWeather/Style.css">
+<link rel="stylesheet" type="text/css" href="../Themes/Menu/Style.css">
+<title>COMPONENETES DE EMPAQUE</title>
+<script language="JavaScript" src="../LibJava/menu_func.js"></script>
+<link rel="stylesheet" type="text/css" href="../Themes/Cobalt/Style.css">
+<script language="JavaScript">
+//Begin CCS script
+//Include JSFunctions @1-5F368366
+  </script>
+<script language="JavaScript" src="../functions.js"></script>
+<script language="JavaScript">
+  
+//End Include JSFunctions
+
+//page_liqcomponent_Button_Submit_OnClick @27-94C454EA
+function page_liqcomponent_Button_Submit_OnClick()
+{
+    var result;
+//End page_liqcomponent_Button_Submit_OnClick
+
+//Confirmation Message @28-96FAE8C2
+    return confirm('Enviar registro?');
+//End Confirmation Message
+
+//Close page_liqcomponent_Button_Submit_OnClick @27-BC33A33A
+    return result;
+}
+//End Close page_liqcomponent_Button_Submit_OnClick
+
+//bind_events @1-2F432DEC
+function bind_events() {
+    if (document.forms["liqcomponent"]) check_and_bind('document.forms["liqcomponent"].Button_Submit','onclick',page_liqcomponent_Button_Submit_OnClick);
+    forms_onload();
+}
+//End bind_events
+
+window.onload = bind_events; //Assign bind_events @1-19F7B649
+
+//End CCS script
+</script>
+</head>
+<body bgcolor="#fffff7" link="#000000" alink="#ff0000" vlink="#000000" text="#000000" class="CobaltPageBODY">
+<p style="FONT-WEIGHT: normal">
+<table background="../Themes/Cobalt/Light Streaks.bmp" border="0" cellspacing="0" cellpadding="0" align="center">
+  <tr>
+    <td align="middle" valign="top">&nbsp; 
+      <!-- BEGIN Record liqcomponentSearch -->
+      <form action="{Action}" method="post" name="{HTMLFormName}" target="_self">
+        <font class="CobaltFormHeaderFont" style="FONT-SIZE: 14px">BUSCAR
+        COMPONENTES DE EMPAQUE </font> 
+        <table border="1" cellpadding="0" class="CobaltFormTABLE" align="center">
+          <!-- BEGIN Error -->
+          <tr>
+            <td class="CobaltErrorDataTD" colspan="7">{Error}</td> 
+          </tr>
+ <!-- END Error -->
+          <tr>
+            <td class="CobaltFieldCaptionTD" nowrap>&nbsp;Clase&nbsp;</td> 
+            <td class="CobaltDataTD">
+              <select class="CobaltSelect" name="{s_cte_Clase_Name}" style="FONT-SIZE: 9px; WIDTH: 94px">
+                <option selected value="">-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp; </option>
+ {s_cte_Clase_Options} 
+              </select>
+ &nbsp;</td> 
+            <td class="CobaltFieldCaptionTD" nowrap>&nbsp;Referencia&nbsp;</td> 
+            <td class="CobaltDataTD"><input class="CobaltInput" maxlength="15" name="{s_cte_Referencia_Name}" size="15" value="{s_cte_Referencia}" style="FONT-SIZE: 9px; WIDTH: 75px; HEIGHT: 16px">&nbsp;</td> 
+            <td class="CobaltFieldCaptionTD" nowrap>&nbsp;Descripcion&nbsp;</td> 
+            <td class="CobaltDataTD"><input class="CobaltInput" maxlength="80" name="{s_cte_Descripcion_Name}" size="50" value="{s_cte_Descripcion}" style="FONT-SIZE: 9px; WIDTH: 161px; HEIGHT: 16px">&nbsp;</td> 
+            <td class="CobaltFooterTD">&nbsp;<a class="CobaltSorterLink" title="Anula el criterio de búsqueda" href="{ClearParameters_Src}" target="_self">Limpiar</a> 
+              <!-- BEGIN Button Button_DoSearch --><input class="CobaltButton" type="submit" value="Buscar" name="{Button_Name}"><!-- END Button Button_DoSearch --></td> 
+          </tr>
+ 
+        </table>
+ 
+      </form>
+ <!-- END Record liqcomponentSearch -->
+      <!-- BEGIN EditableGrid liqcomponent -->
+      <form action="{Action}" method="post" name="{HTMLFormName}" target="_self">
+        <font class="CobaltFormHeaderFont" style="FONT-SIZE: 14px">LISTA DE
+        COMPONENTES </font><input name="FormState" type="hidden" value="{FormState}">{FormScript} <br>
+        Total de Registros:&nbsp; {liqcomponent_TotalRecords}&nbsp; 
+        <table border="0" cellpadding="0" class="CobaltFormTABLE" cellspacing="1" align="center">
+          <!-- BEGIN Error -->
+          <tr>
+            <td class="CobaltErrorDataTD" colspan="6">{Error}</td> 
+          </tr>
+ <!-- END Error -->
+          <tr>
+            <td class="CobaltColumnTD" nowrap>
+              <!-- BEGIN Sorter Sorter_cte_Codigo -->&nbsp;&nbsp;<a class="CobaltSorterLink" style="FONT-WEIGHT: normal" href="{Sort_URL}" target="_self">COD.</a><!-- END Sorter Sorter_cte_Codigo -->&nbsp; </td> 
+            <td class="CobaltColumnTD" nowrap>
+              <!-- BEGIN Sorter Sorter_cte_Clase -->&nbsp;&nbsp;&nbsp;<a class="CobaltSorterLink" style="FONT-WEIGHT: normal" href="{Sort_URL}" target="_self">CLASE</a><!-- END Sorter Sorter_cte_Clase -->&nbsp; </td> 
+            <td class="CobaltColumnTD" nowrap>
+              <!-- BEGIN Sorter Sorter_cte_IndRechazo -->&nbsp;<a class="CobaltSorterLink" href="{Sort_URL}" target="_self">CONDICION
+              DE RECHAZO</a><!-- END Sorter Sorter_cte_IndRechazo -->&nbsp;</td> 
+            <td class="CobaltColumnTD" nowrap>
+              <!-- BEGIN Sorter Sorter_cte_Referencia -->&nbsp;&nbsp;<u style="FONT-WEIGHT: normal">REF.</u> <a class="CobaltSorterLink" href="{Sort_URL}" target="_self"></a><!-- END Sorter Sorter_cte_Referencia -->&nbsp;</td> 
+            <td class="CobaltColumnTD" nowrap>
+              <!-- BEGIN Sorter Sorter_cte_Descripcion -->&nbsp;<a class="CobaltSorterLink" style="FONT-WEIGHT: normal" href="{Sort_URL}" target="_self">DESCRIPCION</a><!-- END Sorter Sorter_cte_Descripcion -->&nbsp;</td> 
+            <td class="CobaltColumnTD" nowrap style="FONT-WEIGHT: normal">BORRAR&nbsp;&nbsp;</td> 
+          </tr>
+ 
+          <!-- BEGIN Row -->
+          <!-- BEGIN RowError -->
+          <tr>
+            <td class="CobaltErrorDataTD" colspan="6">{Error}</td> 
+          </tr>
+ <!-- END RowError -->
+          <tr valign="top" align="middle">
+            <td class="CobaltDataTD" align="middle"><a class="CobaltDataLink" title="Carga
+              una Página con el detalle de los items que forman este componente de empaque" href="{cte_Codigo_Src}" target="_self">{cte_Codigo}</a>&nbsp;</td> 
+            <td class="CobaltDataTD" title="Clase de Componenete de Empaque.">
+              <select name="{cte_Clase_Name}" class="CobaltSelect" style="FONT-SIZE: 9px; WIDTH: 99px">
+                <option selected value="">-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp; </option>
+ {cte_Clase_Options} 
+              </select>
+ &nbsp;</td> 
+            <td class="CobaltDataTD" style="BORDER-LEFT-COLOR: #faf0e6; BORDER-BOTTOM-COLOR: #faf0e6; BORDER-TOP-COLOR: #faf0e6; BORDER-RIGHT-COLOR: #faf0e6" title="Como disponer de este componente en caso de rechazo: puede ser reutilizable o se convierte en desperdicio (el productor no puede aprovecharlo en futuros embarques).">
+              <select class="CobaltSelect" name="{cte_IndRechazo_Name}" style="FONT-SIZE: 9px; WIDTH: 89px">
+                <option selected value="">-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp; </option>
+ {cte_IndRechazo_Options} 
+              </select>
+ </td> 
+            <td class="CobaltDataTD"><input class="CobaltInput" maxlength="15" name="{cte_Referencia_Name}" size="15" value="{cte_Referencia}" style="FONT-SIZE: 9px; WIDTH: 55px; HEIGHT: 15px" title="Referencia para acceso rápido)">&nbsp;</td> 
+            <td class="CobaltDataTD"><input class="CobaltInput" maxlength="80" name="{cte_Descripcion_Name}" size="45" value="{cte_Descripcion}" style="FONT-SIZE: 9px; WIDTH: 143px; HEIGHT: 15px" title="Texto descriptivo del componente">&nbsp;</td> 
+            <td class="CobaltDataTD">
+              <!-- BEGIN CheckBox CheckBox_Delete --><input class="CobaltInput" name="{CheckBox_Delete_Name}" type="checkbox" value="1" title="Marque esta casilla para borrar el registro" style="WIDTH: 20px; HEIGHT: 17px" {CheckBox_Delete}><!-- END CheckBox CheckBox_Delete -->&nbsp;</td> 
+          </tr>
+ <!-- END Row -->
+          <!-- BEGIN NoRecords -->
+          <tr>
+            <td class="CobaltDataTD" colspan="6">No se ha definido Componentes
+              con esas caracteristicas&nbsp;</td> 
+          </tr>
+ <!-- END NoRecords -->
+          <tr>
+            <td align="right" class="CobaltFooterTD" colspan="6" nowrap>
+              <!-- BEGIN Navigator Navigator -->
+              <!-- BEGIN First_On --><a class="CobaltNavigatorLink" href="{First_URL}"><img src="../Themes/Aqua/FirstOn.gif" border="0"></a> <!-- END First_On -->
+              <!-- BEGIN Prev_On --><a class="CobaltNavigatorLink" href="{Prev_URL}"><img src="../Themes/Aqua/PrevOn.gif" border="0"></a> <!-- END Prev_On -->&nbsp;{Page_Number}&nbsp;de
+              {Total_Pages}&nbsp; 
+              <!-- BEGIN Next_On --><a class="CobaltNavigatorLink" href="{Next_URL}"><img src="../Themes/Aqua/NextOn.gif" border="0"></a> <!-- END Next_On -->
+              <!-- BEGIN Last_On --><a class="CobaltNavigatorLink" href="{Last_URL}"><img src="../Themes/Aqua/LastOn.gif" border="0"></a> <!-- END Last_On --><!-- END Navigator Navigator -->&nbsp; 
+              <!-- BEGIN Button Button_Submit --><input class="CobaltButton" name="{Button_Name}" type="submit" value="Enviar"><!-- END Button Button_Submit -->&nbsp; 
+              <!-- BEGIN Button Cancel --><input class="CobaltButton" name="{Button_Name}" type="submit" value="Cancelar"><!-- END Button Cancel -->&nbsp; </td> 
+          </tr>
+ 
+          <tr height="5">
+            <td class="CobaltFooterTD" nowrap align="right" colspan="6"></td> 
+          </tr>
+ 
+        </table>
+ 
+      </form>
+ <!-- END EditableGrid liqcomponent --></td> 
+    <td>&nbsp;</td> 
+  </tr>
+ 
+  <tr>
+    <td>&nbsp;</td> 
+    <td>&nbsp;</td> 
+  </tr>
+</table>
+ </p>
+</body>
+</html>

@@ -1,0 +1,359 @@
+<html>
+<head>
+  <base target="_self">
+  <link rel="stylesheet" type="text/css" href="../Themes/StormyWeather/Style.css">
+  <link rel="stylesheet" type="text/css" href="../Themes/Menu/Style.css">
+  <title></title>
+ 
+  <script language="JavaScript" src="../LibJava/menu_func.js"></script>
+  <link rel="stylesheet" type="text/css" href="../Themes/Cobalt/Style.css">
+  <script language="JavaScript">
+//Begin CCS script
+//Include JSFunctions @1-5F368366
+  </script>
+  <script language="JavaScript" src="../functions.js"></script>
+  <script language="JavaScript">
+  
+//End Include JSFunctions
+
+//page_Precios_detalle_Button_Submit_OnClick @102-0E2BBD9C
+function page_Precios_detalle_Button_Submit_OnClick()
+{
+    var result;
+//End page_Precios_detalle_Button_Submit_OnClick
+
+//Confirmation Message @103-96FAE8C2
+    return confirm('Enviar registro?');
+//End Confirmation Message
+
+//Close page_Precios_detalle_Button_Submit_OnClick @102-BC33A33A
+    return result;
+}
+//End Close page_Precios_detalle_Button_Submit_OnClick
+
+//bind_events @1-47BC490A
+function bind_events() {
+    if (document.forms["Precios_detalle"]) check_and_bind('document.forms["Precios_detalle"].Button_Submit','onclick',page_Precios_detalle_Button_Submit_OnClick);
+    forms_onload();
+}
+//End bind_events
+
+window.onload = bind_events; //Assign bind_events @1-19F7B649
+
+//End CCS script
+</script>
+</head>
+<body bgcolor="#fffff7" link="#000000" alink="#ff0000" vlink="#000000" text="#000000"
+class="CobaltPageBODY" nowrap>
+  <p>{Cabecera} 
+  <table background="../Themes/Cobalt/Light Streaks.bmp" border="0" width="100%"
+  cellspacing="0" cellpadding="0" align="center">
+    <tr>
+      <td valign="top" align="middle">
+        <br>
+        <br>
+        &nbsp; 
+        <!-- BEGIN Grid Precios_lista --><font class="CobaltFormHeaderFont">LISTAS
+        DE PRECIOS DE INVENTARIO&nbsp;<br>
+        </font><br>
+        ( {genparametros_TotalRecords}&nbsp;Listas definidas)&nbsp; 
+        <table class="CobaltFormTABLE" cellpadding="1" border="0" cellspacing="0">
+          <tr>
+            <td class="CobaltColumnTD" nowrap>
+              <!-- BEGIN Sorter Sorter_par_Secuencia -->&nbsp;CÒD 
+              <!-- BEGIN Asc_On --><img src="../Themes/Cobalt/AscOn.gif" border="0">
+              <!-- END Asc_On -->
+              <!-- BEGIN Desc_On --><img src="../Themes/Cobalt/DescOn.gif" border="0">
+              <!-- END Desc_On -->
+              <!-- END Sorter Sorter_par_Secuencia -->
+              &nbsp; 
+            </td>
+ 
+            <td class="CobaltColumnTD" nowrap>
+              <!-- BEGIN Sorter Sorter_par_Descripcion -->&nbsp; 
+              <a class="CobaltSorterLink" href="{Sort_URL}">DESCRIPCIÓN</a>
+ 
+              <!-- BEGIN Asc_On --><img src="../Themes/Cobalt/AscOn.gif" border="0">
+              <!-- END Asc_On -->
+              <!-- BEGIN Desc_On --><img src="../Themes/Cobalt/DescOn.gif" border="0">
+              <!-- END Desc_On -->
+              <!-- END Sorter Sorter_par_Descripcion -->
+              &nbsp; 
+            </td>
+ 
+          </tr>
+ 
+          <!-- BEGIN Row -->
+          <tr>
+            <td class="CobaltDataTD">
+              &nbsp;&nbsp;&nbsp; &nbsp; 
+              <a class="CobaltDataLink" href="{par_secuencia_Src}">{par_secuencia} 
+                </a>
+ 
+            </td>
+ 
+            <td class="CobaltDataTD">
+              &nbsp;&nbsp;&nbsp; {par_Descripcion}&nbsp; 
+            </td>
+ 
+          </tr>
+ 
+          <!-- END Row -->
+          <!-- BEGIN AltRow -->
+          <tr>
+            <td class="CobaltAltDataTD">
+              &nbsp;&nbsp;&nbsp; &nbsp; 
+              <a class="CobaltDataLink" href="{Alt_par_secuencia_Src}">{Alt_par_secuencia} 
+                </a>
+ 
+            </td>
+ 
+            <td class="CobaltAltDataTD">
+              &nbsp;&nbsp;&nbsp; {Alt_par_Descripcion}&nbsp; 
+            </td>
+ 
+          </tr>
+ 
+          <!-- END AltRow -->
+          <!-- BEGIN NoRecords -->
+          <tr>
+            <td class="CobaltAltDataTD" colspan="2">
+              No hay listas definitas&nbsp; 
+            </td>
+ 
+          </tr>
+ 
+          <!-- END NoRecords -->
+          <tr>
+            <td class="CobaltFooterTD" nowrap colspan="2">
+              <!-- BEGIN Navigator Navigator -->
+              <!-- BEGIN Prev_On -->
+              <a class="CobaltNavigatorLink" href="{Prev_URL}"><img src="../Themes/Aqua/PrevOn.gif"
+                border="0"></a>
+ 
+              <!-- END Prev_On -->
+              <!-- BEGIN Next_On -->
+              <a class="CobaltNavigatorLink" href="{Next_URL}"><img src="../Themes/Aqua/NextOn.gif"
+                border="0"></a>
+ 
+              <!-- END Next_On -->
+              <!-- END Navigator Navigator -->
+              &nbsp; 
+            </td>
+ 
+          </tr>
+ 
+        </table>
+ 
+        <!-- END Grid Precios_lista -->
+      </td>
+ 
+      <td valign="top" align="middle">
+        <!-- BEGIN EditableGrid Precios_detalle -->
+        <form name="{HTMLFormName}" action="{Action}" method="post">
+          <font class="CobaltFormHeaderFont">Lista de Conactivos, Invprecios,
+          Genunmedida </font> 
+          <input type="hidden" value="{FormState}" name="FormState">
+            {FormScript} 
+            <table class="CobaltFormTABLE" cellpadding="0" border="1" cellspacing="0">
+              <!-- BEGIN Error -->
+              <tr>
+                <td class="CobaltErrorDataTD" colspan="5">
+                  {Error} 
+                </td>
+ 
+              </tr>
+ 
+              <!-- END Error -->
+              <tr align="middle">
+                <td class="CobaltColumnTD" nowrap>
+                  <!-- BEGIN Sorter Sorter_pre_CodItem -->&nbsp; 
+                  <a class="CobaltSorterLink" href="{Sort_URL}">ITEM</a>
+ 
+                  <!-- BEGIN Asc_On --><img src="../Themes/Cobalt/AscOn.gif" border="0">
+                  <!-- END Asc_On -->
+                  <!-- BEGIN Desc_On --><img src="../Themes/Cobalt/DescOn.gif" border="0">
+                  <!-- END Desc_On -->
+                  <!-- END Sorter Sorter_pre_CodItem -->
+                  &nbsp; 
+                </td>
+ 
+                <td class="CobaltColumnTD" nowrap>
+                  <!-- BEGIN Sorter Sorter_act_Descripcion -->&nbsp; 
+                  <a class="CobaltSorterLink" href="{Sort_URL}">DESCRIPCION</a>
+ 
+                  <!-- BEGIN Asc_On --><img src="../Themes/Cobalt/AscOn.gif" border="0">
+                  <!-- END Asc_On -->
+                  <!-- BEGIN Desc_On --><img src="../Themes/Cobalt/DescOn.gif" border="0">
+                  <!-- END Desc_On -->
+                  <!-- END Sorter Sorter_act_Descripcion -->
+                  &nbsp; 
+                </td>
+ 
+                <td class="CobaltColumnTD" nowrap>
+                  <!-- BEGIN Sorter Sorter_uni_Descripcion -->
+                  <a class="CobaltSorterLink" href="{Sort_URL}">U. MEDIDA</a>
+ 
+                  <!-- BEGIN Asc_On --><img src="../Themes/Cobalt/AscOn.gif" border="0">
+                  <!-- END Asc_On -->
+                  <!-- BEGIN Desc_On --><img src="../Themes/Cobalt/DescOn.gif" border="0">
+                  <!-- END Desc_On -->
+                  <!-- END Sorter Sorter_uni_Descripcion -->
+                  &nbsp; 
+                </td>
+ 
+                <td class="CobaltColumnTD" nowrap>
+                  <!-- BEGIN Sorter Sorter_pre_PreUnitario -->&nbsp; 
+                  <a class="CobaltSorterLink" href="{Sort_URL}">PRECIO UNIT </a>
+ 
+                  <!-- BEGIN Asc_On --><img src="../Themes/Cobalt/AscOn.gif" border="0">
+                  <!-- END Asc_On -->
+                  <!-- BEGIN Desc_On --><img src="../Themes/Cobalt/DescOn.gif" border="0">
+                  <!-- END Desc_On -->
+                  <!-- END Sorter Sorter_pre_PreUnitario -->
+                  &nbsp; 
+                </td>
+ 
+                <td class="CobaltColumnTD" nowrap>
+                  Borrar &nbsp; 
+                </td>
+ 
+              </tr>
+ 
+              <!-- BEGIN Row -->
+              <!-- BEGIN RowError -->
+              <tr>
+                <td class="CobaltErrorDataTD" colspan="5">
+                  {Error} 
+                </td>
+ 
+              </tr>
+ 
+              <!-- END RowError -->
+              <tr>
+                <td class="CobaltDataTD">
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+                  <input class="CobaltInputSB" maxlength="10" size="8" value="{pre_CodItem}"
+                  name="{pre_CodItem_Name}" readonly style="FONT-SIZE: 9px; WIDTH: 45px; HEIGHT: 14px">
+                    &nbsp; 
+                  </td>
+ 
+                  <td class="CobaltDataTD" nowrap>
+                    &nbsp;&nbsp; 
+                    <input class="CobaltInputSB" maxlength="25" size="42" value="{act_Descripcion}"
+                    name="{act_Descripcion_Name}" readonly style="FONT-SIZE: 9px; TEXT-TRANSFORM: uppercase; WIDTH: 197px; HEIGHT: 14px">
+                      &nbsp; 
+                    </td>
+ 
+                    <td class="CobaltDataTD">
+                      <input class="CobaltInputSB" maxlength="15" size="15" value="{uni_Descripcion}"
+                      name="{uni_Descripcion_Name}" readonly style="FONT-SIZE: 9px; HEIGHT: 14px">
+                        &nbsp; 
+                      </td>
+ 
+                      <td class="CobaltDataTD">
+                        &nbsp; 
+                        <input class="CobaltInput" maxlength="12" size="12" value="{pre_PreUnitario}"
+                        name="{pre_PreUnitario_Name}" style="FONT-SIZE: 9px; HEIGHT: 14px">
+                        </td>
+ 
+                        <td class="CobaltDataTD">
+                          <!-- BEGIN CheckBox CheckBox_Delete -->
+                          <input class="CobaltInput" type="checkbox" value="1" name="{CheckBox_Delete_Name}"
+                          {CheckBox_Delete}>
+                            <!-- END CheckBox CheckBox_Delete -->
+                            &nbsp; 
+                          </td>
+ 
+                        </tr>
+ 
+                        <!-- END Row -->
+                        <!-- BEGIN NoRecords -->
+                        <tr>
+                          <td class="CobaltDataTD" colspan="5">
+                            NO hay Items para esta Lista de precios&nbsp; 
+                          </td>
+ 
+                        </tr>
+ 
+                        <!-- END NoRecords -->
+                        <tr>
+                          <td class="CobaltFooterTD" nowrap align="right" colspan="5">
+                            <!-- BEGIN Navigator Navigator -->
+                            <!-- BEGIN First_On -->
+                            <a class="CobaltNavigatorLink" href="{First_URL}"><img
+                              src="../Themes/Cobalt/FirstOn.gif" border="0"></a>
+ 
+                            <!-- END First_On -->
+                            <!-- BEGIN Prev_On -->
+                            <a class="CobaltNavigatorLink" href="{Prev_URL}"><img
+                              src="../Themes/Cobalt/PrevOn.gif" border="0"></a>
+ 
+                            <!-- END Prev_On -->
+                            &nbsp; 
+                            <!-- BEGIN Pages -->
+                            <!-- BEGIN Page_On -->
+                            <a class="CobaltNavigatorLink" href="{Page_URL}">{Page_Number} 
+                              </a>
+ &nbsp; 
+                            <!-- END Page_On -->
+                            <!-- BEGIN Page_Off -->{Page_Number}&nbsp; 
+                            <!-- END Page_Off -->
+                            <!-- END Pages -->
+                            de {Total_Pages}&nbsp; 
+                            <!-- BEGIN Next_On -->
+                            <a class="CobaltNavigatorLink" href="{Next_URL}"><img
+                              src="../Themes/Cobalt/NextOn.gif" border="0"></a>
+ 
+                            <!-- END Next_On -->
+                            <!-- BEGIN Last_On -->
+                            <a class="CobaltNavigatorLink" href="{Last_URL}"><img
+                              src="../Themes/Cobalt/LastOn.gif" border="0"></a>
+ 
+                            <!-- END Last_On -->
+                            <!-- END Navigator Navigator -->
+                            &nbsp; 
+                            <!-- BEGIN Button Button_Submit -->
+                            <input class="CobaltButton" type="submit" value="Enviar"
+                            name="{Button_Name}">
+                              <!-- END Button Button_Submit -->
+                              &nbsp; 
+                              <!-- BEGIN Button Cancel -->
+                              <input class="CobaltButton" type="submit" value="Cancelar"
+                              name="{Button_Name}">
+                                <!-- END Button Cancel -->
+                                &nbsp; 
+                              </td>
+ 
+                            </tr>
+ 
+                          </table>
+ 
+                        </form>
+ 
+                        <!-- END EditableGrid Precios_detalle -->
+                      </td>
+ 
+                      <td>
+                        &nbsp; 
+                      </td>
+ 
+                    </tr>
+ 
+                    <tr>
+                      <td colspan="2">
+                        &nbsp; 
+                      </td>
+ 
+                      <td>
+                        &nbsp; 
+                      </td>
+ 
+                    </tr>
+ 
+                  </table>
+ </p>
+ 
+                </body>
+ 
+                </html>

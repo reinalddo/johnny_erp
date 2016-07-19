@@ -1,0 +1,126 @@
+<html>
+<head>
+<base target="PAGINA">
+<link rel="stylesheet" type="text/css" href="../Themes/StormyWeather/Style.css">
+<link rel="stylesheet" type="text/css" href="../Themes/Menu/Style.css">
+<title></title>
+<link rel="stylesheet" type="text/css" href="../Themes/Cobalt/Style.css">
+<script language="JavaScript">
+//Begin CCS script
+//Include JSFunctions @1-5F368366
+  </script>
+<script language="JavaScript" src="../functions.js"></script>
+<script language="JavaScript">
+  
+//End Include JSFunctions
+
+//page_perfil_mant_Button_Delete_OnClick @10-5FCE64E7
+function page_perfil_mant_Button_Delete_OnClick()
+{
+    var result;
+//End page_perfil_mant_Button_Delete_OnClick
+
+//Confirmation Message @11-BED55CD3
+    return confirm('Borrar registro?');
+//End Confirmation Message
+
+//Close page_perfil_mant_Button_Delete_OnClick @10-BC33A33A
+    return result;
+}
+//End Close page_perfil_mant_Button_Delete_OnClick
+
+//page_perfil_mant_bt_GenAtrib_OnClick @13-96574DCB
+function page_perfil_mant_bt_GenAtrib_OnClick()
+{
+    var result;
+//End page_perfil_mant_bt_GenAtrib_OnClick
+
+//Custom Code @14-2A29BDB7
+    // -------------------------
+    // Write your own code here.
+    // -------------------------
+//End Custom Code
+
+//Close page_perfil_mant_bt_GenAtrib_OnClick @13-BC33A33A
+    return result;
+}
+//End Close page_perfil_mant_bt_GenAtrib_OnClick
+
+//bind_events @1-081AFC03
+function bind_events() {
+    if (document.forms["perfil_mant"]) check_and_bind('document.forms["perfil_mant"].bt_GenAtrib','onclick',page_perfil_mant_bt_GenAtrib_OnClick);
+    if (document.forms["perfil_mant"]) check_and_bind('document.forms["perfil_mant"].Button_Delete','onclick',page_perfil_mant_Button_Delete_OnClick);
+    forms_onload();
+}
+//End bind_events
+
+window.onload = bind_events; //Assign bind_events @1-19F7B649
+
+//End CCS script
+</script>
+</head>
+<body bgcolor="#fffff7" link="#000000" alink="#ff0000" vlink="#000000" text="#000000" class="CobaltPageBODY">
+<p>
+<table background="../Themes/Cobalt/Light Streaks.bmp" border="0" width="100%">
+  <tr>
+    <td align="middle">&nbsp; 
+      <!-- BEGIN Record perfil_mant -->
+    </form>
+ 
+    <p>
+    <form action="{Action}" method="post" name="{HTMLFormName}" target="_self">
+      <font class="CobaltFormHeaderFont">
+      <!-- BEGIN Label txt_Titulo -->{txt_Titulo} <!-- END Label txt_Titulo --></font> 
+      <table align="center" border="0" cellpadding="1" class="CobaltFormTABLE" height="75" style="WIDTH: 400px; HEIGHT: 104px" cellspacing="1">
+        <!-- BEGIN Error -->
+        <tr>
+          <td class="CobaltErrorDataTD" colspan="2" height="15">{Error}</td> 
+        </tr>
+ <!-- END Error -->
+        <tr height="15">
+          <td class="CobaltFieldCaptionTD" height="15" nowrap width="50">Codigo&nbsp; </td> 
+          <td class="CobaltDataTD"><input class="CobaltInput" maxlength="5" name="{pfl_IDperfil_Name}" size="5" style="WIDTH: 53px; HEIGHT: 17px" value="{pfl_IDperfil}">&nbsp; </td> 
+        </tr>
+ 
+        <tr>
+          <td class="CobaltFieldCaptionTD" height="15" nowrap>Descripcion&nbsp; </td> 
+          <td class="CobaltDataTD" height="15"><input class="CobaltInput" maxlength="25" name="{pfl_Descripcion_Name}" size="25" style="WIDTH: 173px; HEIGHT: 17px" value="{pfl_Descripcion}">&nbsp;</td> 
+        </tr>
+ 
+        <tr>
+          <td class="CobaltFieldCaptionTD" height="15" nowrap>Estado&nbsp;</td> 
+          <td class="CobaltDataTD" height="15">
+            <select class="CobaltSelect" name="{pfl_estado_Name}" style="WIDTH: 107px; HEIGHT: 17px">
+              <option selected value="">- - - - - - - - - - - -</option>
+ {pfl_estado_Options} 
+            </select>
+ </td> 
+        </tr>
+ 
+        <tr>
+          <td align="right" class="CobaltFooterTD" colspan="2" height="15" nowrap>
+            <p>
+            <!-- BEGIN Button Button_Insert --><input class="CobaltButton" name="{Button_Name}" style="WIDTH: 50px; HEIGHT: 22px" type="submit" value="Agregar"><!-- END Button Button_Insert -->
+            <!-- BEGIN Button Button_Update --><input class="CobaltButton" name="{Button_Name}" style="WIDTH: 40px; HEIGHT: 22px" type="submit" value="Grabar"><!-- END Button Button_Update -->
+            <!-- BEGIN Button Button_Delete --><input class="CobaltButton" name="{Button_Name}" style="WIDTH: 43px; HEIGHT: 22px" type="submit" value="Borrar"><!-- END Button Button_Delete -->
+            <!-- BEGIN Button Button_Cancel --><input class="CobaltButton" name="{Button_Name}" style="WIDTH: 49px; HEIGHT: 22px" type="submit" value="Cancelar"><!-- END Button Button_Cancel -->
+            <!-- BEGIN Button bt_GenAtrib --><input class="CobaltButton" name="{Button_Name}" style="WIDTH: 43px; HEIGHT: 22px" type="submit" value="Atrib.."><!-- END Button bt_GenAtrib --></p>
+ </td> 
+        </tr>
+ 
+      </table>
+ 
+    </form>
+ <!-- END Record perfil_mant --></p>
+ </td> 
+  <td>&nbsp;</td> 
+</tr>
+ 
+<tr>
+  <td>&nbsp;</td> 
+  <td>&nbsp;</td> 
+</tr>
+</table>
+ </p>
+</body>
+</html>

@@ -1,0 +1,379 @@
+<html>
+<head>
+<base target="_self">
+<link rel="stylesheet" type="text/css" href="../Themes/StormyWeather/Style.css">
+<link rel="stylesheet" type="text/css" href="../Themes/Menu/Style.css">
+<title>ACTIVOS y OTROS: Mantenimiento</title>
+<script language="JavaScript" src="../LibJava/menu_func.js"></script>
+<link rel="stylesheet" type="text/css" href="../Themes/Cobalt/Style.css">
+<script language="JavaScript">
+var msMensaje = " ";
+//Begin CCS script
+//Include JSFunctions @1-5F368366
+  </script>
+  <script language="JavaScript" src="../functions.js"></script>
+  <script language="JavaScript">
+
+//End Include JSFunctions
+
+//Include Common JSFunctions @1-73ADA5ED
+</script>
+<script language="JavaScript" src="../DatePicker.js"></script>
+<script language="JavaScript">
+//End Include Common JSFunctions
+
+//Date Picker Object Definitions @1-AF5DDECA
+
+var CoAdAc_cate_DatePicker_cat_FecIncorp = new Object();
+CoAdAc_cate_DatePicker_cat_FecIncorp.format           = "dd/mmm/yy";
+CoAdAc_cate_DatePicker_cat_FecIncorp.style            = "Themes/Cobalt/Style.css";
+CoAdAc_cate_DatePicker_cat_FecIncorp.relativePathPart = "../";
+
+//End Date Picker Object Definitions
+
+//page_CoAdAc_mant_Button_Insert_OnClick @115-39B5EE86
+/**
+*   Al presionar el boton GRABAR durante la insercion, solicita confirmacion
+*/
+function page_CoAdAc_mant_Button_Insert_OnClick()
+{
+    var result;
+//End page_CoAdAc_mant_Button_Insert_OnClick
+
+//Custom Code @353-2A29BDB7
+    // -------------------------
+ 	msMensaje = "AGREGAR EL REGISTRO?";
+    // -------------------------
+//End Custom Code
+
+//Close page_CoAdAc_mant_Button_Insert_OnClick @115-BC33A33A
+    return result;
+}
+//End Close page_CoAdAc_mant_Button_Insert_OnClick
+
+//page_CoAdAc_mant_Button_Update_OnClick @116-A8F34A0B
+/**
+*   Al presionar el boton GRABAR del registro, solicita confirmacion
+*/
+function page_CoAdAc_mant_Button_Update_OnClick()
+{
+    var result;
+//End page_CoAdAc_mant_Button_Update_OnClick
+
+//Custom Code @354-2A29BDB7
+    // -------------------------
+ 	msMensaje = "ACTUALIZA EL REGISTRO?";
+    // -------------------------
+//End Custom Code
+
+//Close page_CoAdAc_mant_Button_Update_OnClick @116-BC33A33A
+    return result;
+}
+//End Close page_CoAdAc_mant_Button_Update_OnClick
+
+//page_CoAdAc_mant_Button_Delete_OnClick @117-BADD9CC6
+/**
+*   Al presionar el boton eliminar del Registro de Activo, solicita confirmacion
+*/
+function page_CoAdAc_mant_Button_Delete_OnClick()
+{
+    var result;
+//End page_CoAdAc_mant_Button_Delete_OnClick
+
+//Custom Code @355-2A29BDB7
+    // -------------------------
+	msMensaje = "ELIMINA ESTE  REGISTRO?";
+    // -------------------------
+//End Custom Code
+
+//Close page_CoAdAc_mant_Button_Delete_OnClick @117-BC33A33A
+    return result;
+}
+//End Close page_CoAdAc_mant_Button_Delete_OnClick
+
+//page_CoAdAc_mant_btBusqueda_OnClick @350-EE551DA7
+/**
+*   Al presionar el boton cancelar del formulario de busqueda, solicita confirmacion
+*/
+function page_CoAdAc_mant_btBusqueda_OnClick()
+{
+    var result;
+//End page_CoAdAc_mant_btBusqueda_OnClick
+
+//Custom Code @356-2A29BDB7
+    // -------------------------
+	msMensaje = "CANCELA MODIFICACIONES E INICIA BUSQUEDA?";
+    // -------------------------
+//End Custom Code
+
+//Close page_CoAdAc_mant_btBusqueda_OnClick @350-BC33A33A
+    return result;
+}
+//End Close page_CoAdAc_mant_btBusqueda_OnClick
+
+//page_CoAdAc_mant_btNuevo_OnClick @351-1857E0FC
+/**
+*   Al presionar el boton cancela, solicita confirmacion
+*/
+function page_CoAdAc_mant_btNuevo_OnClick()
+{
+    var result;
+//End page_CoAdAc_mant_btNuevo_OnClick
+
+//Custom Code @357-2A29BDB7
+    // -------------------------
+	msMensaje = "CANCELA MODIFICACIONE Y AGREGA UN NUEVO REGISTRO?";
+    // -------------------------
+//End Custom Code
+
+//Close page_CoAdAc_mant_btNuevo_OnClick @351-BC33A33A
+    return result;
+}
+//End Close page_CoAdAc_mant_btNuevo_OnClick
+
+//page_CoAdAc_mant_OnSubmit @99-17FF9E39
+/**
+*   Al someter la pagina, confirma o niega la ejecucion
+*/
+function page_CoAdAc_mant_OnSubmit()
+{
+    var result;
+//End page_CoAdAc_mant_OnSubmit
+
+//Custom Code @358-2A29BDB7
+    // -------------------------
+	return confirm(msMensaje);
+    // -------------------------
+//End Custom Code
+
+//Close page_CoAdAc_mant_OnSubmit @99-BC33A33A
+    return result;
+}
+//End Close page_CoAdAc_mant_OnSubmit
+
+//bind_events @1-84F761B5
+/**
+*   Bandeja de eventos definidos para el cliente
+*/
+function bind_events() {
+    if (document.forms["CoAdAc_mant"]) check_and_bind('document.forms["CoAdAc_mant"]','onsubmit',page_CoAdAc_mant_OnSubmit);
+    if (document.forms["CoAdAc_mant"]) check_and_bind('document.forms["CoAdAc_mant"].btNuevo','onclick',page_CoAdAc_mant_btNuevo_OnClick);
+    if (document.forms["CoAdAc_mant"]) check_and_bind('document.forms["CoAdAc_mant"].btBusqueda','onclick',page_CoAdAc_mant_btBusqueda_OnClick);
+    if (document.forms["CoAdAc_mant"]) check_and_bind('document.forms["CoAdAc_mant"].Button_Delete','onclick',page_CoAdAc_mant_Button_Delete_OnClick);
+    if (document.forms["CoAdAc_mant"]) check_and_bind('document.forms["CoAdAc_mant"].Button_Update','onclick',page_CoAdAc_mant_Button_Update_OnClick);
+    if (document.forms["CoAdAc_mant"]) check_and_bind('document.forms["CoAdAc_mant"].Button_Insert','onclick',page_CoAdAc_mant_Button_Insert_OnClick);
+    forms_onload();
+}
+//End bind_events
+
+window.onload = bind_events; //Assign bind_events @1-19F7B649
+
+//End CCS script
+</script>
+</head>
+<body bgcolor="#fffff7" link="#000000" alink="#ff0000" vlink="#000000" text="#000000" class="CobaltPageBODY">
+<p>{Cabecera}
+<table border="0" cellpadding="0" cellspacing="0" align="center" width="100%">
+  <tr>
+    <td align="middle" valign="top">
+      <!-- BEGIN Record CoAdAc_mant -->
+      <form action="{Action}" method="post" name="{HTMLFormName}">
+        <font class="CobaltFormHeaderFont" size="1">{lbTitulo} </font> <font color="#00659c" size="4"><br>
+        <strong class="CobaltFormHeaderFont">(Activos y Otros)</strong></font> <br>
+        <br>
+        <table border="0" cellpadding="1" class="CobaltFormTABLE" cellspacing="1">
+          <!-- BEGIN Error -->
+          <tr>
+            <td class="CobaltErrorDataTD" colspan="4">{Error}</td> 
+          </tr>
+ <!-- END Error -->
+          <tr valign="top">
+            <!-- BEGIN ListBox lbCategAux -->
+            <td class="CobaltFieldCaptionTD" nowrap>&nbsp;CATEGOR� INICIAL</td> 
+            <td class="CobaltDataTD">&nbsp; 
+              <select class="CobaltSelect" name="{lbCategAux_Name}" style="WIDTH: 133px; HEIGHT: 22px">
+                <option selected value="">- - - - - - - - - - - - </option>
+ {lbCategAux_Options} 
+              </select>
+ <!-- END ListBox lbCategAux --></td> 
+            <td class="CobaltDataTD" colspan="2"></td> 
+          </tr>
+ 
+          <tr valign="top">
+            <td class="CobaltFieldCaptionTD" nowrap>&nbsp;C�IGO&nbsp;</td> 
+            <td class="CobaltDataTD">
+              <!-- BEGIN TextBox act_CodAuxiliar -->&nbsp;&nbsp;<input class="CobaltInput" maxlength="10" name="{act_CodAuxiliar_Name}" readonly size="10" title="CODIGO DE AUXILIAR: Autogenerado al Agregar Registros" value="{act_CodAuxiliar}"><!-- END TextBox act_CodAuxiliar -->&nbsp; </td> 
+            <td class="CobaltDataTD" colspan="2"></td> 
+          </tr>
+ 
+          <tr valign="top">
+            <td class="CobaltFieldCaptionTD" nowrap>&nbsp;DESCRIPCION<br>&nbsp;DESCRIPCION 1</td> 
+            <td class="CobaltDataTD" colspan="4">&nbsp;&nbsp;<input class="CobaltInput" maxlength="100" name="{act_Descripcion_Name}" size="100" value="{act_Descripcion}" style="WIDTH: 300px; HEIGHT: 19px" title="Descripcion del activo, o  item"><br>
+	    &nbsp;&nbsp;<input class="CobaltInput" maxlength="80" name="{act_Descripcion1_Name}" size="80" style="WIDTH: 180px; HEIGHT: 20px" title="Descripcion Alterna del activo, o  �em" value="{act_Descripcion1}"></td> 
+          </tr>
+ 
+          <tr valign="top">
+            <td class="CobaltFieldCaptionTD" nowrap>&nbsp;SUB CATEGOR�</td> 
+            <td class="CobaltDataTD">&nbsp; 
+              <select class="CobaltSelect" name="{act_SubCategoria_Name}" style="WIDTH: 132px; HEIGHT: 22px">
+                <option selected value="">- - - - - - - - - - - - </option>
+ {act_SubCategoria_Options} 
+              </select>
+ &nbsp;</td> 
+            <td class="CobaltFieldCaptionTD">&nbsp;U.MEDIDA</td> 
+            <td class="CobaltDataTD">&nbsp; 
+              <select class="CobaltSelect" name="{act_UniMedida_Name}">
+                <option selected value="">-- - - - - - - - - - - - - --</option>
+ {act_UniMedida_Options} 
+              </select>
+ </td> 
+          </tr>
+ 
+          <tr height="3">
+            <td class="CobaltDataTD" nowrap height="1"></td> 
+            <td class="CobaltDataTD" height="1"></td> 
+            <td class="CobaltDataTD"></td> 
+            <td class="CobaltDataTD" height="1"></td> 
+          </tr>
+ 
+          <tr valign="top">
+            <td class="CobaltFieldCaptionTD" nowrap>&nbsp;MARCA</td> 
+            <td class="CobaltDataTD">&nbsp; 
+              <select class="CobaltSelect" name="{act_Marca_Name}" style="WIDTH: 127px; HEIGHT: 22px">
+                <option selected title="Marca del Item (seleccione)" value="">Seleccionar
+                Valor</option>
+ {act_Marca_Options} 
+              </select>
+ &nbsp;</td> 
+            <td class="CobaltFieldCaptionTD">&nbsp;MODELO</td> 
+            <td class="CobaltDataTD">&nbsp;&nbsp;<input class="CobaltInput" maxlength="25" name="{act_Modelo_Name}" size="25" value="{act_Modelo}" style="WIDTH: 140px; HEIGHT: 20px"></td> 
+          </tr>
+ 
+          <tr valign="top">
+            <td class="CobaltFieldCaptionTD" nowrap>&nbsp;NUMERO DE SERIE&nbsp;</td> 
+            <td class="CobaltDataTD">&nbsp;&nbsp;<input class="CobaltInput" maxlength="25" name="{act_NumSerie_Name}" size="25" value="{act_NumSerie}" style="WIDTH: 125px; HEIGHT: 20px">&nbsp;</td> 
+            <td class="CobaltFieldCaptionTD"></td> 
+            <td class="CobaltDataTD"></td> 
+          </tr>
+ 
+          <tr valign="top">
+            <td class="CobaltFieldCaptionTD" nowrap>&nbsp;CLASIFICACION</td> 
+            <td class="CobaltDataTD">&nbsp; 
+              <select class="CobaltSelect" name="{act_Tipo_Name}" style="WIDTH: 126px; HEIGHT: 22px">
+                <option selected value="">-- - - - - - - - - - - - - --</option>
+ {act_Tipo_Options} 
+              </select>
+ &nbsp;</td> 
+            <td class="CobaltFieldCaptionTD">&nbsp;GRUPO</td> 
+            <td class="CobaltDataTD">&nbsp; 
+              <select class="CobaltSelect" name="{act_Grupo_Name}">
+                <option selected value="">-- - - - - - - - - - - - - --</option>
+ {act_Grupo_Options} 
+              </select>
+ </td> 
+          </tr>
+ 
+          <tr valign="top">
+            <td class="CobaltFieldCaptionTD" nowrap>&nbsp;SUB GRUPO&nbsp;</td> 
+            <td class="CobaltDataTD">&nbsp; 
+              <select class="CobaltSelect" name="{act_SubGrupo_Name}">
+                <option selected value="">-- - - - - - - - - - - - - --</option>
+ {act_SubGrupo_Options} 
+              </select>
+ </td> 
+            <td class="CobaltFieldCaptionTD">&nbsp;</td> 
+            <td class="CobaltDataTD">&nbsp; </td> 
+          </tr>
+ 
+          <tr>
+            <td align="middle" class="CobaltFooterTD" colspan="4" nowrap>
+              <!-- BEGIN Button Button_Insert --><input class="CobaltButton" name="{Button_Name}" type="submit" value="AGREGAR" title="Agrega los datos Ingresados"><!-- END Button Button_Insert -->&nbsp;&nbsp; 
+              <!-- BEGIN Button Button_Update --><input class="CobaltButton" name="{Button_Name}" type="submit" value="GRABAR" title="Graba las modificaciones"><!-- END Button Button_Update -->&nbsp;&nbsp; 
+              <!-- BEGIN Button Button_Delete --><input class="CobaltButton" name="{Button_Name}" type="submit" value="BORRAR" title="Borra el registro en pantalla"><!-- END Button Button_Delete -->&nbsp;&nbsp; 
+              <!-- BEGIN Button btBusqueda --><input class="CobaltButton" name="{Button_Name}" value=" BUSQUEDA" title="Retorna a p�ina de bsqueda" style="WIDTH: 71px; HEIGHT: 18px" type="submit"><!-- END Button btBusqueda -->&nbsp;&nbsp;
+              &nbsp; 
+              <!-- BEGIN Button btNuevo --><input class="CobaltButton" name="{Button_Name}" type="submit" value=" NUEVO" title="Permite Agregar un Nuevo registro"><!-- END Button btNuevo --></td> 
+          </tr>
+ 
+        </table>
+ 
+      </form>
+ <!-- END Record CoAdAc_mant --></td> 
+    <td valign="top" align="middle">
+      <p>
+      <!-- BEGIN EditableGrid CoAdAc_cate --></p>
+ 
+      <form action="{Action}" method="post" name="{HTMLFormName}">
+        <font color="#00659c" size="4"><strong class="CobaltFormHeaderFont"><br>
+        <br>
+        CATEGORIAS ASOCIADAS A ESTE AUXILIAR&nbsp; </strong></font> <input name="FormState" type="hidden" value="{FormState}" style="WIDTH: 31px; HEIGHT: 22px">{FormScript} <br>
+        <table border="0" cellpadding="0" class="CobaltFormTABLE" cellspacing="1">
+          <!-- BEGIN Error -->
+          <tr>
+            <td class="CobaltErrorDataTD" colspan="6">{Error}</td> 
+          </tr>
+ <!-- END Error -->
+          <tr align="middle">
+            <td class="CobaltColumnTD" nowrap>&nbsp;</td> 
+            <td class="CobaltColumnTD" nowrap>
+              <!-- BEGIN Sorter Sorter_cat_Categoria --><a class="CobaltSorterLink" href="{Sort_URL}">CATEGORIA </a> <!-- END Sorter Sorter_cat_Categoria -->&nbsp;</td> 
+            <td class="CobaltColumnTD" nowrap>
+              <!-- BEGIN Sorter Sorter_cat_FecIncorp -->&nbsp; <a class="CobaltSorterLink" href="{Sort_URL}">FECHA.
+              INC </a> <!-- END Sorter Sorter_cat_FecIncorp -->&nbsp;</td> 
+            <td class="CobaltColumnTD" nowrap>
+              <!-- BEGIN Sorter Sorter_cat_Activo --><a class="CobaltSorterLink" href="{Sort_URL}">ESTADO </a> <!-- END Sorter Sorter_cat_Activo -->&nbsp;</td> 
+            <td class="CobaltColumnTD" nowrap>Borrar &nbsp;</td> 
+          </tr>
+ 
+          <!-- BEGIN Row -->
+          <!-- BEGIN RowError -->
+          <tr>
+            <td class="CobaltErrorDataTD" colspan="6">{Error}</td> 
+          </tr>
+ <!-- END RowError -->
+          <tr valign="top">
+            <td class="CobaltDataTD"><input type="hidden" name="{cat_CodAuxiliar_Name}" value="{cat_CodAuxiliar}" style="WIDTH: 37px; HEIGHT: 22px">&nbsp; </td> 
+            <td class="CobaltDataTD">&nbsp; 
+              <select class="CobaltSelect" name="{cat_Categoria_Name}" style="WIDTH: 128px; HEIGHT: 22px">
+                <option selected value="">------------------------------------</option>
+ {cat_Categoria_Options} 
+              </select>
+ </td> 
+            <td class="CobaltDataTD">&nbsp;<input class="CobaltInput" maxlength="10" name="{cat_FecIncorp_Name}" size="10" style="WIDTH: 63px; HEIGHT: 20px" value="{cat_FecIncorp}" title="Fecha en la que asocia el item a la categor�">
+              <!-- BEGIN DatePicker DatePicker_cat_FecIncorp --><a class="CobaltDataLink" href="javascript:showDatePicker('{Name}','{FormName}','{DateControl}');"><img src="../Themes/DatePicker/DatePicker1.gif" border="0"></a> <!-- END DatePicker DatePicker_cat_FecIncorp -->&nbsp;</td> 
+            <td class="CobaltDataTD">&nbsp; 
+              <select class="CobaltSelect" name="{cat_Activo_Name}" style="WIDTH: 62px; HEIGHT: 16px">
+                <option selected value="">- - - - - - - - - - - - </option>
+ {cat_Activo_Options} 
+              </select>
+ </td> 
+            <td class="CobaltDataTD">
+              <!-- BEGIN CheckBox CheckBox_Delete --><input class="CobaltInput" name="{CheckBox_Delete_Name}" type="checkbox" value="1" {CheckBox_Delete}><!-- END CheckBox CheckBox_Delete -->&nbsp;</td> 
+          </tr>
+ <!-- END Row -->
+          <!-- BEGIN NoRecords -->
+          <tr>
+            <td class="CobaltDataTD" colspan="6">El Auxiliar no pertenece a
+              ninguna categor�&nbsp;</td> 
+          </tr>
+ <!-- END NoRecords -->
+          <tr>
+            <td align="right" class="CobaltFooterTD" colspan="6" nowrap>
+              <!-- BEGIN Navigator Navigator -->
+              <!-- BEGIN Prev_On --><a class="CobaltNavigatorLink" href="{Prev_URL}"><img src="../Themes/Aqua/PrevOn.gif" border="0"></a> <!-- END Prev_On -->
+              <!-- BEGIN Next_On --><a class="CobaltNavigatorLink" href="{Next_URL}"><img src="../Themes/Aqua/NextOn.gif" border="0"></a> <!-- END Next_On --><!-- END Navigator Navigator -->&nbsp; 
+              <!-- BEGIN Button Button_Submit --><input class="CobaltButton" name="{Button_Name}" type="submit" value="Enviar"><!-- END Button Button_Submit -->&nbsp; 
+              <!-- BEGIN Button Cancel --><input class="CobaltButton" name="{Button_Name}" type="submit" value="Cancelar"><!-- END Button Cancel -->&nbsp; </td> 
+          </tr>
+ 
+        </table>
+ 
+      </form>
+ 
+      <p><!-- END EditableGrid CoAdAc_cate --></p>
+ </td> 
+  </tr>
+</table>
+ </p>
+</body>
+</html>

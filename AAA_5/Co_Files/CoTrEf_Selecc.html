@@ -1,0 +1,172 @@
+<html>
+<head>
+<base target="_self">
+<link rel="stylesheet" type="text/css" href="../Themes/StormyWeather/Style.css">
+<link rel="stylesheet" type="text/css" href="../Themes/Menu/Style.css">
+<title>ESTADOS FINANCIEROS: PARAMETROS</title>
+<script language="JavaScript" src="../LibJava/menu_func.js"></script>
+<link rel="stylesheet" type="text/css" href="../Themes/Cobalt/Style.css">
+<script language="JavaScript">
+//Begin CCS script
+//Include JSFunctions @1-5F368366
+  </script>
+  <script language="JavaScript" src="../functions.js"></script>
+  <script language="JavaScript">
+
+
+function fProceso() {
+    	with (document.Seleccion) {
+		if (lbEstados.value.length < 6) {
+			alert ("DEBE ESCOGER UN ESTADO FINANCIERO VALIDO")
+			lbEstados.focus();
+			result = false;
+		}
+		if (lbPeriodo.value < 0) {
+			alert ("DEBE ESCOGER UN PERIODO VALIDO")
+			lbPeriodo.focus();
+			result = false;
+			return result;
+		}
+		if (lbEsquema.value.length < 0) {
+			alert ("DEFINA UN ESQUEMA DE CUENTAS VALIDO")
+			lbPeriodo.focus();
+			result = false;
+			return result;
+		}
+		return true;
+    }
+}
+
+function fBalComp() {
+    if (document.Seleccion.lbPeriodo.value < 0) {
+		alert ("DEBE ESCOGER UN PERIODO VALIDO")
+		lbPeriodo.focus();
+    	return false;
+	}
+	var options = 'scrollbars,0,resizable,';
+//	var url 	= '../Co_Files/CoAdEf_balcom.rpt.php?pPer=' + document.Seleccion.lbPeriodo.value + "&pEsq=" + document.Seleccion.lbEsquema.value  + "&pNiv=" + document.Seleccion.lbNivel.value ;
+    var url =document.Seleccion.lbEstados.value;
+    if (String(url).indexOf('?') < 1) url += "?";
+	url 	+= '&pPer=' + document.Seleccion.lbPeriodo.value + "&pEsq=" + document.Seleccion.lbEsquema.value  + "&pNiv=" + document.Seleccion.lbNivel.value ;
+	winres = window.open(url,'BALANCE', options);
+	winres.focus;
+}
+
+//End Include JSFunctions
+
+//page_Seleccion_btEjecutar_OnClick @15-2986BFEC
+function page_Seleccion_btEjecutar_OnClick()
+{
+    var result;
+//End page_Seleccion_btEjecutar_OnClick
+
+//Custom Code @16-2A29BDB7
+    // -------------------------
+	if (fProceso()) {
+		var options = 'scrollbars,0,resizable,';
+//		var url 	= document.Seleccion.lbEstados.value + "?pPer=" + document.Seleccion.lbPeriodo.value + "&pEsq=" + document.Seleccion.lbEsquema.value ;
+		var url 	= "../Ut_Files/CoTrEf_BalCom.php" + "?pPer=" + document.Seleccion.lbPeriodo.value + "&pEsq=" + document.Seleccion.lbEsquema.value ;
+		winres = window.open(url,'BALANCE', options);
+		winres.focus;
+	 }
+    // -------------------------
+//End Custom Code
+
+//Close page_Seleccion_btEjecutar_OnClick @15-BC33A33A
+    return result;
+}
+//End Close page_Seleccion_btEjecutar_OnClick
+
+//bind_events @1-1E317D60
+function bind_events() {
+    if (document.forms["Seleccion"]) check_and_bind('document.forms["Seleccion"].btEjecutar','onclick',page_Seleccion_btEjecutar_OnClick);
+    forms_onload();
+}
+//End bind_events
+
+window.onload = bind_events; //Assign bind_events @1-19F7B649
+
+//End CCS script
+</script>
+</head>
+<body bgcolor="#fffff7" link="#000000" alink="#ff0000" vlink="#000000" text="#000000" class="CobaltPageBODY">
+<p>{Cabecera}
+<table background="../Themes/Cobalt/Light Streaks.bmp" border="0" width="100%" cellpadding="0" cellspacing="0">
+  <tr>
+    <td align="middle">&nbsp; 
+      <!-- BEGIN Record Seleccion -->
+      <form method="post" action="{Action}" name="{HTMLFormName}">
+        <font class="CobaltFormHeaderFont">SELECCION DE ESTADO FINANCIERO</font> 
+        <table border="0" cellpadding="3" class="CobaltFormTABLE">
+          <!-- BEGIN Error -->
+          <tr>
+            <td colspan="2" class="CobaltErrorDataTD">{Error}</td> 
+          </tr>
+ <!-- END Error -->
+          <tr>
+            <td class="CobaltFieldCaptionTD" nowrap>&nbsp;ESTADO FINANCIERO:</td> 
+            <td class="CobaltDataTD" title="Lista de Estados Financieros Configurados">
+              <select class="CobaltInput" name="{lbEstados_Name}" style="font-size:12; HEIGHT: 22px; WIDTH: 200px" id="lbEstados">
+                <option selected value="X">-----------------------------</option>
+ {lbEstados_Options} 
+              </select>
+ </td> 
+          </tr>
+ 
+          <tr>
+            <td nowrap class="CobaltFieldCaptionTD">PERÍODO</td> 
+            <td class="CobaltDataTD" title="Períodos">
+              <select name="{lbPeriodo_Name}" class="CobaltSelect" style="font-size:12; HEIGHT: 22px; WIDTH: 200px" id="lbPeriodo">
+                <option selected value="-1">--------------------</option>
+ {lbPeriodo_Options} 
+              </select>
+ &nbsp;&nbsp;&nbsp;</td> 
+          </tr>
+ 
+          <tr>
+            <td class="CobaltFieldCaptionTD" nowrap>ESQUEMA DE CUENTAS</td> 
+            <td class="CobaltDataTD">
+              <select class="CobaltSelect" name="{lbEsquema_Name}" style="font-size:12; HEIGHT: 22px; WIDTH: 200px" id="lbEsquema">
+                <option selected value="-1">------------------------------</option>
+ {lbEsquema_Options} 
+              </select>
+ </td> 
+          </tr>
+           <tr>
+            <td class="CobaltFieldCaptionTD" nowrap>NIVEL DE PRESENTACION</td>
+            <td class="CobaltDataTD">
+              <select class="CobaltSelect" name="lbNivel" style="font-size:12; HEIGHT: 22px; WIDTH: 200px" id="lbNivel">
+                <option  value="1">GRUPO DE BALANCE</option>
+                <option  value="2">SUBGRUPO</option>
+                <option  value="3">GRUPO DE MAYOR</option>
+                <option  value="4">MAYOR</option>
+                <option  value="5">CUENTA</option>
+                <option selected value="6">AUXILIAR</option>
+              </select>
+ </td>
+          </tr>
+           <tr>
+            <td align="middle" class="CobaltFooterTD" colspan="2" nowrap>
+              <!-- BEGIN Button btEjecutar -->
+              <input style="font-size:11" title="Presenta la estructura del balance en forma de Arbol, interactivo" name="{Button_Name}" type="button" value="INTERACTIVO" id="btEjecutar"><!-- END Button btEjecutar -->&nbsp;
+              <input style="font-size:11" name="balgen" type="button"
+                        title = "Balance en formato Impreso.(pdf) "value="IMPRESO" id="btbalgen"
+                        onclick="fBalComp()" >
+              </td>
+          </tr>
+ 
+        </table>
+ 
+      </form>
+ <!-- END Record Seleccion --></td> 
+    <td>&nbsp;</td> 
+  </tr>
+ 
+  <tr>
+    <td>&nbsp;</td> 
+    <td>&nbsp;</td> 
+  </tr>
+</table>
+ </p>
+</body>
+</html>

@@ -1,0 +1,227 @@
+<html>
+<head>
+<base target="_self">
+<link rel="stylesheet" type="text/css" href="../Themes/Cobalt/Style.css">
+<link rel="stylesheet" type="text/css" href="../Themes/Menu/Style.css">
+<title>RUBROS: MANTENIMIENTO</title>
+ 
+<script language="JavaScript" src="../LibJava/menu_func.js"></script>
+<script language="JavaScript">
+//Begin CCS script
+//Include JSFunctions @1-5F368366
+  </script>
+<script language="JavaScript" src="../functions.js"></script>
+<script language="JavaScript">
+  
+//End Include JSFunctions
+
+//page_liqrubros_Button_Delete_OnClick @5-40EA19F6
+function page_liqrubros_Button_Delete_OnClick()
+{
+    var result;
+//End page_liqrubros_Button_Delete_OnClick
+
+//Confirmation Message @6-BED55CD3
+    return confirm('Borrar registro?');
+//End Confirmation Message
+
+//Close page_liqrubros_Button_Delete_OnClick @5-BC33A33A
+    return result;
+}
+//End Close page_liqrubros_Button_Delete_OnClick
+
+//page_liqrubros_Button_Cancel_OnClick @7-1FE40D51
+function page_liqrubros_Button_Cancel_OnClick()
+{
+    disableValidation = true;
+}
+//End page_liqrubros_Button_Cancel_OnClick
+
+//bind_events @1-43A2237C
+function bind_events() {
+    if (document.forms["liqrubros"]) check_and_bind('document.forms["liqrubros"].Button_Delete','onclick',page_liqrubros_Button_Delete_OnClick);
+    if (document.forms["liqrubros"]) check_and_bind('document.forms["liqrubros"].Button_Cancel','onclick',page_liqrubros_Button_Cancel_OnClick);
+    forms_onload();
+}
+//End bind_events
+
+window.onload = bind_events; //Assign bind_events @1-19F7B649
+
+//End CCS script
+</script>
+</head>
+ 
+<body bgcolor="#fffff7" link="#000000" alink="#ff0000" vlink="#000000" text="#000000" class="CobaltPageBODY" style="PADDING-RIGHT: 0px; PADDING-LEFT: 0px; PADDING-BOTTOM: 0px; PADDING-TOP: 0px; magin: 0; spacing: 0" bottommargin="0" nowrap leftmargin="0" topmargin="17" rightmargin="0" marginwidth="0" marginheight="0">
+{Cabecera} 
+<table background="../Themes/Cobalt/Light Streaks.bmp" border="0" width="100%" class="CobaltPageBODY" align="center">
+  <tr>
+    <td valign="top" align="middle">&nbsp; 
+      <!-- BEGIN Record liqrubros -->
+      <form name="{HTMLFormName}" action="{Action}" method="post" style="MARGIN: 0px">
+        <font class="CobaltFormHeaderFont">{lbTitulo} </font> 
+        <table class="CobaltFormTABLE" cellpadding="3" border="0" cellspacing="0">
+          <!-- BEGIN Error -->
+          <tr>
+            <td class="CobaltErrorDataTD" colspan="6">{Error}</td> 
+          </tr>
+          <!-- END Error -->
+          <tr>
+            <td class="CobaltFieldCaptionTD" nowrap>&nbsp;ABREVIATURA&nbsp;</td> 
+            <td class="CobaltDataTD" colspan="3"><input class="CobaltInputSB2" maxlength="8" size="8" value="{rub_Abreviatura}" name="{rub_Abreviatura_Name}" style="WIDTH: 95px; HEIGHT: 17px">&nbsp;</td> 
+            <td class="CobaltFieldCaptionTD" nowrap>&nbsp;</td> 
+            <td class="CobaltDataTD"></td> 
+          </tr>
+ 
+          <tr>
+            <td class="CobaltFieldCaptionTD" nowrap>&nbsp;TIPO DE PROCESO&nbsp;</td> 
+            <td class="CobaltDataTD" colspan="3">
+              <select class="CobaltInputSB2" name="{rub_TipoProceso_Name}" style="WIDTH: 154px">
+                <option value="" selected>-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;</option>
+ {rub_TipoProceso_Options} 
+              </select>
+ &nbsp;</td> 
+            <td class="CobaltFieldCaptionTD" nowrap>&nbsp;GRUPO</td> 
+            <td class="CobaltDataTD" title="Grupo al que que pertenece este Rubro">
+              <select class="CobaltInputSB2" name="{rub_Grupo_Name}">
+                <option value="" selected>-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;</option>
+ {rub_Grupo_Options} 
+              </select>
+ </td> 
+          </tr>
+ 
+          <tr>
+            <td class="CobaltFieldCaptionTD" nowrap>&nbsp;DESCRIPCION&nbsp;</td> 
+            <td class="CobaltDataTD" colspan="3"><input class="CobaltInputSB2" style="WIDTH: 122px; HEIGHT: 17px" maxlength="15" size="19" value="{rub_DescCorta}" name="{rub_DescCorta_Name}" title="Descripción Corta (Para reportes en columnas)"><input class="CobaltInputSB2" maxlength="40" size="37" value="{rub_DescLarga}" name="{rub_DescLarga_Name}" style="WIDTH: 205px; HEIGHT: 17px" title="Descripción Larga (Para Documentos)"></td> 
+            <td class="CobaltFieldCaptionTD" nowrap>&nbsp;POSICION ORDINAL</td> 
+            <td class="CobaltDataTD"><input class="CobaltInputSB2" maxlength="5" size="5" value="{rub_PosOrdinal}" name="{rub_PosOrdinal_Name}"></td> 
+          </tr>
+ 
+          <tr valign="bottom" height="25">
+            <td class="CobaltDataTD" colspan="6" valign="center" align="middle"><font color="#336699" size="3">CONDICION
+              CONTABLE</font></td> 
+          </tr>
+ 
+          <tr>
+            <td class="CobaltFieldCaptionTD" nowrap>&nbsp;CONTABILIZABLE&nbsp;</td> 
+            <td class="CobaltDataTD" width="40" tabindex="Se Genera una Entrada contable de este rubro?">
+              <!-- BEGIN RadioButton rub_IndContab --><input class="CobaltInput" type="radio" value="{Value}" name="{rub_IndContab_Name}" {Check}>{Description} <!-- END RadioButton rub_IndContab -->&nbsp;</td> 
+            <td class="CobaltFieldCaptionTD" nowrap>&nbsp;DEBITO / CREDITO</td> 
+            <td class="CobaltDataTD" title="Tipo de Entrada contable que genera este rubro">
+              <!-- BEGIN RadioButton rub_IndDbCr --><input class="CobaltInput" type="radio" value="{Value}" name="{rub_IndDbCr_Name}" {Check}>{Description} <!-- END RadioButton rub_IndDbCr -->&nbsp;&nbsp;</td> 
+            <td class="CobaltFieldCaptionTD" nowrap>&nbsp;CUENTAS CONTABLES</td> 
+            <td class="CobaltDataTD" width="120">
+              <select name="{rub_CtaOrigen_Name}" class="CobaltSelect" style="WIDTH: 165px">
+                <option value="" selected>Seleccionar Valor</option>
+ {rub_CtaOrigen_Options} 
+              </select>
+ 
+              <select name="{rub_CtaDestino_Name}" class="CobaltSelect" style="WIDTH: 162px">
+                <option value="" selected>Seleccionar Valor</option>
+ {rub_CtaDestino_Options} 
+              </select>
+ </td> 
+          </tr>
+ 
+          <tr valign="baseline" height="25">
+            <td class="CobaltDataTD" colspan="6" valign="center" align="middle"><font color="#336699" size="3">FORMA
+              DE CALCULO</font></td> 
+          </tr>
+ 
+          <tr>
+            <td class="CobaltFieldCaptionTD" nowrap>&nbsp;OPERANDO 1&nbsp;</td> 
+            <td class="CobaltDataTD" width="80" title="VARIABLE 1: Nombre de la variable que intervendrá en el cálculo del valor de este rubro.">
+              <select name="{rub_variablea_Name}" class="CobaltInputSB2" style="FONT-SIZE: 9px; WIDTH: 167px">
+                <option value="" selected>-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;</option>
+ {rub_variablea_Options} 
+              </select>
+ <input class="CobaltInputSB2" maxlength="12" size="11" value="{rub_Constantea}" name="{rub_Constantea_Name}" style="WIDTH: 96px; HEIGHT: 17px" title="CONSTANTE 1: Valor Numérico Fijo que se aplicará en el cálculo como primer Operando. Un valor en este campo, anula la Variable 1."></td> 
+            <td class="CobaltFieldCaptionTD">&nbsp;OPERADOR</td> 
+            <td class="CobaltDataTD" title="Operación matemática que se ejecutará entre operando1 y 2 para determinar el valor de este rubro.">
+              <select class="CobaltInputSB2" name="{rub_Operacion_Name}">
+                <option value="" selected>-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;</option>
+ {rub_Operacion_Options} 
+              </select>
+ </td> 
+            <td class="CobaltFieldCaptionTD" nowrap>&nbsp;OPERANDO 2</td> 
+            <td class="CobaltDataTD" width="120" title="VARIABLE 1: Nombre de la variable que intervendrá en el cálculo del valor de este rubro.">
+              <select name="{rub_Variableb_Name}" class="CobaltInputSB2" style="FONT-SIZE: 9px; WIDTH: 167px">
+                <option value="" selected>-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;</option>
+ {rub_Variableb_Options} 
+              </select>
+ <input class="CobaltInputSB2" maxlength="12" size="13" value="{rub_Constanteb}" name="{rub_Constanteb_Name}" title="CONSTANTE 2: Valor Numérico Fijo que se aplicará en el cálculo como Sgundo Operando. Un valor en este campo, anula la Variable 2." style="WIDTH: 97px; HEIGHT: 18px"></td> 
+          </tr>
+ 
+          <tr>
+            <td class="CobaltFieldCaptionTD" nowrap>&nbsp;VALOR MINIMO&nbsp;</td> 
+            <td class="CobaltDataTD"><input class="CobaltInputSB2" maxlength="12" size="12" value="{rub_ValMinimo}" name="{rub_ValMinimo_Name}">&nbsp;</td> 
+            <td class="CobaltFieldCaptionTD" nowrap>&nbsp;FORMA DE APLICAR</td> 
+            <td class="CobaltDataTD" title="Indica si este rubro debe aplicarse individualmente a cada tarja o globalmente para cada productor">
+              <!-- BEGIN RadioButton rub_IndDetalle --><input class="CobaltInput" type="radio" value="{Value}" name="{rub_IndDetalle_Name}" {Check}>{Description} <!-- END RadioButton rub_IndDetalle --></td> 
+            <td class="CobaltFieldCaptionTD" nowrap>&nbsp;VALOR MAXIMO</td> 
+            <td class="CobaltDataTD"><input class="CobaltInputSB2" maxlength="12" size="12" value="{rub_ValMaximo}" name="{rub_ValMaximo_Name}"></td> 
+          </tr>
+ 
+          <tr valign="bottom" height="25">
+            <td class="CobaltDataTD" valign="center" align="middle" colspan="6"><font color="#336699">FORMA
+              DE VISUALIZAR</font></td> 
+          </tr>
+ 
+          <tr>
+            <td class="CobaltFieldCaptionTD" nowrap>&nbsp;INDICADOR CANTIDAD</td> 
+            <td class="CobaltDataTD" title="Determina si en el detalle de la liquidación, al valor correspondiente a este rubro, le  acompaña una cantidad" width="80">
+              <!-- BEGIN RadioButton rub_IndCantidad --><input class="CobaltInputSB2" type="radio" value="{Value}" name="{rub_IndCantidad_Name}" {Check}>{Description} <!-- END RadioButton rub_IndCantidad -->&nbsp;</td> 
+            <td class="CobaltFieldCaptionTD" nowrap>&nbsp;INDICADOR&nbsp;DE
+              TEXTO</td> 
+            <td class="CobaltDataTD" title="Determina si en el detalle de la liquidación, al valor correspondiente a este rubro, le  acompaña un texto explicativo">
+              <!-- BEGIN RadioButton rub_IndTexto --><input class="CobaltInputSB2" type="radio" value="{Value}" name="{rub_IndTexto_Name}" {Check}>{Description} <!-- END RadioButton rub_IndTexto --></td> 
+            <td class="CobaltFieldCaptionTD" nowrap>&nbsp;</td> 
+            <td class="CobaltDataTD" title="Presentar este rubro en el detalle de la liquidación"></td> 
+          </tr>
+ 
+          <tr>
+            <td class="CobaltFieldCaptionTD" nowrap>&nbsp;ES OPCIONAL?</td> 
+            <td class="CobaltDataTD" title="Especifica si este rubro puede eliminarse, a voluntar del usuario,  de una liquidación ya generada" width="80">
+              <!-- BEGIN RadioButton rub_IndOpcional --><input class="CobaltInput" type="radio" value="{Value}" name="{rub_IndOpcional_Name}" {Check}>{Description} <!-- END RadioButton rub_IndOpcional --></td> 
+            <td class="CobaltFieldCaptionTD" nowrap>&nbsp;ES MODIFICABLE?</td> 
+            <td class="CobaltDataTD" title="Especifica si este rubro puede modificarse, a voluntar del usuario,  de una liquidación ya generada">
+              <!-- BEGIN RadioButton ind_Modificacion --><input class="CobaltInput" type="radio" value="{Value}" name="{ind_Modificacion_Name}" {Check}>{Description} <!-- END RadioButton ind_Modificacion --></td> 
+            <td class="CobaltFieldCaptionTD" nowrap>&nbsp;BASE IMPONIBLE ?&nbsp;</td> 
+            <td class="CobaltDataTD" tabindex="Determina si este rubro (en el caso de ingresos) es Imponible para impuestos Fiscales como: IVA I.R., etc" title="Determina si este rubro (en el caso de ingresos) es Imponible para impuestos Fiscales como: IVA I.R., etc">
+              <!-- BEGIN RadioButton rub_IndImpuesto --><input class="CobaltInput" type="radio" value="{Value}" name="{rub_IndImpuesto_Name}" {Check}>{Description} <!-- END RadioButton rub_IndImpuesto --></td> 
+          </tr>
+ 
+          <tr>
+            <td class="CobaltFieldCaptionTD" nowrap>&nbsp;ES GENERADO?&nbsp;</td> 
+            <td class="CobaltDataTD" tabindex="Indica si este rubro es generado por el proceso de liquidación" title="Indica si este rubro es generado por el proceso de liquidación" width="80">
+              <!-- BEGIN RadioButton rub_IndGeneracion --><input class="CobaltInput" type="radio" value="{Value}" name="{rub_IndGeneracion_Name}" {Check}>{Description} <!-- END RadioButton rub_IndGeneracion --></td> 
+            <td class="CobaltFieldCaptionTD" nowrap>&nbsp;ESTADO</td> 
+            <td class="CobaltDataTD" title="Indica si este rubro es´s activo o no">
+              <!-- BEGIN RadioButton rub_Activo --><input class="CobaltInput" type="radio" value="{Value}" name="{rub_Activo_Name}" {Check}>{Description} <!-- END RadioButton rub_Activo --></td> 
+            <td class="CobaltFieldCaptionTD">&nbsp;PAGINA SECUNDRIA</td> 
+            <td class="CobaltDataTD" title="Pàgina que se carga para presentar el detalle del rubro, que justifica el valor resultante.">
+              <select name="{rub_PagAuxiliar_Name}" class="CobaltInputSB2" style="WIDTH: 142px">
+                <option value="" selected>-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;</option>
+ {rub_PagAuxiliar_Options} 
+              </select>
+ </td> 
+            <tr align="middle">
+              <td class="CobaltFooterTD" nowrap align="middle" colspan="6">
+                <!-- BEGIN Button Button_Insert --><input class="CobaltButton" type="submit" value="GRABAR" name="{Button_Name}" title="Añade el rubro"><!-- END Button Button_Insert -->&nbsp;&nbsp;&nbsp; 
+                <!-- BEGIN Button Button_Update --><input class="CobaltButton" type="submit" value="GRABAR" name="{Button_Name}" title="Grabar las modificaciones"><!-- END Button Button_Update -->&nbsp;&nbsp;&nbsp; 
+                <!-- BEGIN Button Button_Delete --><input class="CobaltButton" type="submit" value="ELIMINAR" name="{Button_Name}" title="Elimina este rubro"><!-- END Button Button_Delete -->&nbsp;&nbsp;
+                &nbsp; 
+                <!-- BEGIN Button Button_Cancel --><input class="CobaltButton" type="submit" value="CANCELAR" name="{Button_Name}" title="Anula  las modificaciones realizadas"><!-- END Button Button_Cancel -->&nbsp; </td> 
+            </tr>
+ 
+          </table>
+ 
+        </form>
+ <!-- END Record liqrubros --></td> 
+      <td>&nbsp;</td> 
+    </tr>
+ 
+  </table>
+ 
+  </body>
+ 
+  </html>

@@ -1,0 +1,54 @@
+<html>
+<head>
+<script language="JavaScript" src="../LibJava/cookies.js"></script>
+<script language="JavaScript" src="../LibJava/general.js"></script>
+<script language="JavaScript" src="../LibJava/browser_detect.js"></script>
+<script language="JavaScript">
+window.parent.top.mAuxConsulFlag = false;
+//window.parent.top.window.pruebaxx();
+
+var winres = new Object();
+winres.name="";
+
+//------------------------------------------------------------------------
+// Populate main form
+//------------------------------------------------------------------------
+ {funLoadTopFrame}
+//-------------------------------------------------------------------------
+// Function to call the search pop window
+//-------------------------------------------------------------------------
+    function CallSearchWindow(SearchField)  {
+		var coPage = getCookie("coSearchPage");
+//        var pArgs = new String();
+        pArgs = getFromurl("pArgs");
+		var options = 'scrollbars,0,resizable,width=900, height=500';
+		var url 	= coPage +  '?pOpCode=R&s_keyword=' + escape(SearchField) + '&pArgs=' + pArgs ;
+		var pMensj = new String (getCookie("coMensj"));
+//		if (pMensj.length > 0)  url += '&pMensj=' + pMensj;
+	    pWin='SelecWin';
+    	slAtrib =   'dependent=yes';
+    	winres=new Object;
+        winres=fAbrirObjWin(url, winres, 'SearchWin', slAtrib, 700, 400)
+//        if ( window.parent.top.mAuxConsulFlag) {
+//            winres.location.replace(url);
+//            }
+//        else {
+//            window.parent.top.mAuxConsulFlag = true;/
+//		    winres = window.open(url,'SearchWindow', slAtrib);
+//		}
+//		winres = window.open(url,'SearchWindow');
+//      eval(pWin+".focus();");
+//		winres.focus() ;
+    }
+
+function focusDialog(sl) {
+			if(winres && !winres.closed)
+			winres.focus();
+			}
+
+</script>
+{WindowBehavior_1}
+</head>
+<body onload="{WindowBehavior}">
+</body>
+</html>

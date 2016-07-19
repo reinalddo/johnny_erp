@@ -1,0 +1,92 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<title>RESUMEN DE PRECIOS</title>
+<script src="../LibJava/prototype.js" type="text/javascript"></script>
+<script src="../LibJava/ricoCommon.js" type="text/javascript"></script>
+<script src="../LibJava/ricoEffects.js" type="text/javascript"></script>
+<script src="../LibJava/ricoLiveGrid.js" type="text/javascript"></script>
+<script src="../LibJava/ricoTableEdit.js" type="text/javascript"></script>
+<script src="../LibJava/general.js" type="text/javascript"></script>
+<script src="InTrTr_resprecios.js" type="text/javascript"></script>
+<link href="../css/ricoLiveGrid.css" type="text/css" rel="stylesheet" />
+<link href="../css/ricoBase.css" type="text/css" rel="stylesheet" />
+<link href="../Themes/Cobalt/Style.css" type="text/css" rel="stylesheet" />
+<style type="text/css">
+input { font-weight:normal;font-size:8pt; width:90%; }
+th div.ricoLG_cell { height:1.5em; text-align:center}  /* the text boxes require a little more height than normal */
+
+</style>
+<script>
+</script>
+</head>
+<body bgcolor="#fffff7" align="center" >
+{Cabecera}
+<div id="divIzq" style="width:10%; float:left; horizontal-align:center" >&nbsp;</div>
+<div id="divCtr" style="width:80%; float:left; horizontal-align:center">
+    <div id='explanation' style="text-align:center; width:90%">
+        <p>RESUMEN DE COSTOS POR PROVEEDOR <Em style="font-weight:bolder">{lblTramite}</Em><br> Haga click-derecho para ver opciones.</p>
+    </div>
+    <div id='o_submitresponse'></div>
+    <p class="ricoBookmark" style="font-size:8px; text-align:right" ><span id="oPreciosProv_bookmark">&nbsp;</span></p>
+    <table  id="oPreciosProv_header" align="center" class="ricoLiveGrid" cellspacing="0" cellpadding="0"
+                 >
+        <tr>
+            <th style='width:45px;'>AÑO</th>
+        	<th style='width:25px;'>MES</th>
+        	<th style='width:140px;'>PROVEEDOR</th>
+        	<th style='width:60px;'>CODIGO</th>
+        	<th style='width:120px;'>I T E M</th>
+        	<th style='width:80px;'>CANTIDAD</th>
+        	<th style='width:80px;'>VALOR</th>
+        	<th style='width:80px;'>P.UNIT.</th>
+        </tr>
+    </table>
+
+    <div id="oPreciosProv_edit" style="position:absolute; display:none">
+        <form>
+            <table >
+              <colgroup>
+                <col style='width:60px;' >
+                <col style='width:60px;' >
+                <col style='width:150px;'>
+                <col style='width:20px;' >
+                <col style='width:150px;' >
+                <col style='width:80px;'>
+                <col style='width:80px;'>
+              </colgroup>
+              <tr >
+                <td><input id="oPreciosProv_form_0" onchange="alert( '1')" ></input></td>
+                <td><input id="oPreciosProv_form_1"></input></td>
+                <td><input id="oPreciosProv_form_2"></input></td>
+                <td><input id="oPreciosProv_form_3"></input></td>
+                <td><input id="oPreciosProv_form_4"></input></td>
+                <td><input id="oPreciosProv_form_5"></input></td>
+                <td><input id="oPreciosProv_form_6"></input></td>
+              </tr>
+            </table>
+        <form>
+    </div>
+
+    <div>
+        <div id="oPreciosProv_saveMsg"> </div>
+        <div id="oPreciosProv_timer"> </div>
+        <div id="oPreciosProv_submitresponse"> </div>
+        <div id="oPreciosProv_responsedialog"> </div>
+
+    </div>
+</div>
+<div id="divDer" style="width:25%; float:left; horizontal-align:center" > </div>
+<!-- -->
+<div style="position: relative;  width:100%; display:none">
+    <div id="pieIzq" style="float:left; width:25%; border: 0px solid transparent ">&nbsp;</div>
+    <div id="pieCen" style="float:left; width:53%; text-align: center; align:center;" class="CobaltColumnTD">
+        <input id="cmdFacturar" type="button" value="FACTURAR" class="CobaltButton" style="align:center">
+        </input>
+    </div>
+</div>
+
+ </body>
+</html>
+

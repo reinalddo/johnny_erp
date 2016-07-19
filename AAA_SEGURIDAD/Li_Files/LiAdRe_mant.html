@@ -1,0 +1,230 @@
+<html>
+<head>
+<base target="_self">
+<link rel="stylesheet" type="text/css" href="../Themes/Cobalt/Style.css">
+<link rel="stylesheet" type="text/css" href="../Themes/Menu/Style.css">
+<title>DOSIS</title>
+<script language="JavaScript" src="../LibJava/menu_func.js"></script>
+<script language="JavaScript1.3" src="../LibJava/cookies.js"></script>
+<script language="JavaScript">
+
+	/*---------------------------------------------------------------------------------------------------------------
+		Validacion de codigo de Item:
+	*  	carga en un frame una pagina que trae datos del item, si es uno solo, obtiene la informacion enecesaria,
+	*	caso contrario lanza una pagina de busqueda
+	*
+    * @access public
+    * @param  object odata   Objeto que genera evento
+    * @return void
+	* @lang   JS
+	* ---------------------------------------------------------------------------------------------------------------
+	*/
+function fValida_Item(odata, sSufijo) {
+		var ilIndice  = 0;
+	var sDestino   = new Array("dos_codItem", "act_Descripcion", "uni_Descripcion");
+	var sOrigen  = new Array("act_codauxiliar", "act_descrip", "uni_Abreviatura");
+	var i, j , k = 0;
+	
+	sgCambio = "I";
+	sScript = new String(odata.name);
+
+	if (sSufijo.length > 0 ){
+		k=sScript.substr(sScript.lastIndexOf("_"))
+	}
+	var sSql 	= 	"SELECT act_codauxiliar, concat(act_descripcion, ' ', act_descripcion1) as act_descrip, uni_Descripcion"  +
+					" FROM (conactivos  INNER JOIN genunmedida on genunmedida.uni_codUnidad = conactivos.act_unimedida) " ;
+    var sWhere 	=	" WHERE (act_descripcion LIKE '%" + escape(odata.value) + "%' OR act_descripcion1 LIKE '%" + escape(odata.value) + "%') " 
+
+	if (!isNaN(odata.value)) {
+			sWhere += "  OR  " + " act_codauxiliar LIKE '%" + escape(odata.value) + "%' " ;
+			}
+    var ilFila= parseInt((k.substr(1)));
+	setCookie("coSelect", sSql);
+	setCookie("coWhere",  sWhere);
+	setCookie("coDestino", sDestino);
+	setCookie("coOrigen", sOrigen);
+	setCookie("coCompon", "dosis_mant");
+	setCookie("coSearchPage", "InTrTr_items.php");
+	setCookie("coFocus", "dos_Cantidad");
+	setCookie("coErrMensaje", "NO EXISTE ITEMS PARA EL CRITERIO INGRESADO");
+	setCookie("coSufijo", k);
+	SearchFrame.location.replace("Validador.php?SearchField=" + escape(odata.value) + "&pField=" + escape(odata.name) + "&pSufijo=" +k);
+}
+
+    /**
+    * Determinar el número de fila de un objeto basandose en su nombre asigando por CCS
+    *
+    * @access public
+    * @param  string $sl   Nombre del objeto
+    * @return integer
+	* @lang   JS
+    */
+function  fTraefila(sl) {
+	var slnomb = String(sl);
+	if (slnomb.length > 0 ){
+		k=slnomb.substr(slnomb.lastIndexOf("_"))
+	}
+	var ilFila= parseInt((k.substr(1)));
+    return ilFila;
+}
+
+	/**
+	* Valida que un item ingresado no se repita para el resto de lineas
+	* @parameter: i:  numero de linea 
+	* @return:        verdadero si es unico, falso si se repite
+	*/
+function fItemUnico(i)
+{
+	with (document.dosis_mant) {
+		for ( j = 1; i < dos_codItem.length; i++) {
+			if (i != j && dos_codItem[i].value == dos_codItem[j].value) return false;
+			}
+		return true
+}
+
+	/**
+	* ValidaCion General de formulario dosis_mant
+	* @return:      verdadero si OK, sino falso
+	* @lang:		JS
+	*/
+function fValida()
+{
+	with (document.dosis_mant) {
+		for ( k = 1; k < dos_codItem.length; i++) {				// para cada linea determina si no se repite el item
+			if (!fItemUnico(k)) return false
+			}
+		return true
+		}
+	}
+}
+
+</script>
+<script language="JavaScript">
+//Begin CCS script
+//Include JSFunctions @1-5F368366
+  </script>
+<script language="JavaScript" src="../functions.js"></script>
+<script language="JavaScript">
+  
+//End Include JSFunctions
+
+//page_dosis_mant_Button_Submit_OnClick @171-CEEB1F73
+function page_dosis_mant_Button_Submit_OnClick()
+{
+    var result;
+//End page_dosis_mant_Button_Submit_OnClick
+
+//Confirmation Message @172-96FAE8C2
+    return confirm('Enviar registro?');
+//End Confirmation Message
+
+//Close page_dosis_mant_Button_Submit_OnClick @171-BC33A33A
+    return result;
+}
+//End Close page_dosis_mant_Button_Submit_OnClick
+
+//page_dosis_mant_Cancel_OnClick @173-BD44A005
+function page_dosis_mant_Cancel_OnClick()
+{
+    disableValidation = true;
+}
+//End page_dosis_mant_Cancel_OnClick
+
+//bind_events @1-A4EB70DE
+function bind_events() {
+    if (document.forms["dosis_mant"]) check_and_bind('document.forms["dosis_mant"].Button_Submit','onclick',page_dosis_mant_Button_Submit_OnClick);
+    if (document.forms["dosis_mant"]) check_and_bind('document.forms["dosis_mant"].Cancel','onclick',page_dosis_mant_Cancel_OnClick);
+    forms_onload();
+}
+//End bind_events
+
+window.onload = bind_events; //Assign bind_events @1-19F7B649
+
+//End CCS script
+</script>
+</head>
+<body bgcolor="#fffff7" link="#000000" alink="#ff0000" vlink="#000000" text="#000000" class="CobaltPageBODY" topmargin="17">
+{Cabecera}
+<table background="../Themes/Cobalt/Light Streaks.bmp" border="0" width="100%" class="CobaltPageBODY" align="center" style="BORDER-RIGHT: 0px; PADDING-RIGHT: 0px; BORDER-TOP: 0px; PADDING-LEFT: 0px; PADDING-BOTTOM: 0px; BORDER-LEFT: 0px; PADDING-TOP: 0px; BORDER-BOTTOM: 0px; BORDER-COLLAPSE: collapse; spacing: 0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td valign="top" align="middle">&nbsp; 
+      <!-- BEGIN EditableGrid dosis_mant -->
+      <form name="{HTMLFormName}" action="{Action}" method="post" style="MARGIN: 0px">
+        <font class="CobaltFormHeaderFont">{lbTitulo} </font><input type="hidden" value="{FormState}" name="FormState">{FormScript} 
+        <table class="CobaltFormTABLE" cellpadding="1" border="0" cellspacing="0">
+          <!-- BEGIN Error -->
+          <tr>
+            <td class="CobaltErrorDataTD" colspan="6" onclick='fAbrirWin("LiAdRe_mant?doc_CodComponente={'>{Error}</td> 
+          </tr>
+          <!-- END Error -->
+          <tr height="24" align="middle">
+            <td class="CobaltColumnTD" nowrap>
+              <!-- BEGIN Sorter Sorter_dos_codItem --><a class="CobaltSorterLink" href="{Sort_URL}">ITEM</a> 
+              <!-- BEGIN Asc_On --><img height="9" src="../Themes/Cobalt/AscOn.gif" width="13" border="0"><!-- END Asc_On -->
+              <!-- BEGIN Desc_On --><img height="9" src="../Themes/Cobalt/DescOn.gif" width="13" border="0"><!-- END Desc_On --><!-- END Sorter Sorter_dos_codItem -->&nbsp;</td> 
+            <td class="CobaltColumnTD" nowrap>
+              <!-- BEGIN Sorter Sorter_act_Descripcion --><a class="CobaltSorterLink" href="{Sort_URL}">DESCRIPCION</a> 
+              <!-- BEGIN Asc_On --><img height="9" src="../Themes/Cobalt/AscOn.gif" width="13" border="0"><!-- END Asc_On -->
+              <!-- BEGIN Desc_On --><img height="9" src="../Themes/Cobalt/DescOn.gif" width="13" border="0"><!-- END Desc_On --><!-- END Sorter Sorter_act_Descripcion -->&nbsp;</td> 
+            <td class="CobaltColumnTD" nowrap>
+              <!-- BEGIN Sorter Sorter_uni_Descripcion --><a class="CobaltSorterLink" href="{Sort_URL}">U.
+              MED</a> 
+              <!-- BEGIN Asc_On --><img height="9" src="../Themes/Cobalt/AscOn.gif" width="13" border="0"><!-- END Asc_On -->
+              <!-- BEGIN Desc_On --><img height="9" src="../Themes/Cobalt/DescOn.gif" width="13" border="0"><!-- END Desc_On --><!-- END Sorter Sorter_uni_Descripcion -->&nbsp;</td> 
+            <td class="CobaltColumnTD" nowrap>
+              <!-- BEGIN Sorter Sorter_dos_Cantidad --><a class="CobaltSorterLink" href="{Sort_URL}">CANT.
+              / CJA</a> 
+              <!-- BEGIN Asc_On --><img height="9" src="../Themes/Cobalt/AscOn.gif" width="13" border="0"><!-- END Asc_On -->
+              <!-- BEGIN Desc_On --><img height="9" src="../Themes/Cobalt/DescOn.gif" width="13" border="0"><!-- END Desc_On --><!-- END Sorter Sorter_dos_Cantidad -->&nbsp;</td> 
+            <td class="CobaltColumnTD" nowrap>
+              <!-- BEGIN Sorter Sorter_pre_PreUnitario -->P. UNIT. 
+              <!-- BEGIN Asc_On --><img height="9" src="../Themes/Cobalt/AscOn.gif" width="13" border="0"><!-- END Asc_On -->
+              <!-- BEGIN Desc_On --><img height="9" src="../Themes/Cobalt/DescOn.gif" width="13" border="0"><!-- END Desc_On --><!-- END Sorter Sorter_pre_PreUnitario -->&nbsp;</td> 
+            <td class="CobaltColumnTD" nowrap>Borrar &nbsp;</td> 
+          </tr>
+          <!-- BEGIN Row -->
+          <!-- BEGIN RowError -->
+          <tr>
+            <td class="CobaltErrorDataTD" colspan="6">{Error}</td> 
+          </tr>
+          <!-- END RowError -->
+          <tr>
+            <td class="CobaltDataTD"><input class="CobaltInputSB2" maxlength="10" size="5" value="{dos_codItem}" name="{dos_codItem_Name}" id="dos_codItem" style="WIDTH: 50px; HEIGHT: 18px" onchange="fValida_Item(this,'X')" title="Código del Item, o descripción a buscar">&nbsp;</td> 
+            <td class="CobaltDataTD">&nbsp;<input class="CobaltInputSB" maxlength="25" value="{act_Descripcion}" name="{act_Descripcion_Name}" id="act_Descripcion" tabindex="-1" readonly style="WIDTH: 118px; HEIGHT: 15px">&nbsp;</td> 
+            <td class="CobaltDataTD" align="middle">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input class="CobaltInputSB" maxlength="15" size="11" value="{uni_Descripcion}" name="{uni_Descripcion_Name}" id="uni_Descripcion" tabindex="-1" readonly style="WIDTH: 69px; HEIGHT: 15px">&nbsp;</td> 
+            <td class="CobaltDataTD"><input class="CobaltInputSB2" maxlength="12" size="12" value="{dos_Cantidad}" name="{dos_Cantidad_Name}" id="dos_Cantidad" style="TEXT-ALIGN: right" title="Cantidad   ({uni_Descripcion}) requerida para cada caja">&nbsp;</td> 
+            <td class="CobaltDataTD"><input class="CobaltInputSB" maxlength="12" size="12" value="{pre_PreUnitario}" name="{pre_PreUnitario_Name}" id="pre_PreUnitario" tabindex="-1" readonly style="TEXT-ALIGN: right" title="Precio Unitario del Item">&nbsp;</td> 
+            <td class="CobaltDataTD">
+              <!-- BEGIN CheckBox CheckBox_Delete --><input class="CobaltInput" type="checkbox" value="1" name="{CheckBox_Delete_Name}" title="Marque este casillero para eliminar el registro" {CheckBox_Delete}><!-- END CheckBox CheckBox_Delete -->&nbsp;</td> 
+          </tr>
+          <!-- END Row -->
+          <!-- BEGIN NoRecords -->
+          <tr>
+            <td class="CobaltDataTD" colspan="6">No hay registros&nbsp;</td> 
+          </tr>
+          <!-- END NoRecords -->
+          <tr>
+            <td class="CobaltFooterTD" nowrap align="right" colspan="6">
+              <!-- BEGIN Navigator Navigator -->
+              <!-- BEGIN First_On --><a class="CobaltNavigatorLink" href="{First_URL}"><img height="14" src="../Themes/Aqua/FirstOn.gif" width="24" border="0"></a> <!-- END First_On -->
+              <!-- BEGIN Prev_On --><a class="CobaltNavigatorLink" href="{Prev_URL}"><img height="14" src="../Themes/Aqua/PrevOn.gif" width="24" border="0"></a> <!-- END Prev_On -->&nbsp; 
+              <!-- BEGIN Pages -->
+              <!-- BEGIN Page_On --><a class="CobaltNavigatorLink" href="{Page_URL}">{Page_Number}</a>&nbsp;<!-- END Page_On -->
+              <!-- BEGIN Page_Off -->{Page_Number}&nbsp;<!-- END Page_Off --><!-- END Pages -->de
+              {Total_Pages}&nbsp; 
+              <!-- BEGIN Next_On --><a class="CobaltNavigatorLink" href="{Next_URL}"><img height="14" src="../Themes/Aqua/NextOn.gif" width="24" border="0"></a> <!-- END Next_On -->
+              <!-- BEGIN Last_On --><a class="CobaltNavigatorLink" href="{Last_URL}"><img height="14" src="../Themes/Aqua/LastOn.gif" width="24" border="0"></a> <!-- END Last_On --><!-- END Navigator Navigator -->&nbsp; 
+              <!-- BEGIN Button Button_Submit --><input class="CobaltDataLink" type="submit" value="Enviar" name="{Button_Name}"><!-- END Button Button_Submit -->&nbsp; 
+              <!-- BEGIN Button Cancel --><input class="CobaltDataLink" type="submit" value="Cancelar" name="{Button_Name}"><!-- END Button Cancel -->&nbsp; </td> 
+          </tr>
+ 
+        </table>
+ 
+      </form>
+ <!-- END EditableGrid dosis_mant --></td> 
+    <td>&nbsp;</td> 
+  </tr>
+</table>
+ <iframe style="WIDTH: 3px; HEIGHT: 1px" marginwidth="0" marginheight="0" frameborder="no" name="SearchFrame" scroll="yes" src=""></iframe>
+</body>
+</html>

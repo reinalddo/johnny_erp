@@ -1,0 +1,165 @@
+<html>
+<head>
+<base>
+<link rel="stylesheet" type="text/css" href="../Themes/Cobalt/Style.css">
+<link rel="stylesheet" type="text/css" href="../Themes/Menu/Style.css">
+<title>EMBARQUES: SELECCION</title>
+ 
+<script language="JavaScript" src="../LibJava/menu_func.js"></script>
+<script language="JavaScript" src="../LibJava/general.js"></script>
+<script language="JavaScript" src="../LibJava/cookies.js"></script>
+<script language="JavaScript" src="../LibJava/validaDB_ret.js"></script>
+<script language="JavaScript" src="../LibJava/validaDB_ret.js">
+window.onError=prueba;
+function prueba(msg, url, lno)
+ {   alert("ERROR:" + msg + "\n" + url + "\n " + lno )
+     return true
+}
+</script>
+</head>
+ 
+<body bgcolor="#fffff7" link="#000000" alink="#ff0000" vlink="#000000" text="#000000" class="CobaltPageBODY">
+{Cabecera}<br>
+<table border="0" width="100%" cellspacing="0" cellpadding="0" align="center" style="MARGIN: 0px; BORDER-COLLAPSE: collapse">
+  <tr>
+    <td valign="top" align="middle">
+      <!-- BEGIN Record liqembarques_qry -->
+      <form name="{HTMLFormName}" action="{Action}" method="post" style="MARGIN: 0px">
+        {pMensj} 
+        <table class="CobaltFormTABLE" cellpadding="1" border="0" style="MARGIN: 0px; BORDER-COLLAPSE: collapse">
+          <!-- BEGIN Error -->
+          <tr>
+            <td class="CobaltErrorDataTD" colspan="3">{Error}</td> 
+          </tr>
+          <!-- END Error -->
+          <tr>
+            <td class="CobaltFieldCaptionTD" nowrap></td> 
+            <td class="CobaltDataTD">&nbsp; <input class="CobaltInput" maxlength="10" value="{s_keyword}" name="{s_keyword_Name}" style="WIDTH: 141px; HEIGHT: 17px"></td> 
+            <td class="CobaltFooterTD" nowrap align="right"><a class="CobaltButton" href="{ClearParameters_Src}">LIMPIAR</a>&nbsp; 
+              <!-- BEGIN Button Button_DoSearch --><input class="CobaltButton" type="submit" value="BUSCAR" name="{Button_Name}"><!-- END Button Button_DoSearch -->&nbsp; </td> 
+          </tr>
+ 
+        </table>
+ 
+      </form>
+ <!-- END Record liqembarques_qry -->
+      <form name="embarqueslist" onunload="fCerrar()" style="MARGIN: 0px">
+        <!-- BEGIN Grid liqembarques_list --><font class="CobaltFormHeaderFont">LISTA
+        DE
+        EMBARQUES&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <font size="7">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        {liqembarques_liqbuques_ge_TotalRecords} Registros&nbsp; </font></font> 
+        <table cellpadding="0" border="0" cellspacing="0">
+          <tr height="24">
+            <td class="CobaltFooterTD" nowrap colspan="6">
+              <!-- BEGIN Navigator Navigator -->
+              <!-- BEGIN First_On --><a class="CobaltNavigatorLink" href="{First_URL}"><img height="14" src="../Themes/Aqua/FirstOn.gif" width="24" border="0"></a> <!-- END First_On -->
+              <!-- BEGIN Prev_On --><a class="CobaltNavigatorLink" href="{Prev_URL}"><img height="14" src="../Themes/Aqua/PrevOn.gif" width="24" border="0"></a> <!-- END Prev_On -->&nbsp; 
+              <!-- BEGIN Pages -->
+              <!-- BEGIN Page_On --><a class="CobaltNavigatorLink" href="{Page_URL}">{Page_Number}</a>&nbsp; <!-- END Page_On -->
+              <!-- BEGIN Page_Off -->{Page_Number}&nbsp; <!-- END Page_Off --><!-- END Pages -->de
+              {Total_Pages}&nbsp; 
+              <!-- BEGIN Next_On --><a class="CobaltNavigatorLink" href="{Next_URL}"><img height="14" src="../Themes/Aqua/NextOn.gif" width="24" border="0"></a> <!-- END Next_On -->
+              <!-- BEGIN Last_On --><a class="CobaltNavigatorLink" href="{Last_URL}"><img height="14" src="../Themes/Aqua/LastOn.gif" width="24" border="0"></a> <!-- END Last_On --><!-- END Navigator Navigator -->&nbsp; </td> 
+            <td class="CobaltFooterTD" nowrap align="left" colspan="3">
+              <!-- BEGIN Button btNuevo --><input class="CobaltDataLink" type="button" value="NUEVO" name="{Button_Name}" style="FONT-SIZE: 9px; WIDTH: 45px; HEIGHT: 19px" size="27" onclick="JavaScript:window.enMantto = true; fAbrirWin('LiEmPe_mant.php' ,'Win',' ', 900, 450); return false;"><!-- END Button btNuevo -->
+              <!-- BEGIN Button btCierre --><input class="CobaltDataLink" style="FONT-SIZE: 9px; WIDTH: 48px; HEIGHT: 19px" onclick="fCerrar()" type="button" size="28" value="CERRAR" name="{Button_Name}"><!-- END Button btCierre --></td> 
+          </tr>
+ 
+          <tr height="20" valign="center" align="middle">
+            <td class="CobaltColumnTD" nowrap>
+              <!-- BEGIN Sorter Sorter_emb_RefOperativa -->&nbsp; <a class="CobaltSorterLink" href="{Sort_URL}">#</a> 
+              <!-- BEGIN Asc_On --><img height="9" src="../Themes/Cobalt/AscOn.gif" width="13" border="0"><!-- END Asc_On -->
+              <!-- BEGIN Desc_On --><img height="9" src="../Themes/Cobalt/DescOn.gif" width="13" border="0"><!-- END Desc_On --><!-- END Sorter Sorter_emb_RefOperativa -->&nbsp;</td> 
+            <td class="CobaltColumnTD" nowrap>
+              <!-- BEGIN Sorter Sorter_emb_AnoOperacion -->&nbsp; AÑO 
+              <!-- BEGIN Asc_On --><img height="9" src="../Themes/Cobalt/AscOn.gif" width="13" border="0"><!-- END Asc_On -->
+              <!-- BEGIN Desc_On --><img height="9" src="../Themes/Cobalt/DescOn.gif" width="13" border="0"><!-- END Desc_On --><!-- END Sorter Sorter_emb_AnoOperacion -->&nbsp;</td> 
+            <td class="CobaltColumnTD" nowrap>
+              <!-- BEGIN Sorter Sorter_buq_Abreviatura -->&nbsp; <a class="CobaltSorterLink" href="{Sort_URL}">VAPOR
+              / VIAJE</a> 
+              <!-- BEGIN Asc_On --><img height="9" src="../Themes/Cobalt/AscOn.gif" width="13" border="0"><!-- END Asc_On -->
+              <!-- BEGIN Desc_On --><img height="9" src="../Themes/Cobalt/DescOn.gif" width="13" border="0"><!-- END Desc_On --><!-- END Sorter Sorter_buq_Abreviatura -->&nbsp;</td> 
+            <td class="CobaltColumnTD" nowrap>
+              <!-- BEGIN Sorter Sorter_emb_FecZarpe -->&nbsp; <a class="CobaltSorterLink" href="{Sort_URL}">ZARP</a>E 
+              <!-- BEGIN Asc_On --><img height="9" src="../Themes/Cobalt/AscOn.gif" width="13" border="0"><!-- END Asc_On -->
+              <!-- BEGIN Desc_On --><img height="9" src="../Themes/Cobalt/DescOn.gif" width="13" border="0"><!-- END Desc_On --><!-- END Sorter Sorter_emb_FecZarpe -->&nbsp;</td> 
+            <td class="CobaltColumnTD" nowrap>
+              <!-- BEGIN Sorter Sorter_par_Descripcion -->&nbsp; <a class="CobaltSorterLink" href="{Sort_URL}">MARCA</a> 
+              <!-- BEGIN Asc_On --><img height="9" src="../Themes/Cobalt/AscOn.gif" width="13" border="0"><!-- END Asc_On -->
+              <!-- BEGIN Desc_On --><img height="9" src="../Themes/Cobalt/DescOn.gif" width="13" border="0"><!-- END Desc_On --><!-- END Sorter Sorter_par_Descripcion -->&nbsp;</td> 
+            <td class="CobaltColumnTD" nowrap>
+              <!-- BEGIN Sorter Sorter_emb_Descripcion1 -->&nbsp; <a class="CobaltSorterLink" href="{Sort_URL}">DESCRIPCION</a> 
+              <!-- BEGIN Asc_On --><img height="9" src="../Themes/Cobalt/AscOn.gif" width="13" border="0"><!-- END Asc_On -->
+              <!-- BEGIN Desc_On --><img height="9" src="../Themes/Cobalt/DescOn.gif" width="13" border="0"><!-- END Desc_On --><!-- END Sorter Sorter_emb_Descripcion1 -->&nbsp;</td> 
+            <td class="CobaltColumnTD" nowrap>
+              <!-- BEGIN Sorter Sorter_emb_FecInicio -->&nbsp; <a class="CobaltSorterLink" href="{Sort_URL}">FECHAS</a> 
+              <!-- BEGIN Asc_On --><img height="9" src="../Themes/Cobalt/AscOn.gif" width="13" border="0"><!-- END Asc_On -->
+              <!-- BEGIN Desc_On --><img height="9" src="../Themes/Cobalt/DescOn.gif" width="13" border="0"><!-- END Desc_On --><!-- END Sorter Sorter_emb_FecInicio -->&nbsp;</td> 
+            <td class="CobaltColumnTD" nowrap>
+              <!-- BEGIN Sorter Sorter_emb_SemInicio -->&nbsp; <a class="CobaltSorterLink" href="{Sort_URL}">SEMANAS</a> 
+              <!-- BEGIN Asc_On --><img height="9" src="../Themes/Cobalt/AscOn.gif" width="13" border="0"><!-- END Asc_On -->
+              <!-- BEGIN Desc_On --><img height="9" src="../Themes/Cobalt/DescOn.gif" width="13" border="0"><!-- END Desc_On --><!-- END Sorter Sorter_emb_SemInicio -->&nbsp;</td> 
+            <td class="CobaltColumnTD" nowrap>
+              <!-- BEGIN Sorter Sorter_emb_Estado -->&nbsp; <a class="CobaltSorterLink" href="{Sort_URL}">ESTADO</a> 
+              <!-- BEGIN Asc_On --><img height="9" src="../Themes/Cobalt/AscOn.gif" width="13" border="0"><!-- END Asc_On -->
+              <!-- BEGIN Desc_On --><img height="9" src="../Themes/Cobalt/DescOn.gif" width="13" border="0"><!-- END Desc_On --><!-- END Sorter Sorter_emb_Estado -->&nbsp;</td> 
+          </tr>
+          <!-- BEGIN Row -->
+          <tr title="-CLICK- para seleccionar este embarque" onclick="fRetornarDatos(this, 'embarqueslist');">
+            <td class="CobaltDataTD" nowrap><input type="hidden" name="{emb_RefOperativa_Name}" value="{emb_RefOperativa}" style="WIDTH: 28px; HEIGHT: 22px" size="3" id="emb_RefOperativa">
+              <!-- BEGIN Button Button1 --><input class="CobaltDataLink" title="-CLICK- Para Editar / Modificar este Embarque" style="FONT-SIZE:  9px; WIDTH: 32px; HEIGHT: 17px" onclick="JavaScript:window.enMantto = true; fAbrirWin('LiEmPe_mant.php?emb_RefOperativa={emb_RefOperativa}' ,'Win',' ', 950, 450); return false;" type="button" size="11" value="{emb_RefOperativa}" name="{Button_Name}"><!-- END Button Button1 --></td> 
+            <td class="CobaltDataTD">&nbsp;&nbsp;&nbsp;&nbsp; <input name="{emb_AnoOperacion_Name}" value="{emb_AnoOperacion}" onmouseover="fTxtResalta(this,  '#CC0033')" onmouseout="fTxtNormal(this)" maxlength="10" size="3" class="CobaltInputSB" style="WIDTH: 33px; HEIGHT: 15px" id="emb_AnoOperacion">&nbsp;</td> 
+            <td class="CobaltDataTD" nowrap><input type="hidden" name="{buq_Abreviatura_Name}" onmouseover="fTxtResalta(this,  '#009999')" onmouseout="fTxtNormal(this)" value="{buq_Abreviatura}" style="WIDTH: 31px; HEIGHT: 22px" size="4" id="buq_Abreviatura">&nbsp; <input name="{buq_Descripcion_Name}" value="{buq_Descripcion}" onmouseover="fTxtResalta(this,  '#009999')" onmouseout="fTxtNormal(this)" maxlength="40" class="CobaltInputSB" style="WIDTH: 110px; HEIGHT: 17px" id="buq_Descripcion">- <input type="hidden" name="{emb_CodVapor_Name}" value="{emb_CodVapor}" style="WIDTH: 44px; HEIGHT: 22px" size="4" id="emb_CodVapor"><input class="CobaltInputSB" style="WIDTH: 39px; HEIGHT: 15px" onmouseover="fTxtResalta(this,  '#009999')" onmouseout="fTxtNormal(this)" maxlength="10" size="5" value="{emb_NumViaje}" name="{emb_NumViaje_Name}" id="emb_NumViaje"><input style="WIDTH:  27px;  HEIGHT:  22px" type="hidden" size="3" value="{txtEmbarque}" name="{txtEmbarque_Name}" id="txtEmbarque"></td> 
+            <td class="CobaltDataTD">&nbsp;&nbsp;&nbsp; <input name="{emb_FecZarpe_Name}" value="{emb_FecZarpe}" onmouseover="fTxtResalta(this,  '#009999')" onmouseout="fTxtNormal(this)" maxlength="8" size="6" class="CobaltInputSB" style="WIDTH: 50px; HEIGHT: 15px" id="emb_FecZarpe">&nbsp;&nbsp;</td> 
+            <td class="CobaltDataTD" nowrap>&nbsp; <input name="{par_Descripcion_Name}" value="{par_Descripcion}" onmouseover="fTxtResalta(this,  &#13;&#10;&#9;&#9;&#9;&#9;&#9;'#009999')" onmouseout="fTxtNormal(this)" maxlength="25" size="14" class="CobaltInputSB" style="WIDTH: 83px; HEIGHT: 15px" id="par_Descripcion"><input type="hidden" name="{emb_CodMarca_Name}" value="{emb_CodMarca}" style="WIDTH: 45px; HEIGHT: 14px" size="5" id="emb_CodMarca">&nbsp;</td> 
+            <td class="CobaltDataTD">&nbsp; <input name="{emb_Descripcion1_Name}" value="{emb_Descripcion1}" onmouseover="fTxtResalta(this,  &#13;&#10;&#9;&#9;&#9;&#9;&#9;'#009999')" onmouseout="fTxtNormal(this)" maxlength="80" size="17" class="CobaltInputSB" style="WIDTH: 99px; HEIGHT: 17px" id="emb_Descripcion1">&nbsp;</td> 
+            <td class="CobaltDataTD" nowrap>&nbsp; <input name="{emb_FecInicio_Name}" value="{emb_FecInicio}" onmouseover="fTxtResalta(this,  '#009999')" onmouseout="fTxtNormal(this)" maxlength="8" size="8" class="CobaltInputSB" title="Fecha de Inicio de Embarque" id="emb_FecInicio">&nbsp;
+              - <input name="{emb_FecTermino_Name}" value="{emb_FecTermino}" onmouseover="fTxtResalta(this,  '#009999')" onmouseout="fTxtNormal(this)" maxlength="8" size="8" class="CobaltInputSB" title="Fecha de Termino" id="emb_FecTermino">&nbsp;</td> 
+            <td class="CobaltDataTD" nowrap>&nbsp; <input name="{emb_SemInicio_Name}" value="{emb_SemInicio}" onmouseover="fTxtResalta(this,  '#009999')" onmouseout="fTxtNormal(this)" maxlength="5" size="2" class="CobaltInputSB" title="Semana en que inicia el embarque" style="WIDTH: 24px; HEIGHT: 15px" id="emb_SemInicio">- <input name="{emb_SemTermino_Name}" value="{emb_SemTermino}" onmouseover="fTxtResalta(this,  '#009999')" onmouseout="fTxtNormal(this)" maxlength="5" size="1" class="CobaltInputSB" style="WIDTH: 20px; HEIGHT: 15px" title="Semana en que termina el embarque" id="emb_SemTermino"></td> 
+            <td class="CobaltDataTD" title="Estado del Embarque" nowrap><input name="{emb_Estado_Name}" value="{emb_Estado}" onmouseover="fTxtResalta(this,  '#009999')" onmouseout="fTxtNormal(this)" maxlength="5" size="2" class="CobaltInputSB" style="WIDTH: 23px; HEIGHT: 15px" id="emb_Estado">&nbsp; <input style="WIDTH:  18px;  HEIGHT:  22px" type="hidden" size="2" value="{emb_CodProducto}" name="{emb_CodProducto_Name}" id="emb_CodProducto"><input style="WIDTH:  22px;  HEIGHT:  22px" type="hidden" size="2" value="{emb_CodCaja}" name="{emb_CodCaja_Name}" id="emb_CodCaja"><input style="WIDTH:  13px;  HEIGHT:  22px" type="hidden" size="1" value="{emb_CodCompon1}" name="{emb_CodCompon1_Name}" id="emb_CodCompon1"><input style="WIDTH:  15px;  HEIGHT:  22px" type="hidden" size="1" value="{emb_CodCompon2}" name="{emb_CodCompon2_Name}" id="emb_CodCompon2"><input style="WIDTH:  13px;  HEIGHT:  22px" type="hidden" size="1" value="{emb_CodCompon3}" name="{emb_CodCompon3_Name}" id="emb_CodCompon3"><input style="WIDTH:  16px;  HEIGHT:  22px" type="hidden" size="2" value="{emb_CodCompon4}" name="{emb_CodCompon4_Name}" id="emb_CodCompon4"><input style="WIDTH:  15px;  HEIGHT:  22px" type="hidden" size="1" value="{emb_PrecOficial}" name="{emb_PrecOficial_Name}" id="emb_PrecOficial"><input style="WIDTH:  15px;  HEIGHT:  22px" type="hidden" size="1" value="{emb_DifPrecio}" name="{emb_DifPrecio_Name}" id="emb_DifPrecio"><input style="WIDTH:  21px;  HEIGHT:  22px" type="hidden" size="2" value="{emb_CodPuerto}" name="{emb_CodPuerto_Name}" id="emb_CodPuerto"></td> 
+          </tr>
+          <!-- END Row -->
+          <!-- BEGIN AltRow -->
+          <tr title="-CLICK- para seleccionar este embarque" onclick="fRetornarDatos(this, 'embarqueslist');">
+            <td class="CobaltAltDataTD" nowrap><input type="hidden" name="{Alt_emb_RefOperativa_Name}" value="{Alt_emb_RefOperativa}" style="WIDTH: 28px; HEIGHT: 22px" size="3" id="emb_RefOperativa">
+              <!-- BEGIN Button Button2 --><input class="CobaltDataLink" title="-CLICK- Para Editar / Modificar este Embarque" style="FONT-SIZE:  9px; WIDTH: 32px; HEIGHT: 17px" onclick="JavaScript:window.enMantto = true; fAbrirWin('LiEmPe_mant.php?emb_RefOperativa={Alt_emb_RefOperativa}' ,'Win',' ', 950, 450); return false;" type="button" size="12" value="{Alt_emb_RefOperativa}" name="{Button_Name}"><!-- END Button Button2 --></td> 
+            <td class="CobaltAltDataTD">&nbsp;&nbsp; &nbsp; <input class="AltCobaltInputSB" value="{Alt_emb_AnoOperacion}" onmouseover="fTxtResalta(this,  '#009999')" onmouseout="fTxtNormal(this)" name="{Alt_emb_AnoOperacion_Name}" style="WIDTH: 32px; HEIGHT: 15px" size="5" id="emb_AnoOperacion"></td> 
+            <td class="CobaltAltDataTD" nowrap><input type="hidden" name="{Alt_buq_Abreviatura_Name}" value="{Alt_buq_Abreviatura}" style="WIDTH: 31px; HEIGHT: 22px" size="3" id="buq_Abreviatura">&nbsp; <input name="{Alt_buq_Descripcion_Name}" value="{Alt_buq_Descripcion}" onmouseover="fTxtResalta(this,  '#009999')" onmouseout="fTxtNormal(this)" maxlength="40" class="AltCobaltInputSB" style="WIDTH: 110px; HEIGHT: 17px" id="buq_Descripcion">- <input type="hidden" name="{Alt_emb_CodVapor_Name}" value="{Alt_emb_CodVapor}" style="WIDTH: 43px; HEIGHT: 22px" size="5" id="emb_CodVapor"><input class="AltCobaltInputSB" style="WIDTH: 39px; HEIGHT: 15px" onmouseover="fTxtResalta(this,  '#009999')" onmouseout="fTxtNormal(this)" maxlength="10" size="6" value="{Alt_emb_NumViaje}" name="{Alt_emb_NumViaje_Name}" id="emb_NumViaje"><input style="WIDTH:  28px;  HEIGHT:  22px" type="hidden" size="3" value="{AlttxtEmbarque}" name="{AlttxtEmbarque_Name}" id="txtEmbarque"></td> 
+            <td class="CobaltAltDataTD">&nbsp;&nbsp;&nbsp; <input name="{Alt_emb_FecZarpe_Name}" value="{Alt_emb_FecZarpe}" onmouseover="fTxtResalta(this,  '#009999')" onmouseout="fTxtNormal(this)" maxlength="8" size="6" class="AltCobaltInputSB" style="WIDTH: 49px; HEIGHT: 15px" id="emb_FecZarpe">&nbsp;&nbsp;</td> 
+            <td class="CobaltAltDataTD" nowrap>&nbsp; <input name="{Alt_par_Descripcion_Name}" value="{Alt_par_Descripcion}" onmouseover="fTxtResalta(this,  '#009999')" onmouseout="fTxtNormal(this)" maxlength="25" size="15" class="AltCobaltInputSB" style="WIDTH: 87px; HEIGHT: 15px" id="par_Descripcion">&nbsp; <input type="hidden" name="{Alt_emb_CodMarca_Name}" value="{Alt_emb_CodMarca}" style="WIDTH: 46px; HEIGHT: 16px" size="5" id="emb_CodMarca"></td> 
+            <td class="CobaltAltDataTD">&nbsp; <input name="{Alt_emb_Descripcion1_Name}" value="{Alt_emb_Descripcion1}" onmouseover="fTxtResalta(this,  '#009999')" onmouseout="fTxtNormal(this)" maxlength="80" size="18" class="AltCobaltInputSB" style="WIDTH: 102px; HEIGHT: 17px" id="emb_Descripcion1">&nbsp;</td> 
+            <td class="CobaltAltDataTD" nowrap>&nbsp; <input name="{Alt_emb_FecInicio_Name}" value="{Alt_emb_FecInicio}" onmouseover="fTxtResalta(this,  '#009999')" onmouseout="fTxtNormal(this)" maxlength="8" size="8" class="AltCobaltInputSB" title="Fecha de Inicio de Embarque" id="emb_FecInicio">&nbsp;
+              - <input name="{Alt_emb_FecTermino_Name}" value="{Alt_emb_FecTermino}" onmouseover="fTxtResalta(this,  '#009999')" onmouseout="fTxtNormal(this)" maxlength="8" size="8" class="AltCobaltInputSB" title="Fecha de Termino" id="emb_FecTermino">&nbsp;</td> 
+            <td class="CobaltAltDataTD" nowrap>&nbsp; <input name="{Alt_emb_SemInicio_Name}" value="{Alt_emb_SemInicio}" onmouseover="fTxtResalta(this,  '#009999')" onmouseout="fTxtNormal(this)" maxlength="5" size="2" class="AltCobaltInputSB" title="Semana en que inicia el embarque" style="WIDTH: 22px; HEIGHT: 15px" id="emb_SemInicio">&nbsp;- <input name="{Alt_emb_SemTermino_Name}" value="{Alt_emb_SemTermino}" onmouseover="fTxtResalta(this, '#009999')" onmouseout="fTxtNormal(this)" maxlength="5" size="1" class="AltCobaltInputSB" style="WIDTH: 18px; HEIGHT: 15px" title="Semana en que termina el embarque" id="emb_SemTermino"></td> 
+            <td class="CobaltAltDataTD" nowrap><input name="{Alt_emb_Estado_Name}" value="{Alt_emb_Estado}" onmouseover="fTxtResalta(this,  '#009999')" onmouseout="fTxtNormal(this)" maxlength="5" size="2" class="AltCobaltInputSB" style="WIDTH: 22px; HEIGHT: 15px" title="Estado del Embarque" id="emb_Estado">&nbsp; <input style="WIDTH:  12px;  HEIGHT:  22px" type="hidden" size="1" value="{Alt_emb_CodProducto}" name="{Alt_emb_CodProducto_Name}" id="emb_CodProducto"><input style="WIDTH:  19px;  HEIGHT:  22px" type="hidden" size="2" value="{Alt_emb_CodCaja}" name="{Alt_emb_CodCaja_Name}" id="emb_CodCaja"><input type="hidden" name="{Alt_emb_CodCompon1_Name}" value="{Alt_emb_CodCompon1}" style="WIDTH: 21px; HEIGHT: 22px" size="2" id="emb_CodCompon1"><input style="WIDTH:  15px;  HEIGHT:  22px" type="hidden" size="1" value="{Alt_emb_CodCompon2}" name="{Alt_emb_CodCompon2_Name}" id="emb_CodCompon2"><input style="WIDTH:  20px;  HEIGHT:  22px" type="hidden" size="2" value="{Alt_emb_CodCompon3}" name="{Alt_emb_CodCompon3_Name}" id="emb_CodCompon3"><input style="WIDTH:  15px;  HEIGHT:  22px" type="hidden" size="1" value="{Alt_emb_CodCompon4}" name="{Alt_emb_CodCompon4_Name}" id="emb_CodCompon4"><input style="WIDTH:  18px;  HEIGHT:  22px" type="hidden" size="2" value="{Alt_emb_PrecOficial}" name="{Alt_emb_PrecOficial_Name}" id="emb_PrecOficial"><input style="WIDTH:  14px;  HEIGHT:  22px" type="hidden" size="1" value="{Alt_emb_DifPrecio}" name="{Alt_emb_DifPrecio_Name}" id="emb_DifPrecio"><input style="WIDTH:  18px;  HEIGHT:  22px" type="hidden" size="2" value="{Alt_emb_CodPuerto}" name="{Alt_emb_CodPuerto_Name}" id="emb_CodPuerto"></td> 
+          </tr>
+          <!-- END AltRow -->
+          <!-- BEGIN NoRecords -->
+          <tr>
+            <td class="CobaltAltDataTD" colspan="9">No hay Embarques para la
+              condicion definida&nbsp;</td> 
+          </tr>
+          <!-- END NoRecords -->
+          <tr>
+            <td height="10" class="CobaltColumnTD" colspan="9" hight="5">&nbsp;</td> 
+          </tr>
+ 
+        </table>
+ <!-- END Grid liqembarques_list --></td>
+    </form>
+ 
+    <td>&nbsp;</td> 
+  </tr>
+ 
+  <tr>
+    <td>&nbsp;</td> 
+    <td>&nbsp;</td> 
+  </tr>
+ 
+</table>
+ 
+<p></p>
+ 
+</body>
+ 
+</html>

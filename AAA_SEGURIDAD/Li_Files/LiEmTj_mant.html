@@ -1,0 +1,770 @@
+<html>
+<head>
+<base target="_self">
+<link rel="stylesheet" type="text/css" href="../Themes/Cobalt/Style.css">
+<link rel="stylesheet" type="text/css" href="../Themes/Menu/Style.css">
+<title>TARJAS: INGRESO / MODIFICACION</title>
+<script language="JavaScript" src="../LibJava/menu_func.js"></script>
+<script language="JavaScript" src="../LibJava/fechas.js"></script>
+<script language="JavaScript" src="../LibJava/cookies.js"></script>
+<script language="JavaScript" src="../LibJava/general.js"></script>
+<script language="JavaScript" src="../LibJava/validaDB.js"></script>
+<script language="JavaScript" src="../LibJava/validations.js"></script>
+<script language="JavaScript1.2">
+var bolRefreshFlag	= false;
+var oValida = new oValidador();
+oValida.Formul="";
+var giFilas=5;
+/**
+*		Define parametros necesarios para la validacion de cada campo, y ejecuta el proceso,
+*		solo si el contenido del control ha cambiado
+*		@param		oControl	object:	Elemento en el que ocurre el evento
+*		@param		psTexto		String:	Nombre del elemento que presenta texto asociado al primer obj.
+*		@param		pbValFlag	Bool:	Debe ejecutar una busqueda inicial o solo abre la seleccion
+*		@return		void
+*/
+function fValidacion(oControl, psText, pbValFlag)
+{
+//window.status="valid";
+	if (bolRefreshFlag) {								// No continuar pues se refresca la pantalla
+		bolRefreshFlag	= false;	
+		return false;
+	}
+	if (fActivaSeleccion()) return false;
+	var sRe = /^ta[cr]_/;
+	var slSufijo = '';
+	slCampo='';
+	if (oControl.name.search(sRe) ==0) 	 {
+			oValida.Formul="liqtarjacabec";
+			slCampo = oControl.name;
+			}
+		else	{
+			oValida.Formul="liqtarjadetal";
+			slSufijo = '_' + fTraefila(oControl.name);
+			slCampo = oControl.id;
+			}
+	pbValFlag=(pbValFlag==undefined)?true:pbValFlag										// Si no se ha definido, asume verdadero
+	var lsText = document.forms[oValida.Formul][psText + slSufijo].value;
+	if (isChanged(oControl) || 
+	    (psText && isBlank(lsText) && !isBlank(oControl.value) ) ) {	// Solo si ha cambiado el contenido
+		oValida.Tipo=3;																//Retornar valores
+		oValida.Skeywd  = oControl.value;
+		slText = " AND cte_Codigo = '" + oControl.value + 
+				 "' OR cte_Referencia LIKE '" + oControl.value + "%' ";
+				 "' OR cte_Descripcion LIKE '" + oControl.value + "%' ";
+		
+		switch (slCampo) { 
+			case "tar_NumTarja":
+				oValida.Formul="liqtarjacabec";
+				oValida.Cond 	= "tar_NumTarja = " + oControl.value + "";
+				oValida.Selec   = oValida.Cond;
+				oValida.Tabla 	= "liqtarjacabec";
+				oValida.Campos 	= "tar_NumTarja";
+				oValida.Selec   = oValida.Campos;
+				oValida.Desti 	= "tar_NumTarja";
+				oValida.PageR 	= "";
+				oValida.Focus	= "tac_RefOperativa"
+				oValida.Mensj	= "** YA FUE INGRESADO ESE NUMERO DE TARJA **";
+				oValida.Tipo	= 0;														// Garantizar no existencia		
+				oValida.Aplicar(oControl, pbValFlag);
+				break;
+			case "tac_RefOperativa":
+				oValida.Formul="liqtarjacabec";
+				oValida.Cond 	= "emb_RefOperativa= '" + oControl.value + "'" +
+								   "  OR concat(buq_Abreviatura, emb_NumViaje) = '%" + oControl.value + "%' " +
+								   "  OR buq_dESCRIPCION like '%" + oControl.value + "%' "
+								   ;
+				//				   "emb_NumViaje =   '" + oControl.value + "'  OR concat(buq_Abreviatura, emb_NumViaje) = '" + oControl.value + "' " ;
+				oValida.Tabla 	= "liqembarques INNER JOIN liqbuques ON liqbuques.buq_CodBuque = liqembarques.emb_CodVapor";
+				oValida.Campos 	= "emb_RefOperativa,emb_FecInicio,emb_FecTermino,emb_SemInicio,emb_SemTermino," +
+								  "emb_CodMarca,txtEmbarque,emb_CodProducto,emb_CodCaja,emb_CodCompon1,emb_CodCompon2,emb_CodCompon3,emb_CodCompon4," +
+								  "emb_PrecOficial,emb_DifPrecio,emb_Estado,emb_CodPuerto,emb_AnoOperacion,emb_SemInicio";
+				oValida.Selec   = "emb_RefOperativa,emb_FecInicio,emb_FecTermino,emb_SemInicio,emb_SemTermino," +
+								  "emb_CodMarca,concat(left(buq_Descripcion, 15),' - ',emb_NumViaje, '   (Sem ', emb_SemInicio,' a ', emb_SemTermino, ', ', date_format(emb_fecInicio,'%d/%b/%y'), ' y ', date_format(emb_fectermino,'%d/%b/%y'), ')') as txtEmbarque";
+				oValida.Desti 	= "tac_RefOperativa,hdFecIni,hdFecFin,hdSemIni,hdSemFin,hdMarca,txtEmbarque," +
+								  "hdCodProducto,hdCodCaja,hdCodCompon1,hdCodCompon2,hdCodCompon3,hdCodCompon4," +
+								  "hdPrecOficial,hdDifPrecio,hdEstado,hdCodPuerto,tac_Ano,tac_Semana";
+				oValida.PageR 	= "../Li_Files/LiAdEm_search.php";
+				oValida.Focus	= "tac_Semana";
+				oValida.Mensj	= "** SELECCIONE UN EMBARQUE **";
+				oValida.Aplicar(oControl, pbValFlag);
+				break;
+			case "tac_Embarcador":
+				oValida.Desti 	= "tac_Embarcador, txtEmbarcador";
+				oValida.Focus	= "tac_UniProduccion";
+				oValida.Mensj	= "** SELECCIONE UN PRODUCTOR **";
+				fProcesoComun(oControl, pbValFlag);
+				break;
+			case "tac_UniProduccion":
+//												*--------------	IMPLEMENTAR 			*/
+				oValida.Desti 	= "tac_UniProduccion, txtUniProduc";
+				oValida.Focus	= "tac_Zona";
+				oValida.Mensj	= "** SELECCIONE UNA HACIENDA **";
+				break;
+			case "tac_GrupLiquidacion":
+				oValida.Desti 	= "tac_GrupLiquidacion, txt_GrupLiquidacion";
+				oValida.Focus	= "tac_NumLiquid";
+				oValida.Mensj	= "** SELECCIONE UN GRUPO **";
+				fProcesoComun(oControl, pbValFlag);
+				break;
+			case "tad_Marca":
+				oValida.Cond 	= "par_Clave = 'IMARCA' AND ( par_Secuencia = '" + oControl.value + "' OR  " +
+								  "par_Descripcion LIKE '" + oControl.value + "%' )";
+				oValida.Desti 	= "tad_Marca" + slSufijo + ",txt_Marca" + slSufijo + "";
+//				oValida.Focus	= "tad_CodCaja" + slSufijo;
+				oValida.Focus	= "tad_CodProducto" + slSufijo;
+//				oValida.Focus	= "";
+				oValida.Mensj	= "** SELECCIONE UNA MARCA DE FRUTA **";
+				oValida.Tabla 	= "genparametros";
+				oValida.Campos 	= "par_Secuencia,par_Descripcion";
+				oValida.Selec   = oValida.Campos;
+				oValida.PageR 	= "../Li_Files/LiAdMa_Search.php"
+				oValida.Aplicar(pbValFlag);
+				break;
+			case "tad_CodCaja":
+				oValida.Cond 	= "caj_CodCaja = '" 		+ oControl.value + "' OR (" +
+								  "caj_Abreviatura LIKE '" 	+ oControl.value + "%' OR " +
+								  "caj_Descripcion LIKE '" 	+ oControl.value + "%' ) ";
+				oValida.Desti 	=  "tad_CodCaja" + slSufijo + ",txt_Empaque" + slSufijo + ",tad_CodCompon1" + slSufijo +
+				                  ",tad_CodCompon2" + slSufijo + ",tad_CodCompon3" + slSufijo + ",tad_CodCompon4" + slSufijo + ",tad_Marca" + slSufijo ;
+ 				oValida.Focus	= "tad_CodProducto" + slSufijo;
+//				oValida.Focus	= "";
+				oValida.Mensj	= "** SELECCIONE UNA EMPAQUE DE FRUTA **";
+				oValida.Tabla 	= "liqcajas";
+				oValida.Campos 	= "caj_CodCaja,caj_Descripcion,caj_Componente1,caj_Componente2,caj_Componente3,caj_Componente4,caj_CodMarca";
+				oValida.Selec   = oValida.Campos;
+				oValida.PageR 	= "../Li_Files/LiAdTc_search.php"
+				oValida.Aplicar(pbValFlag);
+				break;
+			case "tad_CodCompon1":
+				oValida.Cond 	= "cte_Clase = '1' " + slText;
+				oValida.Desti 	= "tad_CodCompon1" + slSufijo + ",txt_Compon1" + slSufijo + "";
+				oValida.Focus	= "tad_CodCompon2" + slSufijo;
+//				oValida.Focus	= "";
+				oValida.Mensj	= "** SELECCIONE UN COMPONENTE CARTON **";
+				fProcesoComun2(oControl, pbValFlag);
+				break;
+			case "tad_CodCompon2":
+				oValida.Cond 	= "cte_Clase = '2' " + slText;
+				oValida.Desti 	= "tad_CodCompon2" + slSufijo + ",txt_Compon2" + slSufijo + "";
+				oValida.Focus	= "tad_CodCompon3" + slSufijo;
+//				oValida.Focus	= "";
+				oValida.Mensj	= "** SELECCIONE UN COMPONENTE PLASTICO **";
+				fProcesoComun2(oControl, pbValFlag);
+				break;
+			case "tad_CodCompon3":
+				oValida.Cond 	= "cte_Clase = '3' " + slText;
+				oValida.Desti 	= "tad_CodCompon3" + slSufijo + ",txt_Compon3" + slSufijo + "";
+//				oValida.Focus	= "tad_CodCompon4" + slSufijo;
+				oValida.Focus	= "";
+				oValida.Mensj	= "** SELECCIONE UN COMPONENTE MATERIALES **";
+				fProcesoComun2(oControl, pbValFlag);
+				break;
+			case "tad_CodCompon4":
+				oValida.Cond 	= "cte_Clase = '4' " + slText;
+				oValida.Desti 	= "tad_CodCompon4" + slSufijo + ",txt_Compon4" + slSufijo + "";
+//				oValida.Focus	= "tad_Observaciones" + slSufijo;
+				oValida.Focus	= "";
+				oValida.Mensj	= "** SELECCIONE UN COMPONENTE ETIQUETA **";
+				fProcesoComun2(oControl, pbValFlag);
+				break;
+			default:
+				alert('Validacion no definida para el campo ' + slCampo);
+			}
+//			oControl.focus();
+			this.oldValue=oControl.value;
+			return false;
+		}
+//	else window.status="Sin validar";
+	if 	(oValida.Formul=="liqtarjadetal" && oValida.id == "tad_CodProducto")
+		fValoresIniciales(oControl.parentNode.parentNode.rowIndex);
+//	return false;
+}
+/**
+*		Define parametros necesarios para la validacion de cada campo, y ejecuta el proceso,
+*		@param		oControl	object:	Elemento en el que ocurre el evento
+*		@param		pbValFlag	Bool:	Debe ejecutar una busqueda inicial o solo abre la seleccion
+*		@return		void
+*/
+function fValidaTarja(oControl, pbValFlag)
+{
+window.status="1 ";
+	document.liqtarjacabec.tar_NumTarja.onblur=function(){};							// Evitar que se lance el evento sucesivamente
+	oValida.Formul="liqtarjacabec";
+	pbValFlag=(pbValFlag==undefined)?true:pbValFlag										// Si no se ha definido, asume verdadero
+	if(window.mSelectflag) fActivaSeleccion();
+
+	var ilOldTarja = getFromurl('tar_NumTarja');
+//	if (ilOldTarja != oControl.value   && !bolNumTarjaOK && !window.mSelectflag  ) {
+	
+	if ((isChanged(oControl) || !bolNumTarjaOK) && !window.mSelectflag) {
+
+		oValida.Skeywd  = oControl.value;
+		oValida.Formul="liqtarjacabec";
+		oValida.Cond 	= "tar_NumTarja like '" + oControl.value + "'";
+		oValida.Selec   = oValida.Cond;
+		oValida.Tabla 	= "liqtarjacabec";
+		oValida.Campos 	= "tar_NumTarja";
+		oValida.Selec   = oValida.Campos;
+		oValida.Desti 	= "tar_NumTarja";
+		oValida.PageR 	= "";
+		oValida.Focus	= "tac_RefOperativa"
+		oValida.Mensj	= "**  YA FUE INGRESADO ESE NUMERO DE TARJA  **";
+		oValida.Tipo	= 0;												// Garantizar no existencia		
+		bolRefreshFlag	= true;												//Refrescando pantalla con Tarja existente
+		bolNumTarjaOK   = true;							
+	
+		oValida.Aplicar(oControl, pbValFlag);
+		bolNumTarjaOK   = false;
+		bolRefreshFlag	= false;												
+		}
+	document.liqtarjacabec.tar_NumTarja.onblur="fValidaTarja(this, true)";
+	return false;
+}
+/**
+*		Definiciones comunes para validacion de auxiliares (personas)
+*		@param		oControl	object:	Elemento en el que ocurre el evento
+*		@param		pbValFlag	Bool:	Debe ejecutar una busqueda inicial o solo abre la seleccion
+*		@return		void
+*/
+function fProcesoComun(oControl, pbValFlag) {
+		if (parseInt(oControl.value * 1) > 0 ) {
+			oValida.Cond 	= "per_Codauxiliar = " 	+ oControl.value;
+			}
+		else {
+//			oValida.Cond 	= "per_Codauxiliar LIKE '" 	+ oControl.value + "' OR per_Apellidos LIKE '" + oControl.value + "%' " +
+			oValida.Cond 	= " per_Apellidos LIKE '" + oControl.value + "%' " +
+							  " OR per_Nombres LIKE '" 	+ oControl.value + "%'" ;
+		}
+		oValida.Tabla 	= "conpersonas";
+//		oValida.CondEx 	= "per_idauxiliar = 52";
+		oValida.Campos 	= "CodAuxiliar,Descripcion";
+		oValida.Selec   = "per_CodAuxiliar as CodAuxiliar, concat(per_Apellidos, ' ', per_Nombres) as Descripcion";
+		oValida.PageR 	= "../Co_Files/CoAdAu_search2.php";
+		oValida.Aplicar(pbValFlag);
+}
+
+/**
+*		Definiciones comunes para validacion de Componenetes de Empaque
+*		@param		oControl	object:	Elemento en el que ocurre el evento
+*		@param		pbValFlag	Bool:	Debe ejecutar una busqueda inicial o solo abre la seleccion
+*		@return		void
+*/
+function fProcesoComun2(oControl, pbValFlag) {
+		oValida.Tabla 	= "liqcomponent";
+		oValida.Campos 	= "cte_Codigo,cte_Descripcion";
+		oValida.Selec   = oValida.Campos;
+		oValida.PageR 	= "../Li_Files/LiAdCo_Search.php"
+		oValida.Aplicar(pbValFlag);
+}
+/**
+*		Acciones al enfocar la semana
+**/
+function fSemanaFocus()
+{
+	with (document.liqtarjacabec)
+	{
+		tac_PueRecepcion.value= hdCodPuerto.value
+		}
+}
+/**
+*		Acciones al Cargar el formulario
+**/
+function fFormLoad()
+{
+	if(getFromurl('tar_NumTarja') > 0) {
+		window.document.liqtarjacabec.tar_NumTarja.style.visibility=false; 
+		alert("EDIT");
+		}
+}
+/**
+*		Acciones para bloquear el numero de tarja si existe un número de Tarja en Url 
+*		(Esta modificando una tarja)
+*		@param		oElem	object:	Elemento en el que ocurre el evento
+**/
+function fBloqueaTarja(oElem)
+{
+		if(getFromurl('tar_NumTarja') > 0) {
+			window.status = getFromurl('tar_NumTarja');
+			oElem.readOnly=true;
+			}
+}
+/**
+*		Definición de valores iniciales de una fila cuando se agrega una
+*		@param		ipFila	integer:	Fila en la que se genera el evento
+**/
+function fValoresIniciales(ipFila)
+{
+	var ilRow = ipFila -1;
+	with (document.liqtarjadetal) {
+		if (!tad_CodCaja[ilRow].value) return;
+		if (ipFila < 1 ) return;
+		if (!isNumeric(tad_Secuencia[ilRow].value)) {
+			if (ilRow >= 1) 	{
+				tad_Secuencia[ilRow].value = parseInt(tad_Secuencia[ilRow-1].value)+1;
+				}
+			else {
+				tad_Secuencia[ilRow].value = 1;
+				}
+		
+			if (!isNumeric(tad_CodProducto[ilRow].value))		tad_CodProducto[ilRow].value = document.liqtarjacabec.hdCodProducto.value;
+			if (!isNumeric(tad_Marca[ilRow].value))				tad_Marca[ilRow].value = document.liqtarjacabec.hdMarca.value;
+			if (!isNumeric(tad_Marca[ilRow].value))				tad_Marca[ilRow].value = document.liqtarjacabec.hdMarca.value;
+			if (!isNumeric(tad_CodCaja[ilRow].value))			tad_CodCaja[ilRow].value = document.liqtarjacabec.hdCodCaja.value;
+			if (!isNumeric(tad_ValUnitario[ilRow].value))		tad_ValUnitario[ilRow].value = document.liqtarjacabec.hdPrecOficial.value;
+			if (!isNumeric(tad_DifUnitario[ilRow].value))		tad_DifUnitario[ilRow].value = document.liqtarjacabec.hdDifPrecio.value;
+			if (!isNumeric(tad_CodCompon1[ilRow].value ))		tad_CodCompon1[ilRow].value = document.liqtarjacabec.hdCodCompon1.value;
+			if (!isNumeric(tad_CodCompon2[ilRow].value ))		tad_CodCompon2[ilRow].value = document.liqtarjacabec.hdCodCompon2.value;
+			if (!isNumeric(tad_CodCompon3[ilRow].value ))		tad_CodCompon3[ilRow].value = document.liqtarjacabec.hdCodCompon3.value;
+			if (!isNumeric(tad_CodCompon4[ilRow].value ))		tad_CodCompon4[ilRow].value = document.liqtarjacabec.hdCodCompon4.value;
+			if (!isNumeric(tad_CantDespachada[ilRow].value))	tad_CantDespachada[ilRow].value = 0;
+			if (!isNumeric(txt_Faltante[ilRow].value))			txt_Faltante[ilRow].value = 0;
+			if (!isNumeric(tad_CantRecibida[ilRow].value))		tad_CantRecibida[ilRow].value = 0;
+			if (!isNumeric(tad_CantRechazada[ilRow].value))		tad_CantRechazada[ilRow].value = 0;
+			if (!isNumeric(txt_Embarcado[ilRow].value))			txt_Embarcado[ilRow].value = 0;
+//			fProcCascada(ilRow);
+		}
+	}
+}
+
+/**
+*		Proceso en cascada de los comonentes de empaque.
+*		@access	 public
+*		@param	 object obj	Objeto que inicia el evento
+**/
+function fAfterProducto(obj)
+{
+	var ilRow =obj.parentNode.parentNode.rowIndex;
+	with(document.liqtarjadetal) {
+		if (!isNumeric(tad_CodProducto[ilRow].value)) return false;
+		fValoresIniciales(ilRow); 
+		return false;
+	}
+}
+/**
+*		Proceso en cascada de los comonentes de empaque.
+*		@access	 public
+*		@param	 int ilRow	Número de fila en la que se procesa
+**/
+function fProcCascada(ilRow)
+{
+//	with (document.liqtarjadetal) {
+//		if (isChanged(document.liqtarjadetal.tad_CodCompon1[ilRow] ))	fValidacion(document.liqtarjadetal.tad_CodCompon1[ilRow], 'txt_Compon1', true);
+//		if (isChanged(tad_CodCompon2[ilRow] ))	fValidacion(tad_CodCompon2[ilRow], 'txt_Compon2', true);	
+//		if (isChanged(tad_CodCompon3[ilRow] ))	fValidacion(tad_CodCompon3[ilRow], 'txt_Compon3', true);	
+//		if (isChanged(tad_CodCompon4[ilRow] ))	fValidacion(tad_CodCompon4[ilRow], 'txt_Compon4', true);	
+//	}
+}
+
+/**
+*		Validacion de los valores numericos que se eingresan en el detalle
+*		@param		oElem	object	Objeto que lanza el evento
+**/
+function fValidaNumeros(oElem)
+{
+	var i = oElem.parentNode.parentNode.rowIndex - 1 			// Fila 0 = 2da fila de tabla
+//	fValoresIniciales(oElem.parentNode.parentNode.rowIndex);
+	if (!isNumeric(oElem.value)) {
+		alert('INGRESE UN VALOR NUMERICO');
+		var slCmd  = 'document.liqtarjadetal.' + oElem.name + '.focus();';
+		    slCmd += 'document.liqtarjadetal.' + oElem.name + '.select();';
+		eval(slCmd);
+		return;
+		}
+	with(document.liqtarjadetal) {
+		if (!isNumeric(tad_CantDespachada[i].value) ) tad_CantDespachada[i].value = 0;
+		if (!isNumeric(tad_CantRecibida[i].value) )   tad_CantRecibida[i].value = 0;
+		if (!isNumeric(tad_CantRechazada[i].value) )  tad_CantRechazada[i].value = 0
+
+		switch (oElem.id) {
+			case "tad_CantDespachada":
+				if (isNumeric(tad_CantRecibida[i].value) && tad_CantRecibida[i].value == 0) {
+					tad_CantRecibida[i].value	= tad_CantDespachada[i].value	;
+				}
+				txt_Faltante[i].value = tad_CantDespachada[i].value - tad_CantRecibida[i].value;
+				txt_Embarcado[i].value = tad_CantRecibida[i].value - tad_CantRechazada[i].value;
+				tad_CantRecibida[i].focus();
+				tad_CantRecibida[i].select();
+				break;
+			case "tad_CantRecibida":
+				txt_Faltante[i].value = tad_CantDespachada[i].value - tad_CantRecibida[i].value;
+				txt_Embarcado[i].value = tad_CantRecibida[i].value - tad_CantRechazada[i].value;
+				break;
+			case "tad_CantRechazada":
+				txt_Faltante[i].value = tad_CantDespachada[i].value - tad_CantRecibida[i].value;
+				txt_Embarcado[i].value = tad_CantRecibida[i].value - tad_CantRechazada[i].value;
+		}
+	}
+	return false
+}	
+var bolNumTarjaOK = false;
+//Begin CCS script
+//Include JSFunctions @1-5F368366
+  </script>
+<script language="JavaScript" src="../functions.js"></script>
+<script language="JavaScript">
+  
+//End Include JSFunctions
+
+//Include Common JSFunctions @1-73ADA5ED
+</script>
+<script language="JavaScript" src="../DatePicker.js"></script>
+<script language="JavaScript">
+//End Include Common JSFunctions
+
+//Date Picker Object Definitions @1-A07C590C
+
+var liqtarjacabec_DatePicker_tac_Fecha1 = new Object(); 
+liqtarjacabec_DatePicker_tac_Fecha1.format           = "dd/mmm/yy";
+liqtarjacabec_DatePicker_tac_Fecha1.style            = "Themes/Cobalt/Style.css";
+liqtarjacabec_DatePicker_tac_Fecha1.relativePathPart = "../";
+
+//End Date Picker Object Definitions
+
+//page_liqtarjacabec_Button_Delete_OnClick @460-E51831C5
+function page_liqtarjacabec_Button_Delete_OnClick()
+{
+    var result;
+//End page_liqtarjacabec_Button_Delete_OnClick
+
+//Confirmation Message @461-BED55CD3
+    return confirm('Borrar registro?');
+//End Confirmation Message
+
+//Close page_liqtarjacabec_Button_Delete_OnClick @460-BC33A33A
+    return result;
+}
+//End Close page_liqtarjacabec_Button_Delete_OnClick
+
+//page_liqtarjadetal_Button_Submit_OnClick @328-05440884
+function page_liqtarjadetal_Button_Submit_OnClick()
+{
+    var result;
+//End page_liqtarjadetal_Button_Submit_OnClick
+
+//Confirmation Message @329-96FAE8C2
+    return confirm('Enviar registro?');
+//End Confirmation Message
+
+//Close page_liqtarjadetal_Button_Submit_OnClick @328-BC33A33A
+    return result;
+}
+//End Close page_liqtarjadetal_Button_Submit_OnClick
+
+//page_OnLoad @1-D0F4E1D3
+function page_OnLoad()
+{
+    var result;
+//End page_OnLoad
+
+//Custom Code @286-2A29BDB7
+    // -------------------------								// Bloquea el numero de tarja al modificar
+		if(getFromurl('tar_NumTarja', 0) != 0) {
+			document.liqtarjacabec.tar_NumTarja.readOnly=true;
+			document.liqtarjacabec.tar_NumTarja.readOnly=true;
+            document.liqtarjadetal.tad_CodCaja_1.focus();
+						document.liqtarjadetal.tad_CodCaja_1.select();
+			}
+		else
+		  document.liqtarjacabec.tar_NumTarja.focus();
+		
+    // -------------------------
+//End Custom Code
+
+//Close page_OnLoad @1-BC33A33A
+    return result;
+}
+//End Close page_OnLoad
+
+//page_liqtarjacabec_Button_Cancel_OnClick @462-09B29227
+function page_liqtarjacabec_Button_Cancel_OnClick()
+{
+    disableValidation = true;
+}
+//End page_liqtarjacabec_Button_Cancel_OnClick
+
+//page_liqtarjacabec_btNuevo_OnClick @463-0FDB0174
+function page_liqtarjacabec_btNuevo_OnClick()
+{
+    disableValidation = true;
+}
+//End page_liqtarjacabec_btNuevo_OnClick
+
+//page_liqtarjadetal_Cancel_OnClick @330-5175F731
+function page_liqtarjadetal_Cancel_OnClick()
+{
+    disableValidation = true;
+}
+//End page_liqtarjadetal_Cancel_OnClick
+
+//bind_events @1-E44076D2
+function bind_events() {
+    if (document.forms["liqtarjadetal"]) check_and_bind('document.forms["liqtarjadetal"].Button_Submit','onclick',page_liqtarjadetal_Button_Submit_OnClick);
+    if (document.forms["liqtarjacabec"]) check_and_bind('document.forms["liqtarjacabec"].Button_Delete','onclick',page_liqtarjacabec_Button_Delete_OnClick);
+    if (document.forms["liqtarjacabec"]) check_and_bind('document.forms["liqtarjacabec"].Button_Cancel','onclick',page_liqtarjacabec_Button_Cancel_OnClick);
+    if (document.forms["liqtarjacabec"]) check_and_bind('document.forms["liqtarjacabec"].btNuevo','onclick',page_liqtarjacabec_btNuevo_OnClick);
+    if (document.forms["liqtarjadetal"]) check_and_bind('document.forms["liqtarjadetal"].Cancel','onclick',page_liqtarjadetal_Cancel_OnClick);
+    page_OnLoad();
+    forms_onload();
+}
+//End bind_events
+
+window.onload = bind_events; //Assign bind_events @1-19F7B649
+
+//End CCS script
+</script>
+<link rel="stylesheet" type="text/css" href="../Themes/Multipads/Style.css">
+</head>
+ 
+<body bgcolor="#fffff7" link="#000000" alink="#ff0000" vlink="#000000" text="#000000" class="CobaltPageBODY" style="BORDER-COLLAPSE: collapse">
+{Cabecera} 
+<table border="0" cellspacing="0" cellpadding="0" align="center" style="MARGIN: 0px; BORDER-COLLAPSE: collapse">
+  <tr>
+    <td valign="top" align="middle" width="900">
+      <!-- BEGIN Record liqtarjacabec --><br>
+      <form style="MARGIN: 0px" name="{HTMLFormName}" action="{Action}" method="post" border="0">
+        <font class="CobaltFormHeaderFont">{lbTitulo} </font> 
+        <table class="CobaltFormTABLE" cellspacing="0" cellpadding="3" align="center" border="0">
+          <!-- BEGIN Error -->
+          <tr>
+            <td class="CobaltErrorDataTD" colspan="7">{Error} </td> 
+          </tr>
+ <!-- END Error -->
+          <tr style="borde-collapse: collapse">
+            <td class="CobaltFieldCaptionTD" nowrap>&nbsp;<font size="12">TARJA
+              NUM.</font> </td> 
+            <td class="CobaltDataTD">&nbsp; 
+              <!-- BEGIN TextBox tar_NumTarja --><input class="CobaltInputSB2" accesskey="T" onblur="fValidaTarja(this, true); return true" title="Número de Tarja" style="FONT-WEIGHT: bold; WIDTH: 51px; COLOR: #cc0000; HEIGHT: 18px" onfocus="JavaScript:bolNumTarjaOK=false" maxlength="10" size="6" value="{tar_NumTarja}" name="{tar_NumTarja_Name}"><!-- END TextBox tar_NumTarja -->&nbsp; <input style="WIDTH:  7px;  HEIGHT:  13px" type="hidden" size="1" value="{hdFecFin}" name="{hdFecFin_Name}"><input style="WIDTH:  6px;  HEIGHT:  14px" type="hidden" size="1" value="{hdFecIni}" name="{hdFecIni_Name}"><input style="WIDTH:  7px;  HEIGHT:  11px" type="hidden" size="1" value="{hdSemIni}" name="{hdSemIni_Name}"><input style="WIDTH:  6px;  HEIGHT:  11px" type="hidden" size="1" value="{hdSemFin}" name="{hdSemFin_Name}"><input style="WIDTH:  8px;  HEIGHT:  12px" type="hidden" size="1" value="{hdMarca}" name="{hdMarca_Name}"></td> 
+            <td class="CobaltFieldCaptionTD" nowrap>&nbsp;EMBARQUE </td> 
+            <td class="CobaltDataTD" colspan="4">&nbsp; <input class="CobaltInputSB2" accesskey="E" onblur="fValidacion(this, 'txtEmbarque', true);return false" title="Número de Embarque" style="WIDTH: 33px; HEIGHT: 17px" size="4" value="{tac_RefOperativa}" name="{tac_RefOperativa_Name}"><input class="CobaltInputSB2" title="Semana - Vapor - Viaje " style="FONT-SIZE: 9px; TEXT-TRANSFORM: uppercase; WIDTH: 285px; FONT-FAMILY: Arial; HEIGHT: 17px" tabindex="-1" readonly size="7" value="{txtEmbarque}" name="{txtEmbarque_Name}"><input class="CobaltInputSB2" style="WIDTH: 6px; HEIGHT: 17px" tabindex="-1" readonly size="2" value="{txtSemanas}" name="{txtSemanas_Name}"></td>
+          </tr>
+ 
+          <tr>
+            <td class="CobaltFieldCaptionTD" nowrap>&nbsp;AÑO, SEMANA </td> 
+            <td class="CobaltDataTD">&nbsp; <input class="CobaltInputSB2" accesskey="A" style="WIDTH: 19px; HEIGHT: 17px" onfocus="fSemanaFocus();" tabindex="-1" readonly size="2" value="{tac_Ano}" name="{tac_Ano_Name}">&nbsp; <input class="CobaltInputSB2" accesskey="S" title="Semana de Recepción (entre 1 y 53)" size="5" value="{tac_Semana}" name="{tac_Semana_Name}">&nbsp; </td> 
+            <td class="CobaltFieldCaptionTD" nowrap>&nbsp;FECHA / HORA&nbsp; INI
+              - CIERRE </td> 
+            <td class="CobaltDataTD" nowrap colspan="2">&nbsp; <input class="CobaltInputSB2" accesskey="F" title="Fecha en la que se recibe" style="WIDTH: 63px; HEIGHT: 18px" onchange="fValidarFecha('liqtarjacabec', this.name)" size="6" value="{tac_Fecha}" name="{tac_Fecha_Name}">
+              <!-- BEGIN DatePicker DatePicker_tac_Fecha1 --><a class="CobaltDataLink" href="javascript:showDatePicker('{Name}','{FormName}','{DateControl}');"><img height="17" src="../Themes/DatePicker/DatePicker6.gif" width="18" border="0"></a> <!-- END DatePicker DatePicker_tac_Fecha1 -->&nbsp;/ <input class="CobaltInputSB2" accesskey="H" title="Hora de Inicio" style="WIDTH: 33px; HEIGHT: 18px" tabindex=" " maxlength="5" size="2" value="{tac_Hora}" name="{tac_Hora_Name}">- <input class="CobaltInputSb2" title="Hora de Cierre" style="WIDTH: 29px; HEIGHT: 17px" size="3" value="{tac_HoraFin}" name="{tac_HoraFin_Name}"></td> 
+            <td class="CobaltFieldCaptionTD" nowrap width="70">&nbsp;PTO&nbsp;EMBARQUE&nbsp; </td> 
+            <td class="CobaltDataTD" title="Puerto de Embarque">&nbsp; 
+              <select class="CobaltInputSB2" accesskey="P" style="WIDTH: 92px" name="{tac_PueRecepcion_Name}">
+ {tac_PueRecepcion_Options}
+              </select>
+ </td> 
+          </tr>
+ 
+          <tr>
+            <td class="CobaltFieldCaptionTD" nowrap>&nbsp;PRODUCTOR </td> 
+            <td class="CobaltDataTD" nowrap>&nbsp; <input class="CobaltInputSB2" accesskey="R" onblur="fValidacion(this, 'txtEmbarcador', true)" title="Código de productor" style="WIDTH: 45px; HEIGHT: 17px" value="{tac_Embarcador}" name="{tac_Embarcador_Name}"><input class="CobaltInputSB2" style="WIDTH: 113px; HEIGHT: 17px" tabindex="-1" readonly value="{txtEmbarcador}" name="{txtEmbarcador_Name}" size="17">&nbsp; </td> 
+            <td class="CobaltFieldCaptionTD" nowrap>&nbsp;HACIENDA&nbsp;&nbsp;&nbsp;&nbsp;/&nbsp;&nbsp;
+              CODiGO </td> 
+            <td class="CobaltDataTD" nowrap colspan="2">&nbsp; <input class="CobaltInputSB2" title="Còdigo de Hcda en la que se Empaca el producto" style="WIDTH: 27px; HEIGHT: 17px" size="3" value="{tac_UniProduccion}" name="{tac_UniProduccion_Name}"><input class="CobaltInputSB2" style="WIDTH: 99px; HEIGHT: 17px" tabindex="-1" readonly size="16" value="{txtUniproduc}" name="{txtUniproduc_Name}">/&nbsp; <input class="CobaltInputSB2" title="Código de Origen, propio del productor" style="WIDTH: 62px; HEIGHT: 17px" size="8" value="{tac_CodOrigen}" name="{tac_CodOrigen_Name}"></td> 
+            <td class="CobaltFieldCaptionTD" nowrap>&nbsp;GRUPO DE LIQ. </td> 
+            <td class="CobaltDataTD">&nbsp; <input class="CobaltInputSB2" accesskey="G" title="Grupo de Liquidación" style="WIDTH: 41px; HEIGHT: 17px" size="5" value="{tac_GrupLiquidacion}" name="{tac_GrupLiquidacion_Name}">&nbsp; <input class="CobaltInputSB" style="WIDTH: 101px; HEIGHT: 17px" tabindex="-1" size="16" value="{txtGrupLiquidacion}" name="{txtGrupLiquidacion_Name}"></td> 
+          </tr>
+ 
+          <tr>
+            <td class="CobaltFieldCaptionTD" nowrap>&nbsp;ZONA </td> 
+            <td class="CobaltDataTD" accesskey="Z" title="Zona de Producción" nowrap>&nbsp; 
+              <select class="CobaltInputSB2" style="WIDTH: 91px" name="{tac_Zona_Name}">
+                <option value="" selected>-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-</option>
+ {tac_Zona_Options} 
+              </select>
+ 
+              <td class="CobaltFieldCaptionTD" nowrap>&nbsp;CARTONERA </td> 
+              <td class="CobaltDataTD" title="Proveedor  de carton" nowrap colspan="2">&nbsp; 
+                <select class="CobaltInputSB2" style="WIDTH: 95px" tabindex="Cartonera que provee el carton" name="{tac_CodCartonera_Name}">
+                  <option value="" selected>Seleccionar Valor</option>
+ {tac_CodCartonera_Options} 
+                </select>
+ </td> 
+              <td class="CobaltFieldCaptionTD" nowrap>&nbsp;TRANSPORTE </td> 
+              <td class="CobaltDataTD" nowrap>&nbsp; <input class="CobaltInputSB2" accesskey="T" title="Id de Transporte, vehículo (Placa)" style="WIDTH: 46px; HEIGHT: 17px" size="13" value="{tac_Transporte}" name="{tac_Transporte_Name}"><input class="CobaltInputSB2" title="Ref. de Transportista, conductor" style="WIDTH: 101px; HEIGHT: 17px" size="19" value="{tac_RefTransp}" name="{tac_RefTransp_Name}"></td> 
+            </tr>
+ 
+            <tr>
+              <td class="CobaltFieldCaptionTD" nowrap>&nbsp;BODEGA&nbsp;&nbsp;&nbsp;
+                /&nbsp;&nbsp; PISO </td> 
+              <td class="CobaltDataTD" nowrap>&nbsp; <input class="CobaltInputSB2" title="Bodega del Vapor en la que se guarda" size="10" value="{tac_Bodega}" name="{tac_Bodega_Name}">&nbsp;&nbsp;/&nbsp; <input class="CobaltInputSB2" title="Piso del Vapor " style="WIDTH: 68px; HEIGHT: 18px" size="9" value="{tac_Piso}" name="{tac_Piso_Name}"></td> 
+              <td class="CobaltFieldCaptionTD" nowrap>&nbsp;CONTENEDOR&nbsp;&nbsp;
+                /&nbsp;&nbsp; SELLO&nbsp;&nbsp; </td> 
+              <td class="CobaltDataTD" nowrap colspan="2">&nbsp; <input class="CobaltInputSB2" title="NÚMERO DE CONTENEDOR EN EL QUE VIAJA LA FRUTA" style="WIDTH: 92px; HEIGHT: 17px" size="15" value="{tac_Contenedor}" name="{tac_Contenedor_Name}">&nbsp;&nbsp;&nbsp;/&nbsp;&nbsp; <input class="CobaltInputSB2" title="NUMERO DE SELLO QUE ASEGURA EL CONTENEDOR" style="WIDTH: 74px; HEIGHT: 17px" size="11" value="{tac_Sello}" name="{tac_Sello_Name}"></td> 
+              <td class="CobaltFieldCaptionTD" nowrap>&nbsp;% &nbsp;DE CALIDAD </td> 
+              <td class="CobaltDataTD">&nbsp; <input class="CobaltInputSB2" title="Porcentaje General de Calidad" style="WIDTH: 29px; HEIGHT: 17px" size="4" value="{tac_ResCalidad}" name="{tac_ResCalidad_Name}">&nbsp;
+                % <input style="WIDTH:  12px;  HEIGHT:  17px" type="hidden" size="2" value="{hdCodProducto}" name="{hdCodProducto_Name}"><input style="WIDTH:  11px;  HEIGHT:  17px" type="hidden" size="2" value="{hdCodCaja}" name="{hdCodCaja_Name}"><input style="WIDTH:  12px;  HEIGHT:  17px" type="hidden" size="2" value="{hdCodCompon1}" name="{hdCodCompon1_Name}"><input style="WIDTH:  13px;  HEIGHT:  17px" type="hidden" size="2" value="{hdCodCompon2}" name="{hdCodCompon2_Name}"></td> 
+            </tr>
+ 
+            <tr>
+              <td class="CobaltFieldCaptionTD" nowrap>&nbsp;CODIGO </td> 
+              <td class="CobaltDataTD" nowrap>&nbsp; <input class="CobaltInputSB2" title="Código de Empacadora (PNB)" style="WIDTH: 164px; HEIGHT: 17px" size="29" value="{tac_Observaciones}" name="{tac_Observaciones_Name}"></td> 
+              <td class="CobaltFieldCaptionTD" nowrap>&nbsp;PRE -
+                EVALUACION&nbsp; </td> 
+              <td class="CobaltDataTD" colspan="2">&nbsp; <input class="CobaltInput" title="Indica si hubo evaluación del embarque en el lugar de origen" type="checkbox" value="1" name="{tac_Evaluada_Name}" {tac_Evaluada}></td> 
+              <td class="CobaltFieldCaptionTD" nowrap>&nbsp;NUM. LIQUID. </td> 
+              <td class="CobaltDataTD">&nbsp; <input class="CobaltInputSB2" title="Número de Liquidación con la que se pagó esta tarja" style="WIDTH: 50px; HEIGHT: 17px" size="7" value="{tac_NumLiquid}" name="{tac_NumLiquid_Name}"><input style="WIDTH:  12px;  HEIGHT:  17px" type="hidden" size="1" value="{hdCodCompon3}" name="{hdCodCompon3_Name}"><input style="WIDTH:  13px;  HEIGHT:  17px" type="hidden" size="1" value="{hdCodCompon4}" name="{hdCodCompon4_Name}"><input style="WIDTH:  15px;  HEIGHT:  17px" type="hidden" size="1" value="{hdPrecOficial}" name="{hdPrecOficial_Name}"><input style="WIDTH:  11px;  HEIGHT:  17px" type="hidden" size="2" value="{hdDifPrecio}" name="{hdDifPrecio_Name}"></td> 
+            </tr>
+ 
+            <tr>
+              <td class="CobaltFieldCaptionTD" nowrap>&nbsp;ESTADO </td> 
+              <td class="CobaltDataTD" title="Estado de Operación">&nbsp; 
+                <select class="CobaltInputSB2" tabindex="-1" name="{tac_Estado_Name}">
+                  <option value="" selected>-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;</option>
+ {tac_Estado_Options} 
+                </select>
+ <input style="WIDTH:  9px;  HEIGHT:  10px" type="hidden" size="1" value="{txtEmpaque}" name="{txtEmpaque_Name}"><input style="WIDTH:  7px;  HEIGHT:  10px" type="hidden" size="1" value="{tac_CodEmpaque}" name="{tac_CodEmpaque_Name}"></td> 
+              <td class="CobaltFieldCaptionTD" nowrap>&nbsp;COD. &nbsp;EVALUADOR </td> 
+              <td class="CobaltDataTD" colspan="2">&nbsp; <input class="CobaltInputSB2" title="Còd. del Evaluador" style="WIDTH: 51px; HEIGHT: 17px" size="7" value="{tac_CodEvaluador}" name="{tac_CodEvaluador_Name}"><input style="WIDTH:  24px;  HEIGHT:  17px" type="hidden" size="2" value="{hdEstado}" name="{hdEstado_Name}"><input style="WIDTH:  24px;  HEIGHT:  17px" type="hidden" size="2" value="{hdCodPuerto}" name="{hdCodPuerto_Name}"><input style="WIDTH:  23px;  HEIGHT:  17px" type="hidden" size="2" value="{hdAnoOperacion}" name="{hdAnoOperacion_Name}"></td> 
+              <td class="CobaltFieldCaptionTD">&nbsp;DIGITADO POR </td> 
+              <td class="CobaltDataTD">&nbsp; <input class="CobaltInputSB" title="Usuario que digitó originalmente" style="WIDTH: 78px; HEIGHT: 17px" tabindex="-1" size="12" value="{tac_Usuario}" name="{tac_Usuario_Name}"><input class="CobaltInputSB" title="Fecha de Digitación" style="WIDTH: 79px; HEIGHT: 17px" tabindex="-1" size="5" value="{tac_FecDigitacion}" name="{tac_FecDigitacion_Name}"></td> 
+            </tr>
+            <tr>
+                <td class="CobaltDataTD" align="middle" colspan="7">
+                    <font STYLE="color:red">
+                    {lbEstado}
+                    </font>
+                <td>
+            </tr>
+            <tr style="BORDER-COLLAPSE: collapse" height="24">
+              <td class="CobaltFooterTD" align="middle" colspan="7">
+                <!-- BEGIN Button Button_Insert -->
+                    <input class="CobaltDataLink" title="AGREGA EL REGISTRO " {ADD_flag}
+                            style="FONT-SIZE: 9px; WIDTH: 60px; HEIGHT: 21px" type="submit" value="AGREGAR" name="{Button_Name}"><!-- END Button Button_Insert -->&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                &nbsp;&nbsp; 
+                <!-- BEGIN Button Button_Update -->
+                    <input class="CobaltDataLink" title="GRABA LAS MODIFICACIONES" {UPD_flag}
+                            style="FONT-SIZE: 9px; WIDTH: 60px; HEIGHT: 21px" type="submit" value="GRABAR" name="{Button_Name}"><!-- END Button Button_Update -->&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                &nbsp; 
+                <!-- BEGIN Button Button_Delete -->
+                    <input class="CobaltDataLink" title="ELIMINA EL REGISTRO ACTUAL" {DEL_flag}
+                        style="FONT-SIZE: 9px; WIDTH: 62px; HEIGHT: 21px" type="submit" value="ELIMINAR" name="{Button_Name}"><!-- END Button Button_Delete -->&nbsp;
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp; 
+                <!-- BEGIN Button Button_Cancel -->
+                    <input class="CobaltDataLink" title="CANCELA LAS MODIFICACIONES REALIZADAS" style="FONT-SIZE: 9px; WIDTH: 60px; HEIGHT: 21px" type="submit" value="CANCELAR" name="{Button_Name}"><!-- END Button Button_Cancel -->&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <!-- BEGIN Button btNuevo -->
+                    <input class="CobaltDataLink" acceskey = "N" title="CANCELA MODIFICACIONES Y PREPARA UN NUEVO REGISTRO" style="FONT-SIZE: 9px; WIDTH: 60px; HEIGHT: 21px" type="submit" value="NUEVA.." name="{Button_Name}"><!-- END Button btNuevo --></td>
+            </tr>
+ 
+          </table>
+ 
+        </form>
+ <!-- END Record liqtarjacabec --></td> 
+    </tr>
+ 
+    <tr>
+      <td valign="top" align="middle" width="900">&nbsp; </td> 
+    </tr>
+ 
+    <tr height="20" style="BORDER-COLLAPSE: collapse">
+      <td valign="top" align="middle" width="900">
+        <!-- BEGIN EditableGrid liqtarjadetal -->
+        <form name="{HTMLFormName}" action="{Action}" method="post" style="MARGIN: 0px; BORDER-COLLAPSE: collapse">
+          <font class="CobaltFormHeaderFont"></font> <input type="hidden" value="{FormState}" name="FormState" style="WIDTH: 155px; HEIGHT: 11px">{FormScript} 
+          <table class="CobaltFormTABLE" style="BORDER-TOP-WIDTH: 0px; BORDER-LEFT-WIDTH: 0px; BORDER-BOTTOM-WIDTH: 1px; BORDER-BOTTOM-COLOR: #999999" cellspacing="1" cellpadding="0" align="center" bgcolor="#ffffff" border="0">
+            <!-- BEGIN Error -->
+            <tr>
+              <td class="CobaltErrorDataTD" colspan="17">{Error} </td> 
+            </tr>
+ <!-- END Error -->
+            <tr style="FONT-SIZE: 9px; VERTICAL-ALIGN: middle; LINE-HEIGHT: 14px; BACKGROUND-COLOR: #b0b0d9" valign="top" bgcolor="#b0b0d9" align="middle">
+              <td class="CobaltColumnTD" nowrap>
+                <!-- BEGIN Sorter Sorter_tad_Secuencia --><a class="CobaltSorterLink" href="{Sort_URL}">#</a> 
+                <!-- BEGIN Asc_On --><img height="9" src="../Themes/Cobalt/AscOn.gif" width="13" border="0"><!-- END Asc_On -->
+                <!-- BEGIN Desc_On --><img height="9" src="../Themes/Cobalt/DescOn.gif" width="13" border="0"><!-- END Desc_On --><!-- END Sorter Sorter_tad_Secuencia -->&nbsp; </td> 
+              <td class="CobaltColumnTD" nowrap>
+                <!-- BEGIN Sorter Sorter_tad_CodCaja --><a class="CobaltSorterLink" href="{Sort_URL}">EMPAQUE</a> 
+                <!-- BEGIN Asc_On --><img height="9" src="../Themes/Cobalt/AscOn.gif" width="13" border="0"><!-- END Asc_On -->
+                <!-- BEGIN Desc_On --><img height="9" src="../Themes/Cobalt/DescOn.gif" width="13" border="0"><!-- END Desc_On --><!-- END Sorter Sorter_tad_CodCaja -->&nbsp; </td> 
+              <td class="CobaltColumnTD" nowrap>MARCA </td> 
+              <td class="CobaltColumnTD" nowrap>
+                <!-- BEGIN Sorter Sorter_tad_CodProducto --><a class="CobaltSorterLink" href="{Sort_URL}">PRODUCTO</a> 
+                <!-- BEGIN Asc_On --><img height="9" src="../Themes/Cobalt/AscOn.gif" width="13" border="0"><!-- END Asc_On -->
+                <!-- BEGIN Desc_On --><img height="9" src="../Themes/Cobalt/DescOn.gif" width="13" border="0"><!-- END Desc_On --><!-- END Sorter Sorter_tad_CodProducto -->&nbsp; </td> 
+              <td class="CobaltColumnTD" nowrap width="60">&nbsp; DESPA&nbsp;
+                &nbsp;CHADO </td> 
+              <td class="CobaltColumnTD" width="60">&nbsp; RECIB PTO&nbsp; </td> 
+              <td class="CobaltColumnTD" nowrap width="60">&nbsp;
+                FALTA&nbsp;&nbsp; NTE&nbsp; </td> 
+              <td class="CobaltColumnTD" width="60" valign="center" nowrap>&nbsp;RECHA
+                &nbsp;&nbsp;ZADO&nbsp; </td> 
+              <td class="CobaltColumnTD" nowrap width="50">EMBAR CADO </td> 
+              <td class="CobaltColumnTD" nowrap width="50">$/&nbsp; CAJA </td> 
+              <td class="CobaltColumnTD" nowrap width="50">&nbsp;DIF.&nbsp;&nbsp;
+                PREC.&nbsp; </td> 
+              <td class="CobaltColumnTD" nowrap>CARTÓN </td> 
+              <td class="CobaltColumnTD" nowrap>PLASTIC. </td> 
+              <td class="CobaltColumnTD" nowrap>MATERIAL </td> 
+              <td class="CobaltColumnTD" nowrap>ETIQ. </td> 
+              <td class="CobaltColumnTD" nowrap>CODIG. </td> 
+              <td class="CobaltColumnTD" nowrap>BORRA&nbsp;&nbsp; </td> 
+            </tr>
+ 
+            <!-- BEGIN Row -->
+            <!-- BEGIN RowError -->
+            <tr>
+              <td class="CobaltErrorDataTD" colspan="17">{Error} </td> 
+            </tr>
+ <!-- END RowError -->
+            <tr valign="top">
+              <td class="CobaltDataTD" nowrap bgcolor="#cc0000">&nbsp; <input class="CobaltInputSB" id="tad_Secuencia" style="WIDTH: 13px; HEIGHT: 18px" readonly maxlength="5" size="1" value="{tad_Secuencia}" name="{tad_Secuencia_Name}"><input id="tad_NumTarja" style="WIDTH: 25px; HEIGHT: 11px" type="hidden" size="3" value="{tad_NumTarja}" name="{tad_NumTarja_Name}"></td> 
+              <td class="CobaltDataTD" style="BACKGROUND-COLOR: #c2d7eb" width="50"><input class="CobaltInputSB2" id="tad_CodCaja" accesskey="e" title="Código de Empaque (Caja)" style="FONT-SIZE: 9px; WIDTH: 64px; HEIGHT: 16px; BACKGROUND-COLOR: #c2d7eb" maxlength="5" onblur="fValidacion(this, 'txt_Empaque', true)" size="5" value="{tad_CodCaja}" name="{tad_CodCaja_Name}" onkeyup="fKeyUp_Secuencia(event)"><input class="CobaltInputSB" id="txt_Empaque" style="FONT-SIZE: 9px; TEXT-TRANSFORM: uppercase; WIDTH: 86px; COLOR: #9a9a9a; FONT-STYLE: italic; FONT-FAMILY: Tahoma; HEIGHT: 14px; BACKGROUND-COLOR: #c2d7eb" tabindex="-1" size="13" value="{txt_Empaque}" name="{txt_Empaque_Name}"></td>
+              <td class="CobaltDataTD" style="BACKGROUND-COLOR: #c2d7eb" valign="top" width="50" bgcolor="#cccccc"><input class="CobaltInputSB2" id="tad_Marca" accesskey="m" title="Código de Marca de Caja." style="FONT-SIZE: 9px; WIDTH: 65px; HEIGHT: 16px; BACKGROUND-COLOR: #c2d7eb" maxlength="5" onblur="fValidacion(this, 'txt_Marca', true)" size="5" value="{tad_Marca}" name="{tad_Marca_Name}" onkeyup="fKeyUp_Secuencia(event)"><input class="CobaltInputSB" id="txt_Marca" style="FONT-SIZE: 9px; TEXT-TRANSFORM: uppercase; WIDTH: 85px; COLOR: #9a9a9a; FONT-STYLE: italic; FONT-FAMILY: Tahoma; HEIGHT: 15px; BACKGROUND-COLOR: #c2d7eb" tabindex="-1" size="13" value="{txt_Marca}" name="{txt_Marca_Name}" autocomplete="off"></td>
+              <td class="CobaltDataTD" nowrap>
+                <select class="CobaltInputSB" id="tad_CodProducto" style="FONT-SIZE: 9px; WIDTH: 90px" name="{tad_CodProducto_Name}">
+                  <option value="" selected>-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;</option>
+ {tad_CodProducto_Options} 
+                </select>
+ &nbsp; </td> 
+              <td class="CobaltDataTD" nowrap align="right"><input class="CobaltInputSB2" id="tad_CantDespachada" accesskey="d" title="CANTIDAD DESPACHADA EN EMPACADORA" style="FONT-SIZE: 10px; WIDTH: 39px; HEIGHT: 17px; TEXT-ALIGN: right" maxlength="10" onchange="fValidaNumeros(this)" size="3" value="{tad_CantDespachada}" name="{tad_CantDespachada_Name}" onkeyup="fKeyUp_Secuencia(event)"></td>
+              <td class="CobaltDataTD" nowrap align="right"><input class="CobaltInputSB2" id="tad_CantRecibida" accesskey="r" title="CANTIDAD RECIBIDA EN MUELLE" style="FONT-SIZE: 10px; WIDTH: 39px; HEIGHT: 17px; TEXT-ALIGN: right" maxlength="10" onchange="fValidaNumeros(this)" size="5" value="{tad_CantRecibida}" name="{tad_CantRecibida_Name}" onkeyup="fKeyUp_Secuencia(event)"></td>
+              <td class="CobaltDataTD" nowrap align="right"><input class="CobaltInputSB" id="txt_Faltante" accesskey="f" title="FALTANTE =DESPACHADO - RECIBIDO EN MUELLE" style="FONT-SIZE: 11px; WIDTH: 39px; HEIGHT: 17px; TEXT-ALIGN: right" size="4" value="{txt_Faltante}" name="{txt_Faltante_Name}" tabindex="-1" onkeyup="fKeyUp_Secuencia(event)"></td>
+              <td class="CobaltDataTD" nowrap align="right"><input class="CobaltInputSB2" id="tad_CantRechazada" accesskey="r" title="CANTIDAD RECHAZADA EN EVALUACION" style="FONT-SIZE: 10px; WIDTH: 39px; HEIGHT: 17px; TEXT-ALIGN: right" maxlength="10" onchange="fValidaNumeros(this)" size="3" value="{tad_CantRechazada}" name="{tad_CantRechazada_Name}" onkeyup="fKeyUp_Secuencia(event)"></td>
+              <td class="CobaltDataTD" style="BACKGROUND-COLOR: #bedede" nowrap align="right" bgcolor="#cccccc"><input class="CobaltInputSB" id="txt_Embarcado" title="CANTIDADEMBARCADA =              RECIBIDO  -  RECHAZADO  - CAIDAS" style="FONT-WEIGHT: bolder; FONT-SIZE: 11px; WIDTH: 39px; HEIGHT: 17px; BACKGROUND-COLOR: #bedede; TEXT-ALIGN: right" tabindex="-1" readonly size="5" value="{txt_Embarcado}" name="{txt_Embarcado_Name}" onkeyup="fKeyUp_Secuencia(event)"></td>
+              <td class="CobaltDataTD" style="BACKGROUND-COLOR: #c2d7eb" nowrap align="right"><input class="CobaltInputSB2" id="tad_ValUnitario" accesskey="o" title="PRECIO OFICIAL UNITARIO (Por Caja)" style="WIDTH: 34px; HEIGHT: 17px; BACKGROUND-COLOR: #c2d7eb; TEXT-ALIGN: right" maxlength="12" onchange="fValidaNumeros(this)" size="4" value="{tad_ValUnitario}" name="{tad_ValUnitario_Name}" onkeyup="fKeyUp_Secuencia(event)"></td>
+              <td class="CobaltDataTD" style="BACKGROUND-COLOR: #c2d7eb" nowrap align="right"><input class="CobaltInputSB2" id="tad_DifUnitario" title="DIFERENCIA DE PRECIO" style="WIDTH: 36px; HEIGHT: 17px; BACKGROUND-COLOR: #c2d7eb; TEXT-ALIGN: right" maxlength="12" onchange="fValidaNumeros(this)" size="5" value="{tad_DifUnitario}" name="{tad_DifUnitario_Name}"></td> 
+              <td class="CobaltDataTD" align="middle" width="50"><input class="CobaltInputSB2" id="tad_CodCompon1" accesskey="c" title="CÓDIGO DE COMPONENTE CARTON (Utilizado por el productor y que se aplicará al liquidar)" style="WIDTH: 63px; HEIGHT: 18px; TEXT-ALIGN: right" onfocus="fValorPrevio(this)" maxlength="7" onblur="fValidacion(this, 'txt_Compon1', true)" size="16" value="{tad_CodCompon1}" name="{tad_CodCompon1_Name}" onkeyup="fKeyUp_Secuencia(event)"><input class="CobaltInputSB" id="txt_Compon1" style="FONT-SIZE: 9px; TEXT-TRANSFORM: uppercase; WIDTH: 90px; COLOR: #9a9a9a; FONT-STYLE: italic; HEIGHT: 11px" tabindex="-1" size="10" value="{txt_Compon1}" name="{txt_Compon1_Name}" title="{txt_Compon1}" readonly></td>
+              <td class="CobaltDataTD" align="middle" width="50"><input class="CobaltInputSB2" id="tad_CodCompon2" accesskey="p" title="CÓDIGO DE COMPONENTE PLASTICO (Utilizado por el productor y que se aplicará al liquidar)" style="WIDTH: 62px; HEIGHT: 18px; TEXT-ALIGN: right" maxlength="5" onblur="fValidacion(this, 'txt_Compon2', true)" size="11" value="{tad_CodCompon2}" name="{tad_CodCompon2_Name}" onkeyup="fKeyUp_Secuencia(event)"><input class="CobaltInputSB" id="txt_Compon2" style="FONT-SIZE: 9px; TEXT-TRANSFORM: uppercase; WIDTH: 90px; COLOR: #9a9a9a; FONT-STYLE: italic; HEIGHT: 11px" tabindex="-1" size="10" value="{txt_Compon2}" name="{txt_Compon2_Name}" title="{txt_Compon2}"></td>
+              <td class="CobaltDataTD" align="middle" width="50"><input class="CobaltInputSB2" id="tad_CodCompon3" accesskey="m" title="CÓDIGO DE COMPONENTE MATERIALES (Utilizado por el productor y que se aplicará al liquidar)" style="WIDTH: 62px; HEIGHT: 18px; TEXT-ALIGN: right" maxlength="7" onblur="fValidacion(this, 'txt_Compon3', true)" size="14" value="{tad_CodCompon3}" name="{tad_CodCompon3_Name}" onkeyup="fKeyUp_Secuencia(event)"><input class="CobaltInputSB" id="txt_Compon3" style="FONT-SIZE: 9px; TEXT-TRANSFORM: uppercase; WIDTH: 90px; COLOR: #9a9a9a; FONT-STYLE: italic; HEIGHT: 11px" tabindex="-1" size="10" value="{txt_Compon3}" name="{txt_Compon3_Name}" title="{txt_Compon3}"></td>
+              <td class="CobaltDataTD" align="middle" width="50"><input class="CobaltInputSB2" id="tad_CodCompon4" accesskey="e" title="CÓDIGO DE COMPONENTE ETIQUETA (Utilizado por el productor y que se aplicará al liquidar)" style="WIDTH: 63px; HEIGHT: 18px; TEXT-ALIGN: right" maxlength="7" onblur="fValidacion(this, 'txt_Compon4', true)" size="15" value="{tad_CodCompon4}" name="{tad_CodCompon4_Name}" onkeyup="fKeyUp_Secuencia(event)"><input class="CobaltInputSB" id="txt_Compon4" style="FONT-SIZE: 9px; TEXT-TRANSFORM: uppercase; WIDTH: 90px; COLOR: #9a9a9a; FONT-STYLE: italic; HEIGHT: 11px" tabindex="-1" size="10" value="{txt_Compon4}" name="{txt_Compon4_Name}" title="{txt_Compon4}"></td>
+              <td class="CobaltDataTD"><input class="CobaltInputSB2" id="tad_Observaciones" style="WIDTH: 69px; HEIGHT: 17px" maxlength="80" size="11" value="{tad_Observaciones}" name="{tad_Observaciones_Name}" onkeyup="fKeyUp_Secuencia(event)">&nbsp; </td>
+              <td class="CobaltDataTD" nowrap>
+                <!-- BEGIN CheckBox CheckBox_Delete --><input class="CobaltInput" title="MARQUE ESTE CASILLERO PARA ELIMINAR EL DETALLE" type="checkbox" value="1" name="{CheckBox_Delete_Name}" {CheckBox_Delete}><!-- END CheckBox CheckBox_Delete -->&nbsp; </td> 
+            </tr>
+ <!-- END Row -->
+            <!-- BEGIN NoRecords -->
+            <tr>
+              <td class="CobaltDataTD" colspan="17">Sin Detalle&nbsp; </td> 
+            </tr>
+ <!-- END NoRecords -->
+            <tr valign="center" align="middle">
+              <td class="CobaltFooterTD" nowrap align="middle" colspan="17">
+                <!-- BEGIN Navigator Navigator1 -->
+                <!-- BEGIN First_On --><a class="CobaltNavigatorLink" href="{First_URL}"><img height="13" src="../Themes/StormyWeather/FirstOn.gif" width="38" border="0"></a> <!-- END First_On -->
+                <!-- BEGIN Prev_On --><a class="CobaltNavigatorLink" href="{Prev_URL}"><img height="13" src="../Themes/StormyWeather/PrevOn.gif" width="38" border="0"></a> <!-- END Prev_On -->&nbsp; 
+                <!-- BEGIN Pages -->
+                <!-- BEGIN Page_On --><a class="CobaltNavigatorLink" href="{Page_URL}">{Page_Number}</a>&nbsp; <!-- END Page_On -->
+                <!-- BEGIN Page_Off -->{Page_Number}&nbsp; <!-- END Page_Off --><!-- END Pages -->de
+                {Total_Pages}&nbsp; 
+                <!-- BEGIN Next_On --><a class="CobaltNavigatorLink" href="{Next_URL}"><img height="13" src="../Themes/StormyWeather/NextOn.gif" width="38" border="0"></a> <!-- END Next_On -->
+                <!-- BEGIN Last_On --><a class="CobaltNavigatorLink" href="{Last_URL}"><img height="13" src="../Themes/StormyWeather/LastOn.gif" width="38" border="0"></a> <!-- END Last_On --><!-- END Navigator Navigator1 -->&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                &nbsp; 
+                <!-- BEGIN Button Button_Submit --><input class="CobaltDataLink" type="submit" {UPD_flag} value="GRABAR" name="{Button_Name}" style="FONT-SIZE: 9px; WIDTH: 60px; HEIGHT: 21px"><!-- END Button Button_Submit -->&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                &nbsp; 
+                <!-- BEGIN Button Cancel --><input class="CobaltDataLink" type="submit" value="CANCELAR" name="{Button_Name}" style="FONT-SIZE: 9px; WIDTH: 60px; HEIGHT: 21px"><!-- END Button Cancel -->&nbsp; </td> 
+            </tr>
+ 
+            <tr style="FONT-SIZE: 9px; LINE-HEIGHT: 14px; BACKGROUND-COLOR: #b0b0d9">
+              <td class="CobaltFooterTD" nowrap colspan="17" style="PADDING-BOTTOM: 2px; PADDING-TOP: 2px"></td> 
+            </tr>
+ 
+          </table>
+ 
+        </form>
+ <!-- END EditableGrid liqtarjadetal --></td> 
+    </tr>
+ 
+  </table>
+ <iframe style="WIDTH: 00; HEIGHT: 00px" name="frValida"></iframe>
+  </body>
+ 
+  </html>

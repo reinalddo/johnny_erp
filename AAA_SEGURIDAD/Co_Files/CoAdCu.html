@@ -1,0 +1,289 @@
+<html>
+<head>
+<base target="PAGINA">
+<link rel="stylesheet" type="text/css" href="../Themes/StormyWeather/Style.css">
+<link rel="stylesheet" type="text/css" href="../Themes/Menu/Style.css">
+<title></title>
+<script language="JavaScript" src="../LibJava/menu_func.js"></script>
+<link rel="stylesheet" type="text/css" href="../Themes/Cobalt/Style.css">
+<script language="JavaScript">
+//Begin CCS script
+//Include JSFunctions @1-5F368366
+  </script>
+  <script language="JavaScript" src="../functions.js"></script>
+  <script language="JavaScript">
+  
+//End Include JSFunctions
+
+//page_CoAdCu_mant_Button_Delete_OnClick @53-64CCC246
+function page_CoAdCu_mant_Button_Delete_OnClick()
+{
+    var result;
+//End page_CoAdCu_mant_Button_Delete_OnClick
+
+//Confirmation Message @54-BED55CD3
+    return confirm('Borrar registro?');
+//End Confirmation Message
+
+//Close page_CoAdCu_mant_Button_Delete_OnClick @53-BC33A33A
+    return result;
+}
+//End Close page_CoAdCu_mant_Button_Delete_OnClick
+
+//bind_events @1-01517003
+function bind_events() {
+    if (document.forms["CoAdCu_mant"]) check_and_bind('document.forms["CoAdCu_mant"].Button_Delete','onclick',page_CoAdCu_mant_Button_Delete_OnClick);
+    forms_onload();
+}
+//End bind_events
+
+window.onload = bind_events; //Assign bind_events @1-19F7B649
+
+//End CCS script
+</script>
+</head>
+<body bgcolor="#fffff7" link="#000000" alink="#ff0000" vlink="#000000" text="#000000"
+class="CobaltPageBODY">
+<p>{Cabecera}
+<table background="../Themes/Cobalt/Light Streaks.bmp" border="1">
+  <tr>
+    <td valign="top">
+      <!-- BEGIN Record CoAdCu_qry -->
+      <form action="{Action}" method="post" name="{HTMLFormName}">
+        <font class="CobaltFormHeaderFont">Buscar Cuentas </font> 
+        <table border="0" cellpadding="3" class="CobaltFormTABLE">
+          <!-- BEGIN Error -->
+          <tr>
+            <td class="CobaltErrorDataTD" colspan="2">{Error}</td> 
+          </tr>
+ <!-- END Error -->
+          <tr>
+            <td class="CobaltFieldCaptionTD" nowrap>Código Cuenta&nbsp;</td> 
+            <td class="CobaltDataTD"><input class="CobaltInput" maxlength="15" name="{s_Cue_CodCuenta_Name}"
+              size="15" value="{s_Cue_CodCuenta}">&nbsp;</td> 
+          </tr>
+ 
+          <tr>
+            <td class="CobaltFieldCaptionTD" nowrap>Cuenta Padre&nbsp;</td> 
+            <td class="CobaltDataTD"><input class="CobaltInput" maxlength="10" name="{s_Cue_Padre_Name}"
+              size="10" value="{s_Cue_Padre}">&nbsp;</td> 
+          </tr>
+ 
+          <tr>
+            <td class="CobaltFieldCaptionTD" nowrap>Descripcion&nbsp;</td> 
+            <td class="CobaltDataTD"><input class="CobaltInput" maxlength="40" name="{s_cue_Descripcion_Name}"
+              size="40" value="{s_cue_Descripcion}">&nbsp;</td> 
+          </tr>
+ 
+          <tr>
+            <td class="CobaltFieldCaptionTD" nowrap>Clase de Cuenta&nbsp;</td> 
+            <td class="CobaltDataTD"><input class="CobaltInput" maxlength="5" name="{s_cue_Clase_Name}"
+              size="5" value="{s_cue_Clase}">&nbsp;</td> 
+          </tr>
+ 
+          <tr>
+            <td class="CobaltFieldCaptionTD" nowrap>Tipo de Auxiliar&nbsp;</td> 
+            <td class="CobaltDataTD"><input class="CobaltInput" maxlength="5" name="{s_cue_TipAuxiliar_Name}"
+              size="5" value="{s_cue_TipAuxiliar}">&nbsp;</td> 
+          </tr>
+ 
+          <tr>
+            <td align="right" class="CobaltFooterTD" colspan="2" nowrap>
+              <!-- BEGIN Button Button_DoSearch --><input class="CobaltButton" name="{Button_Name}"
+              type="submit" value="Buscar"><!-- END Button Button_DoSearch -->&nbsp; 
+              </td> 
+          </tr>
+ 
+        </table>
+ 
+      </form>
+ <!-- END Record CoAdCu_qry -->
+      <!-- BEGIN Grid CoAdCu_list --><font class="CobaltFormHeaderFont">Lista de
+      Cuentas </font> 
+      <table border="0" cellpadding="1" class="CobaltFormTABLE" cellspacing="1">
+        <tr>
+          <td class="CobaltColumnTD" nowrap>&nbsp;</td> 
+          <td class="CobaltColumnTD" nowrap>
+            <!-- BEGIN Sorter Sorter_Cue_CodCuenta --><a class="CobaltSorterLink"
+            href="{Sort_URL}">CUENTA </a> <!-- END Sorter Sorter_Cue_CodCuenta -->
+            &nbsp;</td> 
+          <td class="CobaltColumnTD" nowrap>
+            <!-- BEGIN Sorter Sorter_cue_Descripcion --><a class="CobaltSorterLink"
+            href="{Sort_URL}">DESCRIPCION </a> <!-- END Sorter Sorter_cue_Descripcion -->
+            &nbsp;</td> 
+          <td class="CobaltColumnTD" nowrap>
+            <!-- BEGIN Sorter Sorter_cue_Clase --><a class="CobaltSorterLink" href="{Sort_URL}">
+            CLASE </a> <!-- END Sorter Sorter_cue_Clase -->&nbsp;</td> 
+          <td class="CobaltColumnTD" nowrap>
+            <!-- BEGIN Sorter Sorter_cue_Posicion --><a class="CobaltSorterLink"
+            href="{Sort_URL}">POSICION </a> <!-- END Sorter Sorter_cue_Posicion -->
+            &nbsp;</td> 
+          <td class="CobaltColumnTD" nowrap>
+            <!-- BEGIN Sorter Sorter_cue_Estado --><a class="CobaltSorterLink" href="{Sort_URL}">
+            ESTADO </a> <!-- END Sorter Sorter_cue_Estado -->&nbsp;</td> 
+          <td class="CobaltColumnTD" nowrap>
+            <!-- BEGIN Sorter Sorter_Cue_Padre --><a class="CobaltSorterLink" href="{Sort_URL}">
+            CUENTA PADRE </a> <!-- END Sorter Sorter_Cue_Padre -->&nbsp;</td> 
+        </tr>
+ 
+        <!-- BEGIN Row -->
+        <tr>
+          <td class="CobaltDataTD"><input type="hidden" name="{Cue_ID_Name}" value="{Cue_ID}"
+            style="HEIGHT: 8px; WIDTH: 48px">&nbsp;</td> 
+          <td class="CobaltDataTD"><a class="CobaltDataLink" href="{Cue_CodCuenta_Src}"
+            style="COLOR: #3399cc" target="_self">{Cue_CodCuenta} </a>&nbsp;</td> 
+          <td class="CobaltDataTD">{cue_Descripcion}&nbsp;</td> 
+          <td class="CobaltDataTD">{cue_Clase}&nbsp;</td> 
+          <td class="CobaltDataTD">{cue_Posicion}&nbsp;</td> 
+          <td class="CobaltDataTD"><input type="checkbox" name="{cue_Estado_Name}"
+            value="1" class="CobaltInput" {cue_Estado}>&nbsp;</td> 
+          <td class="CobaltDataTD">{Cue_Padre}&nbsp;&nbsp; </td> 
+        </tr>
+ <!-- END Row -->
+        <!-- BEGIN AltRow -->
+        <tr>
+          <td class="CobaltAltDataTD"><input type="hidden" name="{Alt_Cue_ID_Name}"
+            value="{Alt_Cue_ID}" style="HEIGHT: 6px; WIDTH: 49px">&nbsp;</td> 
+          <td class="CobaltAltDataTD"><a class="CobaltDataLink" href="{Alt_Cue_CodCuenta_Src}"
+            style="COLOR: #3399cc" target="_self">{Alt_Cue_CodCuenta} </a>&nbsp; 
+            </td> 
+          <td class="CobaltAltDataTD">{Alt_cue_Descripcion}&nbsp;</td> 
+          <td class="CobaltAltDataTD">{Alt_cue_Clase}&nbsp;</td> 
+          <td class="CobaltAltDataTD">{Alt_cue_Posicion}&nbsp;</td> 
+          <td class="CobaltAltDataTD"><input type="checkbox" name="{Alt_cue_Estado_Name}"
+            value="1" alt_cue_estado} class="CobaltInput" {>&nbsp;</td> 
+          <td class="CobaltAltDataTD">{Alt_Cue_Padre}&nbsp;&nbsp; </td> 
+        </tr>
+ <!-- END AltRow -->
+        <!-- BEGIN NoRecords -->
+        <tr>
+          <td class="CobaltAltDataTD" colspan="7">No hay registros&nbsp;</td> 
+        </tr>
+ <!-- END NoRecords -->
+        <tr>
+          <td class="CobaltFooterTD" colspan="7" nowrap><a class="CobaltNavigatorLink"
+            href="{concuentas_Insert_Src}">Agregar Nuevo </a>&nbsp; 
+            <!-- BEGIN Navigator Navigator -->
+            <!-- BEGIN Prev_On --><a class="CobaltNavigatorLink" href="{Prev_URL}">
+            <img border="0" src="../Themes/Aqua/PrevOn.gif"></a> <!-- END Prev_On -->
+            <!-- BEGIN Prev_Off --><img border="0" src="../Themes/Aqua/PrevOff.gif">
+            <!-- END Prev_Off -->
+            <!-- BEGIN Next_On --><a class="CobaltNavigatorLink" href="{Next_URL}">
+            <img border="0" src="../Themes/Aqua/NextOn.gif"></a> <!-- END Next_On -->
+            <!-- BEGIN Next_Off --><img border="0" src="../Themes/Aqua/NextOff.gif">
+            <!-- END Next_Off --><!-- END Navigator Navigator -->&nbsp; </td> 
+        </tr>
+ 
+      </table>
+ <!-- END Grid CoAdCu_list --></td> 
+    <td valign="top">
+      <!-- BEGIN Record CoAdCu_mant -->
+      <form action="{Action}" method="post" name="{HTMLFormName}">
+        <font class="CobaltFormHeaderFont">Agregar/Editar Cuentas </font> 
+        <table border="0" cellpadding="3" class="CobaltFormTABLE">
+          <!-- BEGIN Error -->
+          <tr>
+            <td class="CobaltErrorDataTD" colspan="2">{Error}</td> 
+          </tr>
+ <!-- END Error -->
+          <tr>
+            <td class="CobaltFieldCaptionTD" nowrap>Código de Cuenta&nbsp;</td> 
+            <td class="CobaltDataTD"><input class="CobaltInput" maxlength="15" name="{Cue_CodCuenta_Name}"
+              size="15" value="{Cue_CodCuenta}" title="Còdigo Identificador de Cuenta">
+              &nbsp; <input name="{hdCueId_Name}" style="HEIGHT: 14px; WIDTH: 59px"
+              type="hidden" value="{hdCueId}"></td> 
+          </tr>
+ 
+          <tr>
+            <td class="CobaltFieldCaptionTD" nowrap>Cuenta Padre&nbsp;</td> 
+            <td class="CobaltDataTD">
+              <select class="CobaltSelect" name="{Cue_Padre_Name}">
+                <option selected value="">- - - - - - - - - - - - </option>
+ {Cue_Padre_Options} 
+              </select>
+ &nbsp;&nbsp;&nbsp;&nbsp; </td> 
+          </tr>
+ 
+          <tr>
+            <td class="CobaltFieldCaptionTD" nowrap>Descripción&nbsp;</td> 
+            <td class="CobaltDataTD"><input class="CobaltInput" maxlength="40" name="{cue_Descripcion_Name}"
+              size="40" value="{cue_Descripcion}" title="Nombre de la Cuenta">&nbsp; 
+              </td> 
+          </tr>
+ 
+          <tr>
+            <td class="CobaltFieldCaptionTD" nowrap>Clase&nbsp;</td> 
+            <td class="CobaltDataTD">
+              <select class="CobaltSelect" name="{cue_Clase_Name}">
+                <option selected value="">- - - - - - - - - - - - </option>
+ {cue_Clase_Options} 
+              </select>
+ &nbsp;</td> 
+          </tr>
+ 
+          <tr>
+            <td class="CobaltFieldCaptionTD" nowrap>Posicion&nbsp;</td> 
+            <td class="CobaltDataTD"><input class="CobaltInput" maxlength="5" name="{cue_Posicion_Name}"
+              size="5" value="{cue_Posicion}" title="Indicador de estructura de cuenta">
+              &nbsp;</td> 
+          </tr>
+ 
+          <tr>
+            <td class="CobaltFieldCaptionTD" nowrap>Estado&nbsp;</td> 
+            <td class="CobaltDataTD"><input type="checkbox" name="{cue_Estado_Name}"
+              value="1" class="CobaltInput" title="MARCADO: La cuenta està Activa DESMARCADO: La cuenta está Inactiva"
+              {cue_Estado}>&nbsp;</td> 
+          </tr>
+ 
+          <tr>
+            <td class="CobaltFieldCaptionTD" nowrap>Requiere Auxiliar?</td> 
+            <td class="CobaltDataTD"><input type="checkbox" name="{cue_ReqAuxiliar_Name}"
+              value="1" class="CobaltInput" title="Esta cuenta Exije un Auxiliar en cada transacción"
+              {cue_ReqAuxiliar}>&nbsp;&nbsp;TIPO : 
+              <select class="CobaltSelect" name="{cue_TipAuxiliar_Name}">
+                <option selected value="">- - - - - - - - - - - - </option>
+ {cue_TipAuxiliar_Options} 
+              </select>
+ </td> 
+          </tr>
+ 
+          <tr>
+            <td class="CobaltFieldCaptionTD" nowrap>Req. Ref. Operativa?</td> 
+            <td class="CobaltDataTD"><input type="checkbox" name="{cue_ReqRefOperat_Name}"
+              value="1" class="CobaltInput" title="Las Transacciones de esta cuenta exijen una Ref. Operativa"
+              {cue_ReqRefOperat}>&nbsp;</td> 
+          </tr>
+ 
+          <tr>
+            <td class="CobaltFieldCaptionTD" nowrap>Acepta Movimientos?</td> 
+            <td class="CobaltDataTD"><input class="CobaltInput" name="{cue_TipMovim_Name}"
+              type="checkbox" value="1" {cue_TipMovim}></td> 
+          </tr>
+ 
+          <tr>
+            <td align="right" class="CobaltFooterTD" colspan="2" nowrap>
+              <!-- BEGIN Button Button_Insert --><input class="CobaltButton" name="{Button_Name}"
+              type="submit" value="Agregar"><!-- END Button Button_Insert -->
+              <!-- BEGIN Button Button_Update --><input class="CobaltButton" name="{Button_Name}"
+              type="submit" value="Enviar"><!-- END Button Button_Update -->
+              <!-- BEGIN Button Button_Delete --><input class="CobaltButton" name="{Button_Name}"
+              type="submit" value="Borrar"><!-- END Button Button_Delete -->
+              <!-- BEGIN Button Button_Cancel --><input class="CobaltButton" name="{Button_Name}"
+              type="submit" value="Cancelar"><!-- END Button Button_Cancel -->&nbsp; 
+              </td> 
+          </tr>
+ 
+        </table>
+ 
+      </form>
+ <!-- END Record CoAdCu_mant -->&nbsp;</td> 
+  </tr>
+ 
+  <tr>
+    <td>&nbsp;</td> 
+    <td>&nbsp;</td> 
+  </tr>
+</table>
+ </p>
+</body>
+</html>

@@ -1,0 +1,545 @@
+*{
+	border:0; 
+	margin:0;
+}
+BODY
+{
+	font-family: Tahoma, Verdana, Arial, Helvetica; 
+	font-size: 11px;
+}
+TABLE
+{
+	font-family: Tahoma, Verdana, Arial, Helvetica; 
+	font-size: 11px; 
+	border-top-style: none; 
+	border-right-style: none; 
+	border-bottom-style: none; 
+	border-left-style: none;
+	border-collapse: collapse;
+	border:0;
+	border-color:white;
+}
+INPUT
+{
+	border-bottom: 1px solid #CCCCCC; 
+	border-left: 1px solid #CCCCCC; 
+	border-right: 1px solid #CCCCCC; 
+	border-top: 1px solid #CCCCCC; 
+	background-color: transparent; 
+}
+FORM {
+	margin: 0;
+	border: 0;
+}
+TH
+{
+	font-family: Tahoma, Verdana, Arial, Helvetica; 
+	font-size: 11px;
+}
+TR
+{
+	font-family: Tahoma, Verdana, Arial, Helvetica; 
+	font-size: 11px;
+}
+TD
+{
+	font-family: Tahoma, Verdana, Arial, Helvetica; 
+	font-size: 11px;
+}
+UL
+{
+	font-family: Tahoma, Verdana, Arial, Helvetica; 
+	font-size: 11px;
+}
+OL
+{
+	font-family: Tahoma, Verdana, Arial, Helvetica; 
+	font-size: 11px;
+}
+LI
+{
+	font-family: Tahoma, Verdana, Arial, Helvetica; 
+	font-size: 11px;
+}
+P
+{
+	font-family: Tahoma, Verdana, Arial, Helvetica; 
+	font-size: 11px;
+}
+FONT
+{
+	font-family: Tahoma, Verdana, Arial, Helvetica; 
+	font-size: 11px;
+}
+A
+{
+	font-family: Tahoma, Verdana, Arial, Helvetica; 
+	font-size: 11px;
+}
+BLOCKQUOTE
+{
+	font-family: Tahoma, Verdana, Arial, Helvetica; 
+	font-size: 11px;
+}
+LABEL
+{
+	font-family: Tahoma, Verdana, Arial, Helvetica; 
+	font-size: 11px;
+}
+BUTTON
+{
+	font-family: Tahoma, Verdana, Arial, Helvetica; 
+	font-size: 9px;
+	font-weight: bold; 
+	width: 70px; 
+	height: 19px;
+	color: #ffffff; 
+}
+.CobaltPageBODY
+{
+	color: #000000; 
+	font-family: Helvetica, Tahoma, Verdana, Arial; 
+	font-size: 11px;
+}
+.CobaltFormHeaderFont
+{
+	color: #546785; 
+	font-size: 14px; 
+	font-weight: normal;
+}
+.CobaltFormTABLE
+{
+	font-family: Tahoma, Verdana, Arial, Helvetica; 
+	font-size: 11px;
+}
+.CobaltColumnTD
+{
+	border-bottom: 1px solid #003451; 
+	border-left: 1px solid #5AA4CC; 
+	border-right: 1px solid #003451; 
+	border-top: 1px solid #5AA4CC; 
+	background-color: rgb(123,158,173); 
+	color: #ffffff; 
+	font-weight: normal; 
+	font-size: 11px; 
+	border-right-color: #82969F; 
+	border-bottom-color: #82969F; 
+	border-top-color: #CEDFDF; 
+	border-left-color: #CEDFDF;
+}
+.CobaltFieldCaptionTD
+{
+	border-bottom: 1px solid #003451; 
+	border-left: 1px solid #5AA4CC; 
+	border-right: 1px solid #003451; 
+	border-top: 1px solid #5AA4CC; 
+	background-color: rgb(123,158,173); 
+	color: #ffffff; 
+	font-weight: bold; 
+	font-size: 10px; 
+	text-transform: uppercase;
+	border-right-color: #82969F;
+	border-bottom-color: #82969F;
+	border-left-color: #CEDFDF; 
+	border-top-color: #CEDFDF;
+	padding: 2px;
+}
+.CobaltDataTD
+{
+	background-color: #F2EEE0; 
+	font-size: 11px;
+}
+.CobaltErrorDataTD
+{
+	background-color: #F2EEE0; 
+	color: #FF0000; 
+	font-size: 11px; 
+	font-weight: bold;
+}
+.CobaltSeparatorTD
+{
+	height: 1px; 
+	background-color: #546785;
+}
+.CobaltAltDataTD
+{
+	background-color: #FFFFF7; 
+	font-size: 11px;
+}
+.CobaltFooterTD
+{
+	border-bottom: 1px solid #003451; 
+	border-left: 1px solid #5AA4CC; 
+	border-right: 1px solid #003451; 
+	border-top: 1px solid #5AA4CC; 
+	background-color: rgb(123,158,173); 
+	color: #ffffff; 
+	font-weight: normal; 
+	font-size: 10px; 
+	border-top-color: #CEDFDF; 
+	border-right-color: #82969F; 
+	border-bottom-color: #82969F; 
+	border-left-color: #CEDFDF;
+}
+a.CobaltSorterLink:link
+{
+	color: #FFFFFF; 
+	text-decoration: underline; 
+	font-size: 11px;
+}
+a.CobaltSorterLink:visited
+{
+	color: #FFFFFF; 
+	text-decoration: underline; 
+	font-size: 11px;
+}
+a.CobaltSorterLink:hover
+{
+	color: #FFFFFF; 
+	text-decoration: none; 
+	font-size: 11px;
+}
+a.CobaltSorterLink:active
+{
+	color: #FFFFFF; 
+	text-decoration: none; 
+	font-size: 11px;
+}
+a.CobaltDataLink:link
+{
+	color: #000000; 
+	text-decoration: underline;
+}
+a.CobaltDataLink:visited
+{
+	color: #000000; 
+	text-decoration: underline;
+}
+a.CobaltDataLink:hover
+{
+	color: #FF0000; 
+	text-decoration: none;
+}
+a.CobaltDataLink:active
+{
+	color: #FF0000; 
+	text-decoration: none;
+}
+a.CobaltNavigatorLink:link
+{
+	color: #FFFFFF; 
+	text-decoration: underline;
+}
+a.CobaltNavigatorLink:visited
+{
+	color: #FFFFFF; 
+	text-decoration: underline;
+}
+a.CobaltNavigatorLink:hover
+{
+	color: #40E0D0; 
+	text-decoration: none;
+}
+a.CobaltNavigatorLink:active
+{
+	color: #40E0D0; 
+	text-decoration: none;
+}
+.CobaltButtonOld
+{
+	border-bottom: 1px solid #003451; 
+	border-left: 1px solid #5AA4CC; 
+	border-right: 1px solid #003451; 
+	border-top: 1px solid #5AA4CC; 
+	background-color: rgb(123,158,173); 
+	color: #ffffff; 
+	font-family: Tahoma, Arial, Verdana, Helvetica; 
+	font-size: 10px; 
+	font-weight: normal; 
+	border-top-color: #CEDFDF; 
+	border-right-color: #82969F; 
+	border-bottom-color: #82969F; 
+	border-left-color: #CEDFDF;
+}
+.CobaltButton
+{
+	font-family: Tahoma, Verdana, Arial, Helvetica; 
+	font-size: 9px;
+	font-weight: bold; 
+	color: white;
+	width: 70px; 
+	height: 20px;
+}
+.CobaltInput
+{
+	border-bottom: 1px solid #CCCCCC; 
+	border-left: 1px solid #CCCCCC; 
+	border-right: 1px solid #CCCCCC; 
+	border-top: 1px solid #CCCCCC; 
+	font-family: Tahoma, Arial, Verdana, Helvetica; 
+	font-size: 11px;
+}
+.CobaltInputSB
+{
+	border-bottom: 0px solid#336699; 
+	border-left: 0px solid#336699; 
+	border-right: 0px solid#336699; 
+	border-top: 0px solid#336699; 
+	font-family: Tahoma, Arial, Verdana, Helvetica; 
+	font-size: 11px;
+}
+.CobaltInputSB3
+{
+	border-bottom: 1px none#336699; 
+	font-family: Tahoma, Arial, Verdana, Helvetica; 
+	font-size: 11px; 
+	border-top-color: #F2EEE0; 
+	border-top-style: none; 
+	border-right-color: #F2EEE0; 
+	border-right-style: none; 
+	border-bottom-color: #F2EEE0; 
+	border-bottom-style: none; 
+	border-left-color: #F2EEE0; 
+	border-left-style: none; 
+	float: none;
+}
+.CobaltInputSB2
+{
+	border-bottom: 1px solid #CCCCCC; 
+	border-left: 1px solid #CCCCCC; 
+	border-right: 1px solid #CCCCCC; 
+	border-top: 1px solid #CCCCCC; 
+	font-size: 11px;
+}
+.CobaltNum
+{
+	border-bottom: 1px solid #CCCCCC; 
+	border-left: 1px solid #CCCCCC; 
+	border-right: 1px solid #CCCCCC; 
+	border-top: 1px solid #CCCCCC; 
+	font-size: 11px; 
+	text-align: right;
+}
+.AltCobaltInputSB
+{
+	border-bottom: 0px solid#336699; 
+	border-left: 0px solid#336699; 
+	border-right: 0px solid#336699; 
+	border-top: 0px solid#336699; 
+	font-family: Tahoma, Arial, Verdana, Helvetica; 
+	font-size: 11px;
+}
+.AltCobaltInputSB3
+{
+	border-bottom: 1px none#336699; 
+
+	font-family: Tahoma, Arial, Verdana, Helvetica; 
+	font-size: 11px; 
+	border-top-color: #FFFFF7; 
+	border-top-style: none; 
+	border-right-color: #FFFFF7; 
+	border-right-style: none; 
+	border-bottom-color: #FFFFF7; 
+	border-bottom-style: none; 
+	border-left-color: #FFFFF7; 
+	border-left-style: none; 
+	float: none;
+}
+.AltCobaltInputSB2
+{
+	border-bottom: 1px solid #CCCCCC; 
+	border-left: 1px solid #CCCCCC; 
+	border-right: 1px solid #CCCCCC; 
+	border-top: 1px solid #CCCCCC; 
+	font-size: 11px;
+}
+.AltCobaltNum
+{
+	border-bottom: 1px solid #CCCCCC; 
+	border-left: 1px solid #CCCCCC; 
+	border-right: 1px solid #CCCCCC; 
+	border-top: 1px solid #CCCCCC; 
+	font-size: 11px; 
+	text-align: right;
+}
+.CobaltTextarea
+{
+	border-bottom: 1px solid#336699; 
+	border-left: 1px solid#336699; 
+	border-right: 1px solid#336699; 
+	border-top: 1px solid#336699; 
+	font-family: Tahoma, Arial, Verdana, Helvetica; 
+	font-size: 11px;
+}
+.CobaltSelect
+{
+	font-family: Tahoma, Arial, Verdana, Helvetica; 
+	font-size: 9px; 
+	border-top-width: thin; 
+	border-bottom-width: thin; 
+	border-right-width: thin; 
+	border-left-width: thin; 
+	border-top-color: #00659c; 
+	border-bottom-color: #00659c; 
+	border-right-color: #00659c;
+	BORDER-LEFT-COLOR: #00659c;
+	height: 18px;
+}
+a.today:link
+{
+	color: #FF0000; 
+	font-weight: bold; 
+	text-decoration: none;
+}
+a.today:visited
+{
+	color: #FF0000; 
+	font-weight: bold; 
+	text-decoration: none;
+}
+a.today:hover
+{
+	color: #336699; 
+	font-weight: bold; 
+	text-decoration: none;
+}
+a.today:active
+{
+	color: #336699; 
+	font-weight: bold; 
+	text-decoration: none;
+}
+a.selectedDay:link
+{
+	color: #FFFFFF; 
+	font-weight: bold; 
+	text-decoration: none;
+}
+a.selectedDay:visited
+{
+	color: #FFFFFF; 
+	font-weight: bold; 
+	text-decoration: none;
+}
+a.selectedDay:hover
+{
+	color: #FF0000; 
+	font-weight: bold; 
+	text-decoration: none;
+}
+a.selectedDay:active
+{
+	color: #FF0000; 
+	font-weight: bold; 
+	text-decoration: none;
+}
+a.weekDay:link
+{
+	color: #000000; 
+	text-decoration: none;
+}
+a.weekDay:visited
+{
+	color: #000000; 
+	text-decoration: none;
+}
+a.weekDay:hover
+{
+	color: #FF0000; 
+	text-decoration: none;
+}
+a.weekDay:active
+{
+	color: #FF0000; 
+	text-decoration: none;
+}
+TD.selectedDay
+{
+	margin: 1px; 
+	border-bottom: 1px solid #003451; 
+	border-left: 1px solid #5AA4CC; 
+	border-right: 1px solid #003451; 
+	border-top: 1px solid #5AA4CC; 
+	background-color: rgb(123,158,173); 
+	color: #546785; 
+	font-weight: bold; 
+	font-size: 11px; 
+	border-top-color: #CEDFDF; 
+	border-right-color: #82969F; 
+	border-left-color: #CEDFDF; 
+	border-bottom-color: #82969F;
+}
+TD.today
+{
+	border-top: 1px solid #FF0000; 
+	border-left: 1px solid #FF0000; 
+	border-bottom: 1px solid #FF0000; 
+	border-right: 1px solid #FF0000; 
+	background-color: #FFFFF7; 
+	font-size: 11px;
+}
+TD.workday
+{
+	background-color: #FFFFF7; 
+	font-size: 11px;
+}
+TD.weekend
+{
+	background-color: #EEEADB; 
+	font-size: 11px;
+}
+TH.calendar
+{
+	margin: 1px; 
+	border-bottom: 1px solid #003451; 
+	border-left: 1px solid #5AA4CC; 
+	border-right: 1px solid #003451; 
+	border-top: 1px solid #5AA4CC; 
+	background-color: rgb(123,158,173); 
+	color: #546785; 
+	font-weight: bold; 
+	font-size: 11px; 
+	border-top-color: #CEDFDF; 
+	border-right-color: #82969F; 
+	border-bottom-color: #82969F; 
+	border-left-color: #CEDFDF;
+}
+.CalendarButtons
+{
+	border-bottom: 1px solid #003451; 
+	border-left: 1px solid #5AA4CC; 
+	border-right: 1px solid #003451; 
+	border-top: 1px solid #5AA4CC; 
+	background-color: rgb(123,158,173); 
+	color: #FFFFFF; 
+	font-family: Tahoma, Arial, Verdana, Helvetica; 
+	font-size: 11px; 
+	font-weight: bold; 
+	border-top-color: #CEDFDF; 
+	border-right-color: #82969F; 
+	border-bottom-color: #82969F; 
+	border-left-color: #CEDFDF;
+}
+.CalendarControls
+{
+	font-family: Arial, Tahoma, Verdana, Helvetica; 
+	font-size: 11px;
+}
+.Table
+{
+	background-color: #DEDBDE;
+}
+.normalbox      
+{
+	border: 1px solid #440000;
+	margin: 8px;
+	padding: 5px;
+	background-color: #fffff7 ;
+}
+.spantitle     
+{
+	color: #440000;
+	margin: 0px;
+	padding: 0px;
+	background-color: #fffff7 ;
+}

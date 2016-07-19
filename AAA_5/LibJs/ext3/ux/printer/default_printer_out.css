@@ -1,0 +1,60 @@
+@charset "utf-8";
+/* CSS Document */
+body {
+	margin-top: 0.5cm;
+	margin-right: 0.5cm;
+	margin-bottom: 1cm;
+	margin-left: 0.5cm;
+	padding: 2px;
+}
+.printer_controls {
+	display: none;
+}
+.x-toolbar { display: none;}
+.x-toolbar .x-small-editor{ display: none;}
+.printer .title{
+	font-family: Helvetica;
+	font-size: 13px;
+	font-weight: bold;
+	/*background-color:#00CC99;*/
+}
+.printer .subtitle{
+	font-family: Helvetica, sans-serif;
+	font-size: 8px;
+	padding: 3px;
+}
+.printer .date{
+	font-family: Helvetica; /*Verdana, Arial, Helvetica, sans-serif;*/
+	font-size: 6px;
+	color: #333333;
+	text-align: right;
+}
+.printer .header{
+	background-color: #CCCCCC;
+	font-family: Helvetica, sans-serif;
+	font-size: 8px;
+	font-weight: bold;
+	text-align: center;
+	padding-top: 5px;
+}
+.printer .values{
+	font-family: Helvetica, sans-serif;
+	font-size: 10px;	
+}
+.printer .footer {
+	font-family: Helvetica, sans-serif;
+	font-size: 7px;
+}
+#cntrptdata{
+}
+#cntrptdata ol{
+	list-style-position: inside;
+	list-style-type: decimal;
+	text-indent: 10px;
+}
+
+#cntrptdata ul{
+	list-style-type: disc;
+	list-style-position: inside;
+	text-indent: 15px;
+}

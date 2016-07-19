@@ -1,0 +1,240 @@
+<html>
+<head>
+<base target="_self">
+<link rel="stylesheet" type="text/css" href="../Themes/Cobalt/Style.css">
+<link rel="stylesheet" type="text/css" href="../Themes/Menu/Style.css">
+<title>LIQUIDACIONES: MANTENIMIENTO</title>
+ 
+<script language="JavaScript" src="../LibJava/browser_detect.js"></script>
+<script language="JavaScript" src="../LibJava/general.js"></script>
+<script language="JavaScript">
+//Begin CCS script
+/*
+*		Funcion generica para abrir una ventana que presenta el detalle de un rubro, basado en
+*		paràmetros del rubro y datos de la liquidacion
+*
+*/
+function fAbrirDetalle(pPagAux, pNumLiq, pCodCuen)
+{
+	slHref= pPagAux + "?com_NumComp="+ pNumLiq;
+	switch (pPagAux) {
+		case "../Co_Files/CoTrTr_movim.php":
+			 slHref += "&s_det_CodCuenta=" + pCodCuen +   "&action=L" +
+			 "&s_det_IDAuxiliar=" +  document.liqcabec.com_CodReceptor.value;
+			 break;
+		case "../In_Files/InTrTr_cabe.php":
+			 slHref += "&pTipoComp=LI&com_RegNumero=" + document.liqcabec.inv_RegNumero.value;
+			 fAbrirWin(slHref,'WinAux',' ', 1000,600);
+			 break;
+		case "../In_Files/InTrTr_Cabe.php":
+			 slHref += "&pTipoComp=LI&com_RegNumero=" + document.liqcabec.inv_RegNumero.value;
+			 fAbrirWin(slHref,'WinAux',' ', 1000,600);
+			 break;
+		case "../Li_Files/LiLiLi_auxi.php":
+			 slHref += "&liq_NumLiquida=" + pNumLiq;
+			 break;
+		default:
+			alert (" ESTE RUBRO NO TIENE PAGINA AUXILIAR");
+			return false;
+	}
+	fAbrirWin(slHref,'WinAux',' ', 900, 450);
+}
+//Include JSFunctions @1-5F368366
+  </script>
+<script language="JavaScript" src="../functions.js"></script>
+<script language="JavaScript">
+  
+//End Include JSFunctions
+
+//page_liqdetalle_Button_Submit_OnClick @23-F319E17C
+function page_liqdetalle_Button_Submit_OnClick()
+{
+    var result;
+//End page_liqdetalle_Button_Submit_OnClick
+
+//Confirmation Message @24-96FAE8C2
+    return confirm('Enviar registro?');
+//End Confirmation Message
+
+//Close page_liqdetalle_Button_Submit_OnClick @23-BC33A33A
+    return result;
+}
+//End Close page_liqdetalle_Button_Submit_OnClick
+
+//page_liqdetalle_btMantto1_OnClick @85-D815DB43
+function page_liqdetalle_btMantto1_OnClick()
+{
+    disableValidation = true;
+}
+//End page_liqdetalle_btMantto1_OnClick
+
+//page_liqdetalle_Cancel_OnClick @25-54218BC4
+function page_liqdetalle_Cancel_OnClick()
+{
+    disableValidation = true;
+}
+//End page_liqdetalle_Cancel_OnClick
+
+//bind_events @1-99D7BF2F
+function bind_events() {
+    if (document.forms["liqdetalle"]) check_and_bind('document.forms["liqdetalle"].Button_Submit','onclick',page_liqdetalle_Button_Submit_OnClick);
+    if (document.forms["liqdetalle"]) check_and_bind('document.forms["liqdetalle"].btMantto1','onclick',page_liqdetalle_btMantto1_OnClick);
+    if (document.forms["liqdetalle"]) check_and_bind('document.forms["liqdetalle"].Cancel','onclick',page_liqdetalle_Cancel_OnClick);
+    forms_onload();
+}
+//End bind_events
+
+window.onload = bind_events; //Assign bind_events @1-19F7B649
+
+//End CCS script
+</script>
+</head>
+ 
+<body bgcolor="#fffff7" link="#000000" alink="#ff0000" vlink="#000000" text="#000000" class="CobaltPageBODY" style="PADDING-RIGHT: 0px; PADDING-LEFT: 0px; PADDING-BOTTOM: 0px; PADDING-TOP: 0px; magin: 0; spacing: 0" bottommargin="0" nowrap leftmargin="0" rightmargin="0" marginwidth="0" marginheight="0" topmargin="0">
+{Cabecera} 
+<table background="../Themes/Cobalt/Light Streaks.bmp" border="0" width="100%" class="CobaltPageBODY" align="center" cellspacing="0" cellpadding="0" style?border:0; margin:0? border-collapse:collapse>
+  <tr>
+    <td valign="top" align="middle">
+      <!-- BEGIN Grid liqcabece -->
+      <form name="liqcabec" style="MARGIN: 0px">
+        <table class="CobaltFormTABLE" cellpadding="3" border="1" style="MARGIN: 0px; BORDER-COLLAPSE: collapse" cellspacing="1">
+          <tr align="middle">
+            <td class="CobaltColumnTD" nowrap>LIQUIDACION </td> 
+            <td class="CobaltColumnTD" nowrap>FECHA </td> 
+            <td class="CobaltColumnTD" nowrap>PRODUCTOR </td>
+            <!-- BEGIN Row -->
+            <tr>
+              <td class="CobaltDataTD"><strong><input style="WIDTH:  28px;  HEIGHT:  19px" disabled size="2" value="{inv_RegNumero}" name="{inv_RegNumero_Name}" readonly type="hidden">{Label1}&nbsp;<input name="{com_NumComp_Name}" value="{com_NumComp}" maxlength="10" size="6" class="CobaltInputSB3" style="FONT-WEIGHT: bold; WIDTH: 59px; HEIGHT: 15px"></strong>&nbsp; <input class="CobaltInputSB" style="WIDTH: 54px; HEIGHT: 17px" disabled maxlength="10" size="7" value="{com_RegNumero}" name="{com_RegNumero_Name}"></td> 
+              <td class="CobaltDataTD">{com_FecContab}&nbsp; </td> 
+              <td class="CobaltDataTD"><input name="{com_CodReceptor_Name}" value="{com_CodReceptor}" maxlength="10" size="7" class="CobaltInputSB" readonly style="WIDTH: 53px; HEIGHT: 15px">&nbsp;{per_Apellidos}&nbsp;{per_Nombres} </td> 
+            </tr>
+ 
+            <tr>
+              <td class="CobaltDataTD" colspan="3">{com_Concepto} </td> 
+            </tr>
+            <!-- END Row -->
+            <!-- BEGIN NoRecords -->
+            <tr>
+              <td class="CobaltDataTD" colspan="3">NO EXISTE O HA SIDO ELIMINADA
+                ESA LIQUIDACION !!!&nbsp; {lbl_NumLiquida} </td> 
+            </tr>
+            <!-- END NoRecords -->
+          </table>
+ 
+        </form>
+ <!-- END Grid liqcabece --></td> 
+    </tr>
+ 
+    <tr>
+      <td align="middle" valign="top">&nbsp; 
+        <!-- BEGIN EditableGrid liqdetalle -->
+        <form name="{HTMLFormName}" action="{Action}" method="post" style="MARGIN: 0px">
+          <font class="CobaltFormHeaderFont"></font> <input type="hidden" value="{FormState}" name="FormState" style="WIDTH: 21px; HEIGHT: 4px" size="2">{FormScript} 
+          <table class="CobaltFormTABLE" cellspacing="1" cellpadding="0" border="0" style="MARGIN: 0px; BORDER-COLLAPSE: collapse">
+            <!-- BEGIN Error -->
+            <tr>
+              <td class="CobaltErrorDataTD" colspan="9">{Error} </td> 
+            </tr>
+            <!-- END Error -->
+            <tr style="PADDING-BOTTOM: 2px; PADDING-TOP: 2px" align="middle">
+              <td class="CobaltColumnTD" nowrap></td> 
+              <td class="CobaltColumnTD" nowrap>
+                <!-- BEGIN Sorter Sorter_liq_Secuencia --><a class="CobaltSorterLink" href="{Sort_URL}">Sec</a> 
+                <!-- BEGIN Asc_On --><img height="9" src="../Themes/Cobalt/AscOn.gif" width="13" border="0"><!-- END Asc_On -->
+                <!-- BEGIN Desc_On --><img height="9" src="../Themes/Cobalt/DescOn.gif" width="13" border="0"><!-- END Desc_On --><!-- END Sorter Sorter_liq_Secuencia -->&nbsp; </td> 
+              <td class="CobaltColumnTD" nowrap>
+                <!-- BEGIN Sorter Sorter_liq_CodRubro --><a class="CobaltSorterLink" href="{Sort_URL}">RUBRO</a> 
+                <!-- BEGIN Asc_On --><img height="9" src="../Themes/Cobalt/AscOn.gif" width="13" border="0"><!-- END Asc_On -->
+                <!-- BEGIN Desc_On --><img height="9" src="../Themes/Cobalt/DescOn.gif" width="13" border="0"><!-- END Desc_On --><!-- END Sorter Sorter_liq_CodRubro -->&nbsp; </td> 
+              <td class="CobaltColumnTD" nowrap>
+                <!-- BEGIN Sorter Sorter_liq_Descripcion --><a class="CobaltSorterLink" href="{Sort_URL}">DESCRIPCION</a> 
+                <!-- BEGIN Asc_On --><img height="9" src="../Themes/Cobalt/AscOn.gif" width="13" border="0"><!-- END Asc_On -->
+                <!-- BEGIN Desc_On --><img height="9" src="../Themes/Cobalt/DescOn.gif" width="13" border="0"><!-- END Desc_On --><!-- END Sorter Sorter_liq_Descripcion -->&nbsp; </td> 
+              <td class="CobaltColumnTD" nowrap>
+                <!-- BEGIN Sorter Sorter_liq_Cantidad --><a class="CobaltSorterLink" href="{Sort_URL}">CANTIDAD</a> 
+                <!-- BEGIN Asc_On --><img height="9" src="../Themes/Cobalt/AscOn.gif" width="13" border="0"><!-- END Asc_On -->
+                <!-- BEGIN Desc_On --><img height="9" src="../Themes/Cobalt/DescOn.gif" width="13" border="0"><!-- END Desc_On --><!-- END Sorter Sorter_liq_Cantidad -->&nbsp; </td> 
+              <td class="CobaltColumnTD" nowrap>
+                <!-- BEGIN Sorter Sorter_liq_ValUnitario --><a class="CobaltSorterLink" href="{Sort_URL}">VAL.
+                UNIT.</a> 
+                <!-- BEGIN Asc_On --><img height="9" src="../Themes/Cobalt/AscOn.gif" width="13" border="0"><!-- END Asc_On -->
+                <!-- BEGIN Desc_On --><img height="9" src="../Themes/Cobalt/DescOn.gif" width="13" border="0"><!-- END Desc_On --><!-- END Sorter Sorter_liq_ValUnitario -->&nbsp; </td> 
+              <td class="CobaltColumnTD" nowrap>
+                <!-- BEGIN Sorter Sorter_liq_ValTotal --><a class="CobaltSorterLink" href="{Sort_URL}">VALOR</a> 
+                <!-- BEGIN Asc_On --><img height="9" src="../Themes/Cobalt/AscOn.gif" width="13" border="0"><!-- END Asc_On -->
+                <!-- BEGIN Desc_On --><img height="9" src="../Themes/Cobalt/DescOn.gif" width="13" border="0"><!-- END Desc_On --><!-- END Sorter Sorter_liq_ValTotal -->&nbsp; </td> 
+              <td class="CobaltColumnTD" nowrap>&nbsp; </td> 
+              <td class="CobaltColumnTD" nowrap>Borrar &nbsp; </td> 
+            </tr>
+            <!-- BEGIN Row -->
+            <!-- BEGIN RowError -->
+            <tr>
+              <td class="CobaltErrorDataTD" colspan="9">{Error} </td> 
+            </tr>
+            <!-- END RowError -->
+            <tr>
+              <td class="CobaltDataTD"></td> 
+              <td class="CobaltDataTD"><input class="CobaltInputSB2" style="WIDTH: 17px; HEIGHT: 14px" type="hidden" size="1" value="{liq_NumProceso}" name="{liq_NumProceso_Name}"><input style="WIDTH:  16px;  HEIGHT:  15px" type="hidden" size="2" value="{liq_Numliquida}" name="{liq_Numliquida_Name}"><input type="hidden" name="{liq_Secuencia_Name}" value="{liq_Secuencia}" style="WIDTH: 40px; HEIGHT: 14px" size="5"><input style="WIDTH:  19px;  HEIGHT:  14px" type="hidden" size="2" value="{liq_RefOperativa}" name="{liq_RefOperativa_Name}"><input type="hidden" name="{liq_Clase_Name}" value="{liq_Clase}" style="WIDTH: 26px; HEIGHT: 11px" size="3"><input style="WIDTH:  24px;  HEIGHT:  12px" type="hidden" size="3" value="{rub_CtaOrigen}" name="{rub_CtaOrigen_Name}"><input style="WIDTH:  24px;  HEIGHT:  12px" type="hidden" size="3" value="{rub_PagAuxiliar}" name="{rub_PagAuxiliar_Name}">
+                <!-- BEGIN Button btMantto1 --><input class="CobaltLink" title="Abre un apantalla para Añadir una Tarja" style="FONT-SIZE: 9px; WIDTH: 40px; HEIGHT: 18px" type="button" size="8" value="{liq_Secuencia}" name="{Button_Name}" onclick="fAbrirDetalle('{rub_PagAuxiliar}', '{liq_Numliquida}', '{rub_CtaOrigen}')"><!-- END Button btMantto1 --></td> 
+              <td class="CobaltDataTD">
+                <select class="CobaltInputSB2" name="{liq_CodRubro_Name}">
+                  <option value="" selected>-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;-&nbsp;</option>
+ {liq_CodRubro_Options} 
+                </select>
+ &nbsp; </td> 
+              <td class="CobaltDataTD"><input class="CobaltInputSB2" style="WIDTH: 161px; HEIGHT: 17px" maxlength="25" size="27" value="{liq_Descripcion}" name="{liq_Descripcion_Name}">&nbsp; </td> 
+              <td class="CobaltDataTD" align="right"><input class="CobaltNum" style="WIDTH: 48px; HEIGHT: 17px; TEXT-ALIGN: right" maxlength="12" size="6" value="{liq_Cantidad}" name="{liq_Cantidad_Name}">&nbsp; </td> 
+              <td class="CobaltDataTD" align="right"><input class="CobaltNum" maxlength="12" size="6" value="{liq_ValUnitario}" name="{liq_ValUnitario_Name}" style="WIDTH: 48px; HEIGHT: 18px; TEXT-ALIGN: right">&nbsp; </td> 
+              <td class="CobaltDataTD" align="right"><input class="CobaltNum" maxlength="12" size="7" value="{liq_ValTotal}" name="{liq_ValTotal_Name}" style="WIDTH: 59px; HEIGHT: 18px; TEXT-ALIGN: right">&nbsp; </td> 
+              <td class="CobaltDataTD"><input class="CobaltInputSB2" style="WIDTH: 55px; HEIGHT: 18px" type="hidden" size="7" value="{liq_EsGenerado}" name="{liq_EsGenerado_Name}">&nbsp; </td> 
+              <td class="CobaltDataTD">
+                <!-- BEGIN CheckBox CheckBox_Delete --><input class="CobaltInputSB2" type="checkbox" value="1" name="{CheckBox_Delete_Name}" {CheckBox_Delete}><!-- END CheckBox CheckBox_Delete -->&nbsp; </td> 
+            </tr>
+            <!-- END Row -->
+            <tr>
+              <td class="CobaltDataTD"></td> 
+              <td class="CobaltDataTD"></td> 
+              <td class="CobaltDataTD"></td> 
+              <td class="CobaltDataTD"></td> 
+              <td class="CobaltDataTD" align="right"></td> 
+              <td class="CobaltDataTD" align="right"></td> 
+              <td class="CobaltDataTD" align="right"><input class="CobaltNum" style="WIDTH: 59px; HEIGHT: 18px; TEXT-ALIGN: right" maxlength="12" size="7" value="{tmp_Total}" name="{tmp_Total_Name}">&nbsp;</td> 
+              <td class="CobaltDataTD"></td> 
+              <td class="CobaltDataTD"></td> 
+            </tr>
+            <!-- BEGIN NoRecords -->
+            <tr>
+              <td class="CobaltDataTD" colspan="9">No hay registros&nbsp; </td> 
+            </tr>
+            <!-- END NoRecords -->
+            <tr>
+              <td class="CobaltFooterTD" nowrap align="middle" colspan="9"></td> 
+            </tr>
+ 
+            <tr>
+              <td class="CobaltFooterTD" nowrap align="middle" colspan="9">
+                <!-- BEGIN Navigator Navigator -->
+                <!-- BEGIN First_On --><a class="CobaltNavigatorLink" href="{First_URL}"><img height="14" src="../Themes/Aqua/FirstOn.gif" width="24" border="0"></a> <!-- END First_On -->
+                <!-- BEGIN Prev_On --><a class="CobaltNavigatorLink" href="{Prev_URL}"><img height="14" src="../Themes/Aqua/PrevOn.gif" width="24" border="0"></a> <!-- END Prev_On -->&nbsp; 
+                <!-- BEGIN Pages -->
+                <!-- BEGIN Page_On --><a class="CobaltNavigatorLink" href="{Page_URL}">{Page_Number}</a>&nbsp; <!-- END Page_On -->
+                <!-- BEGIN Page_Off -->{Page_Number}&nbsp; <!-- END Page_Off --><!-- END Pages -->de
+                {Total_Pages}&nbsp; 
+                <!-- BEGIN Next_On --><a class="CobaltNavigatorLink" href="{Next_URL}"><img height="14" src="../Themes/Aqua/NextOn.gif" width="24" border="0"></a> <!-- END Next_On -->
+                <!-- BEGIN Last_On --><a class="CobaltNavigatorLink" href="{Last_URL}"><img height="14" src="../Themes/Aqua/LastOn.gif" width="24" border="0"></a> <!-- END Last_On --><!-- END Navigator Navigator -->&nbsp; 
+                <!-- BEGIN Button Button_Submit --><input class="" type="submit" value="GRABAR" name="{Button_Name}" {UPD_flag} style="FONT-SIZE: 9px; WIDTH: 61px; HEIGHT: 20px"><!-- END Button Button_Submit -->&nbsp;
+                <!-- BEGIN Button Button_Delete --><input class="" {DEL_flag} onclick="return confirm('HA SOLICITADO ELIMINAR ESTA LIQUIDACION. ESTA REALMENTE SEGURO?')" style="FONT-SIZE: 9px; WIDTH: 61px; HEIGHT: 20px" type="submit" value="ELIMINAR" name="{Button_Name}" size="22"><!-- END Button Button_Delete -->
+                <!-- BEGIN Button Cancel --><input class="" type="submit" value="CANCELAR" name="{Button_Name}" style="FONT-SIZE: 9px; WIDTH: 61px; HEIGHT: 20px"><!-- END Button Cancel -->&nbsp; </td> 
+            </tr>
+ 
+          </table>
+ 
+        </form>
+ <!-- END EditableGrid liqdetalle --></td> 
+    </tr>
+ 
+  </table>
+ 
+  </body>
+ 
+  </html>

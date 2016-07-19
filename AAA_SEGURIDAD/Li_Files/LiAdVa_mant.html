@@ -1,0 +1,126 @@
+<html>
+<head>
+<base target="_self">
+<link rel="stylesheet" type="text/css" href="../Themes/Cobalt/Style.css">
+<link rel="stylesheet" type="text/css" href="../Themes/Menu/Style.css">
+<title>VARIABLES: MANTENIMIENTO</title>
+ 
+<script language="JavaScript" src="../LibJava/browser_detect.js"></script>
+<script language="JavaScript">
+//Begin CCS script
+//Include JSFunctions @1-5F368366
+  </script>
+<script language="JavaScript" src="../functions.js"></script>
+<script language="JavaScript">
+  
+//End Include JSFunctions
+
+//page_genvarproceso_Button_Delete_OnClick @12-7289C454
+function page_genvarproceso_Button_Delete_OnClick()
+{
+    var result;
+//End page_genvarproceso_Button_Delete_OnClick
+
+//Confirmation Message @13-BED55CD3
+    return confirm('Borrar registro?');
+//End Confirmation Message
+
+//Close page_genvarproceso_Button_Delete_OnClick @12-BC33A33A
+    return result;
+}
+//End Close page_genvarproceso_Button_Delete_OnClick
+
+//page_genvarproceso_Button_Cancel_OnClick @14-719B60FB
+function page_genvarproceso_Button_Cancel_OnClick()
+{
+    disableValidation = true;
+}
+//End page_genvarproceso_Button_Cancel_OnClick
+
+//bind_events @1-650F50DB
+function bind_events() {
+    if (document.forms["genvarproceso"]) check_and_bind('document.forms["genvarproceso"].Button_Delete','onclick',page_genvarproceso_Button_Delete_OnClick);
+    if (document.forms["genvarproceso"]) check_and_bind('document.forms["genvarproceso"].Button_Cancel','onclick',page_genvarproceso_Button_Cancel_OnClick);
+    forms_onload();
+}
+//End bind_events
+
+window.onload = bind_events; //Assign bind_events @1-19F7B649
+
+//End CCS script
+</script>
+</head>
+ 
+<body bgcolor="#fffff7" link="#000000" alink="#ff0000" vlink="#000000" text="#000000" class="CobaltPageBODY" style="PADDING-RIGHT: 0px; PADDING-LEFT: 0px; PADDING-BOTTOM: 0px; PADDING-TOP: 0px; magin: 0; spacing: 0" bottommargin="0" nowrap leftmargin="0" topmargin="0" rightmargin="0" marginwidth="0" marginheight="0">
+<table border="0" width="100%" align="center" style="BORDER-RIGHT: 0px; PADDING-RIGHT: 0px; BORDER-TOP: 0px; PADDING-LEFT: 0px; PADDING-BOTTOM: 0px; MARGIN: 0px; BORDER-LEFT: 0px; PADDING-TOP: 0px; BORDER-BOTTOM: 0px; BORDER-COLLAPSE: collapse; spacing: 0">
+  <tr>
+    <td align="middle">&nbsp; 
+      <!-- BEGIN Record genvarproceso -->
+      <form style="MARGIN: 0px" name="{HTMLFormName}" action="{Action}" method="post" align="center">
+        <font class="CobaltFormHeaderFont">{lbTitulo} </font> 
+        <table cellpadding="2" align="center" border="0" cellspacing="0" border-collapse:collapse? style:?border:0;>
+          <!-- BEGIN Error -->
+          <tr>
+            <td class="CobaltErrorDataTD" colspan="2">{Error}</td> 
+          </tr>
+          <!-- END Error -->
+          <tr>
+            <td class="CobaltFieldCaptionTD" nowrap>&nbsp;Proceso&nbsp;</td> 
+            <td class="CobaltDataTD"><input class="CobaltInput" title="Proceso en el que se utilizará la variable" maxlength="2" size="2" value="{var_TipProceso}" name="{var_TipProceso_Name}">&nbsp;</td> 
+          </tr>
+ 
+          <tr>
+            <td class="CobaltFieldCaptionTD" nowrap>&nbsp;Nombre&nbsp;</td> 
+            <td class="CobaltDataTD"><input class="CobaltInput" title="Nombre de variable (segùn se utiliza en los programas)" maxlength="8" size="8" value="{var_Nombre}" name="{var_Nombre_Name}">&nbsp;</td> 
+          </tr>
+ 
+          <tr>
+            <td class="CobaltFieldCaptionTD" nowrap>&nbsp;Descripcion</td> 
+            <td class="CobaltDataTD"><input class="CobaltInput" title="Descripción de la variable (Texto Mnemotecnico)" style="WIDTH: 182px; HEIGHT: 17px" value="{var_Descripcion}" name="{var_Descripcion_Name}" size="29"></td> 
+          </tr>
+ 
+          <tr>
+            <td class="CobaltFieldCaptionTD" nowrap>&nbsp;Contenido&nbsp;</td> 
+            <td class="CobaltDataTD"><textarea class="CobaltTextarea" title="Contenido de la variable. Descripción textual acerca del valor que representa." name="{var_Significado_Name}" rows="3" cols="50">{var_Significado}</textarea>&nbsp;</td> 
+          </tr>
+ 
+          <tr>
+            <td class="CobaltFieldCaptionTD" nowrap>&nbsp;Clase</td> 
+            <td class="CobaltDataTD">
+              <!-- BEGIN RadioButton var_Clase --><input type="radio" name="{var_Clase_Name}" value="{Value}" class="CobaltInput" {Check}>{Description} <!-- END RadioButton var_Clase --></td> 
+          </tr>
+ 
+          <tr>
+            <td class="CobaltFieldCaptionTD" nowrap>&nbsp;Orden</td> 
+            <td class="CobaltDataTD"><input class="CobaltInput" value="{var_Orden}" name="{var_Orden_Name}" title="número que representa el Orden de Cálculo" style="WIDTH: 54px; HEIGHT: 17px" size="9"></td> 
+          </tr>
+ 
+          <tr>
+            <td class="CobaltFieldCaptionTD" nowrap>&nbsp;Estado&nbsp;</td> 
+            <td class="CobaltDataTD">
+              <!-- BEGIN RadioButton var_Estado --><input class="CobaltInput" type="radio" value="{Value}" name="{var_Estado_Name}" {Check}>{Description} <!-- END RadioButton var_Estado -->&nbsp;</td> 
+          </tr>
+ 
+          <tr align="middle">
+            <td class="CobaltFooterTD" nowrap colspan="2">
+              <!-- BEGIN Button Button_Insert --><input class="CobaltDataLink" type="submit" value="GRABAR" name="{Button_Name}" title="Añade el registro actual" style="FONT-SIZE: 10px; WIDTH: 65px; HEIGHT: 19px"><!-- END Button Button_Insert -->&nbsp;&nbsp;
+              &nbsp; 
+              <!-- BEGIN Button Button_Update --><input class="CobaltDataLink" type="submit" value="GRABAR" name="{Button_Name}" title="Graba las modificaciones realizadas a esta variable" style="FONT-SIZE: 10px; WIDTH: 65px; HEIGHT: 19px"><!-- END Button Button_Update -->&nbsp;&nbsp;&nbsp; 
+              <!-- BEGIN Button Button_Delete --><input class="CobaltDataLink" type="submit" value="ELIMINAR" name="{Button_Name}" title="Elimina esta variable" style="FONT-SIZE: 10px; WIDTH: 65px; HEIGHT: 19px"><!-- END Button Button_Delete -->&nbsp;&nbsp;
+              &nbsp; 
+              <!-- BEGIN Button Button_Cancel --><input class="CobaltDataLink" type="submit" value="CANCELAR" name="{Button_Name}" title="Deshace las modificaciones" style="FONT-SIZE: 10px; WIDTH: 63px; HEIGHT: 19px" size="10"><!-- END Button Button_Cancel -->&nbsp; </td> 
+          </tr>
+ 
+        </table>
+ 
+      </form>
+ <!-- END Record genvarproceso --></td> 
+  </tr>
+ 
+</table>
+ 
+<p></p>
+ 
+</body>
+ 
+</html>

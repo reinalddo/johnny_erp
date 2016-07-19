@@ -1,0 +1,194 @@
+<html>
+<head>
+<base target="PAGINA">
+<link rel="stylesheet" type="text/css" href="../Themes/StormyWeather/Style.css">
+<link rel="stylesheet" type="text/css" href="../Themes/Menu/Style.css">
+<title></title>
+<link rel="stylesheet" type="text/css" href="../Themes/Cobalt/Style.css">
+<script language="JavaScript">
+//Begin CCS script
+//Include JSFunctions @1-5F368366
+  </script>
+<script language="JavaScript" src="../functions.js"></script>
+<script language="JavaScript">
+  
+//End Include JSFunctions
+
+//page_SeGeMo_mant_Button_Delete_OnClick @5-CBF2A3FD
+function page_SeGeMo_mant_Button_Delete_OnClick()
+{
+    var result;
+//End page_SeGeMo_mant_Button_Delete_OnClick
+
+//Confirmation Message @6-BED55CD3
+    return confirm('Borrar registro?');
+//End Confirmation Message
+
+//Close page_SeGeMo_mant_Button_Delete_OnClick @5-BC33A33A
+    return result;
+}
+//End Close page_SeGeMo_mant_Button_Delete_OnClick
+
+//bind_events @1-1E2E800E
+function bind_events() {
+    if (document.forms["SeGeMo_mant"]) check_and_bind('document.forms["SeGeMo_mant"].Button_Delete','onclick',page_SeGeMo_mant_Button_Delete_OnClick);
+    forms_onload();
+}
+//End bind_events
+
+window.onload = bind_events; //Assign bind_events @1-19F7B649
+
+//End CCS script
+</script>
+</head>
+<body bgcolor="#fffff7" link="#000000" alink="#ff0000" vlink="#000000" text="#000000" class="CobaltPageBODY">
+<p>
+<table background="../Themes/Cobalt/Light Streaks.bmp" border="0" cellpadding="0" cellspacing="0" align="center" width="100%">
+  <tr>
+    <td align="middle">
+      <!-- BEGIN Record SeGeMo_mant -->
+      <form method="post" action="{Action}" name="{HTMLFormName}" target="_self">
+        <font class="CobaltFormHeaderFont">Agregar/Editar Componentes del
+        Sistema </font> 
+        <table border="0" cellpadding="1" class="CobaltFormTABLE" cellspacing="1">
+          <!-- BEGIN Error -->
+          <tr>
+            <td colspan="2" class="CobaltErrorDataTD">{Error}</td> 
+          </tr>
+ <!-- END Error -->
+          <tr>
+            <td nowrap class="CobaltFieldCaptionTD">CÓDIGO</td> 
+            <td class="CobaltDataTD"><input name="{mod_id_Name}" value="{mod_id}" maxlength="10" size="10" class="CobaltInput" readonly>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Ref:( <input class="CobaltInput" name="{tbRuta_Name}" readonly style="WIDTH: 115px; BORDER-TOP-STYLE: none; BORDER-RIGHT-STYLE: none; BORDER-LEFT-STYLE: none; HEIGHT: 20px; BORDER-BOTTOM-STYLE: none" value="{tbRuta}">)</td> 
+          </tr>
+ 
+          <tr>
+            <td nowrap class="CobaltFieldCaptionTD">DESCRIPCIÓN&nbsp;</td> 
+            <td class="CobaltDataTD"><input name="{mod_descripcion_Name}" value="{mod_descripcion}" maxlength="25" size="25" class="CobaltInput">&nbsp;</td> 
+          </tr>
+ 
+          <tr>
+            <td nowrap class="CobaltFieldCaptionTD">SUBSISTEMA</td> 
+            <td class="CobaltDataTD">
+              <select name="{mod_subsistema_Name}" class="CobaltSelect">
+                <option value="" selected>- - - - - - - - - - - - </option>
+ {mod_subsistema_Options} 
+              </select>
+ &nbsp;</td> 
+          </tr>
+ 
+          <tr>
+            <td nowrap class="CobaltFieldCaptionTD">MÓDULO&nbsp;</td> 
+            <td class="CobaltDataTD">
+              <select name="{mod_Modulo_Name}" class="CobaltSelect">
+                <option value="" selected>- - - - - - - - - - - - </option>
+ {mod_Modulo_Options} 
+              </select>
+ &nbsp;&nbsp;<input class="CobaltInput" style="WIDTH: 52px; HEIGHT: 20px" size="6" value="{txt_Modulo}" name="{txt_Modulo_Name}"></td> 
+          </tr>
+ 
+          <tr>
+            <td nowrap class="CobaltFieldCaptionTD">SUBMÓDULO&nbsp;</td> 
+            <td class="CobaltDataTD">
+              <select name="{mod_submod_Name}" class="CobaltSelect">
+                <option value="" selected>- - - - - - - - - - - - </option>
+ {mod_submod_Options} 
+              </select>
+ &nbsp;&nbsp;<input class="CobaltInput" style="WIDTH: 53px; HEIGHT: 20px" size="6" value="{txt_submod}" name="{txt_submod_Name}"></td> 
+          </tr>
+ 
+          <tr>
+            <td nowrap class="CobaltFieldCaptionTD">OPERACIÓN</td> 
+            <td class="CobaltDataTD"><input name="{mod_Operacion_Name}" value="{mod_Operacion}" maxlength="3" size="3" class="CobaltInput" style="WIDTH: 126px; HEIGHT: 16px">&nbsp;</td> 
+          </tr>
+ 
+          <tr>
+            <td nowrap class="CobaltFieldCaptionTD">FUNCIÓN</td> 
+            <td class="CobaltDataTD"><input name="{mod_Funcion_Name}" value="{mod_Funcion}" maxlength="3" size="3" class="CobaltInput">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+              Ruta:</td> 
+          </tr>
+ 
+          <tr>
+            <td nowrap class="CobaltFieldCaptionTD">COMPONENTE PADRE</td> 
+            <td class="CobaltDataTD">
+              <select name="{mod_Padre_Name}" class="CobaltSelect">
+                <option value="" selected>- - - - - - - - - - - - </option>
+ {mod_Padre_Options} 
+              </select>
+ &nbsp;</td> 
+          </tr>
+ 
+          <tr>
+            <td nowrap class="CobaltFieldCaptionTD">COMENTARIO&nbsp;</td> 
+            <td class="CobaltDataTD"><textarea class="CobaltTextarea" name="{mod_Comentario_Name}" rows="3" cols="50">{mod_Comentario}</textarea>&nbsp;</td> 
+          </tr>
+ 
+          <tr>
+            <td colspan="2" align="right" nowrap class="CobaltFooterTD" title="Añade un nuevo Componente">
+              <!-- BEGIN Button Button_Insert --><input name="{Button_Name}" type="submit" value="Agregar" class="CobaltButton" title="Añade un registro con los datos suministrados"><!-- END Button Button_Insert -->
+              <!-- BEGIN Button Button_Update --><input name="{Button_Name}" type="submit" value="Enviar" class="CobaltButton" title="Actualiza los cambios realixados"><!-- END Button Button_Update -->
+              <!-- BEGIN Button Button_Delete --><input name="{Button_Name}" type="submit" value="Borrar" class="CobaltButton" title="Elimina el registro"><!-- END Button Button_Delete -->
+              <!-- BEGIN Button Button_Cancel --><input name="{Button_Name}" type="submit" value="Cancelar" class="CobaltButton" title="Cancela los cambios realizados, limpia los campos"><!-- END Button Button_Cancel -->&nbsp;&nbsp; 
+              <!-- BEGIN Button btNuevo --><input class="CobaltButton" name="{Button_Name}" type="submit" value="NUEVO..."><!-- END Button btNuevo --></td> 
+          </tr>
+ 
+        </table>
+ 
+      </form>
+ <!-- END Record SeGeMo_mant -->
+      <!-- BEGIN Grid SeGeMo_hijos --><font class="CobaltFormHeaderFont">Componentes&nbsp;Subrogados </font> 
+      <table border="0" cellpadding="1" class="CobaltFormTABLE" cellspacing="1">
+        <tr>
+          <td class="CobaltColumnTD" nowrap>
+            <!-- BEGIN Sorter Sorter_mod_id -->&nbsp; <a class="CobaltSorterLink" href="{Sort_URL}">ID </a> <!-- END Sorter Sorter_mod_id -->&nbsp;</td> 
+          <td class="CobaltColumnTD" nowrap>
+            <!-- BEGIN Sorter Sorter_mod_descripcion -->&nbsp; <a class="CobaltSorterLink" href="{Sort_URL}">DESCRIPCION </a> <!-- END Sorter Sorter_mod_descripcion -->&nbsp;</td> 
+          <td class="CobaltColumnTD" nowrap>COMENTARIO&nbsp;&nbsp;</td> 
+        </tr>
+ 
+        <!-- BEGIN Row -->
+        <tr>
+          <td class="CobaltDataTD">{mod_id}&nbsp;{mod_funcion}</td> 
+          <td class="CobaltDataTD">{mod_descripcion}&nbsp;</td> 
+          <td class="CobaltDataTD">{mod_comentario}&nbsp;</td> 
+        </tr>
+ <!-- END Row -->
+        <!-- BEGIN AltRow -->
+        <tr>
+          <td class="CobaltAltDataTD">{Alt_mod_id}&nbsp; {Alt_mod_funcion} </td> 
+          <td class="CobaltAltDataTD">{Alt_mod_descripcion}&nbsp;</td> 
+          <td class="CobaltAltDataTD">{Alt_mod_comentario}&nbsp;</td> 
+        </tr>
+ <!-- END AltRow -->
+        <!-- BEGIN NoRecords -->
+        <tr>
+          <td class="CobaltAltDataTD" colspan="3">No tiene modulos Hijo&nbsp;</td> 
+        </tr>
+ <!-- END NoRecords -->
+        <tr>
+          <td class="CobaltFooterTD" colspan="3" nowrap>
+            <!-- BEGIN Navigator Navigator -->
+            <!-- BEGIN First_On --><a class="CobaltNavigatorLink" href="{First_URL}">Inicio </a> <!-- END First_On -->
+            <!-- BEGIN First_Off -->Inicio <!-- END First_Off -->
+            <!-- BEGIN Prev_On --><a class="CobaltNavigatorLink" href="{Prev_URL}">Anterior </a> <!-- END Prev_On -->
+            <!-- BEGIN Prev_Off -->Anterior <!-- END Prev_Off -->&nbsp; 
+            <!-- BEGIN Pages -->
+            <!-- BEGIN Page_On --><a class="CobaltNavigatorLink" href="{Page_URL}">{Page_Number} </a>&nbsp; <!-- END Page_On -->
+            <!-- BEGIN Page_Off -->{Page_Number}&nbsp; <!-- END Page_Off --><!-- END Pages -->de
+            {Total_Pages}&nbsp; 
+            <!-- BEGIN Next_On --><a class="CobaltNavigatorLink" href="{Next_URL}">Siguiente </a> <!-- END Next_On -->
+            <!-- BEGIN Next_Off -->Siguiente <!-- END Next_Off -->
+            <!-- BEGIN Last_On --><a class="CobaltNavigatorLink" href="{Last_URL}">Final </a> <!-- END Last_On -->
+            <!-- BEGIN Last_Off -->Final <!-- END Last_Off --><!-- END Navigator Navigator -->&nbsp; </td> 
+        </tr>
+ 
+      </table>
+ <!-- END Grid SeGeMo_hijos --></td> 
+  </tr>
+ 
+  <tr>
+    <td>&nbsp;</td> 
+  </tr>
+</table>
+ </p>
+</body>
+</html>

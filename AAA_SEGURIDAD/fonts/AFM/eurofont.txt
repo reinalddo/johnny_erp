@@ -1,0 +1,183 @@
+PRODUCT:  Adobe(R) Type
+VERSION:  All
+PLATFORM:  Windows(R)
+RELEASED ON:  05/27/98
+
+
+Adobe Euro Fonts
+
+ftp://ftp.adobe.com/pub/adobe/type/win/all/eurofont.exe
+(172K)
+ftp://ftp-pac.adobe.com/pub/adobe/type/win/all/eurofont.exe
+(172K)
+
+
+Most fonts that are currently in use don't include the character for the 
+Euro, the European Community currency, which will begin use in January 
+1999. While you will get good results from using new fonts that have Euro 
+characters that were designed especially for them, the three Euro font 
+families in this package provide you with a way to create the Euro 
+character while you continue to use your current fonts with your current 
+operating systems and applications.
+
+This package includes the following fonts:
+--  Euro Sans
+--  Euro Serif
+--  Euro Mono 
+Each comes with four styles: Regular, Italic, Bold, and BoldItalic.  For 
+each font style, every character in the font, except the Space character, 
+is an identical Euro.
+
+SYSTEM REQUIREMENTS
+Any version of Adobe Type Manager for Windows
+
+HANDLING NOTES
+After downloading a ".exe" file in Windows, double-click on the ".exe" 
+file to access the file's contents.
+
+INSTALLATION NOTES
+To install the Adobe Euro Fonts, use Adobe Type Manager. Refer to your 
+Adobe Type Manager User Guide for instructions on installing PostScript 
+Type 1 fonts.
+
+ADDITIONAL NOTES
+Select Euro Sans (without bold or italic) if you want the official Euro 
+symbol. Select Euro Mono if you're using a monospaced (fixed pitch) font, 
+or want a more condensed sans-serif version of the Euro. Select Euro Serif 
+if you want a version that goes with many serif typefaces.
+
+When you need the Euro character, go to your application's font menu, 
+choose Euro Sans, Euro Serif, or Euro Mono and then type any letter and 
+the Euro character will appear. Then, go back to your font menu and select 
+your original typeface to continue working.
+
+You can also create a Euro character with either of these shortcuts:
+Shortcut 1: Enter the Euro character once, and copy it to the computer's 
+clipboard. When you need it again, simply paste it in.
+Shortcut 2: Type any character you want where you want the Euro to appear. 
+Any time after, select that character and use the font menu in your 
+application to apply to one of the Euro fonts.
+
+Many applications have separate menus from which to choose typeface 
+families and typeface styles. Most applications let you choose among 
+regular, bold, and italic styles in a Style menu. Some Adobe Type Library 
+packages include font software with additional style variations and stroke 
+weight variations, however. To choose these variations, you need to know 
+how the bold and italic styles are linked to the base typeface. For 
+example, the New Caledonia typeface includes semi-bold, bold, and black 
+styles. To use New Caledonia Black, you need to choose New Caledonia 
+SemiBold from the application's Font menu (or equivalent), and then choose 
+Bold from the Style menu (or equivalent).
+
+If you are using a Microsoft Windows application, Ventura Publisher or 
+Microsoft Word, follow the guide to typeface style selection below. (The 
+Microsoft Word menu name will be as listed below but with any spaces in it 
+removed.) If you are using an application other than these, refer to the 
+application's documentation.
+
+PostScript Name       Menu Name Plus Style Links   DOS Filename
+
+EuroMono-Regular......Euro Monospace.............. _2______.PFB
+EuroMono-Bold.........Euro Monospace,BOLD......... _2B_____.PFB
+EuroMono-Italic.......Euro Monospace,ITALIC....... _2I_____.PFB
+EuroMono-BoldItalic...Euro Monospace,BOLDITALIC... _2BI____.PFB
+
+EuroSans-Regular......Euro Sans................... _1______.PFB
+EuroSans-Bold.........Euro Sans,BOLD.............. _1B_____.PFB
+EuroSans-Italic.......Euro Sans,ITALIC............ _1I_____.PFB
+EuroSans-BoldItalic...Euro Sans,BOLDITALIC........ _1BI____.PFB
+
+EuroSerif-Regular.....Euro Serif.................. _3______.PFB
+EuroSerif-Bold........Euro Serif,BOLD............. _3B_____.PFB
+EuroSerif-Italic......Euro Serif,ITALIC........... _3I_____.PFB
+EuroSerif-BoldItalic..Euro Serif,BOLDITALIC....... _3BI____.PFB
+
+
+ADOBE SYSTEMS INCORPORATED
+ELECTRONIC END USER LICENSE AGREEMENT
+FOR ADOBE (R) EURO FONTS
+
+NOTICE TO USER:
+THIS IS A CONTRACT.  BY INSTALLING THIS SOFTWARE YOU ACCEPT ALL THE TERMS 
+AND CONDITIONS OF THIS AGREEMENT.
+
+This Adobe Systems Incorporated ("Adobe") End User License Agreement 
+accompanies the Adobe (R) Euro Font product and related explanatory 
+materials  ("Software").  The term "Software" also shall include any 
+upgrades, modified versions or updates of the Software licensed to you by 
+Adobe.  Please read this Agreement carefully.  At the end, you will be 
+asked to accept this agreement and continue  to install or, if you do not 
+wish to accept this Agreement, to decline this agreement, in which case 
+you will not be able to use the Software.
+
+Upon your acceptance of this Agreement, Adobe grants to you a nonexclusive 
+license to use the Software, provided that you agree to the following:
+
+1. Copyright and Trademark Rights.  The Software is owned by Adobe and its 
+suppliers, and its structure, organization and code are the valuable trade 
+secrets of Adobe and its suppliers.  The Software also is protected by 
+United States Copyright Law and International Treaty provisions. You may 
+use trademarks only to identify printed output produced by the Software, 
+in accordance with accepted trademark practice, including identification 
+of trademark owner's name.  Such use of any trademark does not give you 
+any rights of ownership in that trademark.  Except as stated above, this 
+Agreement does not grant you any intellectual property rights in the 
+Software.
+
+2.  Restrictions. You agree not to modify, adapt, translate, reverse 
+engineer, decompile, disassemble or otherwise attempt to discover the 
+source code of the Software.  You may not copy or distribute this Software.
+
+3.  No Warranty.  The Software is being delivered to you AS IS and Adobe 
+makes no warranty as to its use or performance.  ADOBE AND ITS SUPPLIERS 
+DO NOT AND CANNOT WARRANT THE PERFORMANCE OR RESULTS YOU MAY OBTAIN BY 
+USING THE SOFTWARE OR DOCUMENTATION.  ADOBE AND ITS SUPPLIERS MAKE NO 
+WARRANTIES, EXPRESS OR IMPLIED, AS TO NONINFRINGEMENT OF THIRD PARTY 
+RIGHTS, MERCHANTABILITY, OR FITNESS FOR ANY PARTICULAR PURPOSE.  IN NO 
+EVENT WILL ADOBE OR ITS SUPPLIERS BE LIABLE TO YOU FOR ANY CONSEQUENTIAL, 
+INCIDENTAL OR SPECIAL DAMAGES, INCLUDING ANY LOST PROFITS OR LOST SAVINGS, 
+EVEN IF AN ADOBE REPRESENTATIVE HAS BEEN ADVISED OF THE POSSIBILITY OF 
+SUCH DAMAGES, OR FOR ANY CLAIM BY ANY THIRD PARTY.  Some states or 
+jurisdictions do not allow the exclusion or limitation of incidental, 
+consequential or special damages, or the exclusion of implied warranties 
+or limitations on how long an implied warranty may last, so the above 
+limitations may not apply to you.
+
+4.  Governing Law and General Provisions.  This Agreement will be 
+governed by the laws of the State of California, U.S.A., excluding the 
+application of its conflicts of law rules.  This Agreement will not be 
+governed by the United Nations Convention on Contracts for the 
+International Sale of Goods, the application of which is expressly 
+excluded.  If any part of this Agreement is found void and unenforceable, 
+it will not affect the validity of the balance of the Agreement, which 
+shall remain valid and enforceable according to its terms.  You agree that 
+the Software will not be shipped, transferred or exported into any country 
+or used in any manner prohibited by the United States Export 
+Administration Act or any other export laws, restrictions or regulations.  
+This Agreement shall automatically terminate upon failure by you to comply 
+with its terms.  This Agreement may only be modified in writing signed by 
+an authorized officer of Adobe.
+
+5.  Notice to Government End Users.  The Software and Documentation 
+are "Commercial Items, " as that term is defined at 48 C.F.R. §2.101, 
+consisting of "Commercial Computer Software" and "Commercial Computer 
+Software Documentation, " as such terms are used in 48 C.F.R. §12.212 or 
+48 C.F.R. §227.7202, as applicable. Consistent with 48 C.F.R. §12.212 or 
+48 C.F.R. §§227.7202-1 through 227.7202-4, as applicable, the Commercial 
+Computer Software and Commercial Computer Software Documentation are being 
+licensed to U.S. Government end users (A) only as Commercial Items and (B) 
+with only those rights as are granted to all other end users pursuant to 
+the terms and conditions herein.
+Unpublished-rights reserved under the copyright laws of the United States. 
+Adobe Systems Incorporated, 345 Park Avenue, San Jose, CA  95110.
+
+Adobe is a trademark of Adobe Systems Incorporated.
+__________________________________
+Copyright (C) 1998 Adobe Systems Incorporated. All rights reserved. Adobe 
+and Adobe Type Manager are trademarks of Adobe Systems Incorporated and
+may be registered in certain jurisdictions. Microsoft, MS-DOS, Windows,
+Windows 95, Windows NT, and/or other Microsoft products referenced herein
+are either trademarks or registered trademarks of Microsoft. All other brand 
+or product names are trademarks of their respective holders.
+
+

@@ -1,0 +1,162 @@
+<html>
+<head>
+<base target="_self">
+<link rel="stylesheet" type="text/css" href="../Themes/Cobalt/Style.css">
+<link rel="stylesheet" type="text/css" href="../Themes/Menu/Style.css">
+<title>EMPAQUES: SELECION</title>
+<script language="JavaScript" src="../LibJava/menu_func.js"></script>
+<script language="JavaScript" src="../LibJava/cookies.js"></script>
+<script language="JavaScript" src="../LibJava/general.js"></script>
+<script language="JavaScript" src="../LibJava/validaDB_ret.js"></script>
+</head>
+<body bgcolor="#fffff7" link="#000000" alink="#ff0000" vlink="#000000" text="#000000" class="CobaltPageBODY" nowrap>
+{Cabecera} 
+<table background="../Themes/Cobalt/ight Streaks.bmp" border="0" width="100%" class="CobaltPageBODY" cellspacing="0" cellpadding="0" style="BORDER-COLLAPSE: collapse" align="center">
+  <tr cellspacing="0" cellpadding="0" style="BORDER-COLLAPSE: collapse">
+    <td valign="top" align="middle" style="BORDER-COLLAPSE: collapse" cellspacing="0" cellpadding="0">
+      <!-- BEGIN Record liqcajas_qry -->
+      <form name="{HTMLFormName}" action="{Action}" method="post" style="MARGIN: 0px">
+        <font class="CobaltFormHeaderFont">{pMensj}</font> 
+        <table class="CobaltFormTABLE" cellpadding="0" border="0" cellspacing="1" align="center" style="BORDER-COLLAPSE: collapse">
+          <!-- BEGIN Error -->
+          <tr>
+            <td class="CobaltErrorDataTD" colspan="4">{Error}</td> 
+          </tr>
+          <!-- END Error -->
+          <tr>
+            <td class="CobaltFieldCaptionTD" nowrap><font style="textdecoration:underline">B</font>USCAR:</td>
+            <td class="CobaltDataTD">
+              <input class="CobaltInput" tabindex="99" accesskey="b" maxlength="10" size="10" value="{s_keyword}" name="{s_keyword_Name}">&nbsp;</td>
+            <td class="CobaltFooterTD" nowrap><a class="CobaltSorterLink" href="{ClearParameters_Src}">LIMPIAR</a>&nbsp; </td> 
+            <td class="CobaltFooterTD" nowrap align="right">
+              <!-- BEGIN Button Button_DoSearch -->
+              <input class="CobaltButton" type="submit" value="BUSCAR ..." tabindex="99"  name="{Button_Name}" onblur="fEnfocaFila('Button2_1', 'tablaDatos', 2)"><!-- END Button Button_DoSearch -->&nbsp; </td>
+          </tr>
+ 
+        </table>
+ 
+      </form>
+ <!-- END Record liqcajas_qry -->
+      <!-- BEGIN EditableGrid liqcajas_list -->
+      <form name="{HTMLFormName}" action="{Action}" method="post" style="MARGIN: 0px">
+        <font class="CobaltFormHeaderFont">LISTA DE EMPAQUES</font><font class="CobaltFormHeaderFont" size="1" style="FONT-SIZE: 9px">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        {liqcajas_genparametros_TotalRecords}&nbsp;Registros </font> 
+        <input type="hidden" value="{FormState}" tabindex="9999" name="FormState" style="WIDTH: 29px; HEIGHT: 7px" size="3">{FormScript}&nbsp; <br>
+        <table cellpadding="0" border="1" cellspacing="0" class="CobaltFormTABLE" id="tablaDatos">
+          <!-- BEGIN Error -->
+          <tr>
+            <td class="CobaltErrorDataTD" colspan="5">{Error}</td> 
+          </tr>
+          <!-- END Error -->
+          <tr>
+            <td class="CobaltFooterTD" nowrap align="left" colspan="4">
+              <!-- BEGIN Navigator Navigator -->
+              <!-- BEGIN First_On --><a class="CobaltNavigatorLink" href="{First_URL}" tabindex="9999"><img height="14" src="../Themes/Aqua/FirstOn.gif" width="24" border="0"></a> <!-- END First_On -->
+              <!-- BEGIN Prev_On --><a class="CobaltNavigatorLink" href="{Prev_URL}" tabindex="9999"><img height="14" src="../Themes/Aqua/PrevOn.gif" width="24" border="0"></a> <!-- END Prev_On -->&nbsp;
+              <!-- BEGIN Pages -->
+              <!-- BEGIN Page_On --><a class="CobaltNavigatorLink" href="{Page_URL}" tabindex="9999">{Page_Number}</a>&nbsp; <!-- END Page_On -->
+              <!-- BEGIN Page_Off -->{Page_Number}&nbsp; <!-- END Page_Off --><!-- END Pages -->of
+              {Total_Pages}&nbsp; 
+              <!-- BEGIN Next_On --><a class="CobaltNavigatorLink" href="{Next_URL}" tabindex="9999"><img height="14" src="../Themes/Aqua/NextOn.gif" width="24" border="0"></a> <!-- END Next_On -->
+              <!-- BEGIN Last_On --><a class="CobaltNavigatorLink" href="{Last_URL}" tabindex="9999"><img height="14" src="../Themes/Aqua/LastOn.gif" width="24" border="0"></a> <!-- END Last_On --><!-- END Navigator Navigator -->&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </td> 
+            <td class="CobaltFooterTD" nowrap align="right">
+              <!-- BEGIN Button btNuevo -->
+              <input class="CobaltLink" title="Abre un apantalla para Añadir un Empaque" tabindex="9999" style="FONT-SIZE: 9px; WIDTH: 48px; HEIGHT: 18px" onclick="fAbrirWin('LiAdTc_mant.php','Win',' ', 700, 400); return false;" type="button" size="11" value="NUEVO" name="{Button_Name}"><!-- END Button btNuevo -->
+              <!-- BEGIN Button btCerrar -->
+              <input class="CobaltLink" title="Cierra esta pantalla de selección, sin retornar valor"  tabindex="9999" style="FONT-SIZE: 9px; WIDTH: 48px; HEIGHT: 18px" onclick="fCerrar();" type="button" size="11" value="CERRAR" name="{Button_Name}"><!-- END Button btCerrar --></td>
+          </tr>
+ 
+          <tr height="20" valign="center" align="middle">
+            <td class="CobaltColumnTD" nowrap>
+              <!-- BEGIN Sorter Sorter_caj_CodCaja --><a class="CobaltSorterLink" href="{Sort_URL}" tabindex="9999">COD.&nbsp;</a>
+              <!-- BEGIN Asc_On --><img height="9" src="../Themes/Cobalt/AscOn.gif" width="13" border="0"><!-- END Asc_On -->
+              <!-- BEGIN Desc_On --><img height="9" src="../Themes/Cobalt/DescOn.gif" width="13" border="0"><!-- END Desc_On --><!-- END Sorter Sorter_caj_CodCaja -->&nbsp;</td> 
+            <td class="CobaltColumnTD" nowrap>
+              <!-- BEGIN Sorter Sorter_caj_Abreviatura -->&nbsp; <a class="CobaltSorterLink" href="{Sort_URL}" tabindex="9999">ABREV</a>
+              <!-- BEGIN Asc_On --><img height="9" src="../Themes/Cobalt/AscOn.gif" width="13" border="0"><!-- END Asc_On -->
+              <!-- BEGIN Desc_On --><img height="9" src="../Themes/Cobalt/DescOn.gif" width="13" border="0"><!-- END Desc_On --><!-- END Sorter Sorter_caj_Abreviatura -->&nbsp;</td> 
+            <td class="CobaltColumnTD" nowrap>
+              <!-- BEGIN Sorter Sorter_caj_Descripcion -->&nbsp; <a class="CobaltSorterLink" href="{Sort_URL}" tabindex="9999">DESCRIPCION</a>
+              <!-- BEGIN Asc_On --><img height="9" src="../Themes/Cobalt/AscOn.gif" width="13" border="0"><!-- END Asc_On -->
+              <!-- BEGIN Desc_On --><img height="9" src="../Themes/Cobalt/DescOn.gif" width="13" border="0"><!-- END Desc_On --><!-- END Sorter Sorter_caj_Descripcion -->&nbsp;</td> 
+            <td class="CobaltColumnTD" nowrap>
+              <!-- BEGIN Sorter Sorter_par_Descripcion -->&nbsp; <a class="CobaltSorterLink" href="{Sort_URL}" tabindex="9999">MARCA</a>
+              <!-- BEGIN Asc_On --><img height="9" src="../Themes/Cobalt/AscOn.gif" width="13" border="0"><!-- END Asc_On -->
+              <!-- BEGIN Desc_On --><img height="9" src="../Themes/Cobalt/DescOn.gif" width="13" border="0"><!-- END Desc_On --><!-- END Sorter Sorter_par_Descripcion -->&nbsp;</td> 
+            <td class="CobaltColumnTD" nowrap>
+              <!-- BEGIN Sorter Sorter_caj_TipoCaja -->&nbsp; <a class="CobaltSorterLink" href="{Sort_URL}" tabindex="9999">TIPO
+              DE CAJA</a> 
+              <!-- BEGIN Asc_On --><img height="9" src="../Themes/Cobalt/AscOn.gif" width="13" border="0"><!-- END Asc_On -->
+              <!-- BEGIN Desc_On --><img height="9" src="../Themes/Cobalt/DescOn.gif" width="13" border="0"><!-- END Desc_On --><!-- END Sorter Sorter_caj_TipoCaja -->&nbsp;</td> 
+          </tr>
+          <!-- BEGIN Row -->
+          <!-- BEGIN RowError -->
+          <tr>
+            <td class="CobaltErrorDataTD" colspan="5">{Error}</td> 
+          </tr>
+          <!-- END RowError -->
+          <tr bgcolor="#faecd8" onclick="fRetornarDatos(this, 'liqcajas_list')">
+            <td class="CobaltDataTD">
+              <input type="hidden"  accesskey="c" name="{caj_CodCaja_Name}" value="{caj_CodCaja}" id="caj_CodCaja" style="WIDTH: 20px; HEIGHT: 10px" size="2">
+              <!-- BEGIN Button Button2 -->
+              <input class="CobaltDataLink" style="FONT-SIZE: 9px; WIDTH: 32px; HEIGHT: 17px"
+                     type="button" value="{caj_CodCaja}" name="{Button_Name}"
+                     tabindex="1"  accesskey="c"
+                     onfocus="fCambiarFondo(this.parentNode.parentNode, '#CCCCCC')"
+                     onblur="fCambiarFondo(this.parentNode.parentNode, '')"
+                     ondoubleclick="JavaScript:window.enMantto = true; fAbrirWin('LiAdTc_mant.php?cte_Codigo={caj_CodCaja}' ,'Win',' ', 600, 450); return false;"
+                     title="-CLICK- Para Editar / Modificar esta Marca">
+              <!-- END Button Button2 -->
+              <input class="CobaltInputSB2" size="1" tabindex = "5" style="WIDTH: 0px; HEIGHT: 0px" name="temp" onfocus="fEnfocaFila('Button2_1', 'tablaDatos', 2)">
+            </td>
+            <td class="CobaltDataTD">&nbsp; 
+              <input id="caj_Abreviatura" name="{caj_Abreviatura_Name}" value="{caj_Abreviatura}" onclick="fRetornarDatos(this, 'liqcajas_list');" maxlength="5" size="5" class="CobaltInputSB" title="Haga 'CLICK' para seleccionarlo" onmouseover="fTxtResalta(this,'#009999');" onmouseout="fTxtNormal(this);">&nbsp;</td> 
+            <td class="CobaltDataTD">&nbsp; 
+              <input id="caj_Descripcion" name="{caj_Descripcion_Name}" value="{caj_Descripcion}" onclick="fRetornarDatos(this, 'liqcajas_list');" maxlength="25" size="25" class="CobaltInputSB" title="Haga 'CLICK' para seleccionarlo" onmouseover="fTxtResalta(this,'#009999');" onmouseout="fTxtNormal(this);">&nbsp;</td> 
+            <td class="CobaltDataTD">&nbsp; 
+              <input id="par_Descripcion" name="{par_Descripcion_Name}" value="{par_Descripcion}" onclick="fRetornarDatos(this, 'liqcajas_list');" maxlength="25" size="25" class="CobaltInputSB" readonly title="Haga 'CLICK' para seleccionarlo" onmouseover="fTxtResalta(this,'#009999');" onmouseout="fTxtNormal(this);">&nbsp;</td> 
+            <td class="CobaltDataTD">&nbsp; 
+              <input name="{caj_TipoCaja_Name}" value="{caj_TipoCaja}" maxlength="15" size="15" class="CobaltInputSB" id="caj_TipoCaja" onmouseover="fTxtResalta(this,'#009999');" onmouseout="fTxtNormal(this);">
+              <input id="caj_Componente4" type="hidden" name="{caj_Componente4_Name}" value="{caj_Componente4}" style="WIDTH: 23px; HEIGHT: 8px" size="2">&nbsp; 
+              <input id="caj_Componente1" type="hidden" name="{caj_Componente1_Name}" value="{caj_Componente1}" style="WIDTH: 25px; HEIGHT: 11px" size="2">
+              <input id="caj_Componente2" type="hidden" name="{caj_Componente2_Name}" value="{caj_Componente2}" style="WIDTH: 25px; HEIGHT: 10px" size="2">
+              <input id="caj_Componente3" type="hidden" name="{caj_Componente3_Name}" value="{caj_Componente3}" style="WIDTH: 51px; HEIGHT: 10px" size="6">
+              <input style="WIDTH:  36px; HEIGHT: 15px" type="hidden" size="4" value="{caj_CodMarca}" name="{caj_CodMarca_Name}" id="caj_CodMarca"></td> 
+            <td>
+              <input class="CobaltDataLink" style="FONT-SIZE: 9px; WIDTH: 32px; HEIGHT: 17px"
+                     type="button" value="Modif.." name="Button4"
+                     tabindex="9999"
+                     onclick="JavaScript:window.enMantto = true; fAbrirWin('LiAdTc_mant.php?caj_CodCaja={caj_CodCaja}' ,'Win',' ', 600, 450); return false;"
+                     title="-CLICK- Para Editar / Modificar este Empaque">
+            </td>
+          </tr>
+          <!-- END Row -->
+          <!-- BEGIN NoRecords -->
+          <tr>
+            <td class="CobaltDataTD" colspan="5">No Existe Información&nbsp;</td> 
+          </tr>
+          <!-- END NoRecords -->
+          <tr>
+            <td class="CobaltFooterTD" nowrap align="left" colspan="5">&nbsp;</td> 
+          </tr>
+ 
+        </table>
+ 
+      </form>
+ <!-- END EditableGrid liqcajas_list --></td> 
+    <td>&nbsp;</td> 
+  </tr>
+ 
+  <tr>
+    <td>&nbsp;</td> 
+    <td>&nbsp;</td> 
+  </tr>
+ 
+</table>
+ 
+<p></p>
+ 
+</body>
+ 
+</html>
